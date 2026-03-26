@@ -76,6 +76,8 @@
         <p><strong>Opgave 6:</strong> Tegn en skitse af trekanten og find vinkel C.</p>
             <p>I en trekant er vinkel A = 30°, side a = 7 og side c = 10. <br>
         Da a < c, er der <strong>to</strong> mulige løsninger for vinkel C. Find dem begge.</p>
+        <p>hint: du kan bruge intervalsolve(...,C=0..180) for at få begge svar</p>
+        <p>Tegn igen en skitse og prøv at forklar hvordan der kan være to løsninger.</p>
         
         <label>Løsning 1 (spids):</label><br>
         <input type="number" id="q6a" step="0.1" placeholder="Grader"><br>
@@ -83,7 +85,6 @@
         <input type="number" id="q6b" step="0.1" placeholder="Grader"><br><br>
         <button class="trap-btn" onclick="checkTrap()">Tjek begge vinkler</button>
         <div id="feedback-q6" class="feedback"></div>
-        <img src="sinusfaelden.png", width="60%">
     </div>
 
     <script>
