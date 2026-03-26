@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Træning: Sinusrelationer</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 20px auto; padding: 20px; background-color: #f0f2f5; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; border-left: 5px solid #3498db; }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
+        .formula-box { background: #fff; padding: 20px; border-radius: 8px; border: 2px solid #3498db; text-align: center; margin-bottom: 30px; font-size: 1.4em; }
+        input[type="number"] { padding: 10px; width: 120px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; }
+        input:focus { border-color: #3498db; outline: none; }
+        button { padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        button:hover { background-color: #2980b9; }
+        .feedback { margin-top: 15px; font-weight: bold; min-height: 1.2em; }
+        .correct { color: #27ae60; }
+        .incorrect { color: #c0392b; }
+        .task-title { font-size: 1.1em; color: #2c3e50; margin-bottom: 10px; display: block; }
+    </style>
+</head>
+<body>
+
+    <h1>Træning i Sinusrelationer</h1>
+    <h2 align="center">Angiv svaret med to decimaler</h2>
+    
+    <div class="formula-box">
+        $$\frac{a}{\sin(A)} = \frac{b}{\sin(B)} = \frac{c}{\sin(C)}$$
+    </div>
+
+    <div class="card">
+        <span class="task-title"><strong>Opgave 1:</strong>Tegn en skitse af trekanten og find siden <i>b</i></span>
+        <p>I trekant ABC er vinkel A = 40°, vinkel B = 60° og siden a = 10.</p>
+        <input type="number" id="q1" step="0.01" placeholder="Svar...">
+        <button onclick="checkAnswer('q1', 13.47)">Tjek svar</button>
+        <div id="feedback-q1" class="feedback"></div>
+    </div>
+
+    <div class="card">
+        <span class="task-title"><strong>Opgave 2:</strong> Tegn en skitse af trekanten og find siden <i>c</i></span>
+        <p>I trekant ABC er siden b = 12, vinkel B = 45° og vinkel C = 30°.</p>
+        <input type="number" id="q2" step="0.01" placeholder="Svar...">
+        <button onclick="checkAnswer('q2', 8.49)">Tjek svar</button>
+        <div id="feedback-q2" class="feedback"></div>
+    </div>
+
+    <div class="card">
+        <span class="task-title"><strong>Opgave 3:</strong> Tegn en skitse af trekanten og find vinkel <i>A</i></span>
+        <p>Siden a = 7, siden c = 10 og vinkel C = 80°. (Angiv i grader)</p>
+        <input type="number" id="q3" step="0.1" placeholder="Svar...">
+        <button onclick="checkAnswer('q3', 43.6)">Tjek svar</button>
+        <div id="feedback-q3" class="feedback"></div>
+    </div>
+
+    <div class="card">
+        <span class="task-title"><strong>Opgave 4:</strong> Tegn en skitse af trekanten og find siden <i>a</i></span>
+        <p>Vinkel A = 100°, vinkel C = 20° og siden c = 5.</p>
+        <input type="number" id="q4" step="0.01" placeholder="Svar...">
+        <button onclick="checkAnswer('q4', 14.40)">Tjek svar</button>
+        <div id="feedback-q4" class="feedback"></div>
+    </div>
+
+    <div class="card">
+        <span class="task-title"><strong>Opgave 5:</strong> Tegn en skitse af trekanten og find siden <i>c</i></span>
+        <p>Vinkel B = 45°, vinkel C = 105° og siden b = 8.</p>
+        <input type="number" id="q5" step="0.01" placeholder="Svar...">
+        <button onclick="checkAnswer('q5', 10.93)">Tjek svar</button>
+        <div id="feedback-q5" class="feedback"></div>
+    </div>
+
+    <div class="card trap-card">
+        <span class="info-badge">Advarsel: Sinusfælden!</span>
+        <p><strong>Opgave 6:</strong> Tegn en skitse af trekanten og find vinkel C.</p>
+            <p>I en trekant er vinkel A = 30°, side a = 7 og side c = 10. <br>
+        Da a < c, er der <strong>to</strong> mulige løsninger for vinkel C. Find dem begge.</p>
+        
+        <label>Løsning 1 (spids):</label><br>
+        <input type="number" id="q6a" step="0.1" placeholder="Grader"><br>
+        <label>Løsning 2 (stump):</label><br>
+        <input type="number" id="q6b" step="0.1" placeholder="Grader"><br><br>
+        <button class="trap-btn" onclick="checkTrap()">Tjek begge vinkler</button>
+        <div id="feedback-q6" class="feedback"></div>
+        <img src="sinusfaelden.png", width="60%">
+    </div>
+
+    <script>
+        function checkAnswer(id, correctVal) {
+            const input = document.getElementById(id).value;
+            const feedback = document.getElementById('feedback-' + id);
+            const userVal = parseFloat(input);
+
+            if (isNaN(userVal)) {
+                feedback.innerHTML = "Indtast venligst et tal.";
+                feedback.className = "feedback";
+                return;
+            }
+
+            // Tillader en margin på 0.15 for afrunding
+            if (Math.abs(userVal - correctVal) < 0.15) {
+                feedback.innerHTML = "✓ Korrekt!";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.innerHTML = "✗ Prøv igen. Husk at tjekke dine udregninger.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Træning: Cosinusrelationerne</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; max-width: 800px; margin: 20px auto; padding: 20px; background-color: #f4f7f6; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; border-left: 5px solid #2ecc71; }
+        h1 { color: #2c3e50; text-align: center; }
+        .formula-box { background: #fff; padding: 20px; border-radius: 8px; border: 2px solid #2ecc71; text-align: center; margin-bottom: 30px; }
+        input[type="number"] { padding: 10px; width: 120px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; margin-top: 10px; }
+        button { padding: 10px 20px; background-color: #27ae60; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .feedback { margin-top: 15px; font-weight: bold; min-height: 1.2em; }
+        .correct { color: #27ae60; }
+        .incorrect { color: #c0392b; }
+        i { color: #2c3e50; font-weight: bold; } /* Gør bogstaver som a, b, c tydelige */
+    </style>
+</head>
+<body>
+
+    <h1>Træning: Cosinusrelationerne</h1>
+    
+    <div class="formula-box">
+        <p><b>Find side:</b> $$a^2 = b^2 + c^2 - 2bc \cdot \cos(A)$$</p>
+        <p><b>Find vinkel:</b> $$\cos(A) = \frac{b^2 + c^2 - a^2}{2bc}$$</p>
+    </div>
+
+    <div class="card">
+        <p><strong>Opgave 1:</strong> Tegn en skitse af trekanten og find siden <i>a</i>.</p>
+        <p>I trekant ABC er <i>b</i> = 8, <i>c</i> = 10 og vinkel <i>A</i> = 60°.</p>
+        <input type="number" id="c1" step="0.01" placeholder="Svar...">
+        <button onclick="checkCos('c1', 9.17)">Tjek svar</button>
+        <div id="feedback-c1" class="feedback"></div>
+    </div>
+
+    <div class="card">
+        <p><strong>Opgave 2:</strong> Tegn en skitse af trekanten og find  vinkel <i>A</i> (i grader).</p>
+        <p>Siderne i trekanten er: <i>a</i> = 7, <i>b</i> = 5 og <i>c</i> = 8.</p>
+        <p>Tegn en skitse af trekanten.</p>
+        <input type="number" id="c3" step="0.1" placeholder="Grader...">
+        <button onclick="checkCos('c3', 60.0)">Tjek svar</button>
+        <div id="feedback-c3" class="feedback"></div>
+    </div>
+
+    <script>
+        function checkCos(id, correctVal) {
+            const val = parseFloat(document.getElementById(id).value);
+            const feedback = document.getElementById('feedback-' + id);
+
+            if (isNaN(val)) {
+                feedback.innerHTML = "Indtast venligst et tal.";
+                return;
+            }
+
+            if (Math.abs(val - correctVal) < 0.2) {
+                feedback.innerHTML = "✓ Korrekt!";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.innerHTML = "✗ Prøv igen.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+    </script>
+
+</body>
+</html>
