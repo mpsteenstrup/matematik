@@ -20,28 +20,32 @@
         $$\frac{\sin(A)}{a} = \frac{\sin(B)}{b} = \frac{\sin(C)}{c}$$
     </div>
 
-    <div class="card cosinus-card">
-        <span class="info-badge">OBS: Cosinusrelation!</span>
-        <span class="task-title"><strong>Opgave 1:</strong> Tegn en skitse og find siden <i>a</i></span>
-        <p>I trekant ABC er b = 8, c = 10 og vinkel A = 60°.</p>
+   <div class="card">
+        <span class="task-title"><strong>Opgave 1:</strong> Tegn en skitse og find vinkel <i>A</i></span>
+        <p>I trekant ABC kender vi siden c = 12 og vinkel C = 70°. <br>
+        Derudover kender vi siden a = 10. (Angiv i grader)</p>
+        
         <div class="input-section">
-            <input type="number" id="q1" step="0.01" placeholder="Svar...">
+            <input type="number" id="q1" step="0.1" placeholder="Svar...">
         </div>
         <div class="btn-group">
-            <button class="btn-check" onclick="checkAnswer('q1', 9.17)">Tjek svar</button>
+            <button class="btn-check" onclick="checkAnswer('q1', 51.6)">Tjek svar</button>
             <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
             <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
         </div>
         <div id="feedback-q1" class="feedback"></div>
-        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Du kender to sider og den mellemliggende vinkel. Dette er et klassisk tilfælde for cosinusrelationen: \(a^2 = b^2 + c^2 - 2bc \cdot \cos(A)\). Indsæt værdierne og tag kvadratroden til sidst.</div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Du kender parret (\(c\), \(C\)) og siden \(a\). Da du skal finde en vinkel, er det lettest at opstille formlen med sinus i tælleren: \(\frac{\sin(A)}{a} = \frac{\sin(C)}{c}\). Isolér \(\sin(A)\) ved at gange med \(a\) på begge sider. Til sidst skal du bruge den omvendte sinusfunktion, \(\sin^{-1}\), for at finde vinklen. Der er ingen sinusfælde her, da \(a < c\).</div>
         <div id="sol-q1" class="sol-box"><strong>Løsning:</strong><br>
-            $$a^2 = 8^2 + 10^2 - 2 \cdot 8 \cdot 10 \cdot \cos(60^\circ)$$
-            $$a^2 = 64 + 100 - 160 \cdot 0,5$$
-            $$a^2 = 164 - 80 = 84$$
-            $$a = \sqrt{84} \approx 9,17$$
+            Vi opstiller sinusrelationen med sinus i tælleren:<br>
+            $$\frac{\sin(A)}{10} = \frac{\sin(70^\circ)}{12}$$
+            Isolér \(\sin(A)\) ved at gange med 10 på begge sider:<br>
+            $$\sin(A) = \frac{10 \cdot \sin(70^\circ)}{12} \approx \frac{10 \cdot 0,9397}{12} \approx 0,7831$$
+            For at finde vinklen, skal vi bruge den omvendte sinusfunktion (\(\sin^{-1}\)) på resultatet:<br>
+            $$A = \sin^{-1}(0,7831) \approx 51,6^\circ$$
+            Da siden \(a\) er mindre end siden \(c\), skal vinkel \(A\) også være mindre end vinkel \(C\) (70°), hvilket passer godt med vores resultat.
         </div>
     </div>
-
+    
     <div class="card">
         <span class="task-title"><strong>Opgave 2:</strong> Tegn en skitse og find siden <i>c</i></span>
         <p>I trekant ABC er siden b = 12, vinkel B = 45° og vinkel C = 30°.</p>
