@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Træning: To ligninger med to ubekendte</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 850px; margin: 20px auto; padding: 20px; background-color: #f0f2f5; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; border-left: 5px solid #8e44ad; }
+        .calc-card { border-left: 5px solid #2980b9; background-color: #fbfdff; }
+        
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; }
+        h2 { color: #7f8c8d; text-align: center; margin-bottom: 30px; font-weight: normal; font-size: 1.2em; }
+        
+        /* Boks til definitioner og eksempler */
+        .formula-box { background: #fff; padding: 25px; border-radius: 8px; border: 2px solid #8e44ad; margin-bottom: 30px; text-align: center;}
+        .formula-box h3 { margin-top: 0; color: #8e44ad; }
+        .formula-box h4 { color: #6c3483; margin-top: 20px; margin-bottom: 10px; border-bottom: 2px solid #8e44ad; padding-bottom: 5px; text-align: left;}
+        .formula-group { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; text-align: left;}
+        
+        /* Eksempel-blokke (skjult som standard) */
+        .example-block { display: none; background-color: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 15px; text-align: left; }
+        
+        /* Opgave-inputs */
+        .input-section { margin-top: 15px; margin-bottom: 15px; }
+        .input-pair { margin-bottom: 10px; }
+        label { font-weight: bold; color: #34495e; margin-right: 5px; }
+        input[type="number"] { padding: 10px; width: 80px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; }
+        input:focus { border-color: #8e44ad; outline: none; }
+        .calc-card input:focus { border-color: #2980b9; }
+        
+        /* Knapper */
+        .btn-group { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;}
+        .formula-box .btn-group { margin-bottom: 20px; } /* Luft under knapperne i formelboksen */
+        
+        button { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 0.9em; }
+        
+        /* Lilla tema knapper */
+        .btn-check, .btn-example { background-color: #8e44ad; color: white; }
+        .btn-check:hover, .btn-example:hover { background-color: #6c3483; }
+        
+        /* Blåt tema knapper */
+        .btn-calc-check { background-color: #2980b9; color: white; }
+        .btn-calc-check:hover { background-color: #1f6391; }
+        
+        /* Gult/Gråt tema knapper */
+        .btn-hint { background-color: #f1c40f; color: #2c3e50; }
+        .btn-hint:hover { background-color: #f39c12; }
+        
+        .btn-sol { background-color: #95a5a6; color: white; }
+        .btn-sol:hover { background-color: #7f8c8d; }
+        
+        /* Feedback og info-bokse */
+        .feedback { margin-top: 10px; font-weight: bold; min-height: 1.2em; }
+        .correct { color: #27ae60; }
+        .incorrect { color: #c0392b; }
+        
+        .hint-box, .sol-box { display: none; margin-top: 15px; padding: 15px; border-radius: 8px; font-size: 0.95em; border: 1px solid #ddd; text-align: left;}
+        .hint-box { background-color: #fef9e7; border-color: #f1c40f; color: #7e5109; }
+        .sol-box { background-color: #f8f9fa; border-color: #bdc3c7; color: #2c3e50; }
+        
+        .task-title { font-size: 1.1em; color: #2c3e50; margin-bottom: 10px; display: block; font-weight: bold; text-align: left;}
+        .info-badge { background: #8e44ad; color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.8em; text-transform: uppercase; font-weight: bold; display: inline-block; margin-bottom: 10px;}
+        .calc-badge { background: #2980b9; }
+    </style>
+</head>
+<body>
+
+    <h1>To ligninger med to ubekendte</h1>
+    <h2>Find skæringspunktet \((x, y)\) for de to linjer.</h2>
+    
+    <div class="formula-box">
+        <h3>Definitioner af løsningsmetoder</h3>
+        <div class="formula-group">
+            <div>
+                <strong>1. Grafisk løsning</strong><br>
+                Tegn begge linjer i et koordinatsystem.<br>
+                Skæringspunktet \((x, y)\) er løsningen.
+            </div>
+            <div>
+                <strong>2. Algebraisk løsning</strong><br>
+                Brug <b>substitutionsmetoden</b> (isolér én ubekendt)<br>
+                eller <b>lige store koefficienters metode</b>.
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('example-sub')">Vis/Skjul Eksempel 1 (Substituion)</button>
+            <button class="btn-example" onclick="toggleBox('example-koe')">Vis/Skjul Eksempel 2 (Koefficienter)</button>
+        </div>
+
+        <div id="example-sub" class="example-block">
+            <h4>Eksempel 1: Substitutionsmetoden</h4>
+            <p><strong>Givet ligningssystem:</strong></p>
+            $$ \begin{cases} y = 2x \\ 3x + y = 10 \end{cases} $$
+            <p><strong>Observér:</strong> I den første ligning står \(y\) allerede alene. Vi ved, at \(y\) er det samme som \(2x\).</p>
+            <p><strong>Substituér (erstat):</strong> Vi tager udtrykket for \(y\) (\(2x\)) fra den første ligning og sætter det ind i stedet for \(y\) i den anden ligning:</p>
+            $$3x + (2x) = 10$$
+            <p><strong>Løs for \(x\):</strong> Læg \(x\)'erne sammen og isolér \(x\):</p>
+            $$5x = 10 \Rightarrow x = 2$$
+            <p><strong>Find \(y\):</strong> Sæt \(x=2\) ind i den første ligning:</p>
+            $$y = 2 \cdot 2 = 4$$
+            <p><strong>Konklusion:</strong> Løsningen er \(x = 2\) og \(y = 4\). Skæringspunktet er <strong>(2, 4)</strong>.</p>
+        </div>
+
+        <div id="example-koe" class="example-block">
+            <h4>Eksempel 2: Lige store koefficienters metode</h4>
+            <p><strong>Givet ligningssystem:</strong></p>
+            $$ \begin{cases} 4x + 3y = 18 \\ 4x - 3y = 6 \end{cases} $$
+            <p><strong>Observér:</strong> Koefficienten foran \(y\) er \(3\) i begge ligninger, men fortegnene er forskellige (\(+3y\) og \(-3y\)).</p>
+            <p><strong>Læg ligningerne sammen:</strong> Vi lægger venstre sider sammen og højre sider sammen:</p>
+            $$(4x + 3y) + (4x - 3y) = 18 + 6$$
+            <p><strong>Se \(y\)'erne forsvinde:</strong> Da \(+3y\) og \(-3y\) bliver \(0\), har vi:</p>
+            $$8x = 24$$
+            <p><strong>Løs for \(x\):</strong></p>
+            $$x = 3$$
+            <p><strong>Find \(y\):</strong> Sæt \(x=3\) ind i den første ligning:</p>
+            $$4\cdot3 + 3y = 18 \Rightarrow 12 + 3y = 18$$
+            $$3y = 6 \Rightarrow y = 2$$
+            <p><strong>Konklusion:</strong> Løsningen er \(x = 3\) og \(y = 2\). Skæringspunktet er <strong>(3, 2)</strong>.</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge">Grafisk løsning</span>
+        <span class="task-title">Opgave 1: Tegn og aflæs skæringspunkt</span>
+        <p>Ligningssystem:</p>
+        $$ \begin{cases} y = x + 1 \\ y = -x + 3 \end{cases} $$
+        <div class="input-section">
+            <div class="input-pair"><label>x =</label> <input type="number" id="q1x" step="1"></div>
+            <div class="input-pair"><label>y =</label> <input type="number" id="q1y" step="1"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkXY('q1', 1, 2)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Start med at tegne den første linje. Den skærer y-aksen i 1 og har en hældning på 1. Den anden linje skærer y-aksen i 3 og har en hældning på -1. Find punktet, hvor de krydser hinanden.</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong><br>
+            Når du tegner linjerne, ser du, at de skærer hinanden præcis i punktet <strong>(1, 2)</strong>.<br>
+            Du kan tjekke det ved at sætte tallene ind:<br>
+            Ligning 1: \(2 = 1 + 1\) (stemmer)<br>
+            Ligning 2: \(2 = -1 + 3\) (stemmer)
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge">Grafisk løsning</span>
+        <span class="task-title">Opgave 2: Tegn og aflæs skæringspunkt</span>
+        <p>Ligningssystem:</p>
+        $$ \begin{cases} y = 2x - 2 \\ y = x + 1 \end{cases} $$
+        <div class="input-section">
+            <div class="input-pair"><label>x =</label> <input type="number" id="q2x" step="1"></div>
+            <div class="input-pair"><label>y =</label> <input type="number" id="q2y" step="1"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkXY('q2', 3, 4)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box"><strong>Hint:</strong> Den første linje starter i -2 på y-aksen og går 2 op for hver 1 til højre. Den anden starter i 1 og går 1 op for hver 1 til højre.</div>
+        <div id="sol-q2" class="sol-box"><strong>Løsning:</strong><br>
+            Linjerne skærer hinanden i punktet <strong>(3, 4)</strong>.<br>
+            Tjek:<br>
+            Ligning 1: \(4 = 2\cdot3 - 2 = 6 - 2 = 4\) (stemmer)<br>
+            Ligning 2: \(4 = 3 + 1 = 4\) (stemmer)
+        </div>
+    </div>
+
+    <div class="card calc-card">
+        <span class="info-badge calc-badge">Beregn løsning</span>
+        <span class="task-title">Opgave 3: Udregn x og y (Substitutionsmetoden)</span>
+        <p>Ligningssystem:</p>
+        $$ \begin{cases} y = 3x \\ x + y = 8 \end{cases} $$
+        <div class="input-section">
+            <div class="input-pair"><label>x =</label> <input type="number" id="q3x" step="0.1"></div>
+            <div class="input-pair"><label>y =</label> <input type="number" id="q3y" step="0.1"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-calc-check" onclick="checkXY('q3', 2, 6)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Da du ved fra den første ligning, at \(y = 3x\), kan du erstatte \(y\) med \(3x\) i den anden ligning. Så får du: \(x + 3x = 8\). Løs denne ligning for at finde \(x\).</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong><br>
+            Vi indsætter \(y = 3x\) i den anden ligning:<br>
+            $$x + (3x) = 8 \Rightarrow 4x = 8 \Rightarrow x = 2$$<br>
+            Nu finder vi \(y\) ved at sætte \(x=2\) ind i den første ligning:<br>
+            $$y = 3 \cdot 2 = 6$$<br>
+            Løsningen er <strong>x = 2</strong> og <strong>y = 6</strong>.
+        </div>
+    </div>
+
+    <div class="card calc-card">
+        <span class="info-badge calc-badge">Beregn løsning</span>
+        <span class="task-title">Opgave 4: Udregn x og y (Lige store koefficienter)</span>
+        <p>Ligningssystem:</p>
+        $$ \begin{cases} 2x + y = 10 \\ 2x - y = 2 \end{cases} $$
+        <div class="input-section">
+            <div class="input-pair"><label>x =</label> <input type="number" id="q4x" step="0.1"></div>
+            <div class="input-pair"><label>y =</label> <input type="number" id="q4y" step="0.1"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-calc-check" onclick="checkXY('q4', 3, 4)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box"><strong>Hint:</strong> Læg de to ligninger sammen. Da du har \(+y\) i den ene og \(-y\) i den anden, vil de to \(y\)'er 'æde' hinanden. Du får: \((2x + y) + (2x - y) = 10 + 2\).</div>
+        <div id="sol-q4" class="sol-box"><strong>Løsning:</strong><br>
+            Vi lægger de to ligninger sammen:<br>
+            $$ (2x + 2x) + (y - y) = 10 + 2 $$
+            $$ 4x = 12 \Rightarrow x = 3 $$<br>
+            Nu finder vi \(y\) ved at sætte \(x=3\) ind i den første ligning:<br>
+            $$ 2\cdot3 + y = 10 \Rightarrow 6 + y = 10 \Rightarrow y = 4 $$<br>
+            Løsningen er <strong>x = 3</strong> og <strong>y = 4</strong>.
+        </div>
+    </div>
+
+    <div class="card calc-card">
+        <span class="info-badge calc-badge">Beregn løsning</span>
+        <span class="task-title">Opgave 5: Udregn x og y</span>
+        <p>Ligningssystem:</p>
+        $$ \begin{cases} 3x + 2y = 12 \\ x - y = 1 \end{cases} $$
+        <div class="input-section">
+            <div class="input-pair"><label>x =</label> <input type="number" id="q5x" step="0.1"></div>
+            <div class="input-pair"><label>y =</label> <input type="number" id="q5y" step="0.1"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-calc-check" onclick="checkXY('q5', 2.8, 1.8)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q5')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q5')">Løsning</button>
+        </div>
+        <div id="feedback-q5" class="feedback"></div>
+        <div id="hint-q5" class="hint-box"><strong>Hint:</strong> Isolér \(x\) i den nederste ligning: \(x = y + 1\). Indsæt nu dette udtryk for \(x\) i den øverste ligning: \(3(y + 1) + 2y = 12\). Løs for \(y\). (Svarene er her decimaltal).</div>
+        <div id="sol-q5" class="sol-box"><strong>Løsning:</strong><br>
+            Vi isolerer \(x\) i den nederste ligning:<br>
+            $$ x = y + 1 $$<br>
+            Dette indsætter vi i den øverste ligning:<br>
+            $$ 3(y + 1) + 2y = 12 \Rightarrow 3y + 3 + 2y = 12 $$
+            $$ 5y + 3 = 12 \Rightarrow 5y = 9 \Rightarrow y = \frac{9}{5} = 1,8 $$<br>
+            Nu finder vi \(x\):<br>
+            $$ x = 1,8 + 1 = 2,8 $$<br>
+            Løsningen er <strong>x = 2,8</strong> og <strong>y = 1,8</strong>.
+        </div>
+    </div>
+
+    <script>
+        // Funktion til at vise/skjule hint, løsning og eksempler
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+
+        // Funktion til at tjekke svar (både x og y)
+        function checkXY(id, correctX, correctY) {
+            const inputX = document.getElementById(id + 'x').value;
+            const inputY = document.getElementById(id + 'y').value;
+            const feedback = document.getElementById('feedback-' + id);
+            const userX = parseFloat(inputX);
+            const userY = parseFloat(inputY);
+
+            if (isNaN(userX) || isNaN(userY)) {
+                feedback.innerHTML = "Indtast venligst både x og y.";
+                feedback.className = "feedback";
+                return;
+            }
+
+            // Tillader en lille margin for afrunding (0.05)
+            const isXCorrect = Math.abs(userX - correctX) < 0.05;
+            const isYCorrect = Math.abs(userY - correctY) < 0.05;
+
+            if (isXCorrect && isYCorrect) {
+                feedback.innerHTML = "✓ Korrekt! Punktet (" + correctX + ", " + correctY + ") er løsningen.";
+                feedback.className = "feedback correct";
+            } else if (isXCorrect) {
+                feedback.innerHTML = "Næsten! Dit x er rigtigt, men tjek y igen.";
+                feedback.className = "feedback incorrect";
+            } else if (isYCorrect) {
+                feedback.innerHTML = "Næsten! Dit y er rigtigt, men tjek x igen.";
+                feedback.className = "feedback incorrect";
+            } else {
+                feedback.innerHTML = "✗ Ikke helt rigtigt. Prøv igen.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+    </script>
+
+</body>
+</html>
