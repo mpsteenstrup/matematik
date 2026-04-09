@@ -3,93 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Træning: Sinusrelationer</title>
+    <title>Træning: Sinus- og Cosinusrelationer</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 20px auto; padding: 20px; background-color: #f0f2f5; }
-        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; border-left: 5px solid #3498db; }
-        h1 { color: #2c3e50; text-align: center; margin-bottom: 30px; }
-        .formula-box { background: #fff; padding: 20px; border-radius: 8px; border: 2px solid #3498db; text-align: center; margin-bottom: 30px; font-size: 1.4em; }
-        input[type="number"] { padding: 10px; width: 120px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; }
-        input:focus { border-color: #3498db; outline: none; }
-        button { padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        button:hover { background-color: #2980b9; }
-        .feedback { margin-top: 15px; font-weight: bold; min-height: 1.2em; }
-        .correct { color: #27ae60; }
-        .incorrect { color: #c0392b; }
-        .task-title { font-size: 1.1em; color: #2c3e50; margin-bottom: 10px; display: block; }
-    </style>
 </head>
 <body>
 
-    <h1>Træning i Sinusrelationer</h1>
+    <h1>Træning i Trekantsberegning</h1>
     <h2 align="center">Angiv svaret med to decimaler</h2>
     
     <div class="formula-box">
+        <h3>Sinusrelationerne</h3>
         $$\frac{a}{\sin(A)} = \frac{b}{\sin(B)} = \frac{c}{\sin(C)}$$
-        eller
+        <div style="margin: 10px 0; color: #7f8c8d;">eller (bedst til at finde vinkler)</div>
         $$\frac{\sin(A)}{a} = \frac{\sin(B)}{b} = \frac{\sin(C)}{c}$$
     </div>
 
-    <div class="card">
-        <span class="task-title"><strong>Opgave 1:</strong>Tegn en skitse af trekanten og find siden <i>b</i></span>
-        <p>I trekant ABC er vinkel A = 40°, vinkel B = 60° og siden a = 10.</p>
-        <input type="number" id="q1" step="0.01" placeholder="Svar...">
-        <button onclick="checkAnswer('q1', 13.47)">Tjek svar</button>
+    <div class="card cosinus-card">
+        <span class="info-badge">OBS: Cosinusrelation!</span>
+        <span class="task-title"><strong>Opgave 1:</strong> Tegn en skitse og find siden <i>a</i></span>
+        <p>I trekant ABC er b = 8, c = 10 og vinkel A = 60°.</p>
+        <div class="input-section">
+            <input type="number" id="q1" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q1', 9.17)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
         <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Du kender to sider og den mellemliggende vinkel. Dette er et klassisk tilfælde for cosinusrelationen: \(a^2 = b^2 + c^2 - 2bc \cdot \cos(A)\). Indsæt værdierne og tag kvadratroden til sidst.</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong><br>
+            $$a^2 = 8^2 + 10^2 - 2 \cdot 8 \cdot 10 \cdot \cos(60^\circ)$$
+            $$a^2 = 64 + 100 - 160 \cdot 0,5$$
+            $$a^2 = 164 - 80 = 84$$
+            $$a = \sqrt{84} \approx 9,17$$
+        </div>
     </div>
 
     <div class="card">
-        <span class="task-title"><strong>Opgave 2:</strong> Tegn en skitse af trekanten og find siden <i>c</i></span>
+        <span class="task-title"><strong>Opgave 2:</strong> Tegn en skitse og find siden <i>c</i></span>
         <p>I trekant ABC er siden b = 12, vinkel B = 45° og vinkel C = 30°.</p>
-        <input type="number" id="q2" step="0.01" placeholder="Svar...">
-        <button onclick="checkAnswer('q2', 8.49)">Tjek svar</button>
+        <div class="input-section">
+            <input type="number" id="q2" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q2', 8.49)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
         <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box"><strong>Hint:</strong> Du kender parret (\(b\), \(B\)) og skal bruge (\(c\), \(C\)). Brug sinusrelationen: \(\frac{c}{\sin(30^\circ)} = \frac{12}{\sin(45^\circ)}\). Isolér \(c\).</div>
+        <div id="sol-q2" class="sol-box"><strong>Løsning:</strong><br>
+            $$c = \frac{12 \cdot \sin(30^\circ)}{\sin(45^\circ)} \approx \frac{12 \cdot 0,5}{0,7071} \approx 8,49$$
+        </div>
     </div>
 
     <div class="card">
-        <span class="task-title"><strong>Opgave 3:</strong> Tegn en skitse af trekanten og find vinkel <i>A</i></span>
+        <span class="task-title"><strong>Opgave 3:</strong> Tegn en skitse og find vinkel <i>A</i></span>
         <p>Siden a = 7, siden c = 10 og vinkel C = 80°. (Angiv i grader)</p>
-        <input type="number" id="q3" step="0.1" placeholder="Svar...">
-        <button onclick="checkAnswer('q3', 43.6)">Tjek svar</button>
+        <div class="input-section">
+            <input type="number" id="q3" step="0.1" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q3', 43.6)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
         <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Du skal finde en vinkel. Brug den omvendte formel: \(\frac{\sin(A)}{7} = \frac{\sin(80^\circ)}{10}\). Isolér \(\sin(A)\) og brug \(\sin^{-1}\) på lommeregneren. Ingen sinusfælde her, da \(a < c\).</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong><br>
+            $$\sin(A) = \frac{7 \cdot \sin(80^\circ)}{10} \approx 0,6894$$
+            $$A = \sin^{-1}(0,6894) \approx 43,6^\circ$$
+        </div>
     </div>
 
     <div class="card">
-        <span class="task-title"><strong>Opgave 4:</strong> Tegn en skitse af trekanten og find siden <i>a</i></span>
+        <span class="task-title"><strong>Opgave 4:</strong> Tegn en skitse og find siden <i>a</i></span>
         <p>Vinkel A = 100°, vinkel C = 20° og siden c = 5.</p>
-        <input type="number" id="q4" step="0.01" placeholder="Svar...">
-        <button onclick="checkAnswer('q4', 14.40)">Tjek svar</button>
+        <div class="input-section">
+            <input type="number" id="q4" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q4', 14.40)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
         <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box"><strong>Hint:</strong> Opstil relationen: \(\frac{a}{\sin(100^\circ)} = \frac{5}{\sin(20^\circ)}\). Isolér \(a\).</div>
+        <div id="sol-q4" class="sol-box"><strong>Løsning:</strong><br>
+            $$a = \frac{5 \cdot \sin(100^\circ)}{\sin(20^\circ)} \approx \frac{5 \cdot 0,9848}{0,3420} \approx 14,40$$
+        </div>
     </div>
 
     <div class="card">
-        <span class="task-title"><strong>Opgave 5:</strong> Tegn en skitse af trekanten og find siden <i>c</i></span>
+        <span class="task-title"><strong>Opgave 5:</strong> Tegn en skitse og find siden <i>c</i></span>
         <p>Vinkel B = 45°, vinkel C = 105° og siden b = 8.</p>
-        <input type="number" id="q5" step="0.01" placeholder="Svar...">
-        <button onclick="checkAnswer('q5', 10.93)">Tjek svar</button>
+        <div class="input-section">
+            <input type="number" id="q5" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q5', 10.93)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q5')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q5')">L//sning</button>
+        </div>
         <div id="feedback-q5" class="feedback"></div>
+        <div id="hint-q5" class="hint-box"><strong>Hint:</strong> Opstil relationen \(\frac{c}{\sin(105^\circ)} = \frac{8}{\sin(45^\circ)}\). Isolér \(c\).</div>
+        <div id="sol-q5" class="sol-box"><strong>Løsning:</strong><br>
+            $$c = \frac{8 \cdot \sin(105^\circ)}{\sin(45^\circ)} \approx \frac{8 \cdot 0,9659}{0,7071} \approx 10,93$$
+        </div>
     </div>
 
     <div class="card trap-card">
         <span class="info-badge">Advarsel: Sinusfælden!</span>
-        <p><strong>Opgave 6:</strong> Tegn en skitse af trekanten og find vinkel C.</p>
+        <p><strong>Opgave 6:</strong> Tegn en skitse og find vinkel C.</p>
             <p>I en trekant er vinkel A = 30°, side a = 7 og side c = 10. <br>
         Da a < c, er der <strong>to</strong> mulige løsninger for vinkel C. Find dem begge.</p>
-        <p>hint: du kan bruge intervalsolve(...,C=0..180) for at få begge svar</p>
-        <p>Tegn igen en skitse og prøv at forklar hvordan der kan være to løsninger.</p>
         
-        <label>Løsning 1 (spids):</label><br>
-        <input type="number" id="q6a" step="0.1" placeholder="Grader"><br>
-        <label>Løsning 2 (stump):</label><br>
-        <input type="number" id="q6b" step="0.1" placeholder="Grader"><br><br>
-        <button class="trap-btn" onclick="checkTrap()">Tjek begge vinkler</button>
+        <div class="input-section">
+            <label>Løsning 1 (spids):</label><br>
+            <input type="number" id="q6a" step="0.1" placeholder="Grader"><br>
+            <label>Løsning 2 (stump):</label><br>
+            <input type="number" id="q6b" step="0.1" placeholder="Grader">
+        </div>
+
+        <div class="btn-group">
+            <button class="trap-btn" onclick="checkTrap()">Tjek begge vinkler</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q6')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q6')">Løsning</button>
+        </div>
         <div id="feedback-q6" class="feedback"></div>
+        <div id="hint-q6" class="hint-box"><strong>Hint:</strong> Find først \(\sin(C) = \frac{10 \cdot \sin(30^\circ)}{7}\). Når du tager \(\sin^{-1}\) får du den spidse løsning. Den stumpe løsning finder du ved at trække det tal fra 180° (reglen om supplementvinkler).</div>
+        <div id="sol-q6" class="sol-box"><strong>Løsning:</strong><br>
+            Først findes sinus til vinklen:<br>
+            $$\sin(C) = \frac{c \cdot \sin(A)}{a} = \frac{10 \cdot \sin(30^\circ)}{7} = \frac{10 \cdot 0,5}{7} \approx 0,7143$$
+            <strong>Løsning 1 (Lommeregnerens svar):</strong><br>
+            $$C_1 = \sin^{-1}(0,7143) \approx 45,6^\circ$$
+            <strong>Løsning 2 (Den stumpe vinkel):</strong><br>
+            $$C_2 = 180^\circ - 45,6^\circ = 134,4^\circ$$
+        </div>
     </div>
 
     <script>
+        // Funktion til at vise/skjule hint og løsning
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+
+        // Funktion til de normale opgaver
         function checkAnswer(id, correctVal) {
             const input = document.getElementById(id).value;
             const feedback = document.getElementById('feedback-' + id);
@@ -101,12 +168,42 @@
                 return;
             }
 
-            // Tillader en margin på 0.15 for afrunding
-            if (Math.abs(userVal - correctVal) < 0.15) {
+            if (Math.abs(userVal - correctVal) < 0.2) {
                 feedback.innerHTML = "✓ Korrekt!";
                 feedback.className = "feedback correct";
             } else {
-                feedback.innerHTML = "✗ Prøv igen. Husk at tjekke dine udregninger.";
+                feedback.innerHTML = "✗ Prøv igen.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+
+        // Funktion til sinusfælden (Opgave 6)
+        function checkTrap() {
+            const v1 = parseFloat(document.getElementById('q6a').value);
+            const v2 = parseFloat(document.getElementById('q6b').value);
+            const feedback = document.getElementById('feedback-q6');
+            
+            const sol1 = 45.6; // Spids vinkel
+            const sol2 = 134.4; // Stump vinkel (180 - 45.6)
+
+            if (isNaN(v1) || isNaN(v2)) {
+                feedback.innerHTML = "Indtast venligst begge tal.";
+                feedback.className = "feedback incorrect";
+                return;
+            }
+
+            // Tjekker om begge svar er fundet (i vilkårlig rækkefølge)
+            let found1 = (Math.abs(v1 - sol1) < 0.3 || Math.abs(v1 - sol2) < 0.3);
+            let found2 = (Math.abs(v2 - sol1) < 0.3 || Math.abs(v2 - sol2) < 0.3);
+
+            if (found1 && found2 && Math.abs(v1 - v2) > 10) {
+                feedback.innerHTML = "✓ Flot! Du har fundet begge løsninger.";
+                feedback.className = "feedback correct";
+            } else if (found1 || found2) {
+                feedback.innerHTML = "Du har fundet én rigtig løsning. Kan du finde den anden?";
+                feedback.className = "feedback incorrect";
+            } else {
+                feedback.innerHTML = "✗ Ingen af dem er helt rigtige. Prøv igen.";
                 feedback.className = "feedback incorrect";
             }
         }
