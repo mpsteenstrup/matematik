@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Træning: Retvinklede Trekanter</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 800px; margin: 20px auto; padding: 20px; background-color: #f0f2f5; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; border-left: 5px solid #27ae60; }
+        h1 { color: #2c3e50; text-align: center; margin-bottom: 5px; }
+        h2 { color: #7f8c8d; text-align: center; margin-bottom: 30px; font-weight: normal; font-size: 1.2em; }
+        
+        .formula-box { background: #fff; padding: 20px; border-radius: 8px; border: 2px solid #27ae60; text-align: center; margin-bottom: 30px; }
+        .formula-box h3 { margin-top: 0; color: #27ae60; }
+        .formula-group { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; }
+        
+        /* Tabel-styling */
+        .table-box { background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 30px; }
+        .table-box h3 { margin-top: 0; text-align: center; color: #7f8c8d; }
+        table.trig-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        table.trig-table th, table.trig-table td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        table.trig-table th { background-color: #f8f9fa; color: #2c3e50; }
+        
+        .input-section { margin-top: 15px; margin-bottom: 15px; }
+        input[type="number"] { padding: 10px; width: 120px; border: 2px solid #ddd; border-radius: 6px; font-size: 16px; margin: 5px 0; }
+        input:focus { border-color: #27ae60; outline: none; }
+        
+        /* Knapper */
+        .btn-group { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+        button { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 0.9em; }
+        
+        .btn-check { background-color: #27ae60; color: white; }
+        .btn-check:hover { background-color: #219150; }
+        
+        .btn-hint { background-color: #f1c40f; color: #2c3e50; }
+        .btn-hint:hover { background-color: #f39c12; }
+        
+        .btn-sol { background-color: #95a5a6; color: white; }
+        .btn-sol:hover { background-color: #7f8c8d; }
+        
+        /* Feedback og info-bokse */
+        .feedback { margin-top: 10px; font-weight: bold; min-height: 1.2em; }
+        .correct { color: #27ae60; }
+        .incorrect { color: #c0392b; }
+        
+        .hint-box, .sol-box { display: none; margin-top: 15px; padding: 15px; border-radius: 8px; font-size: 0.95em; border: 1px solid #ddd; }
+        .hint-box { background-color: #fef9e7; border-color: #f1c40f; color: #7e5109; }
+        .sol-box { background-color: #f8f9fa; border-color: #bdc3c7; color: #2c3e50; }
+        
+        .task-title { font-size: 1.1em; color: #2c3e50; margin-bottom: 10px; display: block; font-weight: bold;}
+    </style>
+</head>
+<body>
+
+    <h1>Træning i Retvinklede Trekanter</h1>
+    <h2>Brug tabellen og regn i hånden. Angiv svaret med to decimaler.</h2>
+    
+    <div class="formula-box">
+        <div class="formula-group">
+            <div>
+                <h3>Pythagoras</h3>
+                \(a^2 + b^2 = c^2\)
+            </div>
+            <div>
+                <h3>Trigonometri</h3>
+                \(\sin(v) = \frac{\text{modstående}}{\text{hypotenuse}}\)
+                <br>
+                \(\cos(v) = \frac{\text{hosliggende}}{\text{hypotenuse}}\)
+                <br>
+                \(\tan(v) = \frac{\text{modstående}}{\text{hosliggende}}\)
+            </div>
+        </div>
+    </div>
+
+    <div class="table-box">
+        <h3>Lille Trigonometritabel</h3>
+        <table class="trig-table">
+            <thead>
+                <tr>
+                    <th>v</th>
+                    <th>cos(v)</th>
+                    <th>sin(v)</th>
+                    <th>tan(v)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>0°</td>
+                    <td>1,00</td>
+                    <td>0,00</td>
+                    <td>0,00</td>
+                </tr>
+                <tr>
+                    <td>10°</td>
+                    <td>0,98</td>
+                    <td>0,17</td>
+                    <td>0,18</td>
+                </tr>
+                <tr>
+                    <td>45°</td>
+                    <td>0,71</td>
+                    <td>0,71</td>
+                    <td>1,00</td>
+                </tr>
+                <tr>
+                    <td>80°</td>
+                    <td>0,17</td>
+                    <td>0,98</td>
+                    <td>5,67</td>
+                </tr>
+                <tr>
+                    <td>90°</td>
+                    <td>0,00</td>
+                    <td>1,00</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <span class="task-title">Opgave 1: Find hypotenusen c</span>
+        <p>I en retvinklet trekant er kateterne \(a = 3\) og \(b = 4\). Find hypotenusen \(c\).</p>
+        <div class="input-section">
+            <input type="number" id="q1" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q1', 5.00)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Brug Pythagoras: \(3^2 + 4^2 = c^2\). Udregn kvadrattallene, læg dem sammen, og tag kvadratroden. Dette er en klassisk 3-4-5 trekant.</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong><br>
+            $$3^2 + 4^2 = c^2 \Rightarrow 9 + 16 = c^2 \Rightarrow 25 = c^2$$
+            $$c = \sqrt{25} = 5,00$$
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="task-title">Opgave 2: Find kateten b</span>
+        <p>I en retvinklet trekant er hypotenusen \(c = 10\) og den ene katete \(a = 6\). Find den anden katete \(b\).</p>
+        <div class="input-section">
+            <input type="number" id="q2" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q2', 8.00)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box"><strong>Hint:</strong> Brug Pythagoras: \(6^2 + b^2 = 10^2\). Isolér \(b^2\) ved at trække \(6^2\) fra \(10^2\).</div>
+        <div id="sol-q2" class="sol-box"><strong>Løsning:</strong><br>
+            $$6^2 + b^2 = 10^2 \Rightarrow 36 + b^2 = 100 \Rightarrow b^2 = 100 - 36 \Rightarrow b^2 = 64$$
+            $$b = \sqrt{64} = 8,00$$
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="task-title">Opgave 3: Find siden a</span>
+        <p>I en retvinklet trekant er vinkel \(A = 10^\circ\) og hypotenusen \(c = 20\). Find den modstående katete \(a\).</p>
+        <div class="input-section">
+            <input type="number" id="q3" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q3', 3.40)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Du kender en vinkel og hypotenusen og skal finde den modstående side. Brug sinus: \(\sin(10^\circ) = \frac{a}{20}\). Find værdien for \(\sin(10^\circ)\) i tabellen, indsæt den, og isolér \(a\).</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong><br>
+            Fra tabellen: \(\sin(10^\circ) = 0,17\).<br>
+            $$\sin(10^\circ) = \frac{a}{20} \Rightarrow 0,17 = \frac{a}{20} \Rightarrow a = 20 \cdot 0,17$$
+            $$a = 3,40$$
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="task-title">Opgave 4: Find siden b</span>
+        <p>I en retvinklet trekant er vinkel \(A = 80^\circ\) og hypotenusen \(c = 5\). Find den hosliggende katete \(b\).</p>
+        <div class="input-section">
+            <input type="number" id="q4" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q4', 0.85)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box"><strong>Hint:</strong> Du kender en vinkel og hypotenusen og skal finde den hosliggende side. Brug cosinus: \(\cos(80^\circ) = \frac{b}{5}\). Find værdien for \(\cos(80^\circ)\) i tabellen.</div>
+        <div id="sol-q4" class="sol-box"><strong>Løsning:</strong><br>
+            Fra tabellen: \(\cos(80^\circ) = 0,17\).<br>
+            $$\cos(80^\circ) = \frac{b}{5} \Rightarrow 0,17 = \frac{b}{5} \Rightarrow b = 5 \cdot 0,17$$
+            $$b = 0,85$$
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="task-title">Opgave 5: Find siden a</span>
+        <p>I en retvinklet trekant er vinkel \(A = 45^\circ\) og den hosliggende katete \(b = 7\). Find den modstående katete \(a\).</p>
+        <div class="input-section">
+            <input type="number" id="q5" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q5', 7.00)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q5')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q5')">Løsning</button>
+        </div>
+        <div id="feedback-q5" class="feedback"></div>
+        <div id="hint-q5" class="hint-box"><strong>Hint:</strong> Du kender en vinkel og den ene katete og skal finde den anden katete. Brug tangent: \(\tan(45^\circ) = \frac{a}{7}\). Se tabellen for værdien for \(\tan(45^\circ)\). Dette er en ligebenet trekant.</div>
+        <div id="sol-q5" class="sol-box"><strong>Løsning:</strong><br>
+            Fra tabellen: \(\tan(45^\circ) = 1,00\).<br>
+            $$\tan(45^\circ) = \frac{a}{7} \Rightarrow 1,00 = \frac{a}{7} \Rightarrow a = 7 \cdot 1,00$$
+            $$a = 7,00$$
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="task-title task-trap">Opgave 6: Find alle vinklerne</span>
+        <p>I en retvinklet trekant kender vi kateten \(a = 3,4\) og hypotenusen \(c = 20\). <br>
+           Vinkel \(C\) er den rette vinkel (\(90^\circ\)). Find vinkel \(A\) og vinkel \(B\).</p>
+        <div class="input-section">
+            <label>Vinkel A (grader):</label> <input type="number" id="q6a" step="0.1" placeholder="Svar..."><br>
+            <label>Vinkel B (grader):</label> <input type="number" id="q6b" step="0.1" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAngles()">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q6')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q6')">Løsning</button>
+        </div>
+        <div id="feedback-q6" class="feedback"></div>
+        <div id="hint-q6" class="hint-box"><strong>Hint:</strong> Brug trigonometri til at finde den første vinkel. For vinkel \(A\): \(\sin(A) = \frac{\text{modstående}}{\text{hypotenuse}} = \frac{3,4}{20}\). Udregn brøken og find den matchende værdi under \(\sin(v)\) i tabellen for at se, hvilken vinkel det svarer til. For vinkel \(B\), kan du bruge formlen \(\sin(B) = \frac{\text{hosliggende}}{\text{hypotenuse}}\), eller blot bruge vinkelsummen: \(B = 180^\circ - 90^\circ - A\).</div>
+        <div id="sol-q6" class="sol-box"><strong>Løsning:</strong><br>
+            <strong>Find vinkel A:</strong><br>
+            $$\sin(A) = \frac{3,4}{20} = 0,17$$
+            Vi kigger i tabellen under \(\sin(v)\) og finder værdien \(0,17\). Det svarer til vinklen \(10^\circ\).<br>
+            Så <strong>Vinkel \(A = 10,00^\circ\)</strong>.<br><br>
+            <strong>Find vinkel B:</strong><br>
+            Da vi ved at vinkelsummen i en trekant er \(180^\circ\), og vi kender de to andre vinkler (\(90^\circ\) og \(10^\circ\)):<br>
+            $$B = 180^\circ - 90^\circ - 10^\circ = 80^\circ$$
+            Eller ved brug af trigonometri:<br>
+            $$\sin(B) = \frac{\text{hosliggende for A}}{\text{hypotenuse}} = \frac{b}{20}$$
+            Vi skal først finde \(b\) vha. Pythagoras, eller blot se baglæns fra opgave 3, at hvis \(A=10^\circ\), så er \(B\) den komplementære vinkel, altså \(80^\circ\). Tjekker vi tabellen for \(\sin(80^\circ)\), finder vi \(0,98\).
+            Længden af \(b\) er \(\sqrt{20^2 - 3,4^2} = \sqrt{400 - 11,56} = \sqrt{388,44} \approx 19,7\).
+            \(\sin(B) = \frac{19,7}{20} = 0,985\). I tabellen er \(\sin(80^\circ) = 0,98\). Det matcher! <br>
+            Så <strong>Vinkel \(B = 80,00^\circ\)</strong>.
+        </div>
+    </div>
+
+    <script>
+        // Funktion til at vise/skjule hint og løsning
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+
+        // Funktion til at tjekke svar for Opgave 1-5
+        function checkAnswer(id, correctVal) {
+            const input = document.getElementById(id).value;
+            const feedback = document.getElementById('feedback-' + id);
+            const userVal = parseFloat(input);
+
+            if (isNaN(userVal)) {
+                feedback.innerHTML = "Indtast venligst et tal.";
+                feedback.className = "feedback";
+                return;
+            }
+
+            // Tillader en margin på 0.1 for afrunding
+            if (Math.abs(userVal - correctVal) < 0.1) {
+                feedback.innerHTML = "✓ Korrekt! Flot arbejde.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.innerHTML = "✗ Prøv igen.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+
+        // NY Funktion til at tjekke svar for Opgave 6 (alle vinkler)
+        function checkAngles() {
+            const valA = parseFloat(document.getElementById('q6a').value);
+            const valB = parseFloat(document.getElementById('q6b').value);
+            const feedback = document.getElementById('feedback-q6');
+            
+            // Korrekte svar
+            const solA = 10.00;
+            const solB = 80.00;
+
+            if (isNaN(valA) || isNaN(valB)) {
+                feedback.innerHTML = "Indtast venligst begge vinkler.";
+                feedback.className = "feedback incorrect";
+                return;
+            }
+
+            // Tjekker om begge vinkler er fundet (vi er lidt strikse, de skal stå rigtigt)
+            let correctA = (Math.abs(valA - solA) < 0.5);
+            let correctB = (Math.abs(valB - solB) < 0.5);
+
+            if (correctA && correctB) {
+                feedback.innerHTML = "✓ Perfekt! Du fandt begge vinkler.";
+                feedback.className = "feedback correct";
+            } else if (correctA || correctB) {
+                feedback.innerHTML = "Du har fundet én rigtig vinkel. Husk at vinkelsummen er 180 grader.";
+                feedback.className = "feedback incorrect";
+            } else {
+                feedback.innerHTML = "✗ Ingen af dem er helt rigtige. Prøv at bruge tabellen igen.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+    </script>
+
+</body>
+</html>
+```
