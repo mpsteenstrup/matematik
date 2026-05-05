@@ -40,6 +40,56 @@ h2 { color: #7f8c8d; text-align: center; margin-bottom: 30px; font-weight: norma
 }
 .formula-box h3 { margin-top: 0; color: #27ae60; }
 .formula-group { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; }
+.formula-note { margin: 10px 0; color: #7f8c8d; }
+
+/* To ligninger-specifikke elementer */
+.btn-example {
+    background-color: #3498db;
+    color: white;
+}
+.btn-example:hover { background-color: #2d83bd; }
+
+.example-block {
+    display: none;
+    margin-top: 15px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #d6eaf8;
+    background-color: #f4f9fd;
+    text-align: left;
+}
+.example-block h4 {
+    margin-top: 0;
+    color: #1f618d;
+}
+
+.input-pair {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+.input-pair label {
+    min-width: 24px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.calc-card {
+    border-left-color: #3498db;
+}
+.calc-badge {
+    background: #3498db;
+}
+.btn-calc-check {
+    background-color: #3498db;
+    color: white;
+}
+.btn-calc-check:hover { background-color: #2d83bd; }
+
+.task-trap {
+    color: #d35400;
+}
 
 /* -------------------------------------------------------------------------- */
 /* NY SEKTION: CSS til Trigonometritabellen                                   */
