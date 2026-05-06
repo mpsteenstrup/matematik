@@ -149,7 +149,7 @@ input[type="number"] {
 input:focus { border-color: #27ae60; outline: none; }
 
 /* Knapper */
-.btn-group { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-group { margin-top: 10px; display: flex; gap: 80px; flex-wrap: wrap; justify-content: center; }
 button { 
     padding: 10px 20px; 
     border: none; 
@@ -157,7 +157,7 @@ button {
     cursor: pointer; 
     font-weight: bold; 
     transition: 0.3s; 
-    font-size: 0.9em;
+    font-size: 0.9em; 
 }
 
 .btn-check { background-color: #27ae60; color: white; }
