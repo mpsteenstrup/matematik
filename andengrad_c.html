@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eksperiment: Konstanten c</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Små ekstra tilføjelser til denne specifikke opgaveside */
+        .desmos-link { display: inline-block; background: #2c3e50; color: white; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; margin: 15px 0; transition: 0.3s; }
+        .desmos-link:hover { background: #34495e; }
+        .quiz-option { background: #f8f9fa; border: 2px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; text-align: left; }
+        .quiz-option:hover { border-color: #3498db; background: #f1f7fc; }
+        .quiz-option.selected-correct { border-color: #2ecc71; background: #e8f8f0; }
+        .quiz-option.selected-incorrect { border-color: #e74c3c; background: #fceae9; }
+        ol li { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <h1>Eksperimentel matematik</h1>
+    <h2>Undersøg konstanten \(c\) i 2. gradspolynomiet</h2>
+    
+    <div class="formula-box">
+        <h3>Åbn Desmos og undersøg grafen</h3>
+        <p>Du skal nu undersøge, hvordan det løse tal \(c\) styrer parablens placering i funktionen:</p>
+        <div style="font-size: 1.4em; margin: 10px 0;">
+            $$f(x) = 1 \cdot x^2 + 1x + c$$
+        </div>
+        <p>Klik på knappen herunder for at åbne det interaktive koordinatsystem. Brug skyderen (slideren) for \(c\) til at besvare opgaverne.</p>
+        
+        <a href="https://www.desmos.com/calculator/utv9fc3ud4" target="_blank" class="desmos-link">🔗 Åbn Desmos-eksperimentet</a>
+
+        <div class="btn-group" style="justify-content: center; margin-top: 20px;">
+            <button class="btn-example" onclick="toggleBox('example-c-visuel')">Vis/Skjul Eksempel 1 (Visuelt)</button>
+            <button class="btn-example" onclick="toggleBox('example-c-algebra')">Vis/Skjul Eksempel 2 (Algebraisk bevis)</button>
+        </div>
+
+        <div id="example-c-visuel" class="example-block" style="display: none; text-align: left; margin-top: 15px;">
+            <h4>Eksempel 1: Den visuelle betydning af \(c\)</h4>
+            <p>Hvis vi har funktionen \(f(x) = x^2 + x + 3\), så er \(c = 3\). Når du kigger på grafen i GeoGebra eller Desmos, vil du kunne se, at parablen skærer den lodrette y-akse præcis i tallet 3 (altså i punktet \((0,3)\)). Hvis du ændrer \(c\) til \(-2\), falder hele parablen ned, så den skærer y-aksen i \(-2\).</p>
+        </div>
+
+        <div id="example-c-algebra" class="example-block" style="display: none; text-align: left; margin-top: 15px;">
+            <h4>Eksempel 2: Det algebraiske bevis for \(f(0) = c\)</h4>
+            <p>Hvorfor skærer grafen altid y-aksen i netop tallet \(c\)? Det kan vi bevise algebraisk!</p>
+            <p>Når en graf skærer y-aksen, er \(x\)-værdien altid fuldstændig lig med 0. Lad os prøve at sætte \(x = 0\) ind på alle \(x\)'ernes pladser i den generelle forskrift:</p>
+            $$f(0) = a \cdot 0^2 + b \cdot 0 + c$$
+            <p>Da alle led, som ganges med 0, forsvinder og giver 0, reduceres udtrykket til:</p>
+            $$f(0) = 0 + 0 + c = c$$
+            <p>Dette beviser matematisk, at uanset hvad værdierne for \(a\) og \(b\) er, så vil parablens højde på y-aksen altid være lig med konstanten \(c\), når \(x = 0\).</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge">Laboratorie-øvelse</span>
+        <span class="task-title">Opgaver: Hvad observerer du?</span>
+        <p>Brug dine eksperimenter i Desmos samt de to eksempler ovenfor til at svare på følgende spørgsmål:</p>
+        
+        <ol>
+            <li><strong>Ændring af værdien:</strong> Træk skyderen for \(c\) frem og tilbage mellem positive og negative tal (f.eks. fra \(-5\) til \(5\)).
+                <br><small style="color: #7f8c8d;">- Hvad sker der fysisk med parablen, når du ændrer på \(c\)? Ændrer den form (binner bredere/survival), eller flytter den sig bare?</small>
+            </li>
+            <li><strong>Skæring med y-aksen:</strong> Sæt skyderen præcis på \(c = 4\). Kig derefter på det sted, hvor parablen krydser den lodrette y-akse. Prøv bagefter med \(c = -3\).
+                <br><small style="color: #7f8c8d;">- Hvilken sammenhæng er der mellem værdien af \(c\) og parablens skæringspunkt med y-aksen?</small>
+            </li>
+            <li><strong>Den algebraiske forklaring:</strong> Tag fat i din blyant, og lav beregningen på papir for funktionen: \(f(x) = 2x^2 + 5x + 7\). 
+                <br><small style="color: #7f8c8d;">- Hvad får du, hvis du beregner \(f(0)\) algebraisk (altså sætter 0 ind på x's plads)? Hvordan hænger dit resultat sammen med konstanten \(c\)?</small>
+            </li>
+            <li><strong>Antal rødder (skæringer med x-aksen):</strong> Justér på skyderen i Desmos og tæl, hvor mange gange grafen rammer den vandrette x-akse.
+                <br><small style="color: #7f8c8d;">- Hvad skal \(c\) være for, at grafen skærer x-aksen præcis 2 gange? Hvad sker der med antallet af skæringer, hvis du gør \(c\) meget stor og positiv?</small>
+            </li>
+        </ol>
+
+        <div class="btn-group">
+            <button class="btn-sol" onclick="toggleBox('sol-desmos-c')">Vis/Skjul svar-guide til læreren</button>
+        </div>
+        
+        <div id="sol-desmos-c" class="sol-box">
+            <strong>Hurtig facitliste til læreren (om c):</strong><br>
+            1. Parablen beholder fuldstændig sin form (bredde/retning). Den glider blot rent lodret op og ned i koordinatsystemet.<br>
+            2. Parablen skærer altid y-aksen i punktet \((0, c)\). Hvis \(c=4\), skærer den i \(4\).<br>
+            3. <strong>Algebraisk svar:</strong> \(f(0) = 2\cdot 0^2 + 5\cdot 0 + 7 = 7\). Da alle leddene med \(x\) bliver nul, står man altid tilbage med præcis værdien af \(c\).<br>
+            4. Hvis \(c < 0.25\) (f.eks. alle negative tal), dykker parablen så langt ned, at den har 2 rødder. Gøres \(c\) stor og positiv (over \(0.25\)), løftes hele parablen op over x-aksen, og så er der 0 rødder.
+        </div>
+    </div>
+
+    <div class="card" style="border-left: 5px solid #3498db;">
+        <span class="info-badge" style="background: #3498db;">Tjek din forståelse</span>
+        <span class="task-title">Hvilket af de fire udsagn om konstanten \(c\) er rigtigt?</span>
+        <p>Baseret på dine undersøgelser i Desmos, vælg det udsagn, der beskriver virkeligheden helt korrekt:</p>
+        
+        <div class="quiz-options">
+            <div class="quiz-option" id="opt-a" onclick="checkQuiz('opt-a', false, 'Ikke helt. Det er koefficienten a, der bestemmer, om parablens grene vender opad eller nedad. Ændring af c ændrer ikke på retningen.')">
+                <strong>A:</strong> Hvis \(c\) er et positivt tal, vender parablens grene opad, og hvis \(c\) bliver et negativt tal, flipper parablen rundt og vender grenene nedad.
+            </div>
+            
+            <div class="quiz-option" id="opt-b" onclick="checkQuiz('opt-b', false, 'Desværre ikke. Når c ændres, flytter parablen sich kun lodret op og ned. Formen forbliver fuldstændig den samme hele tiden.')">
+                <strong>B:</strong> Når man gør tallet \(c\) større, bliver selve parablen meget smallere og stejlere, og toppunktet trækkes sidelæns mod højre.
+            </div>
+            
+            <div class="quiz-option" id="opt-c" onclick="checkQuiz('opt-c', true, 'Fuldstændig rigtigt! Konstanten c fungerer som en lodret elevator, og grafen vil altid skære y-aksen i netop værdien c, fordi f(0) = c.')">
+                <strong>C:</strong> Konstanten \(c\) bestemmer, hvor grafen skærer y-aksen. Når \(c\) ændres, flyttes parablen lodret op eller ned uden at ændre sin form.
+            </div>
+            
+            <div class="quiz-option" id="opt-d" onclick="checkQuiz('opt-d', false, 'Næsten, men omvendt. Hvis c er meget stor og positiv, løftes hele parablen højt op, så den slet ikke rører eller skærer x-aksen.')">
+                <strong>D:</strong> Jo større og mere positiv \(c\) vælges, jo dybere ned under x-aksen falder parablen, hvilket altid giver den præcis to skæringer med x-aksen.
+            </div>
+        </div>
+        
+        <div id="quiz-feedback" class="feedback" style="margin-top: 15px; padding: 10px; border-radius: 6px; display: none;"></div>
+    </div>
+
+    <script>
+        // Funktion til at vise/skjule hint og løsninger
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+
+        // Funktion til at styre interaktivitet i quizzen
+        function checkQuiz(selectedId, isCorrect, explanation) {
+            // Nulstil alle svarmuligheder
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('selected-correct', 'selected-incorrect');
+            });
+            
+            const feedbackBox = document.getElementById('quiz-feedback');
+            feedbackBox.style.display = "block";
+            
+            const selectedOption = document.getElementById(selectedId);
+            
+            if (isCorrect) {
+                selectedOption.classList.add('selected-correct');
+                feedbackBox.innerHTML = "✓ <strong>Korrekt!</strong> " + explanation;
+                feedbackBox.className = "feedback correct";
+                feedbackBox.style.backgroundColor = "#e8f8f0";
+                feedbackBox.style.border = "1px solid #2ecc71";
+            } else {
+                selectedOption.classList.add('selected-incorrect');
+                feedbackBox.innerHTML = "✗ <strong>Prøv igen:</strong> " + explanation;
+                feedbackBox.className = "feedback incorrect";
+                feedbackBox.style.backgroundColor = "#fceae9";
+                feedbackBox.style.border = "1px solid #e74c3c";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Udledning: Toppunktsformlen</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Små ekstra tilføjelser til interaktivitet */
+        .quiz-option { background: #f8f9fa; border: 2px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; text-align: left; }
+        .quiz-option:hover { border-color: #3498db; background: #f1f7fc; }
+        .quiz-option.selected-correct { border-color: #2ecc71; background: #e8f8f0; }
+        .quiz-option.selected-incorrect { border-color: #e74c3c; background: #fceae9; }
+        .input-section { display: flex; gap: 15px; margin: 15px 0; }
+        .input-pair { display: flex; align-items: center; gap: 5px; }
+        .input-pair input { width: 120px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
+    </style>
+</head>
+<body>
+
+    <h1>Eksperimentel matematik</h1>
+    <h2>Udled toppunktsformlen ud fra parablens symmetri</h2>
+    
+    <div class="formula-box">
+        <h3>Teorien: Parablens smukke symmetri</h3>
+        <p>En parabel er fuldstændig <strong>symmetrisk</strong>. Det betyder, at hvis du finder to punkter på grafen, der ligger i præcis samme højde (\(y\)-værdi), så vil parablens vendepunkt — <strong>toppunktet</strong> — ligge lige præcis i midten af de to punkter!</p>
+        
+        <p>Vi vil finde midterlinealen for et generelt andengradspolynomium:</p>
+        <div style="font-size: 1.2em; margin: 10px 0; text-align: center;">
+            \(f(x) = a \cdot x^2 + b \cdot x + c\)
+        </div>
+
+        <p><strong>Strategi:</strong></p>
+        <ol>
+            <li>Vi ved fra formelsamlingen (69), at grafen skærer \(y\)-aksen i punktet \((0, c)\). Her er den første \(x\)-værdi altså \(x_1 = 0\).</li>
+            <li>Nu leder vi efter det <em>andet</em> sted på grafen, som har nøjagtig samme højde (\(y = c\)).</li>
+            <li>Når vi har begge \(x\)-værdier, finder vi gennemsnittet (midten) af dem for at ramme toppunktets \(x\)-koordinat (\(x_t\)).</li>
+        </ol>
+        <p>Eksempel.</p>
+        <iframe src="https://www.desmos.com/calculator/ibgolg9kds?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+    </div>
+
+
+
+    <div class="card">
+        <span class="info-badge">Trin 1</span>
+        <span class="task-title">Find det andet punkt i højden \(c\)</span>
+        <p>For at finde de to steder, hvor grafen har højden \(c\), skal vi løse ligningen \(f(x) = c\):</p>
+        $$a \cdot x^2 + b \cdot x + c = c$$
+        <p>Hvis vi trækker \(c\) fra på begge sider, forsvinder det løse tal, og vi får:</p>
+        $$a \cdot x^2 + b \cdot x = 0$$
+        <p>Nu sætter vi \(x\) uden for en parentes ved hjælp af nulreglen:</p>
+        $$x \cdot (a \cdot x + b) = 0$$
+        
+        <p><strong>Spørgsmål:</strong> Nulreglen siger, at enten er \(x = 0\), eller også er parentesen \(a \cdot x + b = 0\). <br>Isolér \(x\) i ligningen \(a \cdot x + b = 0\) på dit papir. Hvad bliver den anden \(x\)-værdi?</p>
+        
+        <div class="btn-group">
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Vis hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Vis løsning</button>
+        </div>
+        
+        <div id="hint-q1" class="hint-box">
+            <strong>Hint:</strong> Start med at flytte \(b\) over på højre side ved at trække det fra: \(a \cdot x = -b\). Divider derefter med \(a\) på begge sider for at få \(x\) til at stå helt alene.
+        </div>
+        
+        <div id="sol-q1" class="sol-box">
+            <strong>Løsning for det andet punkt:</strong><br>
+            Når vi isolerer \(x\) i parentesen, får vi:<br>
+            $$a \cdot x = -b \Rightarrow x_2 = \frac{-b}{a}$$<br>
+            Grafen skærer altså den vandrette linje \(y = c\) i de to punkter: <strong>\(x_1 = 0\)</strong> og <strong>\(x_2 = \frac{-b}{a}\)</strong>.
+        </div>
+    </div>
+
+    <div class="card calc-card">
+        <span class="info-badge calc-badge">Trin 2</span>
+        <span class="task-title">Beregn midten af de to punkter</span>
+        <p>Nu ved vi, at grafen rammer højden \(c\) i hhv. \(x_1 = 0\) og \(x_2 = \frac{-b}{a}\).</p>
+        <p>På grund af parablens perfekte <strong>symmetri</strong> må toppunktets \(x\)-koordinat (\(x_t\)) ligge præcis midt imellem disse to værdier. Vi finder midten (gennemsnittet) ved at lægge dem sammen og dividere med 2:</p>
+        $$x_t = \frac{x_1 + x_2}{2} = \frac{0 + \left(\frac{-b}{a}\right)}{2}$$
+        
+        <p><strong>Opfordring:</strong> Reducér brøken \(\frac{\frac{-b}{a}}{2}\). Hvilken berømt formel ender du med?</p>
+        
+        <div class="btn-group">
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Vis hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Vis den færdige formel!</button>
+        </div>
+        
+        <div id="hint-q2" class="hint-box">
+            <strong>Hint:</strong> At dividere en brøk med 2 svarer til at gange med 2 nede i brøkens nævner. Tænk på, hvad halvdelen af en "endedel" (\(\frac{1}{a}\)) er.
+        </div>
+        
+        <div id="sol-q2" class="sol-box">
+            <strong>Resultat:</strong><br>
+            Når du tager halvdelen af \(\frac{-b}{a}\), ganger du totals-tallet ind i nævneren. Det giver den officielle formel for toppunktets x-koordinat:<br>
+            $$\mathbf{x_t = \frac{-b}{2a}}$$
+            Nu har du bevist og udledt formlen udelukkende ved at bruge parablens geometriske symmetri! Flot gået!
+        </div>
+    </div>
+
+    <div class="card" style="border-left: 5px solid #3498db;">
+        <span class="info-badge" style="background: #3498db;">Tjek din forståelse</span>
+        <span class="task-title">Hvad fortæller symmetrien os om toppunktets placering?</span>
+        <p>Hvis et andengradspolynomium skærer \(y\)-aksen i \(c\), og man ændrer på \(b\)-værdien, hvad sker der så med symmetriaksen og toppunktsformlen?</p>
+        
+        <div class="quiz-options">
+            <div class="quiz-option" id="opt-a" onclick="checkQuiz('opt-a', false, 'Ikke helt. Hvis b = 0, bliver formlen til xt = -0/(2a) = 0. Det betyder faktisk, at toppunktet ligger lige præcis PÅ y-aksen.')">
+                <strong>A:</strong> Hvis \(b = 0\), kan formlen ikke bruges, fordi parabelens symmetri forsvinder fuldstændigt.
+            </div>
+            
+            <div class="quiz-option" id="opt-b" onclick="checkQuiz('opt-b', true, 'Fuldstændig rigtigt! Symmetrien gælder altid. Formlen xt = -b/(2a) finder altid det præcise midterpunkt mellem de to symmetriske y-værdier.')">
+                <strong>B:</strong> Formlen \(x_t = \frac{-b}{2a}\) virker for alle parabler, fordi midterpunktet mellem de symmetriske punkter \(x=0\) og \(x=\frac{-b}{a}\) altid vil være parablens vendepunkt.
+            </div>
+            
+            <div class="quiz-option" id="opt-c" onclick="checkQuiz('opt-c', false, 'Pas på. a styrer hvor hurtigt parablen buer (og om grenene vender op/ned), men den ændrer ikke på, at midterpunktet findes ved at dividere med 2.')">
+                <strong>C:</strong> Hvis \(a\) er et meget stort tal, ligger toppunktet ikke længere i midten, men rykker tættere på \(y\)-aksen.
+            </div>
+            
+            <div class="quiz-option" id="opt-d" onclick="checkQuiz('opt-d', false, 'Forkert. c-værdien forsvinder ud af ligningen i allerførste trin (c - c = 0), hvilket betyder, at parablens symmetriakse er fuldstændig uafhængig af, hvor højt oppe eller nede grafen er placeret.')">
+                <strong>D:</strong> Udledningen gælder kun, hvis \(c = 0\). Hvis \(c\) er et andet tal, kan man ikke trække det fra på begge sider af lighedstegnet.
+            </div>
+        </div>
+        
+        <div id="quiz-feedback" class="feedback" style="margin-top: 15px; padding: 10px; border-radius: 6px; display: none; font-weight: bold;"></div>
+    </div>
+
+<div class="card calc-card">
+        <span class="info-badge calc-badge">Trin 3</span>
+        <span class="task-title">Find y-koordinaten for toppunktet</span>
+        <p>Nu hvor vi kender den præcise \(x\)-værdi for toppunktet, \(x_t = \frac{-b}{2a}\), kan vi indsætte i forskriften for 2.grads polynomiet \(f(x) = ax^2+bx+c\) og finde y-værdien til \(y_t = \frac{-d}{4a}\), hvor \(d = b^2-4ac\).
+
+        </div>
+<div class="card calc-card">
+<span class="task-title">Toppunkt for en parabel</span>
+             \(\mathbf{Tp = \left(\frac{-b}{2a} , \frac{-d}{4a}\right)}\).
+  </div>
+    <div class="card" style="border-left: 5px solid #27ae60;">
+        <span class="info-badge" style="background: #27ae60;">Test din forståelse af y_t</span>
+        <span class="task-title">Hvad sker der med toppunktets y-værdi, hvis diskriminanten d er 0?</span>
+        <p>Hvis du udregner diskriminanten for et andengradspolynomium, og du får \(d = 0\), hvad fortæller formlen \(y_t = \frac{-d}{4a}\) os så om parablens placering i koordinatsystemet?</p>
+        
+        <div class="quiz-options">
+            <div class="quiz-option" id="opt-y-a" onclick="checkQuizY('opt-y-a', true, 'Præcis! Hvis d = 0, bliver yt = -0/(4a) = 0. Når y-koordinaten er 0, betyder det, at parablens absolutte vendepunkt (toppunktet) rører og hviler lige præcis på den vandrette x-akse. Den har derved nøjagtig én rod.')">
+                <strong>A:</strong> Toppunktets \(y\)-værdi bliver præcis \(0\), hvilket betyder, at parablens toppunkt ligger og rører direkte på \(x\)-aksen.
+            </div>
+            
+            <div class="quiz-option" id="opt-y-b" onclick="checkQuizY('opt-y-b', false, 'Pas på. Hvis d = 0, bliver tælleren 0, og så bliver hele brøken lig med 0. Den kan kun blive lig med c, hvis b = 0.')">
+                <strong>B:</strong> Toppunktets \(y\)-værdi bliver lig med \(c\), hvilket betyder, at toppunktet altid ligger på \(y\)-aksen.
+            </div>
+            
+            <div class="quiz-option" id="opt-y-c" onclick="checkQuizY('opt-y-c', false, 'Nej. Man må ikke dividere MED 0, men man må gerne dividere tallet 0 med noget andet (0 divideret med 4a giver bare 0). Formlen fejler ikke.')">
+                <strong>C:</strong> Brøken giver en matematikfejl (man kan ikke dividere med 0), så parablen har slet ikke noget toppunkt i dette tilfælde.
+            </div>
+        </div>
+        
+        <div id="quiz-feedback-y" class="feedback" style="margin-top: 15px; padding: 10px; border-radius: 6px; display: none; font-weight: bold;"></div>
+    </div>
+
+    <script>
+        // Funktion til at vise/skjule tekstbokse og hints
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+
+        // Funktion til quiz-interaktivitet
+        function checkQuiz(selectedId, isCorrect, explanation) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('selected-correct', 'selected-incorrect');
+            });
+            
+            const feedbackBox = document.getElementById('quiz-feedback');
+            feedbackBox.style.display = "block";
+            
+            const selectedOption = document.getElementById(selectedId);
+            
+            if (isCorrect) {
+                selectedOption.classList.add('selected-correct');
+                feedbackBox.innerHTML = "✓ <strong>Korrekt udledt!</strong> " + explanation;
+                feedbackBox.style.backgroundColor = "#e8f8f0";
+                feedbackBox.style.border = "1px solid #2ecc71";
+                feedbackBox.style.color = "#27ae60";
+            } else {
+                selectedOption.classList.add('selected-incorrect');
+                feedbackBox.innerHTML = "✗ <strong>Prøv igen:</strong> " + explanation;
+                feedbackBox.style.backgroundColor = "#fceae9";
+                feedbackBox.style.border = "1px solid #e74c3c";
+                feedbackBox.style.color = "#c0392b";
+            }
+        }
+    </script>
+
+</body>
+</html>

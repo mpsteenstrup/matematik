@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Træning: 2. gradspolynomiet</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <h1>2. gradspolynomiet</h1>
+    <h2>Identificér og aflæs koefficienterne \(a\), \(b\) og \(c\).</h2>
+    
+    <div class="formula-box">
+        <h3>Forskriften for et 2. gradspolynomium</h3>
+        <p>Den generelle forskrift skrives som:</p>
+        <div style="font-size: 1.5em; margin: 15px 0;">
+            $$f(x) = ax^2 + bx + c$$
+        </div>
+        <div class="formula-group">
+            <div>
+                <strong>Koefficienten \(a\)</strong> er tallet foran \(x^2\). Det bestemmer, om grenene vender op eller ned.<br><em>Husk: \(a\) må aldrig være 0.</em>
+            </div>
+            <div>
+                <strong>Koefficienten \(b\)</strong> er tallet foran \(x\). Det bestemmer grafens hældning i skæringen med y-aksen.
+            </div>
+            <div>
+                <strong>Konstanten \(c\)</strong> er det frie tal uden \(x\). Det er her, grafen skærer y-aksen.
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('example-standard')">Vis/Skjul Eksempel 1 (Standard)</button>
+            <button class="btn-example" onclick="toggleBox('example-trap')">Vis/Skjul Eksempel 2 (Fælderne)</button>
+        </div>
+
+        <div id="example-standard" class="example-block">
+            <h4>Eksempel 1: Det helt klassiske andengradspolynomium</h4>
+            <p>Givet funktionen:</p>
+            $$ f(x) = 2x^2 + 5x + 7 $$
+            <ul>
+                <li>\(a\) er tallet foran \(x^2\), så <strong>\(a = 2\)</strong></li>
+                <li>\(b\) er tallet foran \(x\), så <strong>\(b = 5\)</strong></li>
+                <li>\(c\) er det løse tal, så <strong>\(c = 7\)</strong></li>
+            </ul>
+        </div>
+
+        <div id="example-trap" class="example-block">
+            <h4>Eksempel 2: Hold øje med usynlige tal og fortegn!</h4>
+            <p>Givet funktionen:</p>
+            $$ f(x) = -x^2 - 3x $$
+            <ul>
+                <li><strong>Hvor er tallet foran \(x^2\)?</strong> Der står bare et minus. Det betyder i virkeligheden \(-1 \cdot x^2\). Så <strong>\(a = -1\)</strong>.</li>
+                <li><strong>Husk fortegnet:</strong> Foran \(x\) står der \(-3\). Fortegnet hører altid til tallet! Så <strong>\(b = -3\)</strong>.</li>
+                <li><strong>Hvor er \(c\)?</strong> Der er ikke noget frit tal i forskriften. Det svarer til, at der står \(+ 0\). Så <strong>\(c = 0\)</strong>.</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <span class="info-badge">Niveau: Let</span>
+        <span class="task-title">Opgave 1: Find tallene direkte</span>
+        <p>Aflæs konstanterne for funktionen:</p>
+        $$ f(x) = 3x^2 + 4x + 9 $$
+        <div class="input-section">
+            <div class="input-pair"><label>a =</label> <input type="text" id="q1a"></div>
+            <div class="input-pair"><label>b =</label> <input type="text" id="q1b"></div>
+            <div class="input-pair"><label>c =</label> <input type="text" id="q1c"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkABC('q1', 3, 4, 9)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Her står alle tre tal klar til dig. Kig bare på pladserne i forskriften: foran \(x^2\), foran \(x\) og til sidst.</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong><br>
+            Tallet foran \(x^2\) er 3. Tallet foran \(x\) er 4. Det løse tal til sidst er 9.<br>
+            Svaret er: <strong>a = 3, b = 4, c = 9</strong>.
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge">Niveau: Mellem</span>
+        <span class="task-title">Opgave 2: Pas på minustegnene</span>
+        <p>Aflæs konstanterne for funktionen:</p>
+        $$ f(x) = 5x^2 - 2x - 4 $$
+        <div class="input-section">
+            <div class="input-pair"><label>a =</label> <input type="text" id="q2a"></div>
+            <div class="input-pair"><label>b =</label> <input type="text" id="q2b"></div>
+            <div class="input-pair"><label>c =</label> <input type="text" id="q2c"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkABC('q2', 5, -2, -4)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box"><strong>Hint:</strong> Husk at et minustegn foran et tal hører sammen med tallet. Når der står \(- 2x\), betyder det at \(b\) er et negativt tal.</div>
+        <div id="sol-q2" class="sol-box"><strong>Løsning:</strong><br>
+            Tallet foran \(x^2\) er 5. Fortegnet foran 2 er minus, så \(b = -2\). Det frie tal er også negativt, så \(c = -4\).<br>
+            Svaret er: <strong>a = 5, b = -2, c = -4</strong>.
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge">Niveau: Mellem</span>
+        <span class="task-title">Opgave 3: De skjulte værdier</span>
+        <p>Aflæs konstanterne for funktionen:</p>
+        $$ f(x) = x^2 + x - 6 $$
+        <div class="input-section">
+            <div class="input-pair"><label>a =</label> <input type="text" id="q3a"></div>
+            <div class="input-pair"><label>b =</label> <input type="text" id="q3b"></div>
+            <div class="input-pair"><label>c =</label> <input type="text" id="q3c"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkABC('q3', 1, 1, -6)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Når der bare står \(x^2\) eller \(x\), betyder det, at der gemmer sig et usynligt 1-tal foran. Det er jo det samme som \(1x^2 + 1x\).</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong><br>
+            Da der står \(x^2\), er \(a = 1\). Da der står \(+ x\), er \(b = 1\). Konstanten til sidst er negativ, så \(c = -6\).<br>
+            Svaret er: <strong>a = 1, b = 1, c = -6</strong>.
+        </div>
+    </div>
+
+    <div class="card hard-card">
+        <span class="info-badge hard-badge">Niveau: Ikke helt så let</span>
+        <span class="task-title">Opgave 4: Her er der byttet rundt!</span>
+        <p>Aflæs konstanterne for funktionen:</p>
+        $$ f(x) = 7 - x^2 $$
+        <div class="input-section">
+            <div class="input-pair"><label>a =</label> <input type="text" id="q4a"></div>
+            <div class="input-pair"><label>b =</label> <input type="text" id="q4b"></div>
+            <div class="input-pair"><label>c =</label> <input type="text" id="q4c"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-hard-check" onclick="checkABC('q4', -1, 0, 7)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box"><strong>Hint:</strong> Pas på! Leddene behøver ikke komme i rækkefølge. Find \(a\) ved altid at kigge efter tallet foran \(x^2\). Hvor mange \(x\)'er i første potens er der i denne funktion? Hvis der ikke er nogen, må værdien være 0.</div>
+        <div id="sol-q4" class="sol-box"><strong>Løsning:</strong><br>
+            \(a\) er altid koblet til \(x^2\). Her står der \(-x^2\), hvilket betyder \(a = -1\). <br>
+            Der er intet led med \(x\), så \(b = 0\). <br>
+            Det frie tal er 7, så \(c = 7\).<br>
+            Svaret er: <strong>a = -1, b = 0, c = 7</strong>.
+        </div>
+    </div>
+
+
+    <script>
+        // Funktion til at vise/skjule hint, løsning og eksempler
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+
+        // Funktion til at tjekke svar for a, b og c
+        function checkABC(id, correctA, correctB, correctC) {
+            const inputA = document.getElementById(id + 'a').value.trim();
+            const inputB = document.getElementById(id + 'b').value.trim();
+            const inputC = document.getElementById(id + 'c').value.trim();
+            const feedback = document.getElementById('feedback-' + id);
+            
+            // Konverter input-strenge til decimaltal (erstatter komma med punktum)
+            const userA = parseFloat(inputA.replace(',', '.'));
+            const userB = parseFloat(inputB.replace(',', '.'));
+            const userC = parseFloat(inputC.replace(',', '.'));
+
+            if (inputA === "" || inputB === "" || inputC === "") {
+                feedback.innerHTML = "Indtast venligst værdier i alle tre felter.";
+                feedback.className = "feedback";
+                return;
+            }
+
+            if (isNaN(userA) || isNaN(userB) || isNaN(userC)) {
+                feedback.innerHTML = "✗ Input skal være tal. Tjek dine indtastninger.";
+                feedback.className = "feedback incorrect";
+                return;
+            }
+
+            // Tjekker om de indtastede værdier matcher de korrekte svar
+            const isACorrect = userA === correctA;
+            const isBCorrect = userB === correctB;
+            const isCCorrect = userC === correctC;
+
+            if (isACorrect && isBCorrect && isCCorrect) {
+                feedback.innerHTML = "✓ Flot! Alle tre koefficienter er fuldstændig korrekte.";
+                feedback.className = "feedback correct";
+            } else {
+                // Byg en hjælpende besked til eleven, hvis kun noget er forkert
+                let errorDetails = [];
+                if (!isACorrect) errorDetails.push("a");
+                if (!isBCorrect) errorDetails.push("b");
+                if (!isCCorrect) errorDetails.push("c");
+                
+                feedback.innerHTML = "✗ Ikke helt rigtigt. Der er fejl i dit/dine: " + errorDetails.join(", ") + ". Prøv igen.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+    </script>
+
+
+<iframe src="https://www.desmos.com/calculator/utv9fc3ud4?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+</body>
+</html>

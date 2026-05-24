@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eksperiment: Tangent og Funktionsforskrift</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Ekstra små tilføjelser til denne specifikke opgaveside */
+        .desmos-container { text-align: center; margin: 20px 0; }
+        .desmos-iframe { border: 1px solid #ccc; border-radius: 8px; max-width: 100%; }
+        .quiz-option { background: #f8f9fa; border: 2px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; text-align: left; }
+        .quiz-option:hover { border-color: #3498db; background: #f1f7fc; }
+        .quiz-option.selected-correct { border-color: #2ecc71; background: #e8f8f0; }
+        .quiz-option.selected-incorrect { border-color: #e74c3c; background: #fceae9; }
+        .input-section { display: flex; gap: 15px; margin: 15px 0; }
+        .input-pair { display: flex; align-items: center; gap: 5px; }
+        .input-pair input { width: 200px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
+    </style>
+</head>
+<body>
+
+    <h1>Eksperimentel matematik</h1>
+    <h2>Find sammenhængen mellem parabel og tangent</h2>
+    
+    <div class="formula-box">
+        <h3>Interaktiv graf</h3>
+        <p>Herunder kan du se parablen for andengradspolynomiet \(f(x)\) (rød) og tangenten \(g(x)\) (grøn)).</p>
+        
+        <div class="desmos-container">
+            <iframe src="https://www.desmos.com/calculator/axx2psfywz?embed" width="500" height="500" class="desmos-iframe" frameborder="0"></iframe>
+        </div>
+
+        <p>Klik på figuren for de præcise koordinater.</p>
+    </div>
+
+    <div class="card">
+        <span class="info-badge">Undersøgelse</span>
+        <span class="task-title">Opgave 1: Find forskriften for \(f(x)\)</span>
+        <p>Du har fået oplyst, at parablens formstyrede koefficient er \(a = 1\).</p>
+        <p>Kig godt på den blå tangentlinje, som rører parablen i \(x = 0\). Brug din viden om, hvordan tangentens hældning og skæring gemmer sig direkte i andengradspolynomiet, til at skrive hele forskriften for \(f(x)\):</p>
+        
+        <div class="input-section">
+            <div class="input-pair">
+                <label>\(f(x) =\)</label> 
+                <input type="text" id="q1f" placeholder="f.eks. 2x^2 + 4x - 2">
+            </div>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkFormula()">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback" style="margin-top: 10px; font-weight: bold;"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Den generelle forskrift er \(f(x) = ax^2 + bx + c\). Du ved allerede, at \(a = 1\). Tangentens hældning (\(-2\)) fortæller dig, hvad \(b\) skal være, og tangentens skæring med y-aksen (\(1\)) fortæller dig, hvad \(c\) skal være.</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong><br>
+            Da tangenten har forskriften \(g(x) = -2x + 1\), ved vi, at \(b = -2\) og \(c = 1\).<br>
+            Når vi sætter det sammen med \(a = 1\), får vi: <strong>\(f(x) = x^2 - 2x + 1\)</strong> (eller \(1x^2 - 2x + 1\)).
+        </div>
+    </div>
+
+    <div class="card" style="border-left: 5px solid #3498db;">
+        <span class="info-badge" style="background: #3498db;">Tjek din forståelse</span>
+        <span class="task-title">Hvilket af de fire udsagn om grafen er rigtigt?</span>
+        <p>Hvilken matematisk regel bekræfter dette eksperiment?</p>
+        
+        <div class="quiz-options">
+            <div class="quiz-option" id="opt-a" onclick="checkQuiz('opt-a', false, 'Ikke helt. Tangenten g(x) = -2x + 1 har hældningen -2, hvilket betyder at b = -2, ikke +2.')">
+                <strong>A:</strong> Da tangenten hælder nedad med \(-2\), må andengradspolynomiets \(b\)-værdi være lig med \(+2\).
+            </div>
+            
+            <div class="quiz-option" id="opt-b" onclick="checkQuiz('opt-b', true, 'Fuldstændig rigtigt! b-værdien (-2) matcher tangentens hældning, og c-værdien (1) matcher punktet, hvor den rører y-aksen.')">
+                <strong>B:</strong> Andengradspolynomiets \(b\)-værdi er præcis lig med tangentens hældningstal (\(-2\)), og dets \(c\)-værdi er lig med tangentens skæring med y-aksen (\(1\)).
+            </div>
+            
+            <div class="quiz-option" id="opt-c" onclick="checkQuiz('opt-c', false, 'Nej. Tangenten fortæller os om både hældningen (b) og skæringen (c) i netop det øjeblik, grafen krydser y-aksen.')">
+                <strong>C:</strong> Tangentens forskrift kan kun bruges til at finde \(a\)-værdien, mens \(b\) og \(c\) intet har med den rette linje at gøre.
+            </div>
+            
+            <div class="quiz-option" id="opt-d" onclick="checkQuiz('opt-d', false, 'Forkert. Hvis b-værdien ændres, ændrer tangenten hældning. De vil altid røre hinanden i x = 0 (så længe c er den samme).')">
+                <strong>D:</strong> Hvis vi ændrer på værdien af \(b\), vil den rette linje og parablen overhovedet ikke længere røre hinanden i punktet \((0,1)\).
+            </div>
+        </div>
+        
+        <div id="quiz-feedback" class="feedback" style="margin-top: 15px; padding: 10px; border-radius: 6px; display: none; font-weight: bold;"></div>
+    </div>
+
+    <script>
+        // Funktion til at vise/skjule bokse
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+
+        // Funktion til at tjekke tekst-formlen i Opgave 1
+        function checkFormula() {
+            const input = document.getElementById('q1f').value.replace(/\s+/g, '').toLowerCase();
+            const feedback = document.getElementById('feedback-q1');
+            
+            // Definer de korrekte måder eleverne kan skrive det på
+            const correctAnswers = [
+                "x^2-2x+1",
+                "1x^2-2x+1",
+                "x**2-2x+1",
+                "1x**2-2x+1",
+                "x^2-2*x+1"
+            ];
+
+            if (input === "") {
+                feedback.innerHTML = "Skriv venligst en forskrift først.";
+                feedback.style.color = "#7f8c8d";
+                return;
+            }
+
+            if (correctAnswers.includes(input)) {
+                feedback.innerHTML = "✓ Korrekt! Flot lavet. Forskriften er f(x) = x² - 2x + 1.";
+                feedback.style.color = "#2ecc71";
+            } else {
+                feedback.innerHTML = "✗ Ikke helt rigtigt. Husk at a = 1, b er tangentens hældning (-2), og c er skæringen (1). Prøv igen.";
+                feedback.style.color = "#e74c3c";
+            }
+        }
+
+        // Funktion til quiz-interaktivitet
+        function checkQuiz(selectedId, isCorrect, explanation) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('selected-correct', 'selected-incorrect');
+            });
+            
+            const feedbackBox = document.getElementById('quiz-feedback');
+            feedbackBox.style.display = "block";
+            
+            const selectedOption = document.getElementById(selectedId);
+            
+            if (isCorrect) {
+                selectedOption.classList.add('selected-correct');
+                feedbackBox.innerHTML = "✓ Korrekt! " + explanation;
+                feedbackBox.style.backgroundColor = "#e8f8f0";
+                feedbackBox.style.border = "1px solid #2ecc71";
+                feedbackBox.style.color = "#27ae60";
+            } else {
+                selectedOption.classList.add('selected-incorrect');
+                feedbackBox.innerHTML = "✗ Prøv igen: " + explanation;
+                feedbackBox.style.backgroundColor = "#fceae9";
+                feedbackBox.style.border = "1px solid #e74c3c";
+                feedbackBox.style.color = "#c0392b";
+            }
+        }
+    </script>
+
+</body>
+</html>

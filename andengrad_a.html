@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eksperiment: Koefficienten a</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Små ekstra tilføjelser til denne specifikke opgaveside */
+        .desmos-link { display: inline-block; background: #2c3e50; color: white; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; margin: 15px 0; transition: 0.3s; }
+        .desmos-link:hover { background: #34495e; }
+        .quiz-option { background: #f8f9fa; border: 2px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; text-align: left; }
+        .quiz-option:hover { border-color: #3498db; background: #f1f7fc; }
+        .quiz-option.selected-correct { border-color: #2ecc71; background: #e8f8f0; }
+        .quiz-option.selected-incorrect { border-color: #e74c3c; background: #fceae9; }
+        ol li { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <h1>Eksperimentel matematik</h1>
+    <h2>Undersøg koefficienten \(a\) i 2. gradspolynomiet</h2>
+    
+    <div class="formula-box">
+        <h3>Åbn Desmos og undersøg grafen</h3>
+        <p>Du skal nu undersøge, hvordan konstanten \(a\) styrer parablens udseende i funktionen:</p>
+        <div style="font-size: 1.4em; margin: 10px 0;">
+            $$f(x) = a \cdot x^2 + 1x + 1$$
+        </div>
+        <p>Klik på knappen herunder for at åbne det interaktive koordinatsystem. Brug skyderen (slideren) for \(a\) til at besvare opgaverne.</p>
+        
+        <a href="https://www.desmos.com/calculator/udeeggfwvl" target="_blank" class="desmos-link">🔗 Åbn Desmos-eksperimentet</a>
+    </div>
+
+    <div class="card">
+        <span class="info-badge">Laboratorie-øvelse</span>
+        <span class="task-title">Opgaver: Hvad observerer du?</span>
+        <p>Brug dine eksperimenter i Desmos til at overveje eller diskutere følgende spørgsmål:</p>
+        
+        <ol>
+            <li><strong>Positive værdier af \(a\):</strong> Sæt skyderen til forskellige tal, der er større end 0 (f.eks. \(a = 0.5\), \(a = 2\), \(a = 5\)).
+                <br><small style="color: #7f8c8d;">- Vender parablens grene (ben) opad eller nedad? Hvad sker der med formen, når tallet bliver meget stort?</small>
+            </li>
+            <li><strong>Negative værdier af \(a\):</strong> Træk nu skyderen over på tal, der er mindre end 0 (f.eks. \(a = -0.5\), \(a = -2\), \(a = -4\)).
+                <br><small style="color: #7f8c8d;">- Hvad sker der med parablens grene nu? Hvad sker der med formen, når tallet bliver meget "stort" i negativ retning?</small>
+            </li>
+            <li><strong>Det kritiske punkt (\(a = 0\)):</strong> Prøv at indstille skyderen præcis på \(a = 0\).
+                <br><small style="color: #7f8c8d;">- Hvilken form får grafen nu? Hvorfor er det (ud fra funktionsforskriften) helt logisk?</small>
+            </li>
+            <li><strong>Det faste punkt:</strong> Uanset hvad du ændrer \(a\) til, er der ét bestemt punkt på y-aksen, som grafen altid skærer igennem.
+                <br><small style="color: #7f8c8d;">- Hvilket punkt er det, og hvilken konstant i forskriften bestemmer dette?</small>
+            </li>
+        </ol>
+
+        <div class="btn-group">
+            <button class="btn-sol" onclick="toggleBox('sol-desmos')">Vis/Skjul svar-guide.</button>
+        </div>
+        
+        <div id="sol-desmos" class="sol-box">
+            <strong>Hurtig facitliste til læreren:</strong><br>
+            1. Grenene vender opad (glad parabel). Jo større \(a\) er, jo smallere/stejlere bliver parablen.<br>
+            2. Grenene vender nedad (sur parabel). Jo lavere/mere negativ \(a\) er, jo mere stejl nedadgående bliver den.<br>
+            3. Grafen bliver en fuldstændig ret linje (\(f(x) = 1x + 1\)), fordi leddet \(0 \cdot x^2\) forsvinder.<br>
+            4. Den skærer altid i \((0,1)\), hvilket styres af konstanten \(c\) (som her er låst på 1).
+        </div>
+    </div>
+
+    <div class="card" style="border-left: 5px solid #3498db;">
+        <span class="info-badge" style="background: #3498db;">Tjek din forståelse</span>
+        <span class="task-title">Hvilket af de fire udsagn om koefficienten \(a\) er rigtigt?</span>
+        <p>Baseret på dine undersøgelser i Desmos, vælg det udsagn, der beskriver virkeligheden helt korrekt:</p>
+        
+        <div class="quiz-options">
+            <div class="quiz-option" id="opt-a" onclick="checkQuiz('opt-a', false, 'Næsten! Men når a bliver meget stor, bliver parablen faktisk smallere og stejlere, fordi y-værdierne vokser hurtigere - ikke bredere og fladere.')">
+                <strong>A:</strong> Når \(a\) bliver et meget stort tal, bliver parablen bredere og fladere, og skæringen med y-aksen flytter sig opad i koordinatsystemet.
+            </div>
+            
+            <div class="quiz-option" id="opt-b" onclick="checkQuiz('opt-b', true, 'Fuldstændig korrekt! Fortegnet afgør parablens humør (glad/sur), og hvis a = 0, forsvinder andengradsleddet, så funktionen reduceres til den rette linje f(x) = 1x + 1.')">
+                <strong>B:</strong> Når \(a > 0\), vender parablens grene opad (glad), når \(a < 0\), vender de nedad (sur), og hvis \(a = 0\), bliver grafen til en ret linje.
+            </div>
+            
+            <div class="quiz-option" id="opt-c" onclick="checkQuiz('opt-c', false, 'Desværre forkert. Det er konstanten c der bestemmer, hvor på y-aksen parablen skærer. Koefficienten a styrer derimod parablens krumning og retning.')">
+                <strong>C:</strong> Koefficienten \(a\) bestemmer udelukkende, hvor på y-aksen parablen skærer, mens parablens grene altid vil vende opad uanset fortegn.
+            </div>
+            
+            <div class="quiz-option" id="opt-d" onclick="checkQuiz('opt-d', false, 'Ikke rigtigt. Man må gerne indsætte 0. Det betyder blot, at 0 * x² bliver 0 og forsvinder, så vi står tilbage med en lineær funktion.')">
+                <strong>D:</strong> Hvis man indstiller \(a = 0\), forsvinder grafen fuldstændigt fra koordinatsystemet, fordi man ikke må gange med 0 i en funktion.
+            </div>
+        </div>
+        
+        <div id="quiz-feedback" class="feedback" style="margin-top: 15px; padding: 10px; border-radius: 6px; display: none;"></div>
+    </div>
+
+    <script>
+        // Funktion til at vise/skjule hint og løsninger
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+
+        // Funktion til at styre interaktivitet i quizzen
+        function checkQuiz(selectedId, isCorrect, explanation) {
+            // Nulstil alle svarmuligheder
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('selected-correct', 'selected-incorrect');
+            });
+            
+            const feedbackBox = document.getElementById('quiz-feedback');
+            feedbackBox.style.display = "block";
+            
+            const selectedOption = document.getElementById(selectedId);
+            
+            if (isCorrect) {
+                selectedOption.classList.add('selected-correct');
+                feedbackBox.innerHTML = "✓ <strong>Korrekt!</strong> " + explanation;
+                feedbackBox.className = "feedback correct";
+                feedbackBox.style.backgroundColor = "#e8f8f0";
+                feedbackBox.style.border = "1px solid #2ecc71";
+            } else {
+                selectedOption.classList.add('selected-incorrect');
+                feedbackBox.innerHTML = "✗ <strong>Prøv igen:</strong> " + explanation;
+                feedbackBox.className = "feedback incorrect";
+                feedbackBox.style.backgroundColor = "#fceae9";
+                feedbackBox.style.border = "1px solid #e74c3c";
+            }
+        }
+    </script>
+
+</body>
+</html>

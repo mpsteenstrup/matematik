@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eksperiment: Koefficienten b</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Små ekstra tilføjelser til denne specifikke opgaveside */
+        .desmos-link { display: inline-block; background: #2c3e50; color: white; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; margin: 15px 0; transition: 0.3s; }
+        .desmos-link:hover { background: #34495e; }
+        .quiz-option { background: #f8f9fa; border: 2px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; text-align: left; }
+        .quiz-option:hover { border-color: #3498db; background: #f1f7fc; }
+        .quiz-option.selected-correct { border-color: #2ecc71; background: #e8f8f0; }
+        .quiz-option.selected-incorrect { border-color: #e74c3c; background: #fceae9; }
+        ol li { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <h1>Eksperimentel matematik</h1>
+    <h2>Undersøg koefficienten \(b\) i 2. gradspolynomiet</h2>
+    
+    <div class="formula-box">
+        <h3>Åbn Desmos og undersøg parablen og tangenten</h3>
+        <p>Du skal nu undersøge, hvordan tallet \(b\) styrer hældningen for den rette linje (tangenten), der rører parablen i \(x = 0\):</p>
+        <div style="font-size: 1.4em; margin: 10px 0;">
+            $$f(x) = 1 \cdot x^2 + b \cdot x + 1$$
+        </div>
+        <p>Klik på knappen herunder for at åbne koordinatsystemet. Du vil se parablens graf (grøn) og tangenten (rød), som akkurat rører parablen i punktet på y-aksen (hvor \(x=0\)). Brug skyderen for \(b\) til at besvare opgaverne.</p>
+        
+        <a href="https://www.desmos.com/calculator/c7v1lfhjnq" target="_blank" class="desmos-link">🔗 Åbn Desmos-eksperimentet</a>
+
+        <div class="btn-group" style="justify-content: center; margin-top: 20px;">
+            <button class="btn-example" onclick="toggleBox('example-b-forklaring')">Vis/Skjul den matematiske forklaring</button>
+        </div>
+
+        <div id="example-b-forklaring" class="example-block" style="display: none; text-align: left; margin-top: 15px;">
+            <h4>Hvorfor er \(b\) lig med tangentens hældning i \(x = 0\)?</h4>
+            <p>Du kender allerede den lineære funktion \(y = ax + b\), hvor \(a\) er hældningen, og \(b\) er skæringen med y-aksen.</p>
+            <p>For et andengradspolynomium \(f(x) = ax^2 + bx + c\) gælder der en smuk sammenhæng: Hvis vi tegner en fuldstændig ret linje (en tangent), som akkurat strejfer og rører parablen i punktet på y-aksen (hvor \(x = 0\)), så vil denne linje have forskriften:</p>
+            $$y = bx + c$$
+            <p>Her kan vi direkte genkende strukturen fra den lineære funktion! Da tangenten rører lige præcis i \(x = 0\), fortæller forskriften os, at:</p>
+            <ul>
+                <li><strong>\(b\) står på hældningskoefficientens plads</strong>. Det betyder, at \(b\) styrer, hvor stejl tangenten er i røringspunktet.</li>
+                <li><strong>\(c\) står på skæringens plads</strong>. Det betyder, at tangenten og parablen skærer y-aksen i nøjagtig samme højde.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge">Laboratorie-øvelse</span>
+        <span class="task-title">Opgaver: Hvad observerer du?</span>
+        <p>Brug dine eksperimenter i Desmos til at svare på følgende spørgsmål:</p>
+        
+        <ol>
+            <li><strong>Positive værdier af \(b\):</strong> Træk skyderen for \(b\) op på et positivt tal (f.eks. \(b = 2\) eller \(b = 4\)).
+                <br><small style="color: #7f8c8d;">- Kig på den røde tangent, der rører grafen i \(x = 0\). Går tangenten opad eller nedad (er den voksende eller aftagende)? Hvad sker der med parablens placering i koordinatsystemet?</small>
+            </li>
+            <li><strong>Negative værdier af \(b\):</strong> Træk nu skyderen over på et negativt tal (f.eks. \(b = -2\) eller \(b = -4\)).
+                <br><small style="color: #7f8c8d;">- Hvad sker der med hældningen på tangenten i \(x = 0\) nu? Rykker parablens bund (toppunkt) sig til højre eller venstre for y-aksen, når tangenten får en negativ hældning?</small>
+            </li>
+            <li><strong>Det specielle tilfælde (\(b = 0\)):</strong> Indstil skyderen præcis på \(b = 0\).
+                <br><small style="color: #7f8c8d;">- Hvilken hældning har tangenten i \(x = 0\) nu? Hvor ligger parablens bund (toppunkt) placeret i forhold til y-aksen i dette tilfælde?</small>
+            </li>
+            <li><strong>Aflæsning af tangenten:</strong> Sæt \(b = 3\). Kig på forskriften for den røde tangentlinje i venstre menu i Desmos (\(y = b \cdot x + 1\)).
+                <br><small style="color: #7f8c8d;">- Forklar med dine egne ord, hvordan man direkte kan aflæse værdien af koefficienten \(b\) blot ved at tælle tangentens hældning (hvor meget den går op, når man går 1 ud).</small>
+            </li>
+        </ol>
+
+        <div class="btn-group">
+            <button class="btn-sol" onclick="toggleBox('sol-desmos-b')">Vis/Skjul svar-guide til læreren</button>
+        </div>
+        
+        <div id="sol-desmos-b" class="sol-box">
+            <strong>Hurtig facitliste til læreren (om b):</strong><br>
+            1. Tangenten i \(x=0\) går opad (voksende lineær funktion). Når tangenten hælder opad, tvinges parablens toppunkt ned og til venstre.<br>
+            2. Tangenten i \(x=0\) går nedad (aftagende lineær funktion). Når tangenten hælder nedad, rykker parablens toppunkt ned og til højre.<br>
+            3. Tangenten er fuldstændig vandret (hældning = 0). Da parablens hældning i \(x=0\) dermed er nul, betyder det, at parablens bund (toppunktet) ligger præcis *på* y-aksen i punktet \((0,1)\).<br>
+            4. Forskriften for tangenten bliver \(y = 3x + 1\). Da det er en ret linje, betyder det, at når man går 1 enhed ud ad x-aksen fra røringspunktet, går tangenten præcis 3 enheder op. Hældningen på denne linje er altid lig med \(b\).
+        </div>
+    </div>
+
+    <div class="card" style="border-left: 5px solid #3498db;">
+        <span class="info-badge" style="background: #3498db;">Tjek din forståelse</span>
+        <span class="task-title">Hvilket af de fire udsagn om koefficienten \(b\) er rigtigt?</span>
+        <p>Baseret på dine undersøgelser i Desmos, vælg det udsagn, der beskriver virkeligheden helt korrekt:</p>
+        
+        <div class="quiz-options">
+            <div class="quiz-option" id="opt-a" onclick="checkQuiz('opt-a', false, 'Desværre ikke. b-værdien styrer ikke parablens overordnede bredde eller om grenene vender op eller ned (det gør a). b styrer udelukkende tangentens hældning i x=0.')">
+                <strong>A:</strong> Koefficienten \(b\) bestemmer, om parablens grene er brede eller smalle, og hvis \(b = 0\), klapper parablen helt sammen omkring x-aksen.
+            </div>
+            
+            <div class="quiz-option" id="opt-b" onclick="checkQuiz('opt-b', true, 'Fuldstændig rigtigt! b-værdien svarer præcis til hældningen på den rette linje (tangenten), der rører parablen i x = 0. Er b positiv, går tangenten opad, er b=0 er den vandret, og er b negativ går den nedad.')">
+                <strong>B:</strong> Værdien af \(b\) er lig med hældningen af den rette tangentlinje, der rører parablen i \(x = 0\). Hvis \(b > 0\), er denne tangent opadgående, og hvis \(b = 0\), er tangenten helt vandret.
+            </div>
+            
+            <div class="quiz-option" id="opt-c" onclick="checkQuiz('opt-c', false, 'Pas på! Hvis b er positiv og tangenten går opad, bevæger toppunktet sig faktisk ned og til venstre (mod negative x-værdier) for at kunne møde tangenten rigtigt i x=0.')">
+                <strong>C:</strong> Når tangentens hældning \(b\) gøres større og mere positiv, vil parablens bund (toppunktet) altid rykke sig længere og længere opad og mod højre i koordinatsystemet.
+            </div>
+            
+            <div class="quiz-option" id="opt-d" onclick="checkQuiz('opt-d', false, 'Ikke helt rigtigt. Tangenten rører parablen i netop punktet (0,c) på y-aksen. b styrer udelukkende tangentens hældning (hvor stejl den er), ikke dens placering i forhold til parablen.')">
+                <strong>D:</strong> Koefficienten \(b\) fortæller udelukkende, hvor mange enheder den røde tangentlinje ligger over eller under parablen, når vi kigger langt ude på x-aksen.
+            </div>
+        </div>
+        
+        <div id="quiz-feedback" class="feedback" style="margin-top: 15px; padding: 10px; border-radius: 6px; display: none;"></div>
+    </div>
+
+    <script>
+        // Funktion til at vise/skjule hint og løsninger
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+
+        // Funktion til at styre interaktivitet i quizzen
+        function checkQuiz(selectedId, isCorrect, explanation) {
+            // Nulstil alle svarmuligheder
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => {
+                opt.classList.remove('selected-correct', 'selected-incorrect');
+            });
+            
+            const feedbackBox = document.getElementById('quiz-feedback');
+            feedbackBox.style.display = "block";
+            
+            const selectedOption = document.getElementById(selectedId);
+            
+            if (isCorrect) {
+                selectedOption.classList.add('selected-correct');
+                feedbackBox.innerHTML = "✓ <strong>Korrekt!</strong> " + explanation;
+                feedbackBox.className = "feedback correct";
+                feedbackBox.style.backgroundColor = "#e8f8f0";
+                feedbackBox.style.border = "1px solid #2ecc71";
+            } else {
+                selectedOption.classList.add('selected-incorrect');
+                feedbackBox.innerHTML = "✗ <strong>Prøv igen:</strong> " + explanation;
+                feedbackBox.className = "feedback incorrect";
+                feedbackBox.style.backgroundColor = "#fceae9";
+                feedbackBox.style.border = "1px solid #e74c3c";
+            }
+        }
+    </script>
+
+</body>
+</html>
