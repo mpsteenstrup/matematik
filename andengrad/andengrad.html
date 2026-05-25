@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kursus: Andengradspolynomier</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specifikke tilføjelser til at lave en flot forside-oversigt */
+        .intro-header { text-align: center; margin-bottom: 40px; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+        .module-card { background: white; border-radius: 8px; padding: 20px; border-top: 5px solid #cccccc; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s; }
+        .module-card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .module-num { font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: #7f8c8d; margin-bottom: 5px; }
+        .module-title { font-size: 1.25em; font-weight: bold; margin-bottom: 10px; color: #2c3e50; }
+        .module-desc { font-size: 0.95em; color: #555; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
+        .module-link { display: inline-block; background: #3498db; color: white; text-decoration: none; padding: 10px 15px; border-radius: 4px; text-align: center; font-weight: bold; transition: background 0.2s; }
+        .module-link:hover { background: #2980b9; }
+        
+        /* Farvekoder til de forskellige sektioner i forløbet */
+        .border-desmos { border-top-color: #e67e22; }
+        .border-skitse { border-top-color: #2ecc71; }
+        .border-bevis { border-top-color: #9b59b6; }
+        .border-traening { border-top-color: #34495e; }
+    </style>
+</head>
+<body>
+
+    <div class="intro-header">
+        <h1>Eksperimentel Matematik</h1>
+        <h2>Forløb: Andengradspolynomier & Geometri</h2>
+        <p>Velkommen til det interaktive forløb om andengradspolynomier. Gennemgå modulerne i rækkefølge, brug de indbyggede Desmos-værktøjer og bliv klogere på sammenhængene uden at fare vild i svære formler fra starten.</p>
+    </div>
+
+    <h3 style="margin-top: 40px; border-bottom: 2px solid #e67e22; padding-bottom: 5px; color: #e67e22;">Del 1: Eksperimenter med tangenten (Desmos)</h3>
+    <div class="course-grid">
+        <div class="module-card border-desmos">
+            <div>
+                <div class="module-num">Modul 1</div>
+                <div class="module-title">Match med tangenten</div>
+                <p class="module-desc">Leg med skyderne i Desmos og find ud af, hvordan parablens hemmelige rette linje (tangenten) afslører værdierne for b og c.</p>
+            </div>
+            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_1.html" class="module-link" style="background-color: #e67e22;">Start modul 1</a>
+        </div>
+
+        <div class="module-card border-desmos">
+            <div>
+                <div class="module-num">Modul 2</div>
+                <div class="module-title">Fra tangent til forskrift</div>
+                <p class="module-desc">Brug det integrerede Desmos-koordinatsystem til at bestemme den fulde funktionsforskrift for f(x) ud fra tangentens hældning.</p>
+            </div>
+            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_2.html" class="module-link" style="background-color: #e67e22;">Start modul 2</a>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 40px; border-bottom: 2px solid #2ecc71; padding-bottom: 5px; color: #2ecc71;">Del 2: Det visuelle overblik & Skitsering</h3>
+    <div class="course-grid">
+        <div class="module-card border-skitse">
+            <div>
+                <div class="module-num">Egenskaber</div>
+                <div class="module-title">Koefficienternes betydning</div>
+                <p class="module-desc">Dyk ned i formelsamlingens formel 67, 68 og 69 for at mestre de tre enkelte bogstavers visuelle betydning for parablen.</p>
+                <div style="display: flex; gap: 5px; margin-bottom: 15px;">
+                    <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_a.html" style="font-size: 0.85em; background: #eee; padding: 3px 8px; border-radius: 3px; color: #333; text-decoration: none;">Vis a-led</a>
+                    <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_b.html" style="font-size: 0.85em; background: #eee; padding: 3px 8px; border-radius: 3px; color: #333; text-decoration: none;">Vis b-led</a>
+                    <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_c.html" style="font-size: 0.85em; background: #eee; padding: 3px 8px; border-radius: 3px; color: #333; text-decoration: none;">Vis c-led</a>
+                </div>
+            </div>
+            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_3.html" class="module-link" style="background-color: #2ecc71;">Tegn skitser (Modul 3)</a>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 40px; border-bottom: 2px solid #9b59b6; padding-bottom: 5px; color: #9b59b6;">Del 3: De matematiske udledninger</h3>
+    <div class="course-grid">
+        <div class="module-card border-bevis">
+            <div>
+                <div class="module-num">Bevis 1</div>
+                <div class="module-title">Udledning af toppunktet</div>
+                <p class="module-desc">Brug parablens smukke, geometriske symmetri til selv at udlede formlerne for både x- og y-koordinaten til toppunktet uden at starte med svære formler.</p>
+            </div>
+            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_4.html" class="module-link" style="background-color: #9b59b6;">Udled Toppunkt</a>
+        </div>
+
+        <div class="module-card border-bevis">
+            <div>
+                <div class="module-num">Bevis 2</div>
+                <div class="module-title">Udledning af rødderne</div>
+                <p class="module-desc">Hvor kommer løsningsformlen egentlig fra? Gennemgå det fulde algebraiske bevis trin-for-trin og forstå kvadratroden og diskriminantens rolle.</p>
+            </div>
+            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_root.html" class="module-link" style="background-color: #9b59b6;">Udled Rødder</a>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 40px; border-bottom: 2px solid #34495e; padding-bottom: 5px; color: #34495e;">Del 4: Træning & Opgaver</h3>
+    <div class="course-grid">
+        <div class="module-card border-traening">
+            <div>
+                <div class="module-num">Træningsmodul</div>
+                <div class="module-title">Beregn Toppunkter</div>
+                <p class="module-desc">Test dine evner og træn beregningen af parablens vendepunkt. Opgaverne stiger pædagogisk i sværhedsgrad fra lette heltal til brøker og manglende led.</p>
+            </div>
+            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_tp_2.html" class="module-link" style="background-color: #34495e;">Start træning</a>
+        </div>
+    </div>
+
+    <footer style="margin-top: 60px; text-align: center; color: #95a5a6; font-size: 0.85em;">
+        <p>Udviklet til eksperimentel matematikundervisning. Integreret med Desmos og Gemini AI-Tutor.</p>
+    </footer>
+
+</body>
+</html>
