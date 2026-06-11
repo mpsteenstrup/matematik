@@ -1,0 +1,62 @@
+Oversigt over HTML-filer i mappen "andengrad"
+
+1. andengrad.html
+   - Hovedside for forløbet "Andengradspolynomier".
+   - Indeholder moduloversigt, links til de enkelte moduler og til undersider for a, b, c, toppunkt og rødder.
+
+# Aflæsning af koefficienterne
+
+2. andengrad_1.html
+   - Introduktionsmodul med øvelser i at aflæse koefficienterne a, b og c fra andengradspolynomiets forskrift.
+   - Indeholder flere opgaver med tjek-svar, hints og løsninger.
+
+
+# koefficienternes betydning for grafens forløb.
+
+6. andengrad_a.html
+   - Eksperimentel side om koefficienten a.
+   - Bruger Desmos til at undersøge, hvordan ændringer i a påvirker parablens form og retning.
+   - Indeholder opgaver og en forståelsesquiz.
+
+
+
+8. andengrad_c.html
+   - Eksperimentel side om konstanten c.
+   - Forklarer, hvordan c bestemmer skæringen med y-aksen og forskydningen af parablen.
+   - Indeholder visuelle og algebraiske eksempler samt quiz.
+
+7. andengrad_b.html
+   - Eksperimentel side om koefficienten b.
+   - Undersøger relationen mellem b og tangentens hældning i x = 0.
+   - Indeholder både praktiske opgaver og en quiz.
+
+# Tegn tangent ud fra parabel.
+3. andengrad_2.html
+   - Modul med fokus på tangentens sammenhæng med b og c.
+   - Interaktive opgaver til at finde tangentens hældning og skæring i forbindelse med forskellige parabler.
+   - Indeholder også en quiz om relationen mellem b, c og tangent.
+
+# Find forskrift ud fra parabel og tangent.
+4. andengrad_3.html
+   - Ekstra undersøgelse af sammenhængen mellem parabel og tangent.
+   - Behandler funktionsforskrift, tangent og grafens opførsel med interaktivt tjek og quiz.
+
+# Tegn parablen ud fra forskriften.
+5. andengrad_4.html
+   - Træningsmodul om at skitsere parabler ud fra koefficienterne.
+   - Indeholder vejledninger, skitseøvelser og forståelsestest om grafens form og koefficienternes betydning.
+
+10. andengrad_tp.html
+    - Udledning af toppunktsformlen baseret på parablens symmetri.
+    - Forklarer, hvordan man finder x_t og y_t med brug af symmetri og beregning.
+    - Indeholder interaktive trin og en quiz om toppunktets placering.
+
+11. andengrad_tp_2.html
+    - Praktisk træning i at beregne parablens toppunkt (x_t, y_t).
+    - Indeholder opgaver med stigende sværhedsgrad, herunder decimaltal og tilfælde hvor b = 0.
+
+
+9. andengrad_root.html
+   - Udledningsside for rødder i andengradspolynomiet.
+   - Gennemgår klassiske algebraiske trin mod rødderne og diskrimantens betydning.
+   - Indeholder forklaringer, trinvis bevisstruktur og forståelsestest.
