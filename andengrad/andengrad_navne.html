@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parablens Anatomi: Navne og Begreber</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .quiz-option { background: #f8f9fa; border: 2px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; text-align: left; }
+        .quiz-option:hover { border-color: #3498db; background: #f1f7fc; }
+        .quiz-option.selected-correct { border-color: #2ecc71; background: #e8f8f0; }
+        .quiz-option.selected-incorrect { border-color: #e74c3c; background: #fceae9; }
+        .graph-img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 15px 0; display: block; }
+        .input-pair { display: flex; align-items: center; gap: 5px; margin: 10px 0; }
+        .input-pair input { width: 120px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
+        .ai-box { border: 2px dashed #9b59b6; background-color: #faf3fc; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        textarea { width: 100%; height: 90px; padding: 10px; border-radius: 4px; border: 1px solid #ccc; font-family: monospace; font-size: 0.9em; resize: none; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>Parablens anatomi</h1>
+    <h2>Lær at kende og aflæse de vigtigste begreber</h2>
+    
+    <div class="formula-box">
+        <h3>De fem vigtige ord</h3>
+        <p>Når vi kigger på grafen for et andengradspolynomium (som kaldes en <strong>parabel</strong>), skal vi kunne udpege fem centrale ting:</p>
+        <img src="billeder/navne.png" class="graph-img">
+        <ul>
+            <li><strong>Grene:</strong> Parablens "ben" eller sider. De kan enten vende opad eller nedad.</li>
+            <li><strong>Toppunkt:</strong> Parablens absolutte vendepunkt (bunden af en dal eller toppen af et bjerg).</li>
+            <li><strong>Skæring med y-aksen:</strong> Hvor grafen krydser den lodrette akse.</li>
+            <li><strong>Rødder:</strong> De steder, hvor grafen skærer den vandrette x-akse.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #e74c3c;">Figur 1: Rød parabel</span>
+        <span class="task-title">Opgave 1: Undersøg og aflæs den røde graf</span>
+        <p>Kig godt på grafen herunder, og svar på spørgsmålene:</p>
+        
+        <img src="billeder/navne1.png" alt="Rød parabel" class="graph-img">
+
+        <div class="input-pair">
+            <label>1. Vender grenene op eller ned?</label>
+            <select id="q1-grene" style="padding: 6px; border-radius: 4px;">
+                <option value="">Vælg...</option>
+                <option value="op">Opad</option>
+                <option value="ned">Nedad</option>
+            </select>
+        </div>
+
+        <div class="input-pair">
+            <label>2. Skæring med y-aksen:</label>
+            <input type="text" id="q1-y" placeholder="(x,y)">
+        </div>
+
+        <div class="input-pair">
+            <label>3. Toppunktets koordinatsæt:</label>
+            <input type="text" id="q1-tp" placeholder="(x,y)">
+        </div>
+
+        <div class="input-pair">
+            <label>4. Hvilke to rødder har parablen:</label>
+            <input type="text" id="q1-roedder" placeholder="x1, x2">
+        </div>
+
+        <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn-check" onclick="checkFigur1()">Tjek mine svar</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Vis løsning</button>
+            <button class="btn-hint" onclick="toggleBox('ai-q1')">🤖 Spørg Gemini</button>
+        </div>
+
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="sol-q1" class="sol-box">
+            <strong>Korrekt løsning for Figur 1:</strong><br>
+            1. Grenene vender <strong>nedad</strong> (sur parabel, hvilket betyder at \(a < 0\)).<br>
+            2. Skæring med y-aksen er i <strong>(0, 2)</strong>.<br>
+            3. Toppunktet ligger præcis på toppen i <strong>(-0.5, 2.25)</strong>.<br>
+            4. Rødderne (skæring med x-aksen) ligger i \(x = -2\) og \(x = 1\) (skrives som <strong>-2,1</strong>).
+        </div>
+
+        <div id="ai-q1" class="ai-box" style="display: none;">
+            <strong>Kopiér denne besked til Gemini, hvis du er i tvivl om, hvordan man aflæser:</strong>
+            <textarea readonly onclick="this.select()">Du er en matematiktutor. Jeg skal aflæse en sur parabel. Den skærer y-aksen i 2, x-aksen i -2 og 1, og har sit højeste punkt midt imellem i x = -0.5, hvor y er lidt over 2. Kan du pædagogisk forklare mig, hvad der er henholdsvis toppunktet, rødderne og skæringen med y-aksen ud fra disse informationer?</textarea>
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #2ecc71;">Figur 2: Grøn parabel</span>
+        <span class="task-title">Opgave 2: Undersøg og aflæs den grønne graf</span>
+        <p>Kig nu på den grønne graf herunder, og udfyld de tomme felter:</p>
+        
+        <img src="billeder/navne2.png" alt="Grøn parabel" class="graph-img">
+
+        <div class="input-pair">
+            <label>1. Vender grenene op eller ned?</label>
+            <select id="q2-grene" style="padding: 6px; border-radius: 4px;">
+                <option value="">Vælg...</option>
+                <option value="op">Opad</option>
+                <option value="ned">Nedad</option>
+            </select>
+        </div>
+
+        <div class="input-pair">
+            <label>2. Skæring med y-aksen:</label>
+            <input type="text" id="q2-y" placeholder="(x,y)">
+        </div>
+
+        <div class="input-pair">
+            <label>3. Toppunktets koordinatsæt:</label>
+            <input type="text" id="q2-tp" placeholder="(x,y)">
+        </div>
+
+        <div class="input-pair">
+            <label>4. Hvilke to rødder har parablen?</label>
+            <input type="text" id="text" id="q2-roedder" placeholder="x1, x2">
+        </div>
+
+        <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn-check" onclick="checkFigur2()">Tjek mine svar</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Vis løsning</button>
+        </div>
+
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="sol-q2" class="sol-box">
+            <strong>Korrekt løsning for Figur 2:</strong><br>
+            1. Grenene vender <strong>opad</strong> (glad parabel, hvilket betyder at \(a > 0\)).<br>
+            2. Skæring med y-aksen er i <strong>(0, 0)</strong>.<br>
+            3. Toppunktet ligger helt i bunden i <strong>(-1, -1)</strong>.<br>
+            4. Rødderne er <strong>-2,0</strong> (den ene rod er præcis i skæringen med y-aksen!).
+        </div>
+    </div>
+
+    
+
+    <script>
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            box.style.display = (box.style.display === "block") ? "none" : "block";
+        }
+
+        function checkFigur1() {
+            const grene = document.getElementById('q1-grene').value;
+            const ySkær = document.getElementById('q1-y').value.replace(/\s+/g, '');
+            const tp = document.getElementById('q1-tp').value.replace(/\s+/g, '').replace(',', '.');
+            const roedder = document.getElementById('q1-roedder').value.replace(/\s+/g, '');
+
+            const f = document.getElementById('feedback-q1');
+            f.style.display = "block";
+
+            if (grene === "ned" && (ySkær === "(0,2)" || ySkær === "0,2") && (tp.includes("-0.5") && tp.includes("2.25")) && (roedder === "-2,1" || roedder === "1,-2")) {
+                f.innerHTML = "✓ Flot! Alle fire svar er fuldstændig rigtigt aflæst.";
+                f.style.color = "#27ae60";
+            } else {
+                f.innerHTML = "✗ Der er fejl i et eller flere af dine svar. Prøv at tjekke dine koordinater igen (husk parentes om punkter).";
+                f.style.color = "#c0392b";
+            }
+        }
+
+        function checkFigur2() {
+            const grene = document.getElementById('q2-grene').value;
+            const ySkær = document.getElementById('q2-y').value.replace(/\s+/g, '');
+            const tp = document.getElementById('q2-tp').value.replace(/\s+/g, '');
+            
+            const f = document.getElementById('feedback-q2');
+            f.style.display = "block";
+
+            if (grene === "op" && (ySkær === "(0,0)" || ySkær === "0,0") && (tp === "(-1,-1)" || tp === "-1,-1")) {
+                f.innerHTML = "✓ Perfekt! Du har helt styr på den grønne parabel.";
+                f.style.color = "#27ae60";
+            } else {
+                f.innerHTML = "✗ Noget gik galt. Husk at toppunktet for den grønne parabel er helt i bunden, og den skærer y-aksen lige i midten.";
+                f.style.color = "#c0392b";
+            }
+        }
+
+        function checkQuiz(id, isCorrect, explanation) {
+            document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+            const fb = document.getElementById('quiz-feedback');
+            fb.style.display = "block";
+            
+            if (isCorrect) {
+                document.getElementById(id).classList.add('selected-correct');
+                fb.innerHTML = "✓ " + explanation;
+                fb.style.backgroundColor = "#e8f8f0";
+                fb.style.color = "#27ae60";
+            } else {
+                document.getElementById(id).classList.add('selected-incorrect');
+                fb.innerHTML = "✗ " + explanation;
+                fb.style.backgroundColor = "#fceae9";
+                fb.style.color = "#c0392b";
+            }
+        }
+    </script>
+
+</body>
+</html>
