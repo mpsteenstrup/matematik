@@ -167,48 +167,52 @@
         }
 
         // Funktion til at tjekke svar for a, b og c
-        function checkABC(id, correctA, correctB, correctC) {
-            const inputA = document.getElementById(id + 'a').value.trim();
-            const inputB = document.getElementById(id + 'b').value.trim();
-            const inputC = document.getElementById(id + 'c').value.trim();
-            const feedback = document.getElementById('feedback-' + id);
-            
-            // Konverter input-strenge til decimaltal (erstatter komma med punktum)
-            const userA = parseFloat(inputA.replace(',', '.'));
-            const userB = parseFloat(inputB.replace(',', '.'));
-            const userC = parseFloat(inputC.replace(',', '.'));
+        // Funktion til at tjekke svar for a, b og c
+function checkABC(id, correctA, correctB, correctC) {
+    const inputA = document.getElementById(id + 'a').value.trim();
+    const inputB = document.getElementById(id + 'b').value.trim();
+    const inputC = document.getElementById(id + 'c').value.trim();
+    const feedback = document.getElementById('feedback-' + id);
+    
+    if (inputA === "" || inputB === "" || inputC === "") {
+        feedback.innerHTML = "Indtast venligst værdier i alle tre felter.";
+        feedback.className = "feedback";
+        return;
+    }
 
-            if (inputA === "" || inputB === "" || inputC === "") {
-                feedback.innerHTML = "Indtast venligst værdier i alle tre felter.";
-                feedback.className = "feedback";
-                return;
-            }
+    // RegEx: Tillader KUN valgfrit minus, efterfulgt af tal, og valgfrit punktum/komma og flere tal.
+    // Den tillader overhovedet IKKE bogstaver (som x) eller tegn efter tallet.
+    const validNumberRegex = /^-?[0-9]+([.,][0-9]+)?$/;
 
-            if (isNaN(userA) || isNaN(userB) || isNaN(userC)) {
-                feedback.innerHTML = "✗ Input skal være tal. Tjek dine indtastninger.";
-                feedback.className = "feedback incorrect";
-                return;
-            }
+    if (!validNumberRegex.test(inputA) || !validNumberRegex.test(inputB) || !validNumberRegex.test(inputC)) {
+        feedback.innerHTML = "✗ Input skal være et rent tal (f.eks. 3 eller -2). Du må ikke skrive 'x' eller andre bogstaver.";
+        feedback.className = "feedback incorrect";
+        return;
+    }
 
-            // Tjekker om de indtastede værdier matcher de korrekte svar
-            const isACorrect = userA === correctA;
-            const isBCorrect = userB === correctB;
-            const isCCorrect = userC === correctC;
+    // Hvis formatet er godkendt, konverterer vi til decimaltal og tjekker resultatet
+    const userA = parseFloat(inputA.replace(',', '.'));
+    const userB = parseFloat(inputB.replace(',', '.'));
+    const userC = parseFloat(inputC.replace(',', '.'));
 
-            if (isACorrect && isBCorrect && isCCorrect) {
-                feedback.innerHTML = "✓ Flot! Alle tre koefficienter er fuldstændig korrekte.";
-                feedback.className = "feedback correct";
-            } else {
-                // Byg en hjælpende besked til eleven, hvis kun noget er forkert
-                let errorDetails = [];
-                if (!isACorrect) errorDetails.push("a");
-                if (!isBCorrect) errorDetails.push("b");
-                if (!isCCorrect) errorDetails.push("c");
-                
-                feedback.innerHTML = "✗ Ikke helt rigtigt. Der er fejl i dit/dine: " + errorDetails.join(", ") + ". Prøv igen.";
-                feedback.className = "feedback incorrect";
-            }
-        }
+    // Tjekker om de indtastede værdier matcher de korrekte svar
+    const isACorrect = userA === correctA;
+    const isBCorrect = userB === correctB;
+    const isCCorrect = userC === correctC;
+
+    if (isACorrect && isBCorrect && isCCorrect) {
+        feedback.innerHTML = "✓ Flot! Alle tre koefficienter er fuldstændig korrekte.";
+        feedback.className = "feedback correct";
+    } else {
+        let errorDetails = [];
+        if (!isACorrect) errorDetails.push("a");
+        if (!isBCorrect) errorDetails.push("b");
+        if (!isCCorrect) errorDetails.push("c");
+        
+        feedback.innerHTML = "✗ Ikke helt rigtigt. Der er fejl i dit/dine: " + errorDetails.join(", ") + ". Prøv igen.";
+        feedback.className = "feedback incorrect";
+    }
+}
     </script>
 </body>
 </html>

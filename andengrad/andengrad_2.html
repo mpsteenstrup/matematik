@@ -81,7 +81,7 @@
     <div class="card">
         <span class="info-badge" style="background: #27ae60;">Funktion g(x)</span>
         <span class="task-title">Opgave 2: Find tangentens værdier for den grønne parabel</span>
-        <p>Sluk for \(f(x)\) og tænd i stedet for: \(g(x) = -1 \cdot x^2 - 1 \cdot x + 0{,}5\)</p>
+        <p>Sluk for \(f(x)\) og tænd i stedet for: \(g(x) = -1 \cdot x^2 + 1 \cdot x + 0{,}5\)</p>
         <p>Juster skyderne, så den orange linje bliver en tangent til den grønne parabel i \(x = 0\).</p>
         
         <div class="input-section">
@@ -105,7 +105,7 @@
     <div class="card">
         <span class="info-badge" style="background: #2980b9;">Funktion h(x)</span>
         <span class="task-title">Opgave 3: Find tangentens værdier for den blå parabel</span>
-        <p>Sluk for \(g(x)\) og tænd for den sidste funktion: \(h(x) = -2 \cdot x^2 - 2 \cdot x + 2\)</p>
+        <p>Sluk for \(g(x)\) og tænd for den sidste funktion: \(h(x) = -3 \cdot x^2 - 2 \cdot x + 2\)</p>
         <p>Juster skyderne en sidste gang, så linjen snitter den blå parabel perfekt i \(x = 0\).</p>
         
         <div class="input-section">
@@ -152,41 +152,6 @@
         <div id="quiz-feedback" class="feedback" style="margin-top: 15px; padding: 10px; border-radius: 6px; display: none;"></div>
     </div>
 
-<h1>Eksperimentel matematik</h1>
-    <h2>Find sammenhængen mellem parabel og tangent</h2>
-    
-    <div class="formula-box">
-        <p>Herunder kan du se parablen for andengradspolynomiet \(f(x)\) (rød) og tangenten \(g(x)\) (grøn).</p>
-        
-        <div class="desmos-container">
-            <iframe src="https://www.desmos.com/calculator/axx2psfywz?embed" width="500" height="500" class="desmos-iframe" frameborder="0"></iframe>
-        </div>
-
-        <p>Brug dine observationer fra det interaktive koordinatsystem til at løse opgaverne herunder.</p>
-    </div>
-
-    <div class="card">
-        <span class="info-badge">Undersøgelse</span>
-        <span class="task-title">Opgave 1: Find forskriften for \(f(x)\)</span>
-        <p>Du har fået oplyst, at parablens formstyrede koefficient er \(a = 1\).</p>
-        
-        <div class="input-section">
-            <div class="input-pair">
-                <label>\(f(x) =\)</label> 
-                <input type="text" id="q1f" placeholder="f.eks. 1x^2-2x+1">
-            </div>
-        </div>
-        
-        <div class="btn-group">
-            <button class="btn-check" onclick="checkFormula()">Tjek svar</button>
-            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
-            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
-        </div>
-        <div id="feedback-q1" class="feedback"></div>
-        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Den generelle forskrift er \(f(x) = ax^2 + bx + c\). Du ved allerede, at \(a = 1\). Tangentens hældning (\(-2\)) fortæller dig, hvad \(b\) skal være, og tangentens skæring med y-aksen (\(1\)) fortæller dig, hvad \(c\) skal være.</div>
-        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong><br>
-            Da tangenten har forskriften \(g(x) = -2x + 1\), ved vi at \(b = -2\) og \(c = 1\).<br>
-            Når vi sætter det sammen med \(a = 1\), får vi: <strong>\(f(x))
 
     <script>
         // Funktion til at vise/skjule bokse
