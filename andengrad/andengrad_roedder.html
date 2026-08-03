@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Træning: Beregning af rødder</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        /* Små ekstra tilføjelser til interaktivitet */
+        .quiz-option { background: #f8f9fa; border: 2px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; text-align: left; }
+        .quiz-option:hover { border-color: #3498db; background: #f1f7fc; }
+        .quiz-option.selected-correct { border-color: #2ecc71; background: #e8f8f0; }
+        .quiz-option.selected-incorrect { border-color: #e74c3c; background: #fceae9; }
+        .input-section { display: flex; gap: 15px; margin: 15px 0; }
+        .input-pair { display: flex; align-items: center; gap: 5px; }
+        .input-pair input { width: 100px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
+        .no-roots-checkbox { display: flex; align-items: center; gap: 8px; margin: 10px 0; font-weight: 500; }
+        .no-roots-checkbox input { width: 18px; height: 18px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Andengradspolynomier</h1>
+    <h2>Træning: Find parablens rødder \(x_1\) og \(x_2\)</h2>
+    
+    <div class="formula-box">
+        <h3>Formler for rødder (andengradsligningen)</h3>
+        <p>Når du skal finde rødderne (skæringspunkterne med x-aksen), skal du altid starte med at beregne <strong>diskriminanten \(d\)</strong>:</p>
+        <div style="font-size: 1.2em; background: rgba(255,255,255,0.5); padding: 12px; border-radius: 4px; margin: 15px 0;">
+            $$d = b^2 - 4 \cdot a \cdot c$$
+        </div>
+        
+        <p>Værdien af \(d\) bestemmer, hvor mange rødder der er:</p>
+        <div class="formula-group" style="display: flex; gap: 20px; margin: 15px 0;">
+            <div style="flex: 1; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 4px;">
+                <strong>Hvis \(d > 0\) (2 rødder):</strong><br>
+                Brug rodformlen:<br>
+                $$x = \frac{-b \pm \sqrt{d}}{2a}$$
+            </div>
+            <div style="flex: 1; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 4px;">
+                <strong>Hvis \(d = 0\) (1 rod):</strong><br>
+                Grafen rører netop x-aksen i toppunktet:<br>
+                $$x = \frac{-b}{2a}$$
+            </div>
+            <div style="flex: 1; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 4px;">
+                <strong>Hvis \(d < 0\) (0 rødder):</strong><br>
+                Man kan ikke tage kvadratroden af et negativt tal. Der er <strong>ingen rødder</strong>.
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #2ecc71;">Niveau 1: Let</span>
+        <span class="task-title">Opgave 1: To pæne heltal</span>
+        <p>Bestem rødderne for funktionen:</p>
+        $$f(x) = 1x^2 - 6x + 5$$
+        
+        <div class="input-section" id="input-section-q1">
+            <div class="input-pair"><label>\(x_1\) =</label> <input type="number" id="q1x1" step="1"></div>
+            <div class="input-pair"><label>\(x_2\) =</label> <input type="number" id="q1x2" step="1"></div>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkRoedder('q1', 1, 5, false)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Koefficienterne er \(a = 1\), \(b = -6\) og \(c = 5\). Udregn først \(d = (-6)^2 - 4 \cdot 1 \cdot 5\). Da \(d\) bliver et positivt tal, skal du bruge \(\frac{-b \pm \sqrt{d}}{2a}\).</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong><br>
+            <strong>Diskriminant:</strong> $$d = (-6)^2 - 4 \cdot 1 \cdot 5 = 36 - 20 = 16$$<br>
+            Da \(d > 0\), er der to rødder. Da \(\sqrt{16} = 4\), får vi:<br>
+            $$x_1 = \frac{-(-6) - 4}{2 \cdot 1} = \frac{6 - 4}{2} = 1$$<br>
+            $$x_2 = \frac{-(-6) + 4}{2 \cdot 1} = \frac{6 + 4}{2} = 5$$<br>
+            Rødderne er <strong>1 og 5</strong> (rækkefølgen er ligegyldig i inputfelterne).
+        </div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #3498db;">Niveau 2: Mellemsvært</span>
+        <span class="task-title">Opgave 2: Pas på de negative fortegn</span>
+        <p>Bestem rødderne for funktionen:</p>
+        $$g(x) = -2x^2 - 4x + 6$$
+        
+        <div class="input-section" id="input-section-q2">
+            <div class="input-pair"><label>\(x_1\) =</label> <input type="number" id="q2x1" step="1"></div>
+            <div class="input-pair"><label>\(x_2\) =</label> <input type="number" id="q2x2" step="1"></div>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkRoedder('q2', -3, 1, false)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box"><strong>Hint:</strong> Her er \(a = -2\), \(b = -4\) og \(c = 6\). Husk at parenteserne er vigtige ved minustal: \(d = (-4)^2 - 4 \cdot (-2) \cdot 6\). Vær også vågen, når du skal dividere med \(2a\), for nævneren bliver negativ.</div>
+        <div id="sol-q2" class="sol-box"><strong>Løsning:</strong><br>
+            <strong>Diskriminant:</strong> $$d = (-4)^2 - 4 \cdot (-2) \cdot 6 = 16 - (-48) = 16 + 48 = 64$$<br>
+            Da \(\sqrt{64} = 8\), indsætter vi i rodformlen:<br>
+            $$x_1 = \frac{-(-4) - 8}{2 \cdot (-2)} = \frac{4 - 8}{-4} = \frac{-4}{-4} = 1$$<br>
+            $$x_2 = \frac{-(-4) + 8}{2 \cdot (-2)} = \frac{4 + 8}{-4} = \frac{12}{-4} = -3$$<br>
+            Rødderne er <strong>-3 og 1</strong>.
+        </div>
+    </div>
+
+    <div class="card calc-card">
+        <span class="info-badge calc-badge" style="background: #e67e22;">Niveau 3: Mindre let</span>
+        <span class="task-title">Opgave 3: Hvad sker der, når d er nul?</span>
+        <p>Bestem rødderne for funktionen:</p>
+        $$h(x) = 1x^2 - 4x + 4$$
+        
+        <div class="input-section" id="input-section-q3">
+            <div class="input-pair"><label>\(x_1\) =</label> <input type="number" id="q3x1" step="1"></div>
+            <div class="input-pair"><label>\(x_2\) =</label> <input type="number" id="q3x2" placeholder="Evt. tom" step="1"></div>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn-calc-check" onclick="checkRoedder('q3', 2, 2, false)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Udregn diskriminanten. Du vil opdage, at \(d = 0\). Det betyder, at parablen kun lige akkurat rører x-aksen ét enkelt sted. Skriv dette tal i det første felt og lad det andet felt stå tomt (eller skriv det samme tal i begge).</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong><br>
+            <strong>Diskriminant:</strong> $$d = (-4)^2 - 4 \cdot 1 \cdot 4 = 16 - 16 = 0$$<br>
+            Da \(d = 0\), er der kun én rod. Formlen forenkles til:<br>
+            $$x = \frac{-b}{2a} = \frac{-(-4)}{2 \cdot 1} = \frac{4}{2} = 2$$<br>
+            Der er altså kun én rod, som er <strong>2</strong>.
+        </div>
+    </div>
+
+    <div class="card calc-card">
+        <span class="info-badge calc-badge" style="background: #9b59b6;">Niveau 4: Udfordring</span>
+        <span class="task-title">Opgave 4: En tom akse?</span>
+        <p>Bestem rødderne for funktionen:</p>
+        $$p(x) = 2x^2 + 2x + 3$$
+        
+        <div class="no-roots-checkbox">
+            <input type="checkbox" id="q4-noroots" onclick="toggleInputFields('q4')">
+            <label for="q4-noroots">Sæt flueben, hvis der overhovedet IKKE er nogen rødder</label>
+        </div>
+
+        <div class="input-section" id="input-section-q4">
+            <div class="input-pair"><label>\(x_1\) =</label> <input type="number" id="q4x1" step="1"></div>
+            <div class="input-pair"><label>\(x_2\) =</label> <input type="number" id="q4x2" step="1"></div>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn-calc-check" onclick="checkRoedder('q4', null, null, true)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box"><strong>Hint:</strong> Udregn diskriminanten \(d = 2^2 - 4 \cdot 2 \cdot 3\). Hvis resultatet bliver mindre end 0, betyder det, at parablen svæver helt over x-aksen uden at skære. Sæt fluebenet i boksen i stedet for at skrive tal.</div>
+        <div id="sol-q4" class="sol-box"><strong>Løsning:</strong><br>
+            <strong>Diskriminant:</strong> $$d = 2^2 - 4 \cdot 2 \cdot 3 = 4 - 24 = -20$$<br>
+            Da diskriminanten er negativ (\(d < 0\)), kan man ikke tage kvadratroden og færdiggøre formlen. Grafen skærer aldrig x-aksen. Svaret er rigtigt, at der er <strong>ingen rødder</strong>.
+        </div>
+    </div>
+
+    <script>
+        // Vis/skjul hints og løsninger
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            box.style.display = (box.style.display === "block") ? "none" : "block";
+        }
+
+        // Låser inputfelter hvis eleven klikker af at der ikke er rødder
+        function toggleInputFields(id) {
+            const isChecked = document.getElementById(id + '-noroots').checked;
+            const x1Field = document.getElementById(id + 'x1');
+            const x2Field = document.getElementById(id + 'x2');
+            
+            if (isChecked) {
+                x1Field.value = "";
+                x2Field.value = "";
+                x1Field.disabled = true;
+                x2Field.disabled = true;
+            } else {
+                x1Field.disabled = false;
+                x2Field.disabled = false;
+            }
+        }
+
+        // Valideringsfunktion til rødder
+        function checkRoedder(id, r1, r2, expectsNoRoots) {
+            const feedback = document.getElementById('feedback-' + id);
+            const hasNoRootsChecked = document.getElementById(id + '-noroots') ? document.getElementById(id + '-noroots').checked : false;
+
+            // Hvis opgaven forventer INGEN rødder
+            if (expectsNoRoots) {
+                if (hasNoRootsChecked) {
+                    feedback.innerHTML = "✓ Fuldstændig korrekt! Da d = -20, er der overhovedet ingen rødder.";
+                    feedback.className = "feedback correct";
+                    feedback.style.color = "#2ecc71";
+                } else {
+                    feedback.innerHTML = "✗ Ikke helt rigtigt. Prøv at regne diskriminanten d igennem igen og se hvad der sker.";
+                    feedback.className = "feedback incorrect";
+                    feedback.style.color = "#e74c3c";
+                }
+                return;
+            }
+
+            // Hvis man har valgt "ingen rødder" i en opgave hvor der faktisk ER rødder
+            if (hasNoRootsChecked && !expectsNoRoots) {
+                feedback.innerHTML = "✗ Det passer ikke. Diskriminanten er positiv eller nul, så der er mindst én rod.";
+                feedback.className = "feedback incorrect";
+                feedback.style.color = "#e74c3c";
+                return;
+            }
+
+            const val1 = parseFloat(document.getElementById(id + 'x1').value);
+            const val2 = parseFloat(document.getElementById(id + 'x2').value);
+
+            // Speciel håndtering for 1 rod (hvor d = 0)
+            if (r1 === r2) {
+                if (isNaN(val1)) {
+                    feedback.innerHTML = "Indtast venligst værdien for x_1.";
+                    feedback.className = "feedback";
+                    feedback.style.color = "#7f8c8d";
+                    return;
+                }
+                if (Math.abs(val1 - r1) < 0.01 && (isNaN(val2) || Math.abs(val2 - r1) < 0.01)) {
+                    feedback.innerHTML = "✓ Flot! Der er netop én rod, og den er præcis x = " + r1 + ".";
+                    feedback.className = "feedback correct";
+                    feedback.style.color = "#2ecc71";
+                } else {
+                    feedback.innerHTML = "✗ Svaret er forkert. Husk at når d = 0, får du kun et enkelt tal ud af formlen.";
+                    feedback.className = "feedback incorrect";
+                    feedback.style.color = "#e74c3c";
+                }
+                return;
+            }
+
+            // Standardtjek for 2 rødder (tillader valgfri rækkefølge)
+            if (isNaN(val1) || isNaN(val2)) {
+                feedback.innerHTML = "Indtast venligst tal i begge rod-felter.";
+                feedback.className = "feedback";
+                feedback.style.color = "#7f8c8d";
+                return;
+            }
+
+            const matchNormal = (Math.abs(val1 - r1) < 0.01 && Math.abs(val2 - r2) < 0.01);
+            const matchSwapped = (Math.abs(val1 - r2) < 0.01 && Math.abs(val2 - r1) < 0.01);
+
+            if (matchNormal || matchSwapped) {
+                feedback.innerHTML = "✓ Korrekt! Rødderne ligger præcis i x = " + r1 + " og x = " + r2 + ".";
+                feedback.className = "feedback correct";
+                feedback.style.color = "#2ecc71";
+            } else {
+                feedback.innerHTML = "✗ Tallene er ikke helt rigtige. Husk at tjekke dine fortegn i tælleren og dividere med hele (2*a).";
+                feedback.className = "feedback incorrect";
+                feedback.style.color = "#e74c3c";
+            }
+        }
+    </script>
+
+</body>
+</html>

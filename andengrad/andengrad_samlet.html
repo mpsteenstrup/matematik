@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stort Træningsmodul: 10 Opgaver i 2. gradspolynomier</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .section-divider { margin: 40px 0 20px 0; border-bottom: 3px solid #2c3e50; padding-bottom: 10px; color: #2c3e50; }
+        .match-container { display: flex; flex-direction: column; gap: 15px; margin-top: 15px; }
+        .match-row { display: flex; align-items: center; justify-content: space-between; background: #f9f9f9; padding: 10px 15px; border: 1px solid #ddd; border-radius: 6px; }
+        .match-label { font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .color-dot { width: 15px; height: 15px; border-radius: 50%; display: inline-block; }
+        .match-select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; font-size: 0.95em; background: white; cursor: pointer; }
+        .input-group-custom { display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap; }
+        .input-pair-custom { display: flex; align-items: center; gap: 5px; }
+        .input-pair-custom input { width: 85px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
+        .no-roots-checkbox { display: flex; align-items: center; gap: 8px; margin: 10px 0; font-weight: 500; }
+        .no-roots-checkbox input { width: 18px; height: 18px; cursor: pointer; }
+        .quiz-option { background: #f8f9fa; border: 2px solid #ddd; padding: 12px; border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; text-align: left; }
+        .quiz-option:hover { border-color: #3498db; background: #f1f7fc; }
+        .quiz-option.selected-correct { border-color: #2ecc71; background: #e8f8f0; }
+        .quiz-option.selected-incorrect { border-color: #e74c3c; background: #fceae9; }
+    </style>
+</head>
+<body>
+
+    <h1>Eksamensklubben: Det Store Overblik</h1>
+    <h2>10 interaktive træningsopgaver i 2. gradspolynomier</h2>
+    <p>Gennemfør alle 10 opgaver for at sikre, at du har helt styr på emnet før eksamen. Husk: Indtast <strong>kun rene tal</strong> i svarfelterne (aldrig bogstavet x!).</p>
+
+    <h2 class="section-divider">Del 1: Grafer og Koefficienter</h2>
+    
+    <div class="card">
+        <span class="info-badge" style="background: #9b59b6;">Opgave 1</span>
+        <span class="task-title">Match grafen med forskriften</span>
+        <p>Kig på billedet af de tre parabler i koordinatsystemet:</p>
+        <div style="text-align: center; margin: 15px 0;">
+            <img src="image_489e9a.png" alt="Tre parabler" style="max-width: 100%; height: auto; border: 1px solid #eee; border-radius: 8px; max-height: 350px;">
+        </div>
+        <div class="match-container">
+            <div class="match-row">
+                <div class="match-label"><span class="color-dot" style="background: #c0392b;"></span> Den RØDE parabel:</div>
+                <select id="match-red" class="match-select">
+                    <option value="">-- Vælg forskrift --</option>
+                    <option value="f">f(x) = 2 · x² + 2 · x + 1</option>
+                    <option value="g">g(x) = -1 · (x - 1) · (x + 1)</option>
+                    <option value="h">h(x) = (x - 2)(x - 0.5) + 1</option>
+                </select>
+            </div>
+            <div class="match-row">
+                <div class="match-label"><span class="color-dot" style="background: #27ae60;"></span> Den GRØNNE parabel:</div>
+                <select id="match-green" class="match-select">
+                    <option value="">-- Vælg forskrift --</option>
+                    <option value="f">f(x) = 2 · x² + 2 · x + 1</option>
+                    <option value="g">g(x) = -1 · (x - 1) · (x + 1)</option>
+                    <option value="h">h(x) = (x - 2)(x - 0.5) + 1</option>
+                </select>
+            </div>
+            <div class="match-row">
+                <div class="match-label"><span class="color-dot" style="background: #2980b9;"></span> Den BLÅ parabel:</div>
+                <select id="match-blue" class="match-select">
+                    <option value="">-- Vælg forskrift --</option>
+                    <option value="f">f(x) = 2 · x² + 2 · x + 1</option>
+                    <option value="g">g(x) = -1 · (x - 1) · (x + 1)</option>
+                    <option value="h">h(x) = (x - 2)(x - 0.5) + 1</option>
+                </select>
+            </div>
+        </div>
+        <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn-check" onclick="checkOpgave1()">Tjek svar</button>
+            <button class="btn-sol" onclick="toggleBox('sol-o1')">Løsning</button>
+        </div>
+        <div id="feedback-o1" class="feedback"></div>
+        <div id="sol-o1" class="sol-box"><strong>Løsning:</strong> Rød = \(f(x)\) (stejl, glad), Grøn = \(h(x)\) (glad, rykket til højre), Blå = \(g(x)\) (eneste sure parabel, da \(a = -1\)).</div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #2ecc71;">Opgave 2</span>
+        <span class="task-title">Identificer manglende led</span>
+        <p>Find koefficienterne for funktionen (vær vågen over for manglende led!):</p>
+        $$f(x) = -3x^2 + 12$$
+        <div class="input-group-custom">
+            <div class="input-pair-custom"><label>a =</label> <input type="text" id="o2a"></div>
+            <div class="input-pair-custom"><label>b =</label> <input type="text" id="o2b"></div>
+            <div class="input-pair-custom"><label>c =</label> <input type="text" id="o2c"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkOpgave2()">Tjek svar</button>
+            <button class="btn-sol" onclick="toggleBox('sol-o2')">Løsning</button>
+        </div>
+        <div id="feedback-o2" class="feedback"></div>
+        <div id="sol-o2" class="sol-box"><strong>Løsning:</strong> Tallet foran \(x^2\) er \(-3\). Der er ikke noget x-led overhovedet, så \(b = 0\). Det konstante led til sidst er \(12\). Svar: <strong>a = -3, b = 0, c = 12</strong>.</div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #2ecc71;">Opgave 3</span>
+        <span class="task-title">Snydeopgaven: Når der byttes rundt</span>
+        <p>Find koefficienterne her (pas på rækkefølgen!):</p>
+        $$g(x) = 5 - x + 4x^2$$
+        <div class="input-group-custom">
+            <div class="input-pair-custom"><label>a =</label> <input type="text" id="o3a"></div>
+            <div class="input-pair-custom"><label>b =</label> <input type="text" id="o3b"></div>
+            <div class="input-pair-custom"><label>c =</label> <input type="text" id="o3c"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkOpgave3()">Tjek svar</button>
+            <button class="btn-sol" onclick="toggleBox('sol-o3')">Løsning</button>
+        </div>
+        <div id="feedback-o3" class="feedback"></div>
+        <div id="sol-o3" class="sol-box"><strong>Løsning:</strong> \(a\) er altid koblet til \(x^2\), så \(a = 4\). \(b\) hører til \(x\), hvor der står \(-x\), hvilket betyder \(-1\). \(c\) er det rene tal, så \(c = 5\). Svar: <strong>a = 4, b = -1, c = 5</strong>.</div>
+    </div>
+
+
+    <h2 class="section-divider">Del 2: Diskriminanten og Logik</h2>
+
+    <div class="card">
+        <span class="info-badge" style="background: #e67e22;">Opgave 4</span>
+        <span class="task-title">Beregn diskriminanten d</span>
+        <p>Udregn værdien for diskriminanten \(d\) i denne funktion:</p>
+        $$h(x) = 2x^2 - 4x - 3$$
+        <div class="input-group-custom">
+            <div class="input-pair-custom"><label>d =</label> <input type="text" id="o4d"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkOpgave4()">Tjek svar</button>
+            <button class="btn-sol" onclick="toggleBox('sol-o4')">Løsning</button>
+        </div>
+        <div id="feedback-o4" class="feedback"></div>
+        <div id="sol-o4" class="sol-box"><strong>Løsning:</strong> \(d = b^2 - 4ac = (-4)^2 - 4 \cdot 2 \cdot (-3) = 16 - (-24) = 16 + 24 = 40\). Svar: <strong>40</strong>.</div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #e67e22;">Opgave 5</span>
+        <span class="task-title">Teoriquiz: Diskriminantens betydning</span>
+        <p>Hvis du har beregnet diskriminanten for et polynomium og får resultatet \(d = -8\), hvad fortæller det så om grafens skæring med x-aksen?</p>
+        <div class="quiz-option" id="o5-a" onclick="checkOpgave5('o5-a', false, 'Ikke rigtigt. Når d er negativ, kan vi ikke tage kvadratroden i rodformlen.')">A: Grafen skærer x-aksen præcis 2 steder.</div>
+        <div class="quiz-option" id="o5-b" onclick="checkOpgave5('o5-b', false, 'Nej. Det er når d = 0, at den kun rører ét sted.') font-weight: normal;">B: Grafen rører x-aksen ét enkelt sted (i toppunktet).</div>
+        <div class="quiz-option" id="o5-c" onclick="checkOpgave5('o5-c', true, 'Fuldstændig rigtigt! Da d < 0, er der ingen reelle rødder, og grafen svæver over eller under x-aksen uden at røre den.')">C: Grafen rører eller skærer overhovedet IKKE x-aksen.</div>
+        <div id="feedback-o5" class="feedback" style="display:none; padding:10px; border-radius:4px; font-weight:bold;"></div>
+    </div>
+
+
+    <h2 class="section-divider">Del 3: Beregning af Toppunkter</h2>
+
+    <div class="card">
+        <span class="info-badge" style="background: #3498db;">Opgave 6</span>
+        <span class="task-title">Toppunkt for standardparabel</span>
+        <p>Beregn koordinatsættet til toppunktet \((x_t, y_t)\) for denne funktion:</p>
+        $$f(x) = 1x^2 - 4x + 5$$
+        <div class="input-group-custom">
+            <div class="input-pair-custom"><label>\(x_t\) =</label> <input type="text" id="o6xt"></div>
+            <div class="input-pair-custom"><label>\(y_t\) =</label> <input type="text" id="o6yt"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkOpgave6()">Tjek svar</button>
+            <button class="btn-sol" onclick="toggleBox('sol-o6')">Løsning</button>
+        </div>
+        <div id="feedback-o6" class="feedback"></div>
+        <div id="sol-o6" class="sol-box"><strong>Løsning:</strong> \(x_t = \frac{-b}{2a} = \frac{-(-4)}{2 \cdot 1} = 2\). <br> Indsæt \(x=2\) i formlen: \(y_t = 1 \cdot (2)^2 - 4 \cdot 2 + 5 = 4 - 8 + 5 = 1\). Svar: <strong>(2, 1)</strong>.</div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #3498db;">Opgave 7</span>
+        <span class="task-title">Toppunkt med negative koefficienter</span>
+        <p>Beregn toppunktet \((x_t, y_t)\) for denne sure parabel:</p>
+        $$g(x) = -2x^2 - 8x - 5$$
+        <div class="input-group-custom">
+            <div class="input-pair-custom"><label>\(x_t\) =</label> <input type="text" id="o7xt"></div>
+            <div class="input-pair-custom"><label>\(y_t\) =</label> <input type="text" id="o7yt"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkOpgave7()">Tjek svar</button>
+            <button class="btn-sol" onclick="toggleBox('sol-o7')">Løsning</button>
+        </div>
+        <div id="feedback-o7" class="feedback"></div>
+        <div id="sol-o7" class="sol-box"><strong>Løsning:</strong> \(x_t = \frac{-(-8)}{2 \cdot (-2)} = \frac{8}{-4} = -2\).<br> Indsæt \(x=-2\): \(y_t = -2(-2)^2 - 8(-2) - 5 = -2(4) + 16 - 5 = -8 + 16 - 5 = 3\). Svar: <strong>(-2, 3)</strong>.</div>
+    </div>
+
+
+    <h2 class="section-divider">Del 4: Find Rødderne</h2>
+
+    <div class="card">
+        <span class="info-badge" style="background: #e74c3c;">Opgave 8</span>
+        <span class="task-title">To positive rødder</span>
+        <p>Find rødderne for denne funktion:</p>
+        $$h(x) = 1x^2 - 7x + 12$$
+        <div class="input-group-custom">
+            <div class="input-pair-custom"><label>\(x_1\) =</label> <input type="text" id="o8x1"></div>
+            <div class="input-pair-custom"><label>\(x_2\) =</label> <input type="text" id="o8x2"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkOpgave8()">Tjek svar</button>
+            <button class="btn-sol" onclick="toggleBox('sol-o8')">Løsning</button>
+        </div>
+        <div id="feedback-o8" class="feedback"></div>
+        <div id="sol-o8" class="sol-box"><strong>Løsning:</strong> \(d = (-7)^2 - 4 \cdot 1 \cdot 12 = 49 - 48 = 1\). <br> Rødderne: \(\frac{-(-7) \pm \sqrt{1}}{2 \cdot 1} = \frac{7 \pm 1}{2}\). Det giver \(x_1 = 3\) og \(x_2 = 4\). Rækkefølgen i boksene er valgfri.</div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #e74c3c;">Opgave 9</span>
+        <span class="task-title">Blandede rødder (plus og minus)</span>
+        <p>Find rødderne for denne funktion:</p>
+        $$f(x) = 2x^2 - 2x - 12$$
+        <div class="input-group-custom">
+            <div class="input-pair-custom"><label>\(x_1\) =</label> <input type="text" id="o9x1"></div>
+            <div class="input-pair-custom"><label>\(x_2\) =</label> <input type="text" id="o9x2"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkOpgave9()">Tjek svar</button>
+            <button class="btn-sol" onclick="toggleBox('sol-o9')">Løsning</button>
+        </div>
+        <div id="feedback-o9" class="feedback"></div>
+        <div id="sol-o9" class="sol-box"><strong>Løsning:</strong> \(d = (-2)^2 - 4 \cdot 2 \cdot (-12) = 4 + 96 = 100\). Da \(\sqrt{100} = 10\): <br> \(x = \frac{2 \pm 10}{4}\), hvilket giver rødderne <strong>3 og -2</strong>.</div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #e74c3c;">Opgave 10</span>
+        <span class="task-title">Udfordringen: Én enkelt rod</span>
+        <p>Find rødderne for funktionen her (hvis der kun er én rod, lad det andet felt stå tomt):</p>
+        $$g(x) = 1x^2 + 6x + 9$$
+        <div class="input-group-custom">
+            <div class="input-pair-custom"><label>\(x_1\) =</label> <input type="text" id="o10x1"></div>
+            <div class="input-pair-custom"><label>\(x_2\) =</label> <input type="text" id="o10x2" placeholder="Evt. tom"></div>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkOpgave10()">Tjek svar</button>
+            <button class="btn-sol" onclick="toggleBox('sol-o10')">Løsning</button>
+        </div>
+        <div id="feedback-o10" class="feedback"></div>
+        <div id="sol-o10" class="sol-box"><strong>Løsning:</strong> \(d = 6^2 - 4 \cdot 1 \cdot 9 = 36 - 36 = 0\). Da \(d = 0\) er der kun en rod: \(x = \frac{-6}{2 \cdot 1} = -3\). Svar: <strong>x1 = -3</strong>, og x2 skal være tom.</div>
+    </div>
+
+
+    <script>
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            box.style.display = (box.style.display === "block") ? "none" : "block";
+        }
+
+        // RegEx der stopper elever i at skrive 'x', 'x^2' eller mellemrum i talfelter
+        const strictNum = /^-?[0-9]+([.,][0-9]+)?$/;
+
+        function validateInputs(arr) {
+            for (let id of arr) {
+                let val = document.getElementById(id).value.trim();
+                if (val === "") return "empty";
+                if (!strictNum.test(val)) return "invalid";
+            }
+            return "ok";
+        }
+
+        function parse(id) {
+            return parseFloat(document.getElementById(id).value.trim().replace(',', '.'));
+        }
+
+        function setFeedback(id, isCorrect, msg) {
+            const f = document.getElementById(id);
+            f.style.display = "block";
+            f.innerHTML = isCorrect ? "✓ " + msg : "✗ " + msg;
+            f.style.color = isCorrect ? "#2ecc71" : "#e74c3c";
+        }
+
+        // O1: Match grafer
+        function checkOpgave1() {
+            const r = document.getElementById('match-red').value;
+            const g = document.getElementById('match-green').value;
+            const b = document.getElementById('match-blue').value;
+            if(!r || !g || !b) return setFeedback('feedback-o1', false, "Vælg en forskrift for alle tre grafer.");
+            if(r==='f' && g==='h' && b==='g') setFeedback('feedback-o1', true, "Perfekt matchet!");
+            else setFeedback('feedback-o1', false, "Det er forkert. Husk at g(x) har et minus foran, så den skal være sur.");
+        }
+
+        // O2: Koefficienter (-3x^2 + 12)
+        function checkOpgave2() {
+            let status = validateInputs(['o2a', 'o2b', 'o2c']);
+            if(status === "empty") return setFeedback('feedback-o2', false, "Udfyld alle felter.");
+            if(status === "invalid") return setFeedback('feedback-o2', false, "Kun rene tal tilladt! Fjern bogstavet x.");
+            if(parse('o2a')===-3 && parse('o2b')===0 && parse('o2c')===12) setFeedback('feedback-o2', true, "Helt rigtigt! b er lig med 0.");
+            else setFeedback('feedback-o2', false, "Ikke helt rigtigt. Husk at b-leddet mangler, og fortegn skal med.");
+        }
+
+        // O3: Snydeopgave (5 - x + 4x^2)
+        function checkOpgave3() {
+            let status = validateInputs(['o3a', 'o3b', 'o3c']);
+            if(status === "empty") return setFeedback('feedback-o3', false, "Udfyld alle felter.");
+            if(status === "invalid") return setFeedback('feedback-o3', false, "Kun rene tal tilladt! Undgå x.");
+            if(parse('o3a')===4 && parse('o3b')===-1 && parse('o3c')===5) setFeedback('feedback-o3', true, "Suverænt! Du hoppede ikke på rækkefølgen.");
+            else setFeedback('feedback-o3', false, "Fejl. Husk: a står foran x², b står foran x, c er det enlige tal.");
+        }
+
+        // O4: Diskriminant (2x^2 - 4x - 3)
+        function checkOpgave4() {
+            let status = validateInputs(['o4d']);
+            if(status !== "ok") return setFeedback('feedback-o4', false, "Skriv et gyldigt tal.");
+            if(parse('o4d')===40) setFeedback('feedback-o4', true, "Korrekt udregnet! d = 40.");
+            else setFeedback('feedback-o4', false, "Forkert. Pas på fortegnene: -4*2*(-3) bliver til +24.");
+        }
+
+        // O5: Quiz-funktion
+        function checkOpgave5(id, isCorrect, msg) {
+            document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+            const f = document.getElementById('feedback-o5');
+            f.style.display = "block";
+            if(isCorrect) {
+                document.getElementById(id).classList.add('selected-correct');
+                f.innerHTML = "✓ " + msg; f.style.backgroundColor = "#e8f8f0"; f.style.color = "#2ecc71";
+            } else {
+                document.getElementById(id).classList.add('selected-incorrect');
+                f.innerHTML = "✗ " + msg; f.style.backgroundColor = "#fceae9"; f.style.color = "#e74c3c";
+            }
+        }
+
+        // O6: Toppunkt (1x^2 - 4x + 5)
+        function checkOpgave6() {
+            let status = validateInputs(['o6xt', 'o6yt']);
+            if(status !== "ok") return setFeedback('feedback-o6', false, "Indtast tal i begge koordinatfelter uden x.");
+            if(parse('o6xt')===2 && parse('o6yt')===1) setFeedback('feedback-o6', true, "Flot! Toppunktet er (2, 1).");
+            else setFeedback('feedback-o6', false, "Koordinaterne er forkerte. Prøv formlen igen.");
+        }
+
+        // O7: Toppunkt (-2x^2 - 8x - 5)
+        function checkOpgave7() {
+            let status = validateInputs(['o7xt', 'o7yt']);
+            if(status !== "ok") return setFeedback('feedback-o7', false, "Indtast to rene tal.");
+            if(parse('o7xt')===-2 && parse('o7yt')===3) setFeedback('feedback-o7', true, "Korrekt! Toppunktet ligger i (-2, 3).");
+            else setFeedback('feedback-o7', false, "Noget gik galt med minustegnene. xt = -(-8)/(2*-2) = -2.");
+        }
+
+        // O8: Rødder (1x^2 - 7x + 12)
+        function checkOpgave8() {
+            let status = validateInputs(['o8x1', 'o8x2']);
+            if(status !== "ok") return setFeedback('feedback-o8', false, "Angiv tal i begge felter.");
+            let x1 = parse('o8x1'), x2 = parse('o8x2');
+            if((x1===3 && x2===4) || (x1===4 && x2===3)) setFeedback('feedback-o8', true, "Helt rigtigt! Rødderne er 3 og 4.");
+            else setFeedback('feedback-o8', false, "Tallene stemmer ikke. Husk at brøkens tæller er -(-7) = +7.");
+        }
+
+        // O9: Rødder (2x^2 - 2x - 12)
+        function checkOpgave9() {
+            let status = validateInputs(['o9x1', 'o9x2']);
+            if(status !== "ok") return setFeedback('feedback-o9', false, "Udfyld begge felter med tal.");
+            let x1 = parse('o9x1'), x2 = parse('o9x2');
+            if((x1===3 && x2===-2) || (x1===-2 && x2===3)) setFeedback('feedback-o9', true, "Korrekt! Rødderne er -2 og 3.");
+            else setFeedback('feedback-o9', false, "Ikke rigtigt. Husk at dividere med 2a (som er 4).");
+        }
+
+        // O10: Én rod (1x^2 + 6x + 9)
+        function checkOpgave10() {
+            let x1Raw = document.getElementById('o10x1').value.trim();
+            let x2Raw = document.getElementById('o10x2').value.trim();
+            if(x1Raw === "" || !strictNum.test(x1Raw)) return setFeedback('feedback-o10', false, "Skriv et tal i det første felt.");
+            let x1 = parseFloat(x1Raw.replace(',','.'));
+            if(x1 === -3 && x2Raw === "") setFeedback('feedback-o10', true, "Perfekt! d = 0, så der er kun én rod i x = -3.");
+            else setFeedback('feedback-o10', false, "Ikke helt rigtigt. Da d = 0, skal x2 være helt tom, og x1 skal være -3.");
+        }
+    </script>
+</body>
+</html>

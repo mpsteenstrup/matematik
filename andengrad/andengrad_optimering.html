@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimering: Pizzeria Bella</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .step-box { background: #fdfbf7; border-left: 4px solid #e67e22; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .input-group-custom { display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap; }
+        .input-pair-custom { display: flex; align-items: center; gap: 5px; }
+        .input-pair-custom input { width: 90px; padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
+        .quiz-option { background: #f8f9fa; border: 2px solid #ddd; padding: 12px; border-radius: 8px; margin-bottom: 8px; cursor: pointer; transition: 0.2s; text-align: left; }
+        .quiz-option:hover { border-color: #3498db; background: #f1f7fc; }
+        .quiz-option.selected-correct { border-color: #2ecc71; background: #e8f8f0; }
+        .quiz-option.selected-incorrect { border-color: #e74c3c; background: #fceae9; }
+    </style>
+</head>
+<body>
+
+    <h1>Matematik i Virkeligheden: Optimering</h1>
+    <h2>Case: Pizzeria Bella og den perfekte pris</h2>
+
+    <div class="formula-box" style="background: #f4f6f7; border-color: #7f8c8d;">
+        <h3>Baggrundshistorie</h3>
+        <p>Ibrahim ejer <em>Pizzeria Bella</em>. Han overvejer at ændre prisen på sin populære luksus-pizza. I øjeblikket koster pizzaen <strong>90 kr.</strong>, og han sælger i gennemsnit <strong>120 stk.</strong> om ugen.</p>
+        <p>En markedsundersøgelse viser, at for hver gang han sætter prisen <strong>1 kr. OP</strong>, mister han <strong>1 kunde</strong> om ugen. Omvendt vil han få 1 ekstra kunde om ugen for hver gang, han sætter prisen 1 kr. NED.</p>
+        <p>Vi lader \(x\) være det antal kroner, som Ibrahim <strong>hæver</strong> prisen med.</p>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #e67e22;">Trin 1 af 3</span>
+        <span class="task-title">Opstil den matematiske model</span>
+        <p>For at finde Ibrahims ugentlige omsætning \(O(x)\), skal vi gange den nye pris med det nye antal solgte pizzaer:</p>
+        <ul>
+            <li><strong>Ny pris pr. pizza:</strong> \((90 + x)\)</li>
+            <li><strong>Nyt antal pizzaer:</strong> \((120 - x)\)</li>
+        </ul>
+        <p>Når vi ganger de to parenteser med hinanden, får vi omsætningsfunktionen:</p>
+        $$O(x) = (90 + x) \cdot (120 - x)$$
+        
+        <p><strong>Opgave:</strong> Gang parenteserne ud på et stykke papir, reducer udtrykket til standardformen \(ax^2 + bx + c\), og indtast koefficienterne herunder (Husk: KUN tal, intet x!):</p>
+        
+        <div class="input-group-custom">
+            <div class="input-pair-custom"><label>a =</label> <input type="text" id="opgA"></div>
+            <div class="input-pair-custom"><label>b =</label> <input type="text" id="opgB"></div>
+            <div class="input-pair-custom"><label>c =</label> <input type="text" id="opgC"></div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkTrin1()">Tjek koefficienter</button>
+            <button class="btn-hint" onclick="toggleBox('hint-t1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-t1')">Løsning</button>
+        </div>
+        <div id="feedback-t1" class="feedback"></div>
+        
+        <div id="hint-t1" class="hint-box"><strong>Hint:</strong> Husk at gange alle led med hinanden: \(90 \cdot 120 + 90 \cdot (-x) + x \cdot 120 + x \cdot (-x)\). Saml derefter de to led, der har med almindelige \(x\)'er at gøre.</div>
+        <div id="sol-t1" class="sol-box"><strong>Løsning:</strong> Udgangspunktet er \(10800 - 90x + 120x - x^2\). Når det samles og sorteres, giver det \(-1x^2 + 30x + 10800\). Koefficienterne er: <strong>a = -1, b = 30, c = 10800</strong>.</div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #3498db;">Trin 2 af 3</span>
+        <span class="task-title">Find det maksimale punkt (Optimum)</span>
+        <p>Da koefficienten \(a\) er negativ (\(a = -1\)), vender parablen grenene nedad. Det betyder, at dens <strong>toppunkt</strong> markerer den absolut største omsætning, Ibrahim kan opnå.</p>
+        
+        <p><strong>Opgave:</strong> Find toppunktets koordinater \((x_t, y_t)\) ved at bruge topformlerne, eller ved at beregne \(x_t = \frac{-b}{2a}\) og indsætte resultatet på \(x\)'s plads i funktionen:</p>
+        
+        <div class="input-group-custom">
+            <div class="input-pair-custom"><label>\(x_t\) (kroner hævet) =</label> <input type="text" id="opgXt"></div>
+            <div class="input-pair-custom"><label>\(y_t\) (max omsætning) =</label> <input type="text" id="opgYt"></div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkTrin2()">Tjek toppunkt</button>
+            <button class="btn-hint" onclick="toggleBox('hint-t2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-t2')">Løsning</button>
+        </div>
+        <div id="feedback-t2" class="feedback"></div>
+        
+        <div id="hint-t2" class="hint-box"><strong>Hint:</strong> Udregn først \(x_t = \frac{-30}{2 \cdot (-1)}\). Sæt derefter dette tal ind i din forskrift: \(-1 \cdot (x_t)^2 + 30 \cdot x_t + 10800\) for at finde \(y_t\).</div>
+        <div id="sol-t2" class="sol-box"><strong>Løsning:</strong> \(x_t = \frac{-30}{-2} = 15\). Når 15 sættes ind i funktionen, får vi \(-1 \cdot (15)^2 + 30 \cdot 15 + 10800 = -225 + 450 + 10800 = 11025\). Svaret er: <strong>x_t = 15, y_t = 11025</strong>.</div>
+    </div>
+
+    <div class="card">
+        <span class="info-badge" style="background: #2ecc71;">Trin 3 af 3</span>
+        <span class="task-title">Hvad betyder resultatet for Ibrahim?</span>
+        <p>Nu har du regnet matematikken ud, og Ibrahims toppunkt hedder \((15, 11025)\). Men hvad betyder det egentlig for driften af hans pizzeria i den virkelige verden?</p>
+        
+        <p><strong>Opgave:</strong> Hvilken af de tre følgende konklusioner er økonomisk og matematisk fuldstændig korrekt? Vælg det rigtige svar herunder:</p>
+        
+        <div class="quiz-option" id="o3-a" onclick="checkTrin3('o3-a', false, 'Ikke rigtigt. x_t fortæller, hvor meget han skal ÆNDRE prisen med, ikke hvad pizzaen skal koste i alt.')">
+            <strong>A:</strong> Ibrahim skal sætte pizzaens pris helt ned til 15 kr., hvilket vil give ham en stabil ugentlig omsætning på 11.025 kr.
+        </div>
+        
+        <div class="quiz-option" id="o3-b" onclick="checkTrin3('o3-b', true, 'Fuldstændig fejlfrit! Prisen øges med 15 kr. (så den koster 105 kr.). Selvom han mister 15 kunder, tjener han mere per pizza, så omsætningen rammer sit absolutte maksimum på 11.025 kr.')">
+            <strong>B:</strong> Ibrahim skal hæve prisen med 15 kr., så pizzaen koster 105 kr. Selvom han mister 15 kunder om ugen, vil hans samlede omsætning stige til sit maksimale punkt på 11.025 kr.
+        </div>
+        
+        <div class="quiz-option" id="o3-c" onclick="checkTrin3('o3-c', false, 'Det stemmer ikke. Hvis han mister 11.025 kunder, ville han have gigantisk underskud. Det høje tal er omsætningen i kroner.')">
+            <strong>C:</strong> Ibrahim skal beholde prisen på 90 kr., fordi han risikerer at miste hele 11.025 luksus-kunder om ugen, hvis han piller ved beløbet.
+        </div>
+        
+        <div id="feedback-t3" class="feedback" style="display:none; padding:10px; border-radius:4px; font-weight:bold;"></div>
+    </div>
+
+
+    <script>
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            box.style.display = (box.style.display === "block") ? "none" : "block";
+        }
+
+        // Strikte tal-tjek (Ingen x, ingen x^2, ingen ulovlige mellemrum)
+        const strictNum = /^-?[0-9]+([.,][0-9]+)?$/;
+
+        function setFeedback(id, isCorrect, msg) {
+            const f = document.getElementById(id);
+            f.style.display = "block";
+            f.innerHTML = isCorrect ? "✓ " + msg : "✗ " + msg;
+            f.style.color = isCorrect ? "#2ecc71" : "#e74c3c";
+        }
+
+        // Validering Trin 1
+        function checkTrin1() {
+            const rA = document.getElementById('opgA').value.trim();
+            const rB = document.getElementById('opgB').value.trim();
+            const rC = document.getElementById('opgC').value.trim();
+
+            if (!rA || !rB || !rC) return setFeedback('feedback-t1', false, "Indtast værdier i alle tre felter.");
+            if (!strictNum.test(rA) || !strictNum.test(rB) || !strictNum.test(rC)) {
+                return setFeedback('feedback-t1', false, "Input afvist! Indtast kun rene tal. Du må ikke skrive bogstavet 'x' i felterne.");
+            }
+
+            const a = parseFloat(rA.replace(',','.'));
+            const b = parseFloat(rB.replace(',','.'));
+            const c = parseFloat(rC.replace(',','.'));
+
+            if (a === -1 && b === 30 && c === 10800) {
+                setFeedback('feedback-t1', true, "Perfekt! Omsætningsfunktionen er O(x) = -1x² + 30x + 10.800. Du er klar til Trin 2!");
+            } else {
+                setFeedback('feedback-t1', false, "Koefficienterne er ikke helt rigtige. Prøv at tjekke din udregning af b-leddet (-90x + 120x) en ekstra gang.");
+            }
+        }
+
+        // Validering Trin 2
+        function checkTrin2() {
+            const rXt = document.getElementById('opgXt').value.trim();
+            const rYt = document.getElementById('opgYt').value.trim();
+
+            if (!rXt || !rYt) return setFeedback('feedback-t2', false, "Indtast svar i begge felter.");
+            if (!strictNum.test(rXt) || !strictNum.test(rYt)) {
+                return setFeedback('feedback-t2', false, "Brug udelukkende tal i koordinatfelterne.");
+            }
+
+            const xt = parseFloat(rXt.replace(',','.'));
+            const yt = parseFloat(rYt.replace(',','.'));
+
+            if (Math.abs(xt - 15) < 0.01 && Math.abs(yt - 11025) < 0.01) {
+                setFeedback('feedback-t2', true, "Flot arbejde! Toppunktet hedder ganske rigtigt (15, 11025). Gå videre til den afsluttende tolkning.");
+            } else {
+                setFeedback('feedback-t2', false, "Noget gik galt i dine top-beregninger. Tjek om din x_t giver 15, og sæt derefter det tal ind i funktionen.");
+            }
+        }
+
+        // Validering Trin 3 (Quiz)
+        function checkTrin3(id, isCorrect, msg) {
+            document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected-correct', 'selected-incorrect'));
+            const f = document.getElementById('feedback-t3');
+            f.style.display = "block";
+            
+            if(isCorrect) {
+                document.getElementById(id).classList.add('selected-correct');
+                f.innerHTML = "✓ " + msg; f.style.backgroundColor = "#e8f8f0"; f.style.color = "#2ecc71"; f.style.border = "1px solid #2ecc71";
+            } else {
+                document.getElementById(id).classList.add('selected-incorrect');
+                f.innerHTML = "✗ " + msg; f.style.backgroundColor = "#fceae9"; f.style.color = "#e74c3c"; f.style.border = "1px solid #e74c3c";
+            }
+        }
+    </script>
+</body>
+</html>
