@@ -3,175 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <title>Kursus: Andengradspolynomier</title>
+    <title>Træning: Beregning af rødder</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
-        .intro-header { text-align: center; margin-bottom: 40px; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
-        .module-card { background: white; border-radius: 8px; padding: 20px; border-top: 5px solid #cccccc; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s; }
-        .module-card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
-        .module-num { font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: #7f8c8d; margin-bottom: 5px; }
-        .module-title { font-size: 1.25em; font-weight: bold; margin-bottom: 10px; color: #2c3e50; }
-        .module-desc { font-size: 0.95em; color: #555; line-height: 1.5; margin-bottom: 20px; flex-grow: 1; }
-        .module-link { display: inline-block; background: #3498db; color: white; text-decoration: none; padding: 10px 15px; border-radius: 4px; text-align: center; font-weight: bold; transition: background 0.2s; }
-        .module-link:hover { background: #2980b9; }
-        
-        .border-desmos { border-top-color: #e67e22; }
-        .border-skitse { border-top-color: #2ecc71; }
-        .border-bevis { border-top-color: #9b59b6; }
-        .border-traening { border-top-color: #34495e; }
-        
-        .sub-links { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
-        .sub-link { font-size: 0.85em; background: #f0f3f4; padding: 5px 10px; border-radius: 4px; color: #2c3e50; text-decoration: none; font-weight: 500; border: 1px solid #d5dbdb; transition: 0.2s; }
-        .sub-link:hover { background: #e5e8e8; border-color: #bdc3c7; }
+        .quiz-option { background: #f8f9fa; border: 2px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; text-align: left; }
+        .quiz-option:hover { border-color: #3498db; background: #f1f7fc; }
+        .quiz-option.selected-correct { border-color: #2ecc71; background: #e8f8f0; }
+        .quiz-option.selected-incorrect { border-color: #e74c3c; background: #fceae9; }
+        .input-section { display: flex; gap: 15px; margin: 15px 0; flex-wrap: wrap; }
+        .input-pair { display: flex; align-items: center; gap: 5px; }
+        .input-pair input { width: 100px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
     </style>
 </head>
 <body>
 
-    <div class="intro-header">
-        <h1>Andengradspolynomier</h1>
+    <h1>Andengradspolynomier</h1>
+    <h2>Træning: Find parablens rødder (skæring med x-aksen)</h2>
+    
+    <div class="formula-box">
+        <h3>Formler for rødderne</h3>
+        <p>Når du skal løse andengradsligningen \(ax^2 + bx + c = 0\) og finde grafens rødder, bruger du diskriminantformlen:</p>
+        <div class="formula-group" style="display: flex; gap: 20px; margin: 15px 0; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 4px;">
+                <strong>Trin 1: Diskriminanten \(d\)</strong><br>
+                $$d = b^2 - 4ac$$
+                <ul>
+                    <li>\(d > 0\): 2 rødder</li>
+                    <li>\(d = 0\): 1 rod (toppunkt på x-aksen)</li>
+                    <li>\(d < 0\): Ingen rødder</li>
+                </ul>
+            </div>
+            <div style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 4px;">
+                <strong>Trin 2: Rodformlen (hvis \(d \ge 0\))</strong><br>
+                $$x = \frac{-b \pm \sqrt{d}}{2a}$$
+                <p>Altså en rod med plus og en rod med minus.</p>
+            </div>
+        </div>
+        <p><em>Tip: Alle opgaverne herunder kan regnes i hånden uden lommeregner!</em></p>
     </div>
 
-    <h3 style="margin-top: 40px; border-bottom: 2px solid #e67e22; padding-bottom: 5px; color: #e67e22;">Del 1: Grafisk introduktion & Tangenter</h3>
-    <div class="course-grid">
-        <div class="module-card border-desmos">
-            <div>
-                <div class="module-num">Modul 1</div>
-                <div class="module-title">Introduktion til konstanterne</div>
-                <p class="module-desc">Identificér og aflæs koefficienterne \(a\), \(b\) og \(c\), for  $$f(x) = ax^2 + bx + c$$</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_1.html" class="module-link" style="background-color: #e67e22;">Åbn Modul 1</a>
+    <!-- OPGAVE 1 -->
+    <div class="card">
+        <span class="info-badge" style="background: #2ecc71;">Niveau 1: Let</span>
+        <span class="task-title">Opgave 1: To pæne positive rødder</span>
+        <p>Find rødderne for funktionen:</p>
+        $$f(x) = x^2 - 5x + 6$$
+        
+        <div class="input-section">
+            <div class="input-pair"><label>Mindre rod (\(x_1\)) =</label> <input type="number" id="q1x1" step="1"></div>
+            <div class="input-pair"><label>Større rod (\(x_2\)) =</label> <input type="number" id="q1x2" step="1"></div>
         </div>
-
-        <div class="module-card border-desmos">
-            <div>
-                <div class="module-num">Modul 2</div>
-                <div class="module-title">Parablens anatomi.</div>
-                <p class="module-desc">Find ud af hvilke fagbegreber vi bruger om polynomier</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_navne.html" class="module-link" style="background-color: #e67e22;">Åbn Modul 2</a>
+        
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkRoedder('q1', 2, 3)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
         </div>
-
-        <div class="module-card border-desmos">
-            <div>
-                <div class="module-num">Modul 3</div>
-                <div class="module-title">Eksperiment med a værdien.</div>
-                <p class="module-desc">Brug Desmos til at undersøge a værdien.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_a.html" class="module-link" style="background-color: #e67e22;">Åbn Modul 3</a>
-        </div>
-
-        <div class="module-card border-desmos">
-            <div>
-                <div class="module-num">Modul 4</div>
-                <div class="module-title">Eksperimenter med konstanten c.</div>
-                <p class="module-desc">Brug Desmos til at undersøge c værdien.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_c.html" class="module-link" style="background-color: #e67e22;">Åbn Modul 4</a>
-        </div>
-
-        <div class="module-card border-desmos">
-            <div>
-                <div class="module-num">Modul 5</div>
-                <div class="module-title">Eksperimenter med konstanten b.</div>
-                <p class="module-desc">Brug  Desmos-vindue til at undersøge b værdien.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_b.html" class="module-link" style="background-color: #e67e22;">Åbn Modul 5</a>
-        </div>
-
-        <div class="module-card border-desmos">
-            <div>
-                <div class="module-num">Modul 6</div>
-                <div class="module-title">Tegn tangent der hvor parablen krydser y-aksen.</div>
-                <p class="module-desc">Brug Desmos til at tegne tangenten.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_2.html" class="module-link" style="background-color: #e67e22;">Åbn Modul 6</a>
-        </div>
-
-        <div class="module-card border-desmos">
-            <div>
-                <div class="module-num">Modul 8</div>
-                <div class="module-title">Find forskrift ud fra parabel og tangent.</div>
-                <p class="module-desc">Find forskrift ud fra parabel og tangent.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_3.html" class="module-link" style="background-color: #e67e22;">Åbn Modul 8</a>
-        </div>
-
-        <div class="module-card border-desmos">
-            <div>
-                <div class="module-num">Modul 9</div>
-                <div class="module-title">Tegn parablen ud fra forskriften.</div>
-                <p class="module-desc">Tegn parablen ud fra forskriften.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_4.html" class="module-link" style="background-color: #e67e22;">Åbn Modul 9</a>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Koefficienterne er \(a = 1\), \(b = -5\) og \(c = 6\).<br>
+        1. Udregn \(d = (-5)^2 - 4 \cdot 1 \cdot 6 = 25 - 24 = 1\).<br>
+        2. Brug rodformlen med \(\sqrt{1} = 1\).</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong><br>
+            <strong>Diskriminant:</strong> $$d = (-5)^2 - 4 \cdot 1 \cdot 6 = 25 - 24 = 1$$<br>
+            <strong>Rødder:</strong> $$x = \frac{-(-5) \pm \sqrt{1}}{2 \cdot 1} = \frac{5 \pm 1}{2}$$
+            $$x_1 = \frac{5 - 1}{2} = 2 \quad \text{og} \quad x_2 = \frac{5 + 1}{2} = 3$$
+            Rødderne er <strong>\(x = 2\)</strong> og <strong>\(x = 3\)</strong>.
         </div>
     </div>
 
-    <h3 style="margin-top: 40px; border-bottom: 2px solid #9b59b6; padding-bottom: 5px; color: #9b59b6;">Del 2: De matematiske udledninger</h3>
-    <div class="course-grid">
-        <div class="module-card border-bevis">
-            <div>
-                <div class="module-num">Værktøj til bevis</div>
-                <div class="module-title">Sæt uden for parentes</div>
-                <p class="module-desc">Træn algebraen i at trække \(x\) og koefficienten \(a\) ud foran en parentes – den nødvendige byggeklods til toppunktsbeviset.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/parentes.html" class="module-link" style="background-color: #9b59b6;">Åbn Parentes-modul</a>
+    <!-- OPGAVE 2 -->
+    <div class="card">
+        <span class="info-badge" style="background: #3498db;">Niveau 2: Mellemsvært</span>
+        <span class="task-title">Opgave 2: Negativ og positiv rod</span>
+        <p>Find rødderne for funktionen:</p>
+        $$g(x) = x^2 - 2x - 3$$
+        
+        <div class="input-section">
+            <div class="input-pair"><label>Mindre rod (\(x_1\)) =</label> <input type="number" id="q2x1" step="1"></div>
+            <div class="input-pair"><label>Større rod (\(x_2\)) =</label> <input type="number" id="q2x2" step="1"></div>
         </div>
-
-        <div class="module-card border-bevis">
-            <div>
-                <div class="module-num">Bevis</div>
-                <div class="module-title">Udledning af toppunktsformlen</div>
-                <p class="module-desc">Bevis formlen for både x- og y-koordinaten til parablens vendepunkt ved udelukkende at udnytte grafens perfekte symmetri.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_tp.html" class="module-link" style="background-color: #9b59b6;">Åbn Toppunktsbevis</a>
+        
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkRoedder('q2', -1, 3)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
         </div>
-
-        <div class="module-card border-bevis">
-            <div>
-                <div class="module-num">Værktøj til bevis</div>
-                <div class="module-title">Kvadratet på en toleddet størrelse</div>
-                <p class="module-desc">Træn i at samle og gange kvadratsætninger ud begge veje – nøglegrebet der bruges til at udlede rodformlen.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/kvadrat.html" class="module-link" style="background-color: #9b59b6;">Åbn Kvadrat-modul</a>
-        </div>
-
-        <div class="module-card border-bevis">
-            <div>
-                <div class="module-num">Bevis</div>
-                <div class="module-title">Udledning af rødderne</div>
-                <p class="module-desc">Følg det klassiske algebraiske bevis for andengradsligningen trin-for-trin gennem brug af 1. kvandratsætning og diskriminanten.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_root.html" class="module-link" style="background-color: #9b59b6;">Åbn Rodbevis-siden</a>
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box"><strong>Hint:</strong> Her er \(a = 1\), \(b = -2\) og \(c = -3\). Vær opmærksom på minustegnet i \(c\), da \(-4ac\) bliver positivt: \(-4 \cdot 1 \cdot (-3) = +12\).</div>
+        <div id="sol-q2" class="sol-box"><strong>Løsning:</strong><br>
+            <strong>Diskriminant:</strong> $$d = (-2)^2 - 4 \cdot 1 \cdot (-3) = 4 + 12 = 16$$<br>
+            <strong>Rødder:</strong> Da \(\sqrt{16} = 4\):
+            $$x = \frac{-(-2) \pm 4}{2 \cdot 1} = \frac{2 \pm 4}{2}$$
+            $$x_1 = \frac{2 - 4}{2} = -1 \quad \text{og} \quad x_2 = \frac{2 + 4}{2} = 3$$
+            Rødderne er <strong>\(x = -1\)</strong> og <strong>\(x = 3\)</strong>.
         </div>
     </div>
 
-    <h3 style="margin-top: 40px; border-bottom: 2px solid #34495e; padding-bottom: 5px; color: #34495e;">Del 3: Træning og færdigheder</h3>
-    <div class="course-grid">
-        <div class="module-card border-traening">
-            <div>
-                <div class="module-num">Træning 1</div>
-                <div class="module-title">Beregn parablens toppunkter</div>
-                <p class="module-desc">Træn dine beregninger af toppunkter med de officielle formler. Siden indeholder interaktive tjek-svar opgaver med stigende sværhedsgrad.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_tp_2.html" class="module-link" style="background-color: #34495e;">Åbn Toppunktstræning</a>
+    <!-- OPGAVE 3 -->
+    <div class="card calc-card">
+        <span class="info-badge calc-badge" style="background: #e67e22;">Niveau 3: D = 0</span>
+        <span class="task-title">Opgave 3: Præcis én rod</span>
+        <p>Find rødderne for funktionen:</p>
+        $$h(x) = x^2 - 6x + 9$$
+        <p><em>Tip: Hvis der kun er én rod, indtaster du samme tal i begge felter.</em></p>
+        
+        <div class="input-section">
+            <div class="input-pair"><label>Mindre rod (\(x_1\)) =</label> <input type="number" id="q3x1" step="1"></div>
+            <div class="input-pair"><label>Større rod (\(x_2\)) =</label> <input type="number" id="q3x2" step="1"></div>
         </div>
-
-        <div class="module-card border-traening">
-            <div>
-                <div class="module-num">Træning 2</div>
-                <div class="module-title">Beregn parablens rødder</div>
-                <p class="module-desc">Træn dine beregninger af diskriminanten og rødderne i hånden. Indeholder opgaver med 2 rødder, 1 rod, 0 rødder samt et forståelses-tjek.</p>
-            </div>
-            <a href="https://mpsteenstrup.github.io/matematik/andengrad/andengrad_rod_opgaver.html" class="module-link" style="background-color: #34495e;">Åbn Rodtræning</a>
+        
+        <div class="btn-group">
+            <button class="btn-calc-check" onclick="checkRoedder('q3', 3, 3)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Udregn \(d = (-6)^2 - 4 \cdot 1 \cdot 9\). Hvad bliver diskriminanten? Når \(d = 0\), berører parablen kun x-aksen et enkelt sted.</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong><br>
+            <strong>Diskriminant:</strong> $$d = (-6)^2 - 4 \cdot 1 \cdot 9 = 36 - 36 = 0$$<br>
+            <strong>Rod:</strong> $$x = \frac{-(-6) \pm 0}{2 \cdot 1} = \frac{6}{2} = 3$$
+            Der er kun 1 rod: <strong>\(x = 3\)</strong>.
         </div>
     </div>
 
-    <footer style="margin-top: 60px; text-align: center; color: #95a5a6; font-size: 0.85em;">
-        <p>Eksperimentel matematikundervisning integreret med Desmos og pædagogiske AI-prompts.</p>
-    </footer>
+    <!-- OPGAVE 4 -->
+    <div class="card calc-card">
+        <span class="info-badge calc-badge" style="background: #9b59b6;">Niveau 4: Udfordring</span>
+        <span class="task-title">Opgave 4: Negativ a-værdi</span>
+        <p>Find rødderne for funktionen:</p>
+        $$p(x) = -1x^2 + 4x + 5$$
+        
+        <div class="input-section">
+            <div class="input-pair"><label>Mindre rod (\(x_1\)) =</label> <input type="number" id="q4x1" step="1"></div>
+            <div class="input-pair"><label>Større rod (\(x_2\)) =</label> <input type="number" id="q4x2" step="1"></div>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn-calc-check" onclick="checkRoedder('q4', -1, 5)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box"><strong>Hint:</strong> Her er \(a = -1\), \(b = 4\) og \(c = 5\). Nævneren i rodformlen bliver \(2 \cdot (-1) = -2\). Husk at passe på fortegnene, når du dividerer med et negativt tal!</div>
+        <div id="sol-q4" class="sol-box"><strong>Løsning:</strong><br>
+            <strong>Diskriminant:</strong> $$d = 4^2 - 4 \cdot (-1) \cdot 5 = 16 + 20 = 36$$<br>
+            <strong>Rødder:</strong> Da \(\sqrt{36} = 6\):
+            $$x = \frac{-4 \pm 6}{2 \cdot (-1)} = \frac{-4 \pm 6}{-2}$$
+            $$x_1 = \frac{-4 + 6}{-2} = \frac{2}{-2} = -1 \quad \text{og} \quad x_2 = \frac{-4 - 6}{-2} = \frac{-10}{-2} = 5$$
+            Rødderne er <strong>\(x = -1\)</strong> og <strong>\(x = 5\)</strong>.
+        </div>
+    </div>
+
+    <script>
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+
+        function checkRoedder(id, correctX1, correctX2) {
+            const inputX1 = document.getElementById(id + 'x1').value;
+            const inputX2 = document.getElementById(id + 'x2').value;
+            const feedback = document.getElementById('feedback-' + id);
+            
+            const user1 = parseFloat(inputX1);
+            const user2 = parseFloat(inputX2);
+
+            if (isNaN(user1) || isNaN(user2)) {
+                feedback.innerHTML = "Indtast venligst to værdier.";
+                feedback.style.color = "#7f8c8d";
+                return;
+            }
+
+            // Sorterer input så rækkefølgen ikke ødelægger det hvis de byttes om
+            const userMin = Math.min(user1, user2);
+            const userMax = Math.max(user1, user2);
+            const targetMin = Math.min(correctX1, correctX2);
+            const targetMax = Math.max(correctX1, correctX2);
+
+            const isMinCorrect = Math.abs(userMin - targetMin) < 0.05;
+            const isMaxCorrect = Math.abs(userMax - targetMax) < 0.05;
+
+            if (isMinCorrect && isMaxCorrect) {
+                feedback.innerHTML = "✓ Flot! Rødderne er " + targetMin + " og " + targetMax + ".";
+                feedback.style.color = "#2ecc71";
+            } else if (isMinCorrect || isMaxCorrect) {
+                feedback.innerHTML = "Næsten! Den ene rod er rigtig, men den anden er forkert. Tjek din plus/minus udregning.";
+                feedback.style.color = "#e67e22";
+            } else {
+                feedback.innerHTML = "✗ Ikke helt rigtigt. Tjek diskriminanten og tryk på hint om nødvendigt.";
+                feedback.style.color = "#e74c3c";
+            }
+        }
+    </script>
 
 </body>
-<p>Mads Peter Steenstrup.</p>
 </html>
