@@ -13,4 +13,5 @@
 
 ## Sandsynlighedsreging og binomialfordelingen
 
-[Addition og multiplikation af sandsynligheder]()
+* [Addition og multiplikation af sandsynligheder](https://mpsteenstrup.github.io/matematik/sandsynligned_binomial/add_mult_ssh.html)
+* [Addition og multiplikation af kombinationer](https://mpsteenstrup.github.io/matematik/sandsynligned_binomial/add_mult.html)
