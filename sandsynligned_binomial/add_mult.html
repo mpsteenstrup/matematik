@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Træning: Addition og Multiplikation af Kombinationer</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #27ae60;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0 0 5px 0;
+            font-size: 1.8em;
+        }
+
+        .rule-card {
+            background-color: #eaf2f8;
+            border: 1px solid #aeb6bf;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+        }
+
+        .instruction-card {
+            background-color: #eef9f1;
+            border: 1px solid #c3e6cb;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            color: #155724;
+        }
+
+        .task-card {
+            background-color: var(--card-bg);
+            padding: 20px 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .concept-card {
+            background-color: var(--card-bg);
+            padding: 20px 25px;
+            border-radius: var(--border-radius);
+            margin-top: 35px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid #8e44ad;
+        }
+
+        .task-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        select, input {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        textarea {
+            width: 100%;
+            height: 70px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.95em;
+            box-sizing: border-box;
+            margin: 10px 0;
+            resize: vertical;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-hint {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .btn-check {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-answer {
+            background-color: #8e44ad;
+            color: white;
+        }
+
+        .hint-box, .feedback-box, .answer-box {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .hint-box {
+            background-color: #fff9e6;
+            border: 1px solid #ffe399;
+            color: #d35400;
+        }
+
+        .answer-box {
+            background-color: #f4ecf7;
+            border: 1px solid #d2b4de;
+            color: #512e5f;
+        }
+
+        .feedback-correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback-wrong {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Træning: Antal Kombinationer</h1>
+        <p>Lær hvornår du skal lægge antal muligheder sammen (+), og hvornår du skal gange dem (*).</p>
+    </header>
+
+    <!-- HUSKEREGEL -->
+    <div class="rule-card">
+        <h3>Huskereglen for Kombinatorik:</h3>
+        <ul>
+            <li><strong>Addition (+) — "ENTEN - ELLER":</strong> Bruges når du skal vælge <em>én ting</em> ud fra flere adskilte grupper.<br>
+            \(\text{Samlet antal} = \text{Muligheder i A} + \text{Muligheder i B}\)</li>
+            <li><strong>Multiplikation (*) — "BÅDE - OG":</strong> Bruges når du skal sammensætte et valg af <em>flere ting samtidig/efter hinanden</em>.<br>
+            \(\text{Samlet antal} = \text{Muligheder i A} \cdot \text{Muligheder i B}\)</li>
+        </ul>
+    </div>
+
+    <!-- INSTRUKTIONER -->
+    <div class="instruction-card">
+        <strong>Sådan udfylder du opgaverne:</strong>
+        <ul>
+            <li><strong>Metode:</strong> Vælg om opgaven kræver Addition eller Multiplikation.</li>
+            <li><strong>Regnestykke:</strong> Skriv det opstillede regnestykke (f.eks. <code>3 + 4</code> eller <code>3 * 4</code>).</li>
+            <li><strong>Antal kombinationer:</strong> Skriv det samlede antal som et heltal.</li>
+        </ul>
+    </div>
+
+    <!-- OPGAVE 1 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 1: Tøjvalg</div>
+        <p>Du skal sammensætte et sæt tøj og har <strong>4 forskellige T-shirts</strong> og <strong>3 forskellige par bukser</strong>. Hvor mange forskellige sæt tøj (1 T-shirt OG 1 par bukser) kan du lave?</p>
+        
+        <div class="input-group">
+            <label>Metode:</label>
+            <select id="opg1-type">
+                <option value="">-- Vælg --</option>
+                <option value="add">Addition (+)</option>
+                <option value="mult">Multiplikation (*)</option>
+            </select>
+
+            <label>Regnestykke:</label>
+            <input type="text" id="opg1-calc">
+
+            <label>Antal kombinationer:</label>
+            <input type="text" id="opg1-ans">
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint1')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg1()">Tjek svar</button>
+
+        <div id="hint1" class="hint-box">
+            Skal du vælge BÅDE en T-shirt OG et par bukser til dit sæt, eller vælger du kun én af delene?
+        </div>
+        <div id="feedback1" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 2 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 2: Frugtskålen</div>
+        <p>En frugtskål indeholder <strong>5 æbler</strong> og <strong>4 pærer</strong>. Du må vælge <strong>én enkelt frugt</strong> at spise. Hvor mange forskellige valg har du?</p>
+        
+        <div class="input-group">
+            <label>Metode:</label>
+            <select id="opg2-type">
+                <option value="">-- Vælg --</option>
+                <option value="add">Addition (+)</option>
+                <option value="mult">Multiplikation (*)</option>
+            </select>
+
+            <label>Regnestykke:</label>
+            <input type="text" id="opg2-calc">
+
+            <label>Antal kombinationer:</label>
+            <input type="text" id="opg2-ans">
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint2')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg2()">Tjek svar</button>
+
+        <div id="hint2" class="hint-box">
+            Du vælger enten ét æble ELLER én pære. Skal du gange eller lægge sammen?
+        </div>
+        <div id="feedback2" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 3 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 3: Restaurantmenuen</div>
+        <p>En restaurant tilbyder en menu med <strong>3 forretter</strong>, <strong>5 hovedretter</strong> og <strong>2 desserter</strong>. Hvor mange forskellige 3-retters menuer (forret, hovedret OG dessert) kan du sammensætte?</p>
+        
+        <div class="input-group">
+            <label>Metode:</label>
+            <select id="opg3-type">
+                <option value="">-- Vælg --</option>
+                <option value="add">Addition (+)</option>
+                <option value="mult">Multiplikation (*)</option>
+            </select>
+
+            <label>Regnestykke:</label>
+            <input type="text" id="opg3-calc">
+
+            <label>Antal kombinationer:</label>
+            <input type="text" id="opg3-ans">
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint3')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg3()">Tjek svar</button>
+
+        <div id="hint3" class="hint-box">
+            Du vælger en ret fra hver af de 3 kategorier. Det er kombinationer i rækkefølge (både-og).
+        </div>
+        <div id="feedback3" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 4 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 4: Transport til skolen</div>
+        <p>For at komme i skole kan du vælge mellem <strong>2 buslinjer</strong> eller <strong>3 togforbindelser</strong>. Hvor mange forskellige måder kan du rejse til skolen på?</p>
+        
+        <div class="input-group">
+            <label>Metode:</label>
+            <select id="opg4-type">
+                <option value="">-- Vælg --</option>
+                <option value="add">Addition (+)</option>
+                <option value="mult">Multiplikation (*)</option>
+            </select>
+
+            <label>Regnestykke:</label>
+            <input type="text" id="opg4-calc">
+
+            <label>Antal kombinationer:</label>
+            <input type="text" id="opg4-ans">
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint4')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg4()">Tjek svar</button>
+
+        <div id="hint4" class="hint-box">
+            Tager du både bus OG tog samtidig, eller vælger du ENTen bus ELLER tog?
+        </div>
+        <div id="feedback4" class="feedback-box"></div>
+    </div>
+
+    <!-- FORSTÅELSESSPØRGSMÅL NEDERST -->
+    <div class="concept-card">
+        <h2>Refleksion & Forståelsesspørgsmål</h2>
+        <p>Svar på spørgsmålene med dine egne ord for at tjekke din forståelse:</p>
+
+        <!-- Spørgsmål 1 -->
+        <div style="margin-bottom: 20px;">
+            <strong>Spørgsmål A:</strong>
+            <p>Hvilke nøgleord i en opgavetekst afslører typisk, at du skal bruge <em>multiplikation</em> (*)?</p>
+            <textarea placeholder="Skriv dit svar her..."></textarea>
+            <button class="btn-answer" onclick="toggleBox('ansA')">Vis forklaring / facit</button>
+            <div id="ansA" class="answer-box">
+                <strong>Model-forklaring:</strong> Nøgleord som "både-og", "sammensæt", "i træk", "kombiner", eller når du skal vælge én ting fra kategori 1 <em>og</em> én ting fra kategori 2.
+            </div>
+        </div>
+
+        <!-- Spørgsmål 2 -->
+        <div style="margin-bottom: 20px;">
+            <strong>Spørgsmål B:</strong>
+            <p>Hvorfor skal man <em>lægge sammen</em> (+) i opgave 2 (frugtskålen), mens man skal <em>gange</em> (*) i opgave 1 (tøjvalg)? Hvad er den principielle forskel?</p>
+            <textarea placeholder="Skriv dit svar her..."></textarea>
+            <button class="btn-answer" onclick="toggleBox('ansB')">Vis forklaring / facit</button>
+            <div id="ansB" class="answer-box">
+                <strong>Model-forklaring:</strong> I opgave 2 foretager du kun <em>ét enkelt valg</em> (enten æble ELLER pære). I opgave 1 foretager du <em>to uafhængige valg samtidig</em> (både T-shirt OG bukser), hvor hver T-shirt kan parres med alle par bukser.
+            </div>
+        </div>
+
+        <!-- Spørgsmål 3 -->
+        <div style="margin-bottom: 20px;">
+            <strong>Spørgsmål C:</strong>
+            <p>Forestil dig, at du skal lave en kodelås med 4 cifre (fra 0 til 9). Ville du bruge addition eller multiplikation til at finde det samlede antal mulige koder? Begrund dit svar.</p>
+            <textarea placeholder="Skriv dit svar her..."></textarea>
+            <button class="btn-answer" onclick="toggleBox('ansC')">Vis forklaring / facit</button>
+            <div id="ansC" class="answer-box">
+                <strong>Model-forklaring:</strong> Du skal bruge <em>multiplikation</em> (*). Du skal vælge 1. ciffer OG 2. ciffer OG 3. ciffer OG 4. ciffer. Hvert ciffer har 10 muligheder, så det giver \(10 \cdot 10 \cdot 10 \cdot 10 = 10.000\) mulige koder.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleBox(id) {
+        const box = document.getElementById(id);
+        box.style.display = (box.style.display === "block") ? "none" : "block";
+    }
+
+    function showFeedback(elementId, isCorrect, text) {
+        const fb = document.getElementById(elementId);
+        fb.style.display = "block";
+        fb.className = "feedback-box " + (isCorrect ? "feedback-correct" : "feedback-wrong");
+        fb.innerHTML = text;
+    }
+
+    function checkOpg1() {
+        const type = document.getElementById('opg1-type').value;
+        const ans = parseInt(document.getElementById('opg1-ans').value);
+        
+        if (type === 'mult' && ans === 12) {
+            showFeedback('feedback1', true, 'Flot! Da du skal sammensætte T-shirt OG bukser (både-og), skal du gange: 4 * 3 = 12 sæt.');
+        } else {
+            showFeedback('feedback1', false, 'Prøv igen. Da du sammensætter to ting (både-og), skal du bruge Multiplikation: 4 * 3 = 12.');
+        }
+    }
+
+    function checkOpg2() {
+        const type = document.getElementById('opg2-type').value;
+        const ans = parseInt(document.getElementById('opg2-ans').value);
+        
+        if (type === 'add' && ans === 9) {
+            showFeedback('feedback2', true, 'Korrekt! Du vælger kun én enkelt ting (enten æble ELLER pære), så du lægger sammen: 5 + 4 = 9 valg.');
+        } else {
+            showFeedback('feedback2', false, 'Prøv igen. Da du kun tager ét stykke frugt (enten-eller), skal du bruge Addition: 5 + 4 = 9.');
+        }
+    }
+
+    function checkOpg3() {
+        const type = document.getElementById('opg3-type').value;
+        const ans = parseInt(document.getElementById('opg3-ans').value);
+        
+        if (type === 'mult' && ans === 30) {
+            showFeedback('feedback3', true, 'Rigtigt! Du sammensætter en hel menu (både-og-og), så du ganger: 3 * 5 * 2 = 30 menuer.');
+        } else {
+            showFeedback('feedback3', false, 'Prøv igen. Da alle 3 ting skal vælges til menuen, ganger du tallene: 3 * 5 * 2 = 30.');
+        }
+    }
+
+    function checkOpg4() {
+        const type = document.getElementById('opg4-type').value;
+        const ans = parseInt(document.getElementById('opg4-ans').value);
+        
+        if (type === 'add' && ans === 5) {
+            showFeedback('feedback4', true, 'Helt rigtigt! Du vælger enten en bus ELLER et tog, så du addere mulighederne: 2 + 3 = 5 måder.');
+        } else {
+            showFeedback('feedback4', false, 'Prøv igen. Da du vælger én transportform (enten-eller), lægger du mulighederne sammen: 2 + 3 = 5.');
+        }
+    }
+</script>
+
+</body>
+</html>

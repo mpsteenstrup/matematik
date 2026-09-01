@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevark: Pascals Trekant og Binomialkoefficienten</title>
+    <!-- MathJax til visning af matematiske symboler -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #27ae60;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0 0 5px 0;
+            font-size: 1.8em;
+        }
+
+        header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .info-bar {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            font-weight: bold;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .card.step {
+            border-left-color: var(--accent-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.3em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        .rule-box {
+            background-color: #eaf2f8;
+            border: 1px solid #aeb6bf;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+        }
+
+        .exercise-box {
+            background-color: #fff9e6;
+            border: 1px solid #ffe399;
+            border-left: 5px solid #f39c12;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+        }
+
+        .exercise-title {
+            font-weight: bold;
+            color: #d35400;
+            margin-bottom: 8px;
+        }
+
+        .pascal-grid {
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.2em;
+            line-height: 1.8;
+            background: #fff;
+            padding: 15px;
+            border: 1px dashed #ccc;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .fill-in {
+            display: inline-block;
+            width: 30px;
+            height: 25px;
+            border-bottom: 2px solid #333;
+            text-align: center;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        @media print {
+            body { background-color: #fff; padding: 0; }
+            .card { box-shadow: none; border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Elevark: Pascals Trekant & Binomialkoefficienten</h1>
+        <p>En enkel introduktion til talmønstre og kombinationer</p>
+        <div class="info-bar">
+            <span>Navn: _______________________</span>
+            <span>Klasse: ________</span>
+            <span>Dato: ________</span>
+        </div>
+    </header>
+
+    <!-- TRIN 1 -->
+    <div class="card step">
+        <h2>Trin 1: Byg Pascals Trekant</h2>
+        <p>Pascals trekant opbygges efter en simpel regel:</p>
+        
+        <div class="rule-box">
+            <strong>Reglen:</strong> Hvert tal i trekanten er summen af de <strong>to tal, der står lige ovenover</strong>. Kenterne består altid af tallet 1.
+        </div>
+
+        <div class="pascal-grid">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;<br>
+            &nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;<br>
+            &nbsp;1&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;1&nbsp;<br>
+            1&nbsp;&nbsp;<span class="fill-in"></span>&nbsp;&nbsp;<span class="fill-in"></span>&nbsp;&nbsp;<span class="fill-in"></span>&nbsp;&nbsp;1
+        </div>
+
+        <div class="exercise-box">
+            <div class="exercise-title">Opgave 1</div>
+            <ol>
+                <li>Udfyld de tomme pladser i rækken nederst i trekanten ovenfor.</li>
+                <li>Skriv den næste række (række 5) i trekanten herunder:</li>
+            </ol>
+            <p style="text-align: center; font-family: monospace; font-size: 1.1em;">
+                1 &nbsp;&nbsp;&nbsp; ____ &nbsp;&nbsp;&nbsp; ____ &nbsp;&nbsp;&nbsp; ____ &nbsp;&nbsp;&nbsp; ____ &nbsp;&nbsp;&nbsp; 1
+            </p>
+        </div>
+    </div>
+
+    <!-- TRIN 2 -->
+    <div class="card step">
+        <h2>Trin 2: Hvad er en Binomialkoefficient?</h2>
+        <p>I matematikken bruges et specielt symbol til at tælle kombinationer. Det kaldes en <strong>binomialkoefficient</strong> og skrives sådan her:</p>
+        
+        <div style="text-align: center; font-size: 1.3em; margin: 15px 0;">
+            \( \binom{n}{r} \) &nbsp;&nbsp; (læses som: <em>"n vælg r"</em>)
+        </div>
+
+        <ul>
+            <li><strong>\(n\)</strong> er det samlede antal ting, du har at vælge imellem (fx 4 forskellige frugter).</li>
+            <li><strong>\(r\)</strong> er hvor mange ting, du skal vælge ud (fx 2 frugter).</li>
+        </ul>
+
+        <div class="exercise-box">
+            <div class="exercise-title">Opgave 2: Hverdagens eksempler</div>
+            <p>Oversæt teksten til symbolet \( \binom{n}{r} \):</p>
+            <ol>
+                <li>Du har 5 klassikammerater og skal vælge 3 af dem til et gruppearbejde: \( \binom{\text{__}}{\text{__}} \)</li>
+                <li>Du har 10 isvarianter og skal vælge 2 kugler: \( \binom{\text{__}}{\text{__}} \)</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- TRIN 3 -->
+    <div class="card step">
+        <h2>Trin 3: Sammenhængen mellem Trekanten og Symbolet</h2>
+        <p>Det fantastiske er, at <strong>Pascals trekant indeholder alle svarene</strong> på hvor mange kombinationer du kan lave!</p>
+        
+        <div class="rule-box">
+            Når du vil finde svaret på \( \binom{n}{r} \):
+            <ul>
+                <li>Gå ned til <strong>række \(n\)</strong> i trekanten (vi starter med at tælle fra række 0 i toppen).</li>
+                <li>Tæl hen til <strong>plads \(r\)</strong> i rækken (vi starter med at tælle fra plads 0 fra venstre).</li>
+            </ul>
+        </div>
+
+        <p><strong>Eksempel:</strong> Find \( \binom{3}{2} \) (Antal måder at vælge 2 ud af 3 ting).</p>
+        <ul>
+            <li>Række 3 i trekanten er: <strong>1, 3, 3, 1</strong></li>
+            <li>Plads 0 = 1, Plads 1 = 3, <strong>Plads 2 = 3</strong>.</li>
+            <li>Svar: \( \binom{3}{2} = 3 \).</li>
+        </ul>
+
+        <div class="exercise-box">
+            <div class="exercise-title">Opgave 3: Brug trekanten til at finde svaret</div>
+            <p>Aflæs værdierne direkte i Pascals trekant fra Trin 1:</p>
+            <ol>
+                <li>\( \binom{2}{1} = \) ______ &nbsp;&nbsp;&nbsp;&nbsp; <em>(Kig i række 2, plads 1)</em></li>
+                <li>\( \binom{4}{2} = \) ______ &nbsp;&nbsp;&nbsp;&nbsp; <em>(Kig i række 4, plads 2)</em></li>
+                <li>\( \binom{4}{3} = \) ______ &nbsp;&nbsp;&nbsp;&nbsp; <em>(Kig i række 4, plads 3)</em></li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- TRIN 4 -->
+    <div class="card step">
+        <h2>Trin 4: Prøv det i praksis</h2>
+
+        <div class="exercise-box">
+            <div class="exercise-title">Opgave 4: Sllikskålen</div>
+            <p>Du har 4 forskellige stykker slik i en skål: Et tyggegummi, en slikkepind, en chokolade og en lakrids (\(n = 4\)). Du må tage 2 stykker med dig (\(r = 2\)).</p>
+            <ol>
+                <li>Opstil binomialkoefficienten for opgaven: \( \binom{\text{__}}{\text{__}} \)</li>
+                <li>Brug svaret fra Opgave 3 til at opskrive, hvor mange forskellige måder du kan vælge slikket på: _____ måder.</li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

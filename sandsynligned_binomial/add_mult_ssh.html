@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Træning: Addition og Multiplikation af Sandsynligheder</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #27ae60;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0 0 5px 0;
+            font-size: 1.8em;
+        }
+
+        .rule-card {
+            background-color: #eaf2f8;
+            border: 1px solid #aeb6bf;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+        }
+
+        .instruction-card {
+            background-color: #eef9f1;
+            border: 1px solid #c3e6cb;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            color: #155724;
+        }
+
+        .task-card {
+            background-color: var(--card-bg);
+            padding: 20px 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .concept-card {
+            background-color: var(--card-bg);
+            padding: 20px 25px;
+            border-radius: var(--border-radius);
+            margin-top: 35px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid #8e44ad;
+        }
+
+        .statement-box {
+            background-color: #fcf8e3;
+            border: 1px solid #faebcc;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+        }
+
+        .task-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        select, input {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-hint {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .btn-check {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-concept {
+            background-color: #8e44ad;
+            color: white;
+        }
+
+        .hint-box, .feedback-box {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .hint-box {
+            background-color: #fff9e6;
+            border: 1px solid #ffe399;
+            color: #d35400;
+        }
+
+        .feedback-correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback-wrong {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Træning: Addition vs. Multiplikation</h1>
+        <p>Lær hvornår du skal lægge sandsynligheder sammen (+), og hvornår du skal gange dem (*).</p>
+    </header>
+
+    <!-- HUSKEREGEL -->
+    <div class="rule-card">
+        <h3>Huskereglen:</h3>
+        <ul>
+            <li><strong>Addition (+) — "ENTEN - ELLER":</strong> Bruges når to hændelser udelukker hinanden, og du vil finde chancen for at <em>enten</em> den ene <em>eller</em> den anden sker.<br>
+            \( P(A \text{ eller } B) = P(A) + P(B) \)</li>
+            <li><strong>Multiplikation (*) — "BÅDE - OG":</strong> Bruges når uafhængige hændelser sker i rækkefølge eller samtidig, og du vil finde chancen for at <em>både</em> den ene <em>og</em> den anden sker.<br>
+            \( P(A \text{ og } B) = P(A) \cdot P(B) \)</li>
+        </ul>
+    </div>
+
+    <!-- SÅDAN UDFYLDES FELTERNE -->
+    <div class="instruction-card">
+        <strong>Sådan udfylder du opgaverne:</strong>
+        <ul>
+            <li><strong>Metode:</strong> Vælg om du bruger Addition eller Multiplikation.</li>
+            <li><strong>Regnestykke:</strong> Skriv det regnestykke, du opstiller (f.eks. <code>1/4 + 1/4</code> eller <code>1/2 * 1/3</code>).</li>
+            <li><strong>Resultat:</strong> Skriv det endelige svar som brøk (f.eks. <code>2/4</code>) eller decimaltal (f.eks. <code>0.5</code>).</li>
+        </ul>
+    </div>
+
+    <!-- OPGAVE 1 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 1: Slå med en terning</div>
+        <p>Du kaster en almindelig 6-sidet terning. Hvad er sandsynligheden for at slå <strong>enten en 1'er eller en 6'er</strong>?</p>
+        
+        <div class="input-group">
+            <label>Metode:</label>
+            <select id="opg1-type">
+                <option value="">-- Vælg --</option>
+                <option value="add">Addition (+)</option>
+                <option value="mult">Multiplikation (*)</option>
+            </select>
+
+            <label>Regnestykke:</label>
+            <input type="text" id="opg1-calc">
+
+            <label>Resultat:</label>
+            <input type="text" id="opg1-ans">
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint1')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg1()">Tjek svar</button>
+
+        <div id="hint1" class="hint-box">
+            Skal begge ting ske på én gang, eller leder du efter chancen for ét ud af flere mulige udfald på samme kast? (Tænk: "Enten/eller").
+        </div>
+        <div id="feedback1" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 2 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 2: To mønter i træk</div>
+        <p>Du slår plat og krone to gange i træk. Hvad er sandsynligheden for at få <strong>krone i første kast OG krone i andet kast</strong>?</p>
+        
+        <div class="input-group">
+            <label>Metode:</label>
+            <select id="opg2-type">
+                <option value="">-- Vælg --</option>
+                <option value="add">Addition (+)</option>
+                <option value="mult">Multiplikation (*)</option>
+            </select>
+
+            <label>Regnestykke:</label>
+            <input type="text" id="opg2-calc">
+
+            <label>Resultat:</label>
+            <input type="text" id="opg2-ans">
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint2')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg2()">Tjek svar</button>
+
+        <div id="hint2" class="hint-box">
+            Du udfører to handlinger efter hinanden og har brug for, at begge lykkes. (Tænk: "Både/og").
+        </div>
+        <div id="feedback2" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 3 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 3: Trække kort</div>
+        <p>Du trækker ét kort fra et spil med 52 kort. Hvad er sandsynligheden for at trække <strong>enten et Es eller en Konge</strong>?</p>
+        
+        <div class="input-group">
+            <label>Metode:</label>
+            <select id="opg3-type">
+                <option value="">-- Vælg --</option>
+                <option value="add">Addition (+)</option>
+                <option value="mult">Multiplikation (*)</option>
+            </select>
+
+            <label>Regnestykke:</label>
+            <input type="text" id="opg3-calc">
+
+            <label>Resultat:</label>
+            <input type="text" id="opg3-ans">
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint3')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg3()">Tjek svar</button>
+
+        <div id="hint3" class="hint-box">
+            Der er 4 esser og 4 konger i spillet. Du trækker kun ét kort og bliver glad uanset om det er et es ELLER en konge.
+        </div>
+        <div id="feedback3" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 4 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 4: Lykkehjul og Terning</div>
+        <p>Du drejer et lykkehjul med 4 lige store felter (rød, blå, grøn, gul) og kaster en terning. Hvad er sandsynligheden for at få <strong>RØD på hjulet OG en 6'er på terningen</strong>?</p>
+        
+        <div class="input-group">
+            <label>Metode:</label>
+            <select id="opg4-type">
+                <option value="">-- Vælg --</option>
+                <option value="add">Addition (+)</option>
+                <option value="mult">Multiplikation (*)</option>
+            </select>
+
+            <label>Regnestykke:</label>
+            <input type="text" id="opg4-calc">
+
+            <label>Resultat:</label>
+            <input type="text" id="opg4-ans">
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint4')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg4()">Tjek svar</button>
+
+        <div id="hint4" class="hint-box">
+            Chancen for rød er 1/4. Chancen for en 6'er er 1/6. Begge ting skal finde sted på samme tid.
+        </div>
+        <div id="feedback4" class="feedback-box"></div>
+    </div>
+
+    <!-- FORSTÅELSESSPØRGSMÅL / UDSAGN NEDERST -->
+    <div class="concept-card">
+        <h2>Tjek din forståelse: Sandt eller Falsk?</h2>
+        <p>Vurder følgende udsagn om sandsynlighedsregning og tjek dine svar:</p>
+
+        <!-- UDSAGN 1 -->
+        <div class="statement-box">
+            <p><strong>Udsagn A:</strong> "Når to hændelser udelukker hinanden (f.eks. at slå en 2'er eller en 4'er på samme terningekast), skal man <em>gange</em> deres sandsynligheder sammen."</p>
+            <div class="input-group">
+                <label>Vurdering:</label>
+                <select id="udsagnA-val">
+                    <option value="">-- Vælg --</option>
+                    <option value="sandt">Sandt</option>
+                    <option value="falsk">Falsk</option>
+                </select>
+                <button class="btn-concept" onclick="checkUdsagnA()">Tjek Vurdering</button>
+            </div>
+            <div id="feedbackA" class="feedback-box"></div>
+        </div>
+
+        <!-- UDSAGN 2 -->
+        <div class="statement-box">
+            <p><strong>Udsagn B:</strong> "Sandsynligheden for at få to 6'ere i træk med en terning er mindre end sandsynligheden for at få én 6'er i et enkelt kast."</p>
+            <div class="input-group">
+                <label>Vurdering:</label>
+                <select id="udsagnB-val">
+                    <option value="">-- Vælg --</option>
+                    <option value="sandt">Sandt</option>
+                    <option value="falsk">Falsk</option>
+                </select>
+                <button class="btn-concept" onclick="checkUdsagnB()">Tjek Vurdering</button>
+            </div>
+            <div id="feedbackB" class="feedback-box"></div>
+        </div>
+
+        <!-- UDSAGN 3 -->
+        <div class="statement-box">
+            <p><strong>Udsagn C:</strong> "Hvis du kaster en mønt 3 gange i træk, finder du sandsynligheden for at få Plat alle 3 gange ved regnestykket \(\frac{1}{2} + \frac{1}{2} + \frac{1}{2}\)."</p>
+            <div class="input-group">
+                <label>Vurdering:</label>
+                <select id="udsagnC-val">
+                    <option value="">-- Vælg --</option>
+                    <option value="sandt">Sandt</option>
+                    <option value="falsk">Falsk</option>
+                </select>
+                <button class="btn-concept" onclick="checkUdsagnC()">Tjek Vurdering</button>
+            </div>
+            <div id="feedbackC" class="feedback-box"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleBox(id) {
+        const box = document.getElementById(id);
+        box.style.display = (box.style.display === "block") ? "none" : "block";
+    }
+
+    function showFeedback(elementId, isCorrect, text) {
+        const fb = document.getElementById(elementId);
+        fb.style.display = "block";
+        fb.className = "feedback-box " + (isCorrect ? "feedback-correct" : "feedback-wrong");
+        fb.innerHTML = text;
+    }
+
+    function parseFraction(str) {
+        if (!str) return NaN;
+        str = str.replace(',', '.').trim();
+        if (str.includes('/')) {
+            const parts = str.split('/');
+            return parseFloat(parts[0]) / parseFloat(parts[1]);
+        }
+        return parseFloat(str);
+    }
+
+    function checkOpg1() {
+        const type = document.getElementById('opg1-type').value;
+        const ans = parseFraction(document.getElementById('opg1-ans').value);
+        
+        if (type === 'add' && Math.abs(ans - (2/6)) < 0.02) {
+            showFeedback('feedback1', true, 'Flot! Det er addition (1/6 + 1/6 = 2/6 ≈ 0,33), da hændelserne udelukker hinanden (enten-eller).');
+        } else {
+            showFeedback('feedback1', false, 'Prøv igen. Da hændelserne udelukker hinanden (enten-eller), skal du bruge Addition. Svaret giver 2/6 (eller ca. 0,33).');
+        }
+    }
+
+    function checkOpg2() {
+        const type = document.getElementById('opg2-type').value;
+        const ans = parseFraction(document.getElementById('opg2-ans').value);
+        
+        if (type === 'mult' && Math.abs(ans - 0.25) < 0.02) {
+            showFeedback('feedback2', true, 'Korrekt! Det er multiplikation (1/2 * 1/2 = 1/4 = 0,25), da begge hændelser skal indtræffe (både-og).');
+        } else {
+            showFeedback('feedback2', false, 'Prøv igen. Når to ting skal ske i træk (både-og), skal du gange sandsynlighederne (Multiplikation). Svaret er 1/4 (0,25).');
+        }
+    }
+
+    function checkOpg3() {
+        const type = document.getElementById('opg3-type').value;
+        const ans = parseFraction(document.getElementById('opg3-ans').value);
+        
+        if (type === 'add' && Math.abs(ans - (8/52)) < 0.02) {
+            showFeedback('feedback3', true, 'Rigtigt! Du kan enten få et Es (4/52) eller en Konge (4/52). Læg dem sammen: 8/52 (eller 2/13 ≈ 0,15).');
+        } else {
+            showFeedback('feedback3', false, 'Prøv igen. Da det er ét kort, der enten kan være Es eller Konge, skal du addere: 4/52 + 4/52 = 8/52.');
+        }
+    }
+
+    function checkOpg4() {
+        const type = document.getElementById('opg4-type').value;
+        const ans = parseFraction(document.getElementById('opg4-ans').value);
+        
+        if (type === 'mult' && Math.abs(ans - (1/24)) < 0.01) {
+            showFeedback('feedback4', true, 'Helt rigtigt! Begge uafhængige hændelser skal lykkes (både-og), så du ganger: 1/4 * 1/6 = 1/24 ≈ 0,042.');
+        } else {
+            showFeedback('feedback4', false, 'Prøv igen. Da to uafhængige ting skal ske samtidig, bruges Multiplikation: 1/4 * 1/6 = 1/24.');
+        }
+    }
+
+    /* FORSTÅELSESSPØRGSMÅL LOGIK */
+    function checkUdsagnA() {
+        const val = document.getElementById('udsagnA-val').value;
+        if (val === 'falsk') {
+            showFeedback('feedbackA', true, 'Korrekt vuderet! Udsagnet er FALSK. Når hændelser udelukker hinanden (enten-eller), skal sandsynlighederne lægges sammen (+), ikke ganges.');
+        } else {
+            showFeedback('feedbackA', false, 'Forkert. Husk at enten-eller betyder addition (+). Ved terningekastet er sandsynligheden 1/6 + 1/6 = 2/6.');
+        }
+    }
+
+    function checkUdsagnB() {
+        const val = document.getElementById('udsagnB-val').value;
+        if (val === 'sandt') {
+            showFeedback('feedbackB', true, 'Korrekt vurderet! Udsagnet er SANDT. Chancen for én 6\'er er 1/6 (ca. 16,7%), mens chancen for to 6\'ere er 1/6 * 1/6 = 1/36 (ca. 2,8%). Når du ganger brøker mindre end 1, bliver resultatet mindre.');
+        } else {
+            showFeedback('feedbackB', false, 'Forkert. Udsagnet er sandt. Da du skal slå 6\'ere i træk (både-og), ganger du sandsynlighederne (1/6 * 1/6 = 1/36), hvilket er et meget mindre tal.');
+        }
+    }
+
+    function checkUdsagnC() {
+        const val = document.getElementById('udsagnC-val').value;
+        if (val === 'falsk') {
+            showFeedback('feedbackC', true, 'Korrekt vurderet! Udsagnet er FALSK. Da alle 3 kast skal blive Plat (både-og), skal sandsynlighederne ganges sammen: 1/2 * 1/2 * 1/2 = 1/8. Hvis du havde lagt dem sammen, ville svaret blive 1.5 (150%), hvilket er umuligt!');
+        } else {
+            showFeedback('feedbackC', false, 'Forkert. Hvis du lægger 1/2 + 1/2 + 1/2 sammen, får du 1,5 (150%), hvilket er umuligt for en sandsynlighed! Det kræver multiplikation: 1/2 * 1/2 * 1/2 = 1/8.');
+        }
+    }
+</script>
+
+</body>
+</html>
