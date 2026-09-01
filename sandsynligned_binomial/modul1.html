@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 1: Intuition & Basal Sandsynlighed</title>
+    <!-- MathJax til visning af matematiske symboler og brøker -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2em;
+        }
+
+        header p {
+            margin: 0;
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .card.accent {
+            border-left-color: var(--accent-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 15px;
+            font-size: 1.2em;
+        }
+
+        .formula-box {
+            background-color: #f1f7fc;
+            border: 1px solid #bce8f1;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .exercise-box {
+            background-color: #fff9e6;
+            border: 1px solid #ffe399;
+            border-left: 5px solid #f39c12;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+
+        .exercise-title {
+            font-weight: bold;
+            color: #d35400;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            vertical-align: middle;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Modul 1: Intuition & Basal Sandsynlighed</h1>
+        <p>Lektionens varighed: 90 minutter | Tema: Sandsynlighedsfelter og kontraintuitive eksempler</p>
+    </header>
+
+    <!-- INTRODUKTION OG FORMÅL -->
+    <div class="card">
+        <h2>Modulets Formål</h2>
+        <p>Menneskets intuition er ofte overraskende dårlig til at vurdere tilfældigheder og chancer. I dette modul afdækker vi tre klassiske tankefælder og opbygger det matematiske sprog — <strong>sandsynlighedsfeltet</strong> — som gør os i stand til at regne præcist på tilfældige begivenheder.</p>
+    </div>
+
+    <!-- DEL 1: INTUITIONS-TJEK -->
+    <div class="card accent">
+        <h2>1. Kontraintuitive Eksempler <span class="badge">Teori & Diskussion</span></h2>
+        
+        <h3>A. Fødselsdagsproblemet</h3>
+        <p>Hvor mange personer skal der være samlet i et lokale, før der er over <strong>50% chance</strong> for, at mindst to af dem har fødselsdag på den samme dag (dato og måned)?</p>
+        <p><em>Matematisk forklaring:</em> Vores hjerne tænker ofte på chancen for, at nogen har fødselsdag på <i>vores egen</i> dato (hvilket kræver mange mennesker). Men vi skal tælle <strong>alle mulige par</strong> af personer. I en gruppe på 23 personer findes der hele \(\frac{23 \cdot 22}{2} = 253\) mulige par-kombinationer, hvilket er nok til at skubbe den samlede sandsynlighed op over 50%!</p>
+
+        <h3>B. Kortblandings-paradokset</h3>
+        <p>Når du tager et almindeligt spil med 52 kort og blander det grundigt igennem, hvor stor er chancen så for, at netop den rækkefølge har eksisteret før?</p>
+        <p><em>Matematisk forklaring:</em> Antallet af måder at rækkefølge-ordne 52 kort på er \(52!\) (52 fakultet):</p>
+        <div class="formula-box">
+            \(52! = 52 \cdot 51 \cdot 50 \cdot \dots \cdot 2 \cdot 1 \approx 8{,}06 \cdot 10^{67}\)
+        </div>
+        <p>Det er et 68-cifret tal! Det overstiger langt antallet af atomer på Jorden. Hver gang du blander et spil kort grundigt, opretter du med overvældende sandsynlighed en rækkefølge, der <strong>aldrig har eksisteret før i universets historie</strong>.</p>
+
+        <h3>C. Chevalier de Méré's Paradoks</h3>
+        <p>I 1600-tallet undrede den franske adelsmand og gambler Chevalier de Méré sig over et terningespil. Han vidste, at ved kast med 1 terning over 4 omgange var det fordelagtigt at satse på at få mindst én 6'er. Han ræsonnerede, at hvis han brugte 2 terninger, ville chancen for en 6'er falde til \(\frac{1}{36}\), så han burde bare skrue op til \(6 \times 4 = 24\) kast for at have samme gevinstchance. Men han tabte sine penge! Hvorfor?</p>
+        <p><em>Forklaring:</em> Sandsynligheder kan ikke bare lægges sammen lineært. De korrekte beregninger kræver, at vi ser på komplementære hændelser (chancen for <i>ikke</i> at få en 6'er).</p>
+    </div>
+
+    <!-- DEL 2: MATHEMATISK TEORI -->
+    <div class="card">
+        <h2>2. Det Matematiske Fundament</h2>
+        <p>For at behandle tilfældighed præcist definerer vi et <strong>sandsynlighedsfelt</strong> ud fra tre begreber:</p>
+
+        <ul>
+            <li><strong>Udfaldsrum (\(U\)):</strong> Mængden af samtlige mulige udfald fra et eksperiment.<br>
+            <em>Eksempel:</em> Ved et kast med én terning er \(U = \{1, 2, 3, 4, 5, 6\}\).</li>
+            
+            <li><strong>Hændelse (\(A\)):</strong> En samling eller delmængde af udfald i \(U\), som vi er interesserede i.<br>
+            <em>Eksempel:</em> Hændelsen "Lige øjne" er delmængden \(A = \{2, 4, 6\}\).</li>
+            
+            <li><strong>Sandsynlighed (\(P\)):</strong> En vægt/værdi tildelt en hændelse, hvor \(0 \le P(A) \le 1\) (eller \(0\% \le P(A) \le 100\%\)).</li>
+        </ul>
+
+        <div class="formula-box">
+            <strong>Sandsynlighed ved et symmetrisk sandsynlighedsfelt:</strong><br><br>
+            Hvis alle enkelte udfald i \(U\) er lige sandsynlige (fx ved en ærlig terning eller mønt):<br><br>
+            \( P(A) = \frac{|A|}{|U|} = \frac{\text{Antal gunstige udfald for hændelsen } A}{\text{Antal mulige udfald i alt}} \)
+        </div>
+    </div>
+
+    <!-- DEL 3: OPGAVER OG ØVELSER -->
+    <div class="card">
+        <h2>3. Opgaver & Aktivitet i Klassen</h2>
+
+        <!-- ØVELSE 1 -->
+        <div class="exercise-box">
+            <div class="exercise-title">Øvelse 1: Intuitionstest og Formodninger</div>
+            <p>Arbejd sammen to og to. Tag stilling til følgende uden at regne præcist først:</p>
+            <ol>
+                <li>Tror I, at der i jeres klasse (eller en klasse på 30 elever) er to, der deler fødselsdag? Hvad ville I turde satse 20 kr. på?</li>
+                <li>I kaster 2 almindelige terninger. Hvad er mest sandsynligt: At få en sum på 7 eller en sum på 12? Begrund jeres umiddelbare svar.</li>
+            </ol>
+        </div>
+
+        <!-- ØVELSE 2 -->
+        <div class="exercise-box">
+            <div class="exercise-title">Øvelse 2: Terningekast og det Store Tals Lov (Klasseforsøg)</div>
+            <p>Formål: Undersøg om teoretisk sandsynlighed passer med virkeligheden.</p>
+            <ol>
+                <li>Hver gruppe kaster en terning 30 gange og noterer antallet af gange, der slås en 6'er.</li>
+                <li>Udfyld skemaet med jeres gruppes data:</li>
+            </ol>
+            <table>
+                <tr>
+                    <th>Antal kast (\(n\))</th>
+                    <th>Antal 6'ere (\(k\))</th>
+                    <th>Observeret frekvens (\(\frac{k}{n}\))</th>
+                    <th>Teoretisk sandsynlighed (\(\frac{1}{6}\))</th>
+                </tr>
+                <tr>
+                    <td>30</td>
+                    <td> </td>
+                    <td> </td>
+                    <td>0,167 (16,7%)</td>
+                </tr>
+            </table>
+            <ol start="3">
+                <li>Saml klassens samlede antal kast. Hvad sker der med den observerede frekvens, jo flere kast vi lægger sammen?</li>
+            </ol>
+        </div>
+
+        <!-- ØVELSE 3 -->
+        <div class="exercise-box">
+            <div class="exercise-title">Øvelse 3: Beregninger på Symmetriske Felter</div>
+            <p>Brug formlen for symmetriske sandsynlighedsfelter \(P(A) = \frac{\text{Gunstige}}{\text{Mulige}}\) til at løse følgende:</p>
+            <ol>
+                <li><strong>Kortspil:</strong> Et almindeligt spil kort består af 52 kort (4 farver: spar, hjerter, ruder, klør med 13 kort hver).
+                    <ul>
+                        <li>Bestem sandsynligheden for at trække et <em>hjerterkort</em>.</li>
+                        <li>Bestem sandsynligheden for at trække et <em>billedkort</em> (knægt, dame, konge).</li>
+                        <li>Bestem sandsynligheden for at trække <em>ruder es</em>.</li>
+                    </ul>
+                </li>
+                <li><strong>To terninger:</strong> Du kaster to 6-sidede terninger (hvor udfaldsrummet har \(6 \cdot 6 = 36\) mulige par-udfald).
+                    <ul>
+                        <li>Opskriv alle de udfalds-par, der giver summen 7 (fx \((1,6), (2,5), \dots\)). Hvad er \(P(\text{sum} = 7)\)?</li>
+                        <li>Opskriv de udfald, der giver summen 12. Hvad er \(P(\text{sum} = 12)\)?</li>
+                        <li>Hvad er sandsynligheden for at slå "par" (to ens øjne)?</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
