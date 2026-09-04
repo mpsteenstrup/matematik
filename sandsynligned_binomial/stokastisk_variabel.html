@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Træning: Stokastisk Variabel</title>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e67e22;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --border-radius: 8px;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 30px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin: 0 0 5px 0;
+            font-size: 1.8em;
+        }
+
+        .rule-card {
+            background-color: #eaf2f8;
+            border: 1px solid #aeb6bf;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+        }
+
+        .instruction-card {
+            background-color: #eef9f1;
+            border: 1px solid #c3e6cb;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            color: #155724;
+        }
+
+        .task-card {
+            background-color: var(--card-bg);
+            padding: 20px 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .concept-card {
+            background-color: var(--card-bg);
+            padding: 20px 25px;
+            border-radius: var(--border-radius);
+            margin-top: 35px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid #8e44ad;
+        }
+
+        .task-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        select, input {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        textarea {
+            width: 100%;
+            height: 70px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.95em;
+            box-sizing: border-box;
+            margin: 10px 0;
+            resize: vertical;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn-hint {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .btn-check {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-answer {
+            background-color: #8e44ad;
+            color: white;
+        }
+
+        .hint-box, .feedback-box, .answer-box {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .hint-box {
+            background-color: #fff9e6;
+            border: 1px solid #ffe399;
+            color: #d35400;
+        }
+
+        .answer-box {
+            background-color: #f4ecf7;
+            border: 1px solid #d2b4de;
+            color: #512e5f;
+        }
+
+        .feedback-correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback-wrong {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        table.prob-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background-color: white;
+        }
+
+        table.prob-table th, table.prob-table td {
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        table.prob-table th {
+            background-color: #f2f2f2;
+        }
+
+        .sub-question {
+            background: #f9f9f9;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Træning: Stokastisk Variabel og Terninger</h1>
+        <p>Lær om sandsynlighedsfordeling, middelværdi og spredning for to terninger.</p>
+    </header>
+
+    <!-- EKSEMPEL (TERNINGER) -->
+    <div class="rule-card">
+        <h3>Eksempel: Summen af øjne med to terninger</h3>
+        <p>Lad $X$ være den stokastiske variabel, der angiver <strong>summen af øjnene</strong>, når du kaster to almindelige terninger. Der er i alt 36 lige sandsynlige udfald ($6 \cdot 6 = 36$).</p>
+        
+        <p><strong>Sandsynlighedsfordeling for $X$:</strong></p>
+        <div style="overflow-x:auto;">
+            <table class="prob-table">
+                <tr>
+                    <th>$x_i$ (Sum)</th>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                    <td>10</td>
+                    <td>11</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <th>$P(X = x_i)$</th>
+                    <td>$\frac{1}{36}$</td>
+                    <td>$\frac{2}{36}$</td>
+                    <td>$\frac{3}{36}$</td>
+                    <td>$\frac{4}{36}$</td>
+                    <td>$\frac{5}{36}$</td>
+                    <td>$\frac{6}{36}$</td>
+                    <td>$\frac{5}{36}$</td>
+                    <td>$\frac{4}{36}$</td>
+                    <td>$\frac{3}{36}$</td>
+                    <td>$\frac{2}{36}$</td>
+                    <td>$\frac{1}{36}$</td>
+                </tr>
+            </table>
+        </div>
+
+        <p><strong>Formler:</strong></p>
+        <ul>
+            <li><strong>Middelværdi:</strong> $\mu = E(X) = x_1 \cdot p_1 + x_2 \cdot p_2 + \dots + x_n \cdot p_n = 7$</li>
+            <li><strong>Varians:</strong> $\text{Var}(X) = (x_1 - \mu)^2 \cdot p_1 + \dots + (x_n - \mu)^2 \cdot p_n \approx 5{,}83$</li>
+            <li><strong>Spredning:</strong> $\sigma = \sqrt{\text{Var}(X)} = \sqrt{5{,}83} \approx 2{,}42$</li>
+        </ul>
+    </div>
+
+    <!-- INSTRUKTIONER -->
+    <div class="instruction-card">
+        <strong>Sådan udfylder du opgaverne:</strong>
+        <ul>
+            <li>Læs opgaverne grundigt igennem og skriv svarene i felterne.</li>
+            <li>Brug knappen <strong>Tjek svar</strong> for at få feedback på dine beregninger.</li>
+        </ul>
+    </div>
+
+    <!-- OPGAVE 1: MØNTSPILLET -->
+    <div class="task-card">
+        <div class="task-title">Opgave 1: Møntspillet (2 mønter)</div>
+        <p>Du kaster 2 mønter. Lad $X$ være antallet af <strong>Krone</strong>. For hver Krone du slår, vinder du 10 kr. Udfaldsrummet har 4 lige sandsynlige muligheder: (Plat, Plat), (Plat, Krone), (Krone, Plat) og (Krone, Krone).</p>
+
+        <div class="sub-question">
+            <strong>a) Sandsynligheder:</strong>
+            <p style="margin: 5px 0;">Skriv sandsynlighederne som brøker (fx <code>1/4</code> eller <code>2/4</code>):</p>
+            <div class="input-group">
+                <label>$P(X = 0)$ (0 krone):</label>
+                <input type="text" id="opg1-p0" style="width: 70px;">
+                
+                <label>$P(X = 1)$ (1 krone):</label>
+                <input type="text" id="opg1-p1" style="width: 70px;">
+                
+                <label>$P(X = 2)$ (2 kroner):</label>
+                <input type="text" id="opg1-p2" style="width: 70px;">
+            </div>
+        </div>
+
+        <div class="sub-question">
+            <strong>b) Gennemsnitlig gevinst (Middelværdi):</strong>
+            <p style="margin: 5px 0;">Hvor mange kroner vinder man i gennemsnit pr. spil?</p>
+            <div class="input-group">
+                <label>Middelværdi $\mu$:</label>
+                <input type="text" id="opg1-mean" style="width: 80px;"> kr.
+            </div>
+        </div>
+
+        <div class="sub-question">
+            <strong>c) Fair billetpris:</strong>
+            <p style="margin: 5px 0;">Hvad er den helt 'faire' pris at betale for at deltage i spillet, hvis ingen skal tjene på det i det lange løb?</p>
+            <div class="input-group">
+                <label>Pris for at være med:</label>
+                <input type="text" id="opg1-price" style="width: 80px;"> kr.
+            </div>
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint1')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg1()">Tjek svar</button>
+
+        <div id="hint1" class="hint-box">
+            - Der er 1 mulighed for (Plat, Plat), 2 for én Krone og 1 for (Krone, Krone).<br>
+            - Gennemsnit = $(0 \text{ kr.} \cdot \frac{1}{4}) + (10 \text{ kr.} \cdot \frac{2}{4}) + (20 \text{ kr.} \cdot \frac{1}{4})$.<br>
+            - En fair pris svarer præcis til den gennemsnitlige gevinst!
+        </div>
+        <div id="feedback1" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 2 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 2: Laveste sum på terningerne</div>
+        <p>Hvad er sandsynligheden for at slå summen <strong>2</strong> (dvs. $P(X=2)$)? Skriv som brøk (fx <code>1/36</code>):</p>
+        
+        <div class="input-group">
+            <label>Sandsynlighed:</label>
+            <input type="text" id="opg2-ans">
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint2')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg2()">Tjek svar</button>
+
+        <div id="hint2" class="hint-box">
+            Kig i tabellen i eksemplet øverst under kolonnen for summen $x_i = 2$.
+        </div>
+        <div id="feedback2" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 3 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 3: Mest sandsynlige sum</div>
+        <p>Hvilken sum $x_i$ har den største sandsynlighed $P(X = x_i)$?</p>
+        
+        <div class="input-group">
+            <label>Mest sandsynlige sum ($x_i$):</label>
+            <input type="text" id="opg3-ans">
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint3')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg3()">Tjek svar</button>
+
+        <div id="hint3" class="hint-box">
+            Find det tal i den øverste række i eksempeltabellen, som har den største brøk under sig ($\frac{6}{36}$).
+        </div>
+        <div id="feedback3" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 4 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 4: Forholdet mellem varians og spredning</div>
+        <p>Hvilket udsagn er rigtigt om spredning $\sigma$ og varians $\text{Var}(X)$?</p>
+        
+        <div class="input-group">
+            <select id="opg4-select" style="width: 100%;">
+                <option value="">-- Vælg det rigtige udsagn --</option>
+                <option value="forkert1">Spredningen findes ved at lægge variansen sammen med middelværdien.</option>
+                <option value="korrekt">Spredningen σ findes ved at tage kvadratroden af variansen (σ = √Var(X)).</option>
+                <option value="forkert2">Variansen og spredningen er altid to fuldstændig uafhængige tal uden sammenhæng.</option>
+            </select>
+        </div>
+
+        <button class="btn-check" onclick="checkOpg4()">Tjek svar</button>
+        <div id="feedback4" class="feedback-box"></div>
+    </div>
+
+    <!-- REFLEKSION NEDERST -->
+    <div class="concept-card">
+        <h2>Refleksion &amp; Forståelsesspørgsmål</h2>
+        <p>Svar på spørgsmålene med dine egne ord for at tjekke din forståelse:</p>
+
+        <!-- Spørgsmål A -->
+        <div style="margin-bottom: 20px;">
+            <strong>Spørgsmål A:</strong>
+            <p>Hvorfor har summen 7 den højeste sandsynlighed ($\frac{6}{36}$), mens summen 2 kun har $\frac{1}{36}$?</p>
+            <textarea placeholder="Skriv dit svar her..."></textarea>
+            <button class="btn-answer" onclick="toggleBox('ansA')">Vis forklaring / facit</button>
+            <div id="ansA" class="answer-box">
+                <strong>Model-forklaring:</strong> Der er 6 forskellige måder at slå summen 7 på: (1,6), (2,5), (3,4), (4,3), (5,2) og (6,1). Til sammenligning kan summen 2 kun slås på én enkelt måde: (1,1).
+            </div>
+        </div>
+
+        <!-- Spørgsmål B -->
+        <div style="margin-bottom: 20px;">
+            <strong>Spørgsmål B:</strong>
+            <p>Hvis man skulle betale 12 kr. for at spille møntspillet i Opgave 1, ville det så være en god forretning for dig som spiller? Hvorfor / hvorfor ikke?</p>
+            <textarea placeholder="Skriv dit svar her..."></textarea>
+            <button class="btn-answer" onclick="toggleBox('ansB')">Vis forklaring / facit</button>
+            <div id="ansB" class="answer-box">
+                <strong>Model-forklaring:</strong> Nej, det ville være en dårlig forretning. Da middelværdien (den gennemsnitlige gevinst) kun er 10 kr., vil man i gennemsnit tabe 2 kr. pr. spil, man deltager i.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function toggleBox(id) {
+        const box = document.getElementById(id);
+        box.style.display = (box.style.display === "block") ? "none" : "block";
+    }
+
+    function showFeedback(elementId, isCorrect, text) {
+        const fb = document.getElementById(elementId);
+        fb.style.display = "block";
+        fb.className = "feedback-box " + (isCorrect ? "feedback-correct" : "feedback-wrong");
+        fb.innerHTML = text;
+    }
+
+    function checkOpg1() {
+        const p0 = document.getElementById('opg1-p0').value.trim();
+        const p1 = document.getElementById('opg1-p1').value.trim();
+        const p2 = document.getElementById('opg1-p2').value.trim();
+        const mean = parseFloat(document.getElementById('opg1-mean').value.replace(',', '.'));
+        const price = parseFloat(document.getElementById('opg1-price').value.replace(',', '.'));
+
+        const okP0 = (p0 === '1/4' || p0 === '0.25' || p0 === '0,25');
+        const okP1 = (p1 === '2/4' || p1 === '1/2' || p1 === '0.5' || p1 === '0,5');
+        const okP2 = (p2 === '1/4' || p2 === '0.25' || p2 === '0,25');
+        const okMean = (mean === 10);
+        const okPrice = (price === 10);
+
+        if (okP0 && okP1 && okP2 && okMean && okPrice) {
+            showFeedback('feedback1', true, 'Perfekt! P(X=0)=1/4, P(X=1)=2/4, P(X=2)=1/4. Gennemsnittet er 10 kr., så den faire pris for at deltage er 10 kr.');
+        } else {
+            let msg = 'Noget af dit svar er ikke helt korrekt endnu:<br>';
+            if (!okP0 || !okP1 || !okP2) msg += '- Tjek sandsynlighederne: 0 krone har 1/4, 1 krone har 2/4, og 2 kroner har 1/4.<br>';
+            if (!okMean) msg += '- Gennemsnit: 0·(1/4) + 10·(2/4) + 20·(1/4) = 10 kr.<br>';
+            if (!okPrice) msg += '- Billetprisen skal være lig med den gennemsnitlige gevinst for at være fair (10 kr.).';
+            showFeedback('feedback1', false, msg);
+        }
+    }
+
+    function checkOpg2() {
+        const ans = document.getElementById('opg2-ans').value.trim();
+        if (ans === '1/36') {
+            showFeedback('feedback2', true, 'Flot! Sandsynligheden for at slå 2 er 1/36.');
+        } else {
+            showFeedback('feedback2', false, 'Prøv igen. Aflæs tabellen under x_i = 2 (skriv fx 1/36).');
+        }
+    }
+
+    function checkOpg3() {
+        const ans = parseInt(document.getElementById('opg3-ans').value);
+        if (ans === 7) {
+            showFeedback('feedback3', true, 'Korrekt! Summen 7 er det mest sandsynlige udfald med 6/36 sandsynlighed.');
+        } else {
+            showFeedback('feedback3', false, 'Prøv igen. Hvilken sum i øverste række har den største brøk under sig?');
+        }
+    }
+
+    function checkOpg4() {
+        const choice = document.getElementById('opg4-select').value;
+        if (choice === 'korrekt') {
+            showFeedback('feedback4', true, 'Helt rigtigt! Spredningen σ er kvadratroden af variansen Var(X).');
+        } else if (choice === '') {
+            showFeedback('feedback4', false, 'Vælg venligst et udsagn i menuen.');
+        } else {
+            showFeedback('feedback4', false, 'Prøv igen. Husk formel (132): σ = √Var(X).');
+        }
+    }
+</script>
+
+</body>
+</html>
