@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Træning: Stokastisk Variabel</title>
+    <title>Træning: Stokastisk Variabel & Bevis</title>
     <script>
         window.MathJax = {
             tex: {
@@ -103,6 +103,14 @@
             background-color: #eaf2f8;
             border: 1px solid #aeb6bf;
             padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+        }
+
+        .proof-card {
+            background-color: #fcf3cf;
+            border: 2px solid #f1c40f;
+            padding: 20px 25px;
             border-radius: var(--border-radius);
             margin-bottom: 25px;
         }
@@ -314,6 +322,37 @@
         </div>
     </div>
 
+    <!-- BEVIS FOR MIDDELVÆRDI -->
+    <div class="proof-card">
+        <h3 style="margin-top: 0; color: #d35400;">📐 Bevis: Hvorfor gælder formlen for middelværdi?</h3>
+        <p>Formlen for middelværdi $\mu = x_1 \cdot p_1 + x_2 \cdot p_2 + \dots + x_n \cdot p_n$ kommer direkte fra det helt almindelige gennemsnit, du kender fra folkeskolen.</p>
+        
+        <button class="btn-hint" onclick="toggleBox('proof-hint')">Vis hint til beviset</button>
+        <button class="btn-answer" onclick="toggleBox('proof-content')">Vis hele beviset</button>
+
+        <div id="proof-hint" class="hint-box">
+            Tænk på, hvordan du udregner dit karaktergennemsnit, hvis du har fået fire 7-taller og to 10-taller. I stedet for at lægge alle tal sammen et efter et, kan du samle ens tal og gange med, hvor stor en del af det samlede antal de udgør.
+        </div>
+
+        <div id="proof-content" class="answer-box" style="background-color: #fff; border: 1px solid #f1c40f; color: #2c3e50;">
+            <p><strong>Trin 1: Det almindelige gennemsnit</strong></p>
+            <p>Forestil dig, at du udfører et eksperiment $N$ gange. Udfaldet $x_1$ forekommer $k_1$ gange, $x_2$ forekommer $k_2$ gange, og så videre indtil $x_n$, som forekommer $k_n$ gange.</p>
+            <p>Det samlede antal forsøg er $N = k_1 + k_2 + \dots + k_n$.</p>
+
+            <p>Gennemsnittet $\bar{x}$ beregnes ved at lægge alle observationer sammen og dividere med $N$:</p>
+            $$\bar{x} = \frac{x_1 \cdot k_1 + x_2 \cdot k_2 + \dots + x_n \cdot k_n}{N}$$
+
+            <p><strong>Trin 2: Omskrivning til brøker</strong></p>
+            <p>Vi kan splitte denne store brøk op i enkelte brøker for hvert udfald:</p>
+            $$\bar{x} = x_1 \cdot \left(\frac{k_1}{N}\right) + x_2 \cdot \left(\frac{k_2}{N}\right) + \dots + x_n \cdot \left(\frac{k_n}{N}\right)$$
+
+            <p><strong>Trin 3: Overgang til sandsynligheder (Middelværdi)</strong></p>
+            <p>Brøken $\frac{k_i}{N}$ angiver den <em>relatived frekvens</em> for udfaldet $x_i$. Når antalllet af forsøg $N$ bliver meget stort, nærmer den relative frekvens sig den teoretiske sandsynlighed $p_i = P(X = x_i)$.</p>
+            <p>Erstatter vi $\frac{k_i}{N}$ med sandsynligheden $p_i$, får vi teoretisk forventet gennemsnit — kaldet <strong>middelværdien $\mu$</strong>:</p>
+            $$\mu = x_1 \cdot p_1 + x_2 \cdot p_2 + \dots + x_n \cdot p_n \quad \blacksquare$$
+        </div>
+    </div>
+
     <!-- EKSEMPEL (TERNINGER) -->
     <div class="rule-card">
         <h3>Eksempel: Summen af øjne med to terninger</h3>
@@ -475,37 +514,62 @@
             - <strong>Varians (131):</strong> For hver gevinst træk middelværdien $\mu$ fra, sæt i anden $(x_i - \mu)^2$, gang med sandsynligheden $p_i$, og læg alle led sammen.<br>
             - <strong>Spredning (132):</strong> Tag kvadratroden af variansen.<br>
             - <strong>Refleksion (1 gang):</strong> Prøv at regne $15 - \sigma$ og $15 + \sigma$ ud. Intervallet $(\mu \pm \sigma)$ fortæller, hvad du "typisk" afviger med fra middelværdien i et enkelt spil. Kan du overhovedet få præcis 15 kr. udbetalt i ét spil?<br>
-            - <strong>Refleksion (1.000 gange):</strong> Nogle gange slår du måske helt op på 30 kr., andre gange får du 0 kr. Hvad sker der med alle disse høje og lave tilfældige gevinster, når du tager gennemsnittet af 1.000 spil?
+            - <strong>Refleksion (1.000 gange):</strong> Nogle gange slår du måske helt op på 30 kr., andre gange får du 0 kr. Hvad sker der med alle disse høje og lave tilfældige gevinster, når du tager gennemsnit af 1.000 spil?
         </div>
         <div id="feedback2_coins" class="feedback-box"></div>
     </div>
 
-    <!-- OPGAVE 3 -->
+    <!-- OPGAVE 3: BEREGNING AF MIDDELVÆRDI (LYKKEHJUL) -->
     <div class="task-card">
-        <div class="task-title">Opgave 3: Laveste sum på terningerne</div>
+        <div class="task-title">Opgave 3: Beregning af Middelværdi – Lykkehjulet på tivolituren</div>
+        <p>I en bod i Tivoli drejer du på et lykkehjul opdelt i 10 lige store felter. Hjulet har følgende gevinster $x_i$ (angivet i kr.):</p>
+        <ul>
+            <li>5 felter giver <strong>0 kr.</strong></li>
+            <li>3 felter giver <strong>20 kr.</strong></li>
+            <li>2 felter giver <strong>100 kr.</strong></li>
+        </ul>
+
+        <div class="sub-question">
+            <strong>a) Sandsynligheder:</strong>
+            <p style="margin: 5px 0;">Angiv sandsynlighederne for hvert udfald som decimaltal (fx <code>0.5</code>) eller brøker (fx <code>5/10</code>):</p>
+            <div class="input-group">
+                <label>$P(X = 0)$:</label>
+                <input type="text" id="opg3-p0" style="width: 60px;">
+
+                <label>$P(X = 20)$:</label>
+                <input type="text" id="opg3-p20" style="width: 60px;">
+
+                <label>$P(X = 100)$:</label>
+                <input type="text" id="opg3-p100" style="width: 60px;">
+            </div>
+        </div>
+
+        <div class="sub-question">
+            <strong>b) Beregn Middelværdien $\mu$:</strong>
+            <p style="margin: 5px 0;">Brug formel (130) til at beregne den forventede gennemsnitlige gevinst pr. spin:</p>
+            <div class="input-group">
+                <label>Middelværdi $\mu$:</label>
+                <input type="text" id="opg3-mean" style="width: 80px;"> kr.
+            </div>
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint3_wheel')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg3Wheel()">Tjek svar</button>
+
+        <div id="hint3_wheel" class="hint-box">
+            - Der er 10 felter i alt. Sandsynligheden for et udfald er antallet af felter divideret med 10.<br>
+            - Brug formel (130): $\mu = (0 \cdot P(X=0)) + (20 \cdot P(X=20)) + (100 \cdot P(X=100))$.
+        </div>
+        <div id="feedback3_wheel" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 4: TERNINGER -->
+    <div class="task-card">
+        <div class="task-title">Opgave 4: Laveste sum på terningerne</div>
         <p>Hvad er sandsynligheden for at slå summen <strong>2</strong> (dvs. $P(X=2)$)? Skriv som brøk (fx <code>1/36</code>):</p>
         
         <div class="input-group">
             <label>Sandsynlighed:</label>
-            <input type="text" id="opg3-ans">
-        </div>
-
-        <button class="btn-hint" onclick="toggleBox('hint3')">Vis hint</button>
-        <button class="btn-check" onclick="checkOpg3()">Tjek svar</button>
-
-        <div id="hint3" class="hint-box">
-            Brug eksempeltabellen øverst på siden. Find rækken for $x_i = 2$ og se brøken i rækken $P(X = x_i)$ lige under.
-        </div>
-        <div id="feedback3" class="feedback-box"></div>
-    </div>
-
-    <!-- OPGAVE 4 -->
-    <div class="task-card">
-        <div class="task-title">Opgave 4: Mest sandsynlige sum af 2 terninger</div>
-        <p>Hvilken sum $x_i$ har den største sandsynlighed $P(X = x_i)$?</p>
-        
-        <div class="input-group">
-            <label>Mest sandsynlige sum ($x_i$):</label>
             <input type="text" id="opg4-ans">
         </div>
 
@@ -513,18 +577,37 @@
         <button class="btn-check" onclick="checkOpg4()">Tjek svar</button>
 
         <div id="hint4" class="hint-box">
-            Kig i eksempeltabellen efter den største sandsynlighedsbrøk (den med den højeste tæller). Skriv det tal ($x_i$), der står i toppen af den kolonne.
+            Brug eksempeltabellen øverst på siden. Find rækken for $x_i = 2$ og se brøken i rækken $P(X = x_i)$ lige under.
         </div>
         <div id="feedback4" class="feedback-box"></div>
     </div>
 
-    <!-- OPGAVE 5 -->
+    <!-- OPGAVE 5: TERNINGER -->
     <div class="task-card">
-        <div class="task-title">Opgave 5: Forholdet mellem varians og spredning</div>
+        <div class="task-title">Opgave 5: Mest sandsynlige sum af 2 terninger</div>
+        <p>Hvilken sum $x_i$ har den største sandsynlighed $P(X = x_i)$?</p>
+        
+        <div class="input-group">
+            <label>Mest sandsynlige sum ($x_i$):</label>
+            <input type="text" id="opg5-ans">
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint5')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg5()">Tjek svar</button>
+
+        <div id="hint5" class="hint-box">
+            Kig i eksempeltabellen efter den største sandsynlighedsbrøk (den med den højeste tæller). Skriv det tal ($x_i$), der står i toppen af den kolonne.
+        </div>
+        <div id="feedback5" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 6: TEORI -->
+    <div class="task-card">
+        <div class="task-title">Opgave 6: Forholdet mellem varians og spredning</div>
         <p>Hvilket udsagn er rigtigt om spredning $\sigma$ og varians $\text{Var}(X)$?</p>
 
         <div class="input-group">
-            <select id="opg5-select" style="width: 100%;">
+            <select id="opg6-select" style="width: 100%;">
                 <option value="">-- Vælg det rigtige udsagn --</option>
                 <option value="forkert1">Spredningen findes ved at lægge variansen sammen med middelværdien.</option>
                 <option value="korrekt">Spredningen σ findes ved at tage kvadratroden af variansen (σ = √Var(X)).</option>
@@ -532,13 +615,13 @@
             </select>
         </div>
 
-        <button class="btn-hint" onclick="toggleBox('hint5')">Vis hint</button>
-        <button class="btn-check" onclick="checkOpg5()">Tjek svar</button>
+        <button class="btn-hint" onclick="toggleBox('hint6')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg6()">Tjek svar</button>
 
-        <div id="hint5" class="hint-box">
+        <div id="hint6" class="hint-box">
             Sammenlign udsagnene med formel (132) i formelsamlingen øverst på siden. Læg mærke til hvilket matematisk symbol der står foran $\text{Var}(X)$.
         </div>
-        <div id="feedback5" class="feedback-box"></div>
+        <div id="feedback6" class="feedback-box"></div>
     </div>
 
     <!-- REFLEKSION NEDERST -->
@@ -603,7 +686,7 @@
 
         const okP0 = (p0 === '1/4' || p0 === '0.25' || p0 === '0,25');
         const okP1 = (p1 === '2/4' || p1 === '1/2' || p1 === '0.5' || p1 === '0,5');
-        const okP2 = (p2 === '1/4' || p0 === '0.25' || p2 === '0,25');
+        const okP2 = (p2 === '1/4' || p2 === '0.25' || p2 === '0,25');
         const okMean = (mean === 10);
         const okPrice = (price === 10);
 
@@ -657,32 +740,59 @@
         }
     }
 
-    function checkOpg3() {
-        const ans = document.getElementById('opg3-ans').value.trim();
-        if (ans === '1/36') {
-            showFeedback('feedback3', true, 'Korrekt aflæst!');
+    function checkOpg3Wheel() {
+        const p0 = document.getElementById('opg3-p0').value.trim();
+        const p20 = document.getElementById('opg3-p20').value.trim();
+        const p100 = document.getElementById('opg3-p100').value.trim();
+        const mean = parseFloat(document.getElementById('opg3-mean').value.replace(',', '.'));
+
+        const okP0 = (p0 === '5/10' || p0 === '1/2' || p0 === '0.5' || p0 === '0,5');
+        const okP20 = (p20 === '3/10' || p20 === '0.3' || p20 === '0,3');
+        const okP100 = (p100 === '2/10' || p100 === '1/5' || p100 === '0.2' || p100 === '0,2');
+        const okMean = (mean === 26);
+
+        if (okP0 && okP20 && okP100 && okMean) {
+            showFeedback('feedback3_wheel', true, 
+                '<strong>Fremragende!</strong><br>' +
+                '• Sandsynligheder: $P(X=0)=0{,}5$, $P(X=20)=0{,}3$ og $P(X=100)=0{,}2$.<br>' +
+                '• Middelværdi: $\\mu = (0 \\cdot 0{,}5) + (20 \\cdot 0{,}3) + (100 \\cdot 0{,}2) = 0 + 6 + 20 = 26$ kr.<br>' +
+                'Dette betyder, at boden i gennemsnit skal tage mere end 26 kr. pr. spin for at tjene penge på spillet!'
+            );
+            MathJax.typeset();
         } else {
-            showFeedback('feedback3', false, 'Prøv igen. Se i eksempeltabellen øverst under $x_i = 2$.');
+            let msg = 'Noget af dit svar er ikke helt korrekt endnu:<br>';
+            if (!okP0 || !okP20 || !okP100) msg += '- Tjek sandsynlighederne: 5 af 10 felter er 0,5, 3 af 10 felter er 0,3 og 2 af 10 felter er 0,2.<br>';
+            if (!okMean) msg += '- Beregn middelværdien: $(0 \\cdot 0{,}5) + (20 \\cdot 0{,}3) + (100 \\cdot 0{,}2) = 26$ kr.';
+            showFeedback('feedback3_wheel', false, msg);
         }
     }
 
     function checkOpg4() {
-        const ans = parseInt(document.getElementById('opg4-ans').value);
-        if (ans === 7) {
-            showFeedback('feedback4', true, 'Korrekt! 7 er den sum, der har flest mulige kombinationer.');
+        const ans = document.getElementById('opg4-ans').value.trim();
+        if (ans === '1/36') {
+            showFeedback('feedback4', true, 'Korrekt aflæst!');
         } else {
-            showFeedback('feedback4', false, 'Prøv igen. Kobl sandsynlighederne i tabellen sammen med summen $x_i$ i øverste række.');
+            showFeedback('feedback4', false, 'Prøv igen. Se i eksempeltabellen øverst under $x_i = 2$.');
         }
     }
 
     function checkOpg5() {
-        const choice = document.getElementById('opg5-select').value;
-        if (choice === 'korrekt') {
-            showFeedback('feedback5', true, 'Helt rigtigt!');
-        } else if (choice === '') {
-            showFeedback('feedback5', false, 'Vælg venligst et udsagn i menuen.');
+        const ans = parseInt(document.getElementById('opg5-ans').value);
+        if (ans === 7) {
+            showFeedback('feedback5', true, 'Korrekt! 7 er den sum, der har flest mulige kombinationer.');
         } else {
-            showFeedback('feedback5', false, 'Det var desværre ikke rigtigt. Kig på formel (132) i formelsamlingen.');
+            showFeedback('feedback5', false, 'Prøv igen. Kobl sandsynlighederne i tabellen sammen med summen $x_i$ i øverste række.');
+        }
+    }
+
+    function checkOpg6() {
+        const choice = document.getElementById('opg6-select').value;
+        if (choice === 'korrekt') {
+            showFeedback('feedback6', true, 'Helt rigtigt!');
+        } else if (choice === '') {
+            showFeedback('feedback6', false, 'Vælg venligst et udsagn i menuen.');
+        } else {
+            showFeedback('feedback6', false, 'Det var desværre ikke rigtigt. Kig på formel (132) i formelsamlingen.');
         }
     }
 </script>
