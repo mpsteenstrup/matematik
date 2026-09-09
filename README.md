@@ -15,3 +15,4 @@
 
 * [Addition og multiplikation af sandsynligheder](https://mpsteenstrup.github.io/matematik/sandsynligned_binomial/add_mult_ssh.html)
 * [Addition og multiplikation af kombinationer](https://mpsteenstrup.github.io/matematik/sandsynligned_binomial/add_mult.html)
+* [Stokastisk variabel](https://mpsteenstrup.github.io/matematik/sandsynligned_binomial/stokastisk_variabel.html)

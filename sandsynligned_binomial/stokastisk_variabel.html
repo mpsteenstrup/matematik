@@ -270,7 +270,7 @@
         </ul>
     </div>
 
-    <!-- OPGAVE 1: MØNTSPILLET -->
+    <!-- OPGAVE 1: MØNTSPILLET (2 MØNTER) -->
     <div class="task-card">
         <div class="task-title">Opgave 1: Møntspillet (2 mønter)</div>
         <p>Du kaster 2 mønter. Lad $X$ være antallet af <strong>Krone</strong>. For hver Krone du slår, vinder du 10 kr. Udfaldsrummet har 4 lige sandsynlige muligheder: (Plat, Plat), (Plat, Krone), (Krone, Plat) og (Krone, Krone).</p>
@@ -319,9 +319,61 @@
         <div id="feedback1" class="feedback-box"></div>
     </div>
 
-    <!-- OPGAVE 2 -->
+    <!-- OPGAVE 2: MØNTSPILLET (3 MØNTER) -->
     <div class="task-card">
-        <div class="task-title">Opgave 2: Laveste sum på terningerne</div>
+        <div class="task-title">Opgave 2: Møntspillet (3 mønter)</div>
+        <p>Du udvider nu spillet og kaster <strong>3 mønter</strong>. Lad $X$ være antallet af <strong>Krone</strong>. Der er i alt 8 lige sandsynlige muligheder ($2 \cdot 2 \cdot 2 = 8$). Du vinder stadig 10 kr. pr. Krone.</p>
+
+        <div class="sub-question">
+            <strong>a) Sandsynligheder:</strong>
+            <p style="margin: 5px 0;">Skriv sandsynlighederne som brøker (fx <code>1/8</code> eller <code>3/8</code>):</p>
+            <div class="input-group">
+                <label>$P(X = 0)$:</label>
+                <input type="text" id="opg2-p0" style="width: 60px;">
+                
+                <label>$P(X = 1)$:</label>
+                <input type="text" id="opg2-p1" style="width: 60px;">
+                
+                <label>$P(X = 2)$:</label>
+                <input type="text" id="opg2-p2" style="width: 60px;">
+
+                <label>$P(X = 3)$:</label>
+                <input type="text" id="opg2-p3" style="width: 60px;">
+            </div>
+        </div>
+
+        <div class="sub-question">
+            <strong>b) Gennemsnitlig gevinst (Middelværdi):</strong>
+            <p style="margin: 5px 0;">Hvor mange kroner vinder man i gennemsnit pr. spil med 3 mønter?</p>
+            <div class="input-group">
+                <label>Middelværdi $\mu$:</label>
+                <input type="text" id="opg2-mean" style="width: 80px;"> kr.
+            </div>
+        </div>
+
+        <div class="sub-question">
+            <strong>c) Fair billetpris:</strong>
+            <p style="margin: 5px 0;">Hvad skal det koste at deltage for, at spillet er helt fair?</p>
+            <div class="input-group">
+                <label>Pris for at være med:</label>
+                <input type="text" id="opg2-price" style="width: 80px;"> kr.
+            </div>
+        </div>
+
+        <button class="btn-hint" onclick="toggleBox('hint2_coins')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg2Coins()">Tjek svar</button>
+
+        <div id="hint2_coins" class="hint-box">
+            - De 8 udfald: PPP, PPK, PKP, KPP, PKK, KPK, KKP, KKK.<br>
+            - Antal udfald med 0 krone: 1. Med 1 krone: 3. Med 2 kroner: 3. Med 3 kroner: 1.<br>
+            - Gennemsnit = $(0 \cdot \frac{1}{8}) + (10 \cdot \frac{3}{8}) + (20 \cdot \frac{3}{8}) + (30 \cdot \frac{1}{8})$.
+        </div>
+        <div id="feedback2_coins" class="feedback-box"></div>
+    </div>
+
+    <!-- OPGAVE 3 -->
+    <div class="task-card">
+        <div class="task-title">Opgave 3: Laveste sum på terningerne</div>
         <p>Hvad er sandsynligheden for at slå summen <strong>2</strong> (dvs. $P(X=2)$)? Skriv som brøk (fx <code>1/36</code>):</p>
         
         <div class="input-group">
@@ -338,9 +390,9 @@
         <div id="feedback2" class="feedback-box"></div>
     </div>
 
-    <!-- OPGAVE 3 -->
+    <!-- OPGAVE 4 -->
     <div class="task-card">
-        <div class="task-title">Opgave 3: Mest sandsynlige sum</div>
+        <div class="task-title">Opgave 4: Mest sandsynlige sum af 2 terninger</div>
         <p>Hvilken sum $x_i$ har den største sandsynlighed $P(X = x_i)$?</p>
         
         <div class="input-group">
@@ -357,9 +409,9 @@
         <div id="feedback3" class="feedback-box"></div>
     </div>
 
-    <!-- OPGAVE 4 -->
+    <!-- OPGAVE 5 -->
     <div class="task-card">
-        <div class="task-title">Opgave 4: Forholdet mellem varians og spredning</div>
+        <div class="task-title">Opgave 5: Forholdet mellem varians og spredning</div>
         <p>Hvilket udsagn er rigtigt om spredning $\sigma$ og varians $\text{Var}(X)$?</p>
         
         <div class="input-group">
@@ -394,7 +446,7 @@
         <!-- Spørgsmål B -->
         <div style="margin-bottom: 20px;">
             <strong>Spørgsmål B:</strong>
-            <p>Hvis man skulle betale 12 kr. for at spille møntspillet i Opgave 1, ville det så være en god forretning for dig som spiller? Hvorfor / hvorfor ikke?</p>
+            <p>Hvis man skulle betale 12 kr. for at spille møntspillet i Opgave 1 (2 mønter), ville det så være en god forretning for dig som spiller? Hvorfor / hvorfor ikke?</p>
             <textarea placeholder="Skriv dit svar her..."></textarea>
             <button class="btn-answer" onclick="toggleBox('ansB')">Vis forklaring / facit</button>
             <div id="ansB" class="answer-box">
@@ -439,6 +491,32 @@
             if (!okMean) msg += '- Gennemsnit: 0·(1/4) + 10·(2/4) + 20·(1/4) = 10 kr.<br>';
             if (!okPrice) msg += '- Billetprisen skal være lig med den gennemsnitlige gevinst for at være fair (10 kr.).';
             showFeedback('feedback1', false, msg);
+        }
+    }
+
+    function checkOpg2Coins() {
+        const p0 = document.getElementById('opg2-p0').value.trim();
+        const p1 = document.getElementById('opg2-p1').value.trim();
+        const p2 = document.getElementById('opg2-p2').value.trim();
+        const p3 = document.getElementById('opg2-p3').value.trim();
+        const mean = parseFloat(document.getElementById('opg2-mean').value.replace(',', '.'));
+        const price = parseFloat(document.getElementById('opg2-price').value.replace(',', '.'));
+
+        const okP0 = (p0 === '1/8' || p0 === '0.125' || p0 === '0,125');
+        const okP1 = (p1 === '3/8' || p1 === '0.375' || p1 === '0,375');
+        const okP2 = (p2 === '3/8' || p2 === '0.375' || p2 === '0,375');
+        const okP3 = (p3 === '1/8' || p3 === '0.125' || p3 === '0,125');
+        const okMean = (mean === 15);
+        const okPrice = (price === 15);
+
+        if (okP0 && okP1 && okP2 && okP3 && okMean && okPrice) {
+            showFeedback('feedback2_coins', true, 'Fremragende! P(X=0)=1/8, P(X=1)=3/8, P(X=2)=3/8, P(X=3)=1/8. Middelværdien og den faire pris er 15 kr.');
+        } else {
+            let msg = 'Noget af dit svar er ikke helt korrekt endnu:<br>';
+            if (!okP0 || !okP1 || !okP2 || !okP3) msg += '- Tjek sandsynlighederne: 0 krone=1/8, 1 krone=3/8, 2 kroner=3/8, 3 kroner=1/8.<br>';
+            if (!okMean) msg += '- Gennemsnit: (0·1 + 10·3 + 20·3 + 30·1) / 8 = 120 / 8 = 15 kr.<br>';
+            if (!okPrice) msg += '- Billetprisen skal svare til middelværdien (15 kr.).';
+            showFeedback('feedback2_coins', false, msg);
         }
     }
 
