@@ -51,6 +51,54 @@
             font-size: 1.8em;
         }
 
+        .formula-card {
+            background-color: #ffffff;
+            border: 2px solid var(--primary-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .formula-header {
+            background-color: #b9d7ea;
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 1.2em;
+            padding: 8px 12px;
+            margin: -20px -20px 15px -20px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .formula-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .formula-row:last-child {
+            border-bottom: none;
+        }
+
+        .formula-title {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .formula-num {
+            width: 50px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .formula-math {
+            flex: 2;
+            text-align: right;
+        }
+
         .rule-card {
             background-color: #eaf2f8;
             border: 1px solid #aeb6bf;
@@ -181,7 +229,7 @@
         table.prob-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
+            margin: 5px 0;
             background-color: white;
         }
 
@@ -210,9 +258,61 @@
 <div class="container">
 
     <header>
-        <h1>Træning: Stokastisk Variabel og Terninger</h1>
-        <p>Lær om sandsynlighedsfordeling, middelværdi og spredning for to terninger.</p>
+        <h1>Træning: Stokastisk Variabel</h1>
+        <p>Lær om sandsynlighedsfordeling, middelværdi, varians og spredning.</p>
     </header>
+
+    <!-- FORMELSAMLING ØVERST -->
+    <div class="formula-card">
+        <div class="formula-header">Stokastisk variabel</div>
+        
+        <div class="formula-row">
+            <div class="formula-title">Tabel over sandsynlighedsfordelingen for en stokastisk variabel $X$</div>
+            <div class="formula-num">(129)</div>
+            <div class="formula-math">
+                <table class="prob-table" style="display: inline-table; width: auto;">
+                    <tr>
+                        <th>$x_i$</th>
+                        <td>$x_1$</td>
+                        <td>$x_2$</td>
+                        <td>...</td>
+                        <td>$x_n$</td>
+                    </tr>
+                    <tr>
+                        <th>$P(X = x_i)$</th>
+                        <td>$p_1$</td>
+                        <td>$p_2$</td>
+                        <td>...</td>
+                        <td>$p_n$</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="formula-row">
+            <div class="formula-title">Middelværdi $\mu = E(X)$ af en stokastisk variabel $X$</div>
+            <div class="formula-num">(130)</div>
+            <div class="formula-math">
+                $\mu = x_1 \cdot p_1 + x_2 \cdot p_2 + \dots + x_n \cdot p_n$
+            </div>
+        </div>
+
+        <div class="formula-row">
+            <div class="formula-title">Varians $\text{Var}(X)$ af en stokastisk variabel $X$</div>
+            <div class="formula-num">(131)</div>
+            <div class="formula-math">
+                $\text{Var}(X) = (x_1 - \mu)^2 \cdot p_1 + \dots + (x_n - \mu)^2 \cdot p_n$
+            </div>
+        </div>
+
+        <div class="formula-row">
+            <div class="formula-title">Spredning $\sigma = \sigma(X)$ af en stokastisk variabel $X$</div>
+            <div class="formula-num">(132)</div>
+            <div class="formula-math">
+                $\sigma = \sqrt{\text{Var}(X)}$
+            </div>
+        </div>
+    </div>
 
     <!-- EKSEMPEL (TERNINGER) -->
     <div class="rule-card">
@@ -253,11 +353,11 @@
             </table>
         </div>
 
-        <p><strong>Formler:</strong></p>
+        <p><strong>Beregninger på eksemplet:</strong></p>
         <ul>
-            <li><strong>Middelværdi:</strong> $\mu = E(X) = x_1 \cdot p_1 + x_2 \cdot p_2 + \dots + x_n \cdot p_n = 7$</li>
-            <li><strong>Varians:</strong> $\text{Var}(X) = (x_1 - \mu)^2 \cdot p_1 + \dots + (x_n - \mu)^2 \cdot p_n \approx 5{,}83$</li>
-            <li><strong>Spredning:</strong> $\sigma = \sqrt{\text{Var}(X)} = \sqrt{5{,}83} \approx 2{,}42$</li>
+            <li><strong>Middelværdi (130):</strong> $\mu = E(X) = 2 \cdot \frac{1}{36} + 3 \cdot \frac{2}{36} + \dots + 12 \cdot \frac{1}{36} = 7$</li>
+            <li><strong>Varians (131):</strong> $\text{Var}(X) = (2 - 7)^2 \cdot \frac{1}{36} + \dots + (12 - 7)^2 \cdot \frac{1}{36} \approx 5{,}83$</li>
+            <li><strong>Spredning (132):</strong> $\sigma = \sqrt{\text{Var}(X)} = \sqrt{5{,}83} \approx 2{,}42$</li>
         </ul>
     </div>
 
@@ -273,7 +373,7 @@
     <!-- OPGAVE 1: MØNTSPILLET (2 MØNTER) -->
     <div class="task-card">
         <div class="task-title">Opgave 1: Møntspillet (2 mønter)</div>
-        <p>Du kaster 2 mønter. Lad $X$ være antallet af <strong>Krone</strong>. For hver Krone du slår, vinder du 10 kr. Udfaldsrummet har 4 lige sandsynlige muligheder: (Plat, Plat), (Plat, Krone), (Krone, Plat) og (Krone, Krone).</p>
+        <p>Du kaster 2 mønter. Lad $X$ være gevinsten i kroner, hvor du vinder 10 kr. pr. Krone du slår. Udfaldsrummet har 4 lige sandsynlige muligheder: (Plat, Plat), (Plat, Krone), (Krone, Plat) og (Krone, Krone).</p>
 
         <div class="sub-question">
             <strong>a) Sandsynligheder:</strong>
@@ -282,10 +382,10 @@
                 <label>$P(X = 0)$ (0 krone):</label>
                 <input type="text" id="opg1-p0" style="width: 70px;">
                 
-                <label>$P(X = 1)$ (1 krone):</label>
+                <label>$P(X = 10)$ (1 krone):</label>
                 <input type="text" id="opg1-p1" style="width: 70px;">
                 
-                <label>$P(X = 2)$ (2 kroner):</label>
+                <label>$P(X = 20)$ (2 kroner):</label>
                 <input type="text" id="opg1-p2" style="width: 70px;">
             </div>
         </div>
@@ -312,61 +412,70 @@
         <button class="btn-check" onclick="checkOpg1()">Tjek svar</button>
 
         <div id="hint1" class="hint-box">
-            - Der er 1 mulighed for (Plat, Plat), 2 for én Krone og 1 for (Krone, Krone).<br>
-            - Gennemsnit = $(0 \text{ kr.} \cdot \frac{1}{4}) + (10 \text{ kr.} \cdot \frac{2}{4}) + (20 \text{ kr.} \cdot \frac{1}{4})$.<br>
-            - En fair pris svarer præcis til den gennemsnitlige gevinst!
+            - <strong>Sandsynlighed:</strong> Tæl hvor mange af de 4 udfald der giver hhv. 0, 1 eller 2 kroner, og dividér med 4.<br>
+            - <strong>Middelværdi:</strong> Brug formel (130) ved at gange hver gevinst ($x_i$) med dens tilhørende sandsynlighed ($p_i$) og lægge dem sammen.<br>
+            - <strong>Fair pris:</strong> Tænk over hvad du forventer at få ud af spillet i gennemsnit – billetprisen skal matche dette beløb nøjagtigt.
         </div>
         <div id="feedback1" class="feedback-box"></div>
     </div>
 
-    <!-- OPGAVE 2: MØNTSPILLET (3 MØNTER) -->
+    <!-- OPGAVE 2: MØNTSPILLET (3 MØNTER) + SPREDNING OG RISIKO -->
     <div class="task-card">
-        <div class="task-title">Opgave 2: Møntspillet (3 mønter)</div>
-        <p>Du udvider nu spillet og kaster <strong>3 mønter</strong>. Lad $X$ være antallet af <strong>Krone</strong>. Der er i alt 8 lige sandsynlige muligheder ($2 \cdot 2 \cdot 2 = 8$). Du vinder stadig 10 kr. pr. Krone.</p>
+        <div class="task-title">Opgave 2: Møntspillet (3 mønter) – Beregn varians, spredning og usikkerhed</div>
+        <p>Du kaster nu <strong>3 mønter</strong>. Du vinder stadig 10 kr. pr. Krone (dvs. mulige gevinster er 0 kr., 10 kr., 20 kr. eller 30 kr.). Der er i alt 8 lige sandsynlige udfald.</p>
 
         <div class="sub-question">
-            <strong>a) Sandsynligheder:</strong>
-            <p style="margin: 5px 0;">Skriv sandsynlighederne som brøker (fx <code>1/8</code> eller <code>3/8</code>):</p>
+            <strong>a) Sandsynligheder &amp; Middelværdi:</strong>
+            <p style="margin: 5px 0;">Indtast sandsynlighederne og middelværdien $\mu$:</p>
             <div class="input-group">
                 <label>$P(X = 0)$:</label>
-                <input type="text" id="opg2-p0" style="width: 60px;">
+                <input type="text" id="opg2-p0" style="width: 55px;">
                 
-                <label>$P(X = 1)$:</label>
-                <input type="text" id="opg2-p1" style="width: 60px;">
+                <label>$P(X = 10)$:</label>
+                <input type="text" id="opg2-p1" style="width: 55px;">
                 
-                <label>$P(X = 2)$:</label>
-                <input type="text" id="opg2-p2" style="width: 60px;">
+                <label>$P(X = 20)$:</label>
+                <input type="text" id="opg2-p2" style="width: 55px;">
 
-                <label>$P(X = 3)$:</label>
-                <input type="text" id="opg2-p3" style="width: 60px;">
+                <label>$P(X = 30)$:</label>
+                <input type="text" id="opg2-p3" style="width: 55px;">
             </div>
-        </div>
-
-        <div class="sub-question">
-            <strong>b) Gennemsnitlig gevinst (Middelværdi):</strong>
-            <p style="margin: 5px 0;">Hvor mange kroner vinder man i gennemsnit pr. spil med 3 mønter?</p>
             <div class="input-group">
                 <label>Middelværdi $\mu$:</label>
-                <input type="text" id="opg2-mean" style="width: 80px;"> kr.
+                <input type="text" id="opg2-mean" style="width: 70px;"> kr.
             </div>
         </div>
 
         <div class="sub-question">
-            <strong>c) Fair billetpris:</strong>
-            <p style="margin: 5px 0;">Hvad skal det koste at deltage for, at spillet er helt fair?</p>
+            <strong>b) Beregn Varians og Spredning:</strong>
+            <p style="margin: 5px 0;">Brug formel (131) og (132) til at udregne variansen $\text{Var}(X)$ og spredningen $\sigma$. (Afrund spredningen til 2 decimaler):</p>
             <div class="input-group">
-                <label>Pris for at være med:</label>
-                <input type="text" id="opg2-price" style="width: 80px;"> kr.
+                <label>Varians $\text{Var}(X)$:</label>
+                <input type="text" id="opg2-var" style="width: 80px;">
+                
+                <label>Spredning $\sigma$:</label>
+                <input type="text" id="opg2-sd" style="width: 80px;"> kr.
             </div>
+        </div>
+
+        <div class="sub-question">
+            <strong>c) Sikkerhed &amp; Usikkerhed på gevinsten (Refleksion):</strong>
+            <p style="margin: 5px 0;">Du betaler den fair billetpris på <strong>15 kr.</strong> for at kaste mønterne én enkelt gang. Hvor sikker kan du være på at få nøjagtigt din billetpris (15 kr.) igen i det enkelte spil?</p>
+            <textarea id="opg2-ref1" placeholder="Skriv din vurdering her..."></textarea>
+            
+            <p style="margin: 10px 0 5px 0;">Hvorfor bliver det gennemsnitlige resultat mere sikkert og forudsigeligt, hvis du spiller spillet <strong>1.000 gange</strong> i stedet for kun 1 gang?</p>
+            <textarea id="opg2-ref2" placeholder="Skriv din vurdering her..."></textarea>
         </div>
 
         <button class="btn-hint" onclick="toggleBox('hint2_coins')">Vis hint</button>
         <button class="btn-check" onclick="checkOpg2Coins()">Tjek svar</button>
 
         <div id="hint2_coins" class="hint-box">
-            - De 8 udfald: PPP, PPK, PKP, KPP, PKK, KPK, KKP, KKK.<br>
-            - Antal udfald med 0 krone: 1. Med 1 krone: 3. Med 2 kroner: 3. Med 3 kroner: 1.<br>
-            - Gennemsnit = $(0 \cdot \frac{1}{8}) + (10 \cdot \frac{3}{8}) + (20 \cdot \frac{3}{8}) + (30 \cdot \frac{1}{8})$.
+            - <strong>Udfald og Middelværdi:</strong> Opskriv de 8 udfald (PPP, PPK, PKP...). Tæl antal Kroner for hvert udfald og brug formel (130).<br>
+            - <strong>Varians (131):</strong> For hver gevinst træk middelværdien $\mu$ fra, sæt i anden $(x_i - \mu)^2$, gang med sandsynligheden $p_i$, og læg alle led sammen.<br>
+            - <strong>Spredning (132):</strong> Tag kvadratroden af variansen.<br>
+            - <strong>Refleksion (1 gang):</strong> Prøv at regne $15 - \sigma$ og $15 + \sigma$ ud. Intervallet $(\mu \pm \sigma)$ fortæller, hvad du "typisk" afviger med fra middelværdien i et enkelt spil. Kan du overhovedet få præcis 15 kr. udbetalt i ét spil?<br>
+            - <strong>Refleksion (1.000 gange):</strong> Nogle gange slår du måske helt op på 30 kr., andre gange får du 0 kr. Hvad sker der med alle disse høje og lave tilfældige gevinster, når du tager gennemsnittet af 1.000 spil?
         </div>
         <div id="feedback2_coins" class="feedback-box"></div>
     </div>
@@ -378,16 +487,16 @@
         
         <div class="input-group">
             <label>Sandsynlighed:</label>
-            <input type="text" id="opg2-ans">
+            <input type="text" id="opg3-ans">
         </div>
 
-        <button class="btn-hint" onclick="toggleBox('hint2')">Vis hint</button>
-        <button class="btn-check" onclick="checkOpg2()">Tjek svar</button>
+        <button class="btn-hint" onclick="toggleBox('hint3')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg3()">Tjek svar</button>
 
-        <div id="hint2" class="hint-box">
-            Kig i tabellen i eksemplet øverst under kolonnen for summen $x_i = 2$.
+        <div id="hint3" class="hint-box">
+            Brug eksempeltabellen øverst på siden. Find rækken for $x_i = 2$ og se brøken i rækken $P(X = x_i)$ lige under.
         </div>
-        <div id="feedback2" class="feedback-box"></div>
+        <div id="feedback3" class="feedback-box"></div>
     </div>
 
     <!-- OPGAVE 4 -->
@@ -397,25 +506,25 @@
         
         <div class="input-group">
             <label>Mest sandsynlige sum ($x_i$):</label>
-            <input type="text" id="opg3-ans">
+            <input type="text" id="opg4-ans">
         </div>
 
-        <button class="btn-hint" onclick="toggleBox('hint3')">Vis hint</button>
-        <button class="btn-check" onclick="checkOpg3()">Tjek svar</button>
+        <button class="btn-hint" onclick="toggleBox('hint4')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg4()">Tjek svar</button>
 
-        <div id="hint3" class="hint-box">
-            Find det tal i den øverste række i eksempeltabellen, som har den største brøk under sig ($\frac{6}{36}$).
+        <div id="hint4" class="hint-box">
+            Kig i eksempeltabellen efter den største sandsynlighedsbrøk (den med den højeste tæller). Skriv det tal ($x_i$), der står i toppen af den kolonne.
         </div>
-        <div id="feedback3" class="feedback-box"></div>
+        <div id="feedback4" class="feedback-box"></div>
     </div>
 
     <!-- OPGAVE 5 -->
     <div class="task-card">
         <div class="task-title">Opgave 5: Forholdet mellem varians og spredning</div>
         <p>Hvilket udsagn er rigtigt om spredning $\sigma$ og varians $\text{Var}(X)$?</p>
-        
+
         <div class="input-group">
-            <select id="opg4-select" style="width: 100%;">
+            <select id="opg5-select" style="width: 100%;">
                 <option value="">-- Vælg det rigtige udsagn --</option>
                 <option value="forkert1">Spredningen findes ved at lægge variansen sammen med middelværdien.</option>
                 <option value="korrekt">Spredningen σ findes ved at tage kvadratroden af variansen (σ = √Var(X)).</option>
@@ -423,8 +532,13 @@
             </select>
         </div>
 
-        <button class="btn-check" onclick="checkOpg4()">Tjek svar</button>
-        <div id="feedback4" class="feedback-box"></div>
+        <button class="btn-hint" onclick="toggleBox('hint5')">Vis hint</button>
+        <button class="btn-check" onclick="checkOpg5()">Tjek svar</button>
+
+        <div id="hint5" class="hint-box">
+            Sammenlign udsagnene med formel (132) i formelsamlingen øverst på siden. Læg mærke til hvilket matematisk symbol der står foran $\text{Var}(X)$.
+        </div>
+        <div id="feedback5" class="feedback-box"></div>
     </div>
 
     <!-- REFLEKSION NEDERST -->
@@ -437,7 +551,12 @@
             <strong>Spørgsmål A:</strong>
             <p>Hvorfor har summen 7 den højeste sandsynlighed ($\frac{6}{36}$), mens summen 2 kun har $\frac{1}{36}$?</p>
             <textarea placeholder="Skriv dit svar her..."></textarea>
+            <button class="btn-hint" onclick="toggleBox('hintA')">Vis hint</button>
             <button class="btn-answer" onclick="toggleBox('ansA')">Vis forklaring / facit</button>
+            
+            <div id="hintA" class="hint-box">
+                Tænk på hvor mange kombinationer af terningekast (f.eks. (1,6), (2,5)...) der giver summen 7 sammenlignet med, hvor mange kombinationer der kan give summen 2.
+            </div>
             <div id="ansA" class="answer-box">
                 <strong>Model-forklaring:</strong> Der er 6 forskellige måder at slå summen 7 på: (1,6), (2,5), (3,4), (4,3), (5,2) og (6,1). Til sammenligning kan summen 2 kun slås på én enkelt måde: (1,1).
             </div>
@@ -448,7 +567,12 @@
             <strong>Spørgsmål B:</strong>
             <p>Hvis man skulle betale 12 kr. for at spille møntspillet i Opgave 1 (2 mønter), ville det så være en god forretning for dig som spiller? Hvorfor / hvorfor ikke?</p>
             <textarea placeholder="Skriv dit svar her..."></textarea>
+            <button class="btn-hint" onclick="toggleBox('hintB')">Vis hint</button>
             <button class="btn-answer" onclick="toggleBox('ansB')">Vis forklaring / facit</button>
+            
+            <div id="hintB" class="hint-box">
+                Sammenlign billetprisen (12 kr.) med den middel-gevinst ($\mu$), du udregnede i Opgave 1b.
+            </div>
             <div id="ansB" class="answer-box">
                 <strong>Model-forklaring:</strong> Nej, det ville være en dårlig forretning. Da middelværdien (den gennemsnitlige gevinst) kun er 10 kr., vil man i gennemsnit tabe 2 kr. pr. spil, man deltager i.
             </div>
@@ -479,17 +603,17 @@
 
         const okP0 = (p0 === '1/4' || p0 === '0.25' || p0 === '0,25');
         const okP1 = (p1 === '2/4' || p1 === '1/2' || p1 === '0.5' || p1 === '0,5');
-        const okP2 = (p2 === '1/4' || p2 === '0.25' || p2 === '0,25');
+        const okP2 = (p2 === '1/4' || p0 === '0.25' || p2 === '0,25');
         const okMean = (mean === 10);
         const okPrice = (price === 10);
 
         if (okP0 && okP1 && okP2 && okMean && okPrice) {
-            showFeedback('feedback1', true, 'Perfekt! P(X=0)=1/4, P(X=1)=2/4, P(X=2)=1/4. Gennemsnittet er 10 kr., så den faire pris for at deltage er 10 kr.');
+            showFeedback('feedback1', true, 'Flot! Alle dine udregninger er korrekte.');
         } else {
             let msg = 'Noget af dit svar er ikke helt korrekt endnu:<br>';
-            if (!okP0 || !okP1 || !okP2) msg += '- Tjek sandsynlighederne: 0 krone har 1/4, 1 krone har 2/4, og 2 kroner har 1/4.<br>';
-            if (!okMean) msg += '- Gennemsnit: 0·(1/4) + 10·(2/4) + 20·(1/4) = 10 kr.<br>';
-            if (!okPrice) msg += '- Billetprisen skal være lig med den gennemsnitlige gevinst for at være fair (10 kr.).';
+            if (!okP0 || !okP1 || !okP2) msg += '- Tjek sandsynlighederne igen (husk der er 4 udfald i alt).<br>';
+            if (!okMean) msg += '- Genberegn gennemsnittet ved hjælp af formel (130).<br>';
+            if (!okPrice) msg += '- Overvej hvad billetprisen skal være for, at man hverken vinder eller taber i gennemsnit.';
             showFeedback('feedback1', false, msg);
         }
     }
@@ -500,52 +624,65 @@
         const p2 = document.getElementById('opg2-p2').value.trim();
         const p3 = document.getElementById('opg2-p3').value.trim();
         const mean = parseFloat(document.getElementById('opg2-mean').value.replace(',', '.'));
-        const price = parseFloat(document.getElementById('opg2-price').value.replace(',', '.'));
+        const variance = parseFloat(document.getElementById('opg2-var').value.replace(',', '.'));
+        const sd = parseFloat(document.getElementById('opg2-sd').value.replace(',', '.'));
 
         const okP0 = (p0 === '1/8' || p0 === '0.125' || p0 === '0,125');
         const okP1 = (p1 === '3/8' || p1 === '0.375' || p1 === '0,375');
         const okP2 = (p2 === '3/8' || p2 === '0.375' || p2 === '0,375');
         const okP3 = (p3 === '1/8' || p3 === '0.125' || p3 === '0,125');
         const okMean = (mean === 15);
-        const okPrice = (price === 15);
+        const okVar = (variance === 75);
+        const okSd = (sd >= 8.65 && sd <= 8.67);
 
-        if (okP0 && okP1 && okP2 && okP3 && okMean && okPrice) {
-            showFeedback('feedback2_coins', true, 'Fremragende! P(X=0)=1/8, P(X=1)=3/8, P(X=2)=3/8, P(X=3)=1/8. Middelværdien og den faire pris er 15 kr.');
+        if (okP0 && okP1 && okP2 && okP3 && okMean && okVar && okSd) {
+            showFeedback('feedback2_coins', true, 
+                '<strong>Korrekt udregnet!</strong><br>' +
+                '• Middelværdi: $\\mu = 15$ kr.<br>' +
+                '• Varians: $\\text{Var}(X) = 75$<br>' +
+                '• Spredning: $\\sigma = \\sqrt{75} \\approx 8{,}66$ kr.<br><br>' +
+                '<strong>Løsning / Model-svar på refleksionerne:</strong><br>' +
+                '• <em>Ved 1 enkelt spil:</em> Man kan overhovedet ikke være sikker på at få sine 15 kr. igen – faktisk er 15 kr. umuligt at få i ét kast (du får enten 0, 10, 20 eller 30 kr.).<br>' +
+                'Kigger man på <strong>middelværdi $\\pm$ spredning</strong> ($15 \\pm 8{,}66$ kr., dvs. ca. 6,34 kr. til 23,66 kr.), fortæller det os, at udfaldet svinger meget omkring gennemsnittet. Der er stor usikkerhed i ét enkelt spil.<br><br>' +
+                '• <em>Ved 1.000 spil:</em> Her udligner tilfældighederne hinanden. De gange du har uheld og får 0 kr., vil blive opvejet af de gange du har held og får 30 kr. Derfor vil det gennemsnitlige beløb du får tilbage pr. spil ligge utroligt tæt på middelværdien (15 kr.), hvilket gør det samlede resultat meget mere sikkert.'
+            );
+            MathJax.typeset();
         } else {
-            let msg = 'Noget af dit svar er ikke helt korrekt endnu:<br>';
-            if (!okP0 || !okP1 || !okP2 || !okP3) msg += '- Tjek sandsynlighederne: 0 krone=1/8, 1 krone=3/8, 2 kroner=3/8, 3 kroner=1/8.<br>';
-            if (!okMean) msg += '- Gennemsnit: (0·1 + 10·3 + 20·3 + 30·1) / 8 = 120 / 8 = 15 kr.<br>';
-            if (!okPrice) msg += '- Billetprisen skal svare til middelværdien (15 kr.).';
+            let msg = 'Noget af dit svar i delopgave a) eller b) er ikke helt korrekt endnu:<br>';
+            if (!okP0 || !okP1 || !okP2 || !okP3) msg += '- Tjek om du har talt alle udfald ud af de 8 rigtigt.<br>';
+            if (!okMean) msg += '- Tjek beregningen af middelværdien $\mu$.<br>';
+            if (!okVar) msg += '- Genberegn variansen ud fra formel (131): $\\text{Var}(X) = \\sum (x_i - \\mu)^2 \\cdot p_i$.<br>';
+            if (!okSd) msg += '- Tjek spredningen ved at tage kvadratroden af din varians.';
             showFeedback('feedback2_coins', false, msg);
         }
     }
 
-    function checkOpg2() {
-        const ans = document.getElementById('opg2-ans').value.trim();
-        if (ans === '1/36') {
-            showFeedback('feedback2', true, 'Flot! Sandsynligheden for at slå 2 er 1/36.');
-        } else {
-            showFeedback('feedback2', false, 'Prøv igen. Aflæs tabellen under x_i = 2 (skriv fx 1/36).');
-        }
-    }
-
     function checkOpg3() {
-        const ans = parseInt(document.getElementById('opg3-ans').value);
-        if (ans === 7) {
-            showFeedback('feedback3', true, 'Korrekt! Summen 7 er det mest sandsynlige udfald med 6/36 sandsynlighed.');
+        const ans = document.getElementById('opg3-ans').value.trim();
+        if (ans === '1/36') {
+            showFeedback('feedback3', true, 'Korrekt aflæst!');
         } else {
-            showFeedback('feedback3', false, 'Prøv igen. Hvilken sum i øverste række har den største brøk under sig?');
+            showFeedback('feedback3', false, 'Prøv igen. Se i eksempeltabellen øverst under $x_i = 2$.');
         }
     }
 
     function checkOpg4() {
-        const choice = document.getElementById('opg4-select').value;
-        if (choice === 'korrekt') {
-            showFeedback('feedback4', true, 'Helt rigtigt! Spredningen σ er kvadratroden af variansen Var(X).');
-        } else if (choice === '') {
-            showFeedback('feedback4', false, 'Vælg venligst et udsagn i menuen.');
+        const ans = parseInt(document.getElementById('opg4-ans').value);
+        if (ans === 7) {
+            showFeedback('feedback4', true, 'Korrekt! 7 er den sum, der har flest mulige kombinationer.');
         } else {
-            showFeedback('feedback4', false, 'Prøv igen. Husk formel (132): σ = √Var(X).');
+            showFeedback('feedback4', false, 'Prøv igen. Kobl sandsynlighederne i tabellen sammen med summen $x_i$ i øverste række.');
+        }
+    }
+
+    function checkOpg5() {
+        const choice = document.getElementById('opg5-select').value;
+        if (choice === 'korrekt') {
+            showFeedback('feedback5', true, 'Helt rigtigt!');
+        } else if (choice === '') {
+            showFeedback('feedback5', false, 'Vælg venligst et udsagn i menuen.');
+        } else {
+            showFeedback('feedback5', false, 'Det var desværre ikke rigtigt. Kig på formel (132) i formelsamlingen.');
         }
     }
 </script>
