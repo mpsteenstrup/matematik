@@ -18,4 +18,3 @@
 * [Stokastisk variabel](https://mpsteenstrup.github.io/matematik/sandsynligned_binomial/stokastisk_variabel.html)
 * [Binomial koefficient](https://mpsteenstrup.github.io/matematik/sandsynligned_binomial/binomial_koefficient.html)
 * [Hjemmeopgave](https://github.com/mpsteenstrup/matematik/blob/main/sandsynligned_binomial/hjemmeopgave_spildesign.pdf)
-
