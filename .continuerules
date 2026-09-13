@@ -1,0 +1,46 @@
+# Matematikopgaver - Regler for udvikling
+
+## Generelle principper
+- **Sprog:** Alt brugerfladetekst, opgavebeskrivelser, hints og feedback skal være på dansk.
+- **Tone:** Hjælpsom, pædagogisk og opmuntrende.
+- **Tilgængelighed:** Brug semantisk HTML og sørg for, at inputfelter har labels eller placeholder-tekst.
+
+## Teknisk Standard
+- **Matematik:** Brug MathJax til alle formler. 
+    - Inline formler: `\( E = mc^2 \)`
+    - Blok formler: `$$ \frac{-b \pm \sqrt{D}}{2a} $$`
+- **Interaktivitet:** 
+    - Brug `checkAnswer(id, correctVal)` til simple numeriske svar.
+    - Brug `toggleBox(id)` til at vise/skjule hints og løsninger.
+    - Feedback skal vises i et element med klassen `.feedback`.
+
+## HTML Struktur for en opgave (Card)
+Hver opgave skal følge dette mønster:
+```html
+<div class="card">
+    <span class="task-title">Opgave X: Titel</span>
+    <p>Opgavebeskrivelse med \( \text{matematik} \).</p>
+    <div class="input-section">
+        <input type="number" id="qX" step="0.01" placeholder="Svar...">
+    </div>
+    <div class="btn-group">
+        <button class="btn-check" onclick="checkAnswer('qX', KORREKT_VÆRDI)">Tjek svar</button>
+        <button class="btn-hint" onclick="toggleBox('hint-qX')">Hint</button>
+        <button class="btn-sol" onclick="toggleBox('sol-qX')">Løsning</button>
+    </div>
+    <div id="feedback-qX" class="feedback"></div>
+    <div id="hint-qX" class="hint-box"><strong>Hint:</strong> Hjælpende tekst her.</div>
+    <div id="sol-qX" class="sol-box"><strong>Løsning:</strong> Gennemgang af beregningen.</div>
+</div>
+```
+
+## CSS Retningslinjer
+- Brug de eksisterende klasser i `style.css`:
+    - `.card`: Standard opgavebeholder.
+    - `.formula-box`: Til fremhævede formler i toppen af siden.
+    - `.btn-check`, `.btn-hint`, `.btn-sol`: Knap-styling.
+    - `.correct` / `.incorrect`: Farvning af feedback-tekst.
+
+## Workflow
+- Nye emner bør have deres egen mappe, hvis de indeholder flere filer eller billeder.
+- Opdater `README.md` med links til nye emner/sider.
