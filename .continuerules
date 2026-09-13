@@ -13,6 +13,31 @@
     - Brug `checkAnswer(id, correctVal)` til simple numeriske svar.
     - Brug `toggleBox(id)` til at vise/skjule hints og løsninger.
     - Feedback skal vises i et element med klassen `.feedback`.
+- **Matematisk notation**
+    - Den matematiske notation skal være den samme som `Formelsamling-STXB-2024.pdf`.      
+
+## HTML Struktur for Teori og Eksempler (Formula Box)
+Når en matematisk sætning eller teori skal præsenteres, bruges `.formula-box`. Den kan indeholde eksempler eller beviser, der kan foldes ud.
+
+```html
+<div class="formula-box">
+    <h3>Sætningens Titel</h3>
+    <p>Beskrivelse af sætningen med \( \text{matematik} \).</p>
+    <div class="formula-group">
+        <div><strong>Del 1:</strong> Forklaring...</div>
+        <div><strong>Del 2:</strong> Forklaring...</div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel</button>
+    </div>
+
+    <div id="example-1" class="example-block">
+        <h4>Eksempel på brug</h4>
+        <p>Gennemgang af et eksempel...</p>
+    </div>
+</div>
+```
 
 ## HTML Struktur for en opgave (Card)
 Hver opgave skal følge dette mønster:
