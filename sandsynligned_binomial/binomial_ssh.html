@@ -3,153 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Træning: Binomialsandsynlighed</title>
+    <title>Binomialsandsynlighed</title>
+    <!-- MathJax til opsætning af matematik -->
     <script>
         window.MathJax = {
             tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['$$', '$$']]
             }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../style.css">
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #27ae60;
-            --info-bg: #eef7fc;
-            --example-bg: #fef9e7;
-            --example-border: #f1c40f;
-            --bg: #f8f9fa;
-            --card-bg: #ffffff;
-            --border-radius: 8px;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background-color: var(--bg);
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 850px;
-            margin: 0 auto;
-        }
-
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 25px 30px;
-            border-radius: var(--border-radius);
-            margin-bottom: 25px;
-        }
-
-        header h1 {
-            margin: 0 0 5px 0;
-            font-size: 1.8em;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            padding: 22px 25px;
-            border-radius: var(--border-radius);
-            margin-bottom: 25px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .def-card {
-            border-left: 5px solid var(--secondary);
-            background-color: #ffffff;
-        }
-
-        .example-card {
-            background-color: var(--example-bg);
-            border: 2px solid var(--example-border);
-        }
-
-        .step-card {
-            border-left: 5px solid var(--accent);
-        }
-
-        .title {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .formula-box {
-            background-color: var(--info-bg);
-            border: 1px solid #bce1f7;
-            padding: 15px;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 1.1em;
-            margin: 15px 0;
-        }
-
-        .sub-q {
-            background: #f1f5f9;
-            padding: 15px;
-            border-radius: 6px;
-            margin: 15px 0;
-        }
-
-        input[type="number"], input[type="text"] {
-            padding: 8px 12px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 0.95em;
-        }
-
-        button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
+        .mc-option {
+            margin: 8px 0;
+            display: block;
             cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-            margin-right: 5px;
-        }
-
-        .btn-check { background-color: var(--secondary); color: white; }
-        .btn-check:hover { background-color: #2980b9; }
-        .btn-hint { background-color: #f39c12; color: white; }
-        .btn-hint:hover { background-color: #d35400; }
-
-        .feedback {
-            display: none;
-            margin-top: 12px;
-            padding: 12px 15px;
-            border-radius: 4px;
-            font-size: 0.95em;
-        }
-
-        .correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .wrong { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-
-        .hint-box { 
-            display: none; 
-            background-color: #fff9e6; 
-            border: 1px solid #ffe399; 
-            color: #d35400; 
-            padding: 12px 15px; 
-            border-radius: 4px; 
-            margin-top: 10px; 
-            font-size: 0.95em;
-        }
-
-        .math-highlight {
-            background-color: #fff3cd;
-            padding: 2px 6px;
-            border-radius: 4px;
         }
     </style>
 </head>
@@ -157,138 +27,175 @@
 
 <div class="container">
 
-    <header>
-        <h1>Træning: Binomialsandsynlighed</h1>
-        <p>Lær at beregne sandsynligheden for præcis $r$ succeser ud af $n$ forsøg.</p>
-    </header>
-
-    <!-- DEFINITION -->
-    <div class="card def-card">
-        <div class="title">
-            <span>📘</span> Definition & Formel
-        </div>
+    <!-- TOP CARD: FORMEL / DEFINITION -->
+    <div class="formula-box">
+        <h3>Binomialsandsynlighed \( P(X = r) \)</h3>
         <p>Et <strong>binomialeksperiment</strong> er kendetegnet ved fire ting:</p>
-        <ol>
-            <li>Der er et fast antal uafhængige forsøg ($n$).</li>
+        <ul style="text-align: left; display: inline-block; margin-top: 0;">
+            <li>Der er et fast antal uafhængige forsøg (\( n \)).</li>
             <li>Hvert forsøg har kun <strong>to mulige udfald</strong>: <em>Succes</em> eller <em>Fiasko</em>.</li>
-            <li>Sandsynligheden for succes ($p$) er den samme i hvert forsøg.</li>
-            <li>Sandsynligheden for fiasko er $1 - p$.</li>
-        </ol>
-
-        <p>Sandsynligheden for at få præcis <strong>$r$ succeser</strong> ud af <strong>$n$ forsøg</strong> beregnes med formlen:</p>
-
-        <div class="formula-box">
-            $$P(X = r) = \binom{n}{r} \cdot p^r \cdot (1 - p)^{n - r}$$
+            <li>Sandsynligheden for succes (\( p \)) er den samme i hvert forsøg.</li>
+            <li>Sandsynligheden for fiasko er \( 1 - p \).</li>
+        </ul>
+        
+        <div class="formula-group">
+            <div>
+                <strong>Formel for binomialsandsynlighed:</strong><br>
+                $$ P(X = r) = \binom{n}{r} \cdot p^r \cdot (1 - p)^{n - r} $$
+            </div>
+            <div>
+                <strong>Formlens tre dele:</strong><br>
+                \( \binom{n}{r} \): Antal måder de \( r \) succeser kan placeres på.<br>
+                \( p^r \): Sandsynlighed for \( r \) succeser.<br>
+                \( (1 - p)^{n - r} \): Sandsynlighed for de resterende \( n - r \) fiaskoer.
+            </div>
         </div>
 
-        <p><strong>Forklaring af formlens tre dele:</strong></p>
-        <ul>
-            <li>$\mathbf{\binom{n}{r}}$ : Antallet af forskellige måder/rækkefølger, som de $r$ succeser kan fordele sig på.</li>
-            <li>$\mathbf{p^r}$ : Sandsynligheden for at få $r$ succeser.</li>
-            <li>$\mathbf{(1 - p)^{n - r}}$ : Sandsynligheden for at få de resterende $n - r$ fiaskoer.</li>
-        </ul>
+        <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel</button>
+        </div>
+
+        <div id="example-1" class="example-block" style="display: none; text-align: left; margin-top: 15px;">
+            <h4>Eksempel: Terningkast</h4>
+            <p>Vi kaster en almindelig 6-sidet terning \( n = 5 \) gange. Succes er at slå en 6'er (\( p = \frac{1}{6} \)).</p>
+            <p>Sandsynligheden for at få præcis \( r = 2 \) 6'ere:</p>
+            <p>$$ P(X = 2) = \binom{5}{2} \cdot \left(\frac{1}{6}\right)^2 \cdot \left(\frac{5}{6}\right)^{5 - 2} $$</p>
+            <p>$$ P(X = 2) = 10 \cdot \frac{1}{36} \cdot \frac{125}{216} \approx 0{,}1608 = 16{,}08\% $$</p>
+        </div>
     </div>
 
-    <!-- EKSEMPEL -->
-    <div class="card example-card">
-        <div class="title" style="color: #d35400;">
-            <span>💡</span> Eksempel
+    <!-- BEREGNINGSOPGAVER -->
+    <h2>Beregning af sandsynligheder</h2>
+
+    <div class="card">
+        <span class="task-title">Opgave 1: Sand/Falsk Test</span>
+        <p>En elev gætter helt tilfældigt på en multiple choice-test med \( n = 4 \) spørgsmål. Hvert spørgsmål har 2 svarmuligheder, så \( p = 0{,}5 \).</p>
+        <p>Hvad er sandsynligheden \( P(X = 3) \) for at få præcis 3 rigtige?</p>
+        <div class="input-section">
+            <input type="number" id="q1" step="0.0001" placeholder="Svar (f.eks. 0.25)...">
         </div>
-        <p>Vi kaster en almindelig 6-sidet terning <strong>$n = 5$ gange</strong>. Vi kalder det en <em>succes</em> at slå en 6'er.</p>
-
-        <ul>
-            <li>Antal forsøg: $n = 5$</li>
-            <li>Sandsynlighed for succes (en 6'er): $p = \frac{1}{6}$</li>
-            <li>Sandsynlighed for fiasko (ikke en 6'er): $1 - p = \frac{5}{6}$</li>
-        </ul>
-
-        <p><strong>Spørgsmål:</strong> Hvad er sandsynligheden for at slå <strong>præcis $r = 2$ 6'ere</strong> på 5 kast?</p>
-
-        <p><strong>Beregning step-by-step:</strong></p>
-        <ol>
-            <li><strong>Find binomialkoefficienten $\binom{5}{2}$:</strong><br>
-                $$\binom{5}{2} = \frac{5 \cdot 4}{2 \cdot 1} = 10 \quad \text{(der er 10 måder at placere de to 6'ere på)}$$
-            </li>
-            <li><strong>Sæt ind i formlen:</strong><br>
-                $$P(X = 2) = \binom{5}{2} \cdot \left(\frac{1}{6}\right)^2 \cdot \left(\frac{5}{6}\right)^{5 - 2}$$
-                $$P(X = 2) = 10 \cdot \left(\frac{1}{36}\right) \cdot \left(\frac{125}{216}\right)$$
-                $$P(X = 2) = 10 \cdot 0{,}02778 \cdot 0{,}5787 = 0{,}1608 \approx 16{,}08\%$$
-            </li>
-        </ol>
-        <p>Svar: Der er ca. <strong>$16{,}08\%$</strong> chance for at slå præcis to 6'ere på fem kast.</p>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q1', 0.25)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Beregn \( \binom{4}{3} \cdot (0{,}5)^3 \cdot (0{,}5)^1 \). Bemærk at \( \binom{4}{3} = 4 \).</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong> \( P(X = 3) = \binom{4}{3} \cdot 0{,}5^3 \cdot 0{,}5^1 = 4 \cdot 0{,}125 \cdot 0{,}5 = 0{,}25 \).</div>
     </div>
 
-    <!-- TRÆNING / INTERAKTIVE OPGAVER -->
-    <div class="card step-card">
-        <div class="title">
-            <span>✏️</span> Interaktiv Træning
+    <div class="card">
+        <span class="task-title">Opgave 2: Symmetrisk møntkast</span>
+        <p>Du kaster en almindelig symmetrisk mønt \( n = 6 \) gange (\( p = 0{,}5 \)).</p>
+        <p>Hvad er sandsynligheden \( P(X = 2) \) for at få præcis 2 plat? (Oplyst: \( \binom{6}{2} = 15 \))</p>
+        <div class="input-section">
+            <input type="number" id="q2" step="0.0001" placeholder="Svar...">
         </div>
-        <p>Løs opgaverne herunder. Du kan angive svar som kommatal (f.eks. <code>0.25</code> eller <code>0,25</code>) eller i procent.</p>
-
-        <!-- OPGAVE 1 -->
-        <div class="sub-q">
-            <strong>Opgave 1: Sand/Falsk Test</strong><br>
-            En elev gætter helt tilfældigt på en multiple choice-test med <strong>$n = 4$ spørgsmål</strong>.<br>
-            Hvert spørgsmål har 2 svarmuligheder, så sandsynligheden for at gætte rigtigt er $p = 0{,}5$.<br><br>
-            
-            <strong>a)</strong> Udregn $\binom{4}{3}$ (antal måder at få 3 rigtige ud af 4):<br>
-            <input type="number" id="o1-a" style="width: 100px;">
-            <br><br>
-
-            <strong>b)</strong> Hvad er sandsynligheden $P(X = 3)$ for at få <strong>præcis 3 rigtige</strong>? (Angiv som decimaltal, f.eks. 0.25):<br>
-            <input type="text" id="o1-b" style="width: 100px;">
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q2', 0.234375)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
         </div>
-        <button class="btn-hint" onclick="toggleBox('hint-o1')">Vis hint</button>
-        <button class="btn-check" onclick="checkOpgave1()">Tjek Opgave 1</button>
-        
-        <div id="hint-o1" class="hint-box">
-            - <strong>a)</strong> $\binom{4}{3} = \frac{4 \cdot 3 \cdot 2}{3 \cdot 2 \cdot 1} = 4$.<br>
-            - <strong>b)</strong> Brug $P(X = 3) = \binom{4}{3} \cdot (0{,}5)^3 \cdot (0{,}5)^1 = 4 \cdot 0{,}125 \cdot 0{,}5$.
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box"><strong>Hint:</strong> Benyt formlen \( 15 \cdot (0{,}5)^2 \cdot (0{,}5)^4 = 15 \cdot (0{,}5)^6 \).</div>
+        <div id="sol-q2" class="sol-box"><strong>Løsning:</strong> \( P(X = 2) = 15 \cdot 0{,}5^6 = 15 \cdot 0{,}015625 = 0{,}234375 \approx 23{,}44\% \).</div>
+    </div>
+
+    <div class="card">
+        <span class="task-title">Opgave 3: Produktion og fejlrate</span>
+        <p>En fabrik fremstiller komponenter, hvor \( 10\% \) (\( p = 0{,}10 \)) er defekte. En kontrollør udtager en stikprøve på \( n = 3 \) komponenter.</p>
+        <p>Hvad er sandsynligheden \( P(X = 1) \) for at finde præcis 1 defekt komponent?</p>
+        <div class="input-section">
+            <input type="number" id="q3" step="0.001" placeholder="Svar...">
         </div>
-        <div id="fb-o1" class="feedback"></div>
-
-        <hr style="margin: 25px 0; border: 0; border-top: 1px solid #e2e8f0;">
-
-        <!-- OPGAVE 2 -->
-        <div class="sub-q">
-            <strong>Opgave 2: Symmetrisk møntkast</strong><br>
-            Du kaster en almindelig mønt <strong>$n = 6$ gange</strong> ($p = 0{,}5$).<br><br>
-            
-            Hvad er sandsynligheden $P(X = 2)$ for at få <strong>præcis 2 plat</strong>?<br>
-            <em>Tip: $\binom{6}{2} = 15$.</em><br>
-            Svar (decimaltal): <input type="text" id="o2-a" style="width: 100px;">
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q3', 0.243)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
         </div>
-        <button class="btn-hint" onclick="toggleBox('hint-o2')">Vis hint</button>
-        <button class="btn-check" onclick="checkOpgave2()">Tjek Opgave 2</button>
-        
-        <div id="hint-o2" class="hint-box">
-            - Formel: $P(X = 2) = \binom{6}{2} \cdot (0{,}5)^2 \cdot (0{,}5)^4$<br>
-            - Da $p = 1-p = 0{,}5$, giver $(0{,}5)^2 \cdot (0{,}5)^4 = (0{,}5)^6 = 0{,}015625$.<br>
-            - Gang dette med 15.
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Her er \( n = 3 \), \( r = 1 \), \( p = 0{,}10 \) og \( 1-p = 0{,}90 \). \( \binom{3}{1} = 3 \).</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong> \( P(X = 1) = 3 \cdot (0{,}10)^1 \cdot (0{,}90)^2 = 3 \cdot 0{,}10 \cdot 0{,}81 = 0{,}243 \).</div>
+    </div>
+
+    <!-- FORSTÅELSESOPGAVER -->
+    <h2>Teori og forståelse</h2>
+
+    <div class="card">
+        <span class="task-title">Opgave 4: Betingelser for et binomialeksperiment</span>
+        <p>Hvilket af følgende eksempler beskriver et korrekt binomialeksperiment?</p>
+
+        <div class="input-section">
+            <label class="mc-option">
+                <input type="radio" name="q4_opt" value="A"> A) Man trækker 5 kort fra et spil kort uden tilbagelægning og tæller antallet af røde kort.
+            </label>
+            <label class="mc-option">
+                <input type="radio" name="q4_opt" value="B"> B) Man kaster en terning indtil man slår en 6'er og tæller antallet af kast.
+            </label>
+            <label class="mc-option">
+                <input type="radio" name="q4_opt" value="C"> C) Man kaster en terning 10 gange og tæller, hvor mange gange man får en 6'er.
+            </label>
         </div>
-        <div id="fb-o2" class="feedback"></div>
 
-        <hr style="margin: 25px 0; border: 0; border-top: 1px solid #e2e8f0;">
-
-        <!-- OPGAVE 3 -->
-        <div class="sub-q">
-            <strong>Opgave 3: Produktion og fejlrate</strong><br>
-            En fabrik fremstiller komponenter, hvor $10\%$ ($p = 0{,}10$) er defekte.<br>
-            En kvalitetskontrollør udtager en stikprøve på <strong>$n = 3$ komponenter</strong>.<br><br>
-
-            Hvad er sandsynligheden $P(X = 1)$ for at finde <strong>præcis 1 defekt</strong> komponent?<br>
-            Svar (decimaltal med 3-4 decimaler): <input type="text" id="o3-a" style="width: 100px;">
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkQ4()">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
         </div>
-        <button class="btn-hint" onclick="toggleBox('hint-o3')">Vis hint</button>
-        <button class="btn-check" onclick="checkOpgave3()">Tjek Opgave 3</button>
-        
-        <div id="hint-o3" class="hint-box">
-            - $n = 3, r = 1, p = 0{,}10, 1-p = 0{,}90$.<br>
-            - $\binom{3}{1} = 3$.<br>
-            - Regn: $3 \cdot (0{,}10)^1 \cdot (0{,}90)^2 = 3 \cdot 0{,}10 \cdot 0{,}81$.
-        </div>
-        <div id="fb-o3" class="feedback"></div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box"><strong>Hint:</strong> Et binomialeksperiment kræver et fast antal uafhængige forsøg med samme sandsynlighed i hvert forsøg.</div>
+        <div id="sol-q4" class="sol-box"><strong>Løsning:</strong> Svaret er <strong>C</strong>. I A ændres sandsynligheden undervejs (da der ikke lægges tilbage). I B er antallet af forsøg ikke fastlagt på forhånd.</div>
+    </div>
 
+    <div class="card">
+        <span class="task-title">Opgave 5: Forståelse af formlens led</span>
+        <p>Hvad repræsenterer leddet \( (1 - p)^{n - r} \) i formlen for binomialsandsynlighed?</p>
+
+        <div class="input-section">
+            <label class="mc-option">
+                <input type="radio" name="q5_opt" value="A"> A) Sandsynligheden for at få præcis \( n - r \) fiaskoer i eksperimentet.
+            </label>
+            <label class="mc-option">
+                <input type="radio" name="q5_opt" value="B"> B) Antallet af måder, som fiaskoerne kan arrangeres på i rækkefølge.
+            </label>
+            <label class="mc-option">
+                <input type="radio" name="q5_opt" value="C"> C) Den samlede sandsynlighed for hele forsøget minus de succeser, der opstår.
+            </label>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkQ5()">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q5')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q5')">Løsning</button>
+        </div>
+        <div id="feedback-q5" class="feedback"></div>
+        <div id="hint-q5" class="hint-box"><strong>Hint:</strong> \( 1-p \) er sandsynligheden for fiasko i ét enkelt forsøg, og der er ialt \( n-r \) fiaskoer.</div>
+        <div id="sol-q5" class="sol-box"><strong>Løsning:</strong> Svaret er <strong>A</strong>. Da der er \( n \) forsøg og \( r \) succeser, må der være \( n - r \) fiaskoer. Sandsynligheden for hver fiasko er \( 1 - p \).</div>
+    </div>
+
+    <!-- KRÆVENDE OPGAVE TIL DE HURTIGE -->
+    <h2>Udfordring til de hurtige</h2>
+
+    <div class="card">
+        <span class="task-title">Opgave 6: Komplementær sandsynlighed ("mindst én")</span>
+        <p>En skytte rammer plet med sandsynligheden \( p = 0{,}8 \). Skytten skyder \( n = 4 \) skud.</p>
+        <p>Hvad er sandsynligheden for at skytten rammer plet <strong>mindst én gang</strong> (\( P(X \ge 1) \))?</p>
+        <div class="input-section">
+            <input type="number" id="q6" step="0.0001" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q6', 0.9984)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q6')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q6')">Løsning</button>
+        </div>
+        <div id="feedback-q6" class="feedback"></div>
+        <div id="hint-q6" class="hint-box"><strong>Hint:</strong> Benyt komplementærhændelsen: \( P(X \ge 1) = 1 - P(X = 0) \). Sandsynligheden for at misse alle 4 skud er \( (1 - 0{,}8)^4 = 0{,}2^4 \).</div>
+        <div id="sol-q6" class="sol-box">
+            <strong>Løsning:</strong><br>
+            Sandsynlighed for at misse plet på ét skud er \( 1 - 0{,}8 = 0{,}2 \).<br>
+            Sandsynlighed for 0 pletskud på 4 skud: \( P(X = 0) = 0{,}2^4 = 0{,}0016 \).<br>
+            Sandsynlighed for mindst 1 pletskud: \( P(X \ge 1) = 1 - 0{,}0016 = 0{,}9984 = 99{,}84\% \).
+        </div>
     </div>
 
 </div>
@@ -296,61 +203,80 @@
 <script>
     function toggleBox(id) {
         const box = document.getElementById(id);
-        box.style.display = (box.style.display === "block") ? "none" : "block";
-    }
-
-    function parseInput(id) {
-        const val = document.getElementById(id).value.replace(',', '.').trim();
-        return parseFloat(val);
-    }
-
-    function checkOpgave1() {
-        const a = parseInput('o1-a');
-        const b = parseInput('o1-b');
-
-        const correctA = (a === 4);
-        const correctB = (Math.abs(b - 0.25) < 0.01);
-
-        if (correctA && correctB) {
-            showFb('fb-o1', true, 'Flot! $\\binom{4}{3} = 4$, og $P(X = 3) = 4 \\cdot (0{,}5)^3 \\cdot (0{,}5)^1 = 0{,}25$ (dvs. 25% chance).');
-            MathJax.typeset();
-        } else {
-            let msg = 'Der er en fejl:<br>';
-            if (!correctA) msg += '- a) $\\binom{4}{3}$ er lig med 4.<br>';
-            if (!correctB) msg += '- b) $P(X = 3) = 4 \\cdot 0{,}125 \\cdot 0{,}5 = 0{,}25$.';
-            showFb('fb-o1', false, msg);
+        if (box) {
+            box.style.display = (box.style.display === "block") ? "none" : "block";
         }
     }
 
-    function checkOpgave2() {
-        const val = parseInput('o2-a');
-        const correctVal = 15 * Math.pow(0.5, 6); // 0.234375
+    function checkAnswer(id, correctVal) {
+        const input = document.getElementById(id);
+        const feedback = document.getElementById('feedback-' + id);
+        if (!input || !feedback) return;
 
-        if (Math.abs(val - correctVal) < 0.005) {
-            showFb('fb-o2', true, 'Korrekt! $P(X = 2) = 15 \\cdot (0{,}5)^2 \\cdot (0{,}5)^4 = 15 \\cdot 0{,}015625 = 0{,}2344$ (ca. 23,4%).');
-            MathJax.typeset();
+        const val = parseFloat(input.value.replace(',', '.'));
+
+        feedback.style.display = 'block';
+
+        if (!isNaN(val) && Math.abs(val - correctVal) < 0.002) {
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = 'Korrekt!';
         } else {
-            showFb('fb-o2', false, 'Forkert. Prøv at regne $15 \\cdot (0{,}5)^2 \\cdot (0{,}5)^4 = 15 \\cdot 0{,}015625$. Det giver ca. 0,234.');
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = 'Forkert svar. Prøv igen!';
         }
     }
 
-    function checkOpgave3() {
-        const val = parseInput('o3-a');
-        const correctVal = 3 * 0.10 * Math.pow(0.90, 2); // 0.243
+    function checkQ4() {
+        const options = document.getElementsByName('q4_opt');
+        const feedback = document.getElementById('feedback-q4');
+        let selected = null;
 
-        if (Math.abs(val - correctVal) < 0.005) {
-            showFb('fb-o3', true, 'Fremragende! $P(X = 1) = 3 \\cdot (0{,}10)^1 \\cdot (0{,}90)^2 = 3 \\cdot 0{,}10 \\cdot 0{,}81 = 0{,}243$ (dvs. 24,3% chance).');
-            MathJax.typeset();
+        for (const opt of options) {
+            if (opt.checked) {
+                selected = opt.value;
+                break;
+            }
+        }
+
+        feedback.style.display = 'block';
+
+        if (selected === 'C') {
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = 'Korrekt! Fast antal forsøg (10), to udfald (6\'er eller ej) og konstant sandsynlighed (1/6).';
+        } else if (selected !== null) {
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = 'Forkert. Husk at et binomialeksperiment kræver et fast antal uafhængige forsøg og konstant sandsynlighed.';
         } else {
-            showFb('fb-o3', false, 'Husk: $P(X = 1) = 3 \\cdot 0{,}10^1 \\cdot 0{,}90^2 = 3 \\cdot 0{,}10 \\cdot 0{,}81 = 0{,}243$.');
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = 'Vælg venligst et af udsagnene.';
         }
     }
 
-    function showFb(id, isCorrect, text) {
-        const fb = document.getElementById(id);
-        fb.style.display = 'block';
-        fb.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong');
-        fb.innerHTML = text;
+    function checkQ5() {
+        const options = document.getElementsByName('q5_opt');
+        const feedback = document.getElementById('feedback-q5');
+        let selected = null;
+
+        for (const opt of options) {
+            if (opt.checked) {
+                selected = opt.value;
+                break;
+            }
+        }
+
+        feedback.style.display = 'block';
+
+        if (selected === 'A') {
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = 'Korrekt! \( 1 - p \) er fiaskosandsynligheden, og der er ialt \( n - r \) fiaskoer.';
+            MathJax.typeset();
+        } else if (selected !== null) {
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = 'Forkert. Tænk på hvad \( 1 - p \) betyder i forhold til \( p \).';
+        } else {
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = 'Vælg venligst et af udsagnene.';
+        }
     }
 </script>
 

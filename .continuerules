@@ -4,6 +4,7 @@
 - **Sprog:** Alt brugerfladetekst, opgavebeskrivelser, hints og feedback skal være på dansk.
 - **Tone:** Hjælpsom, pædagogisk og opmuntrende.
 - **Tilgængelighed:** Brug semantisk HTML og sørg for, at inputfelter har labels eller placeholder-tekst.
+- **Hints:** Hints skal hjælpe frem mod svaret man skal ikke give selve svaret.
 
 ## Teknisk Standard
 - **Matematik:** Brug MathJax til alle formler. 
