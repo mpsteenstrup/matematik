@@ -201,3 +201,84 @@ button {
 }
 .hint-box { background-color: #fef9e7; border-color: #f1c40f; color: #7e5109; }
 .sol-box { background-color: #f8f9fa; border-color: #bdc3c7; color: #2c3e50; }
+
+.mc-option {
+    margin: 8px 0;
+    display: block;
+    cursor: pointer;
+}
+
+.sub-question {
+    margin-bottom: 15px;
+}
+
+.section-spacing {
+    margin-top: 25px;
+}
+
+.hidden-block {
+    display: none;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.formula-btn-group {
+    margin-top: 15px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Tabel for sandsynlighedsfordeling */
+table.prob-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 5px 0;
+    background-color: #fff;
+}
+
+table.prob-table th, 
+table.prob-table td {
+    border: 1px solid #ccc;
+    padding: 6px 10px;
+    text-align: center;
+}
+
+table.prob-table th {
+    background-color: #f2f2f2;
+}
+
+table.prob-table-inline {
+    display: inline-table;
+    width: auto;
+}
+
+/* Layout for formel-rækker (Formelsamling) */
+.formula-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #ccc;
+}
+
+.formula-row:last-child {
+    border-bottom: none;
+}
+
+.formula-title {
+    flex: 1;
+    font-weight: 500;
+}
+
+.formula-num {
+    width: 50px;
+    color: #555;
+    font-weight: bold;
+}
+
+.formula-math {
+    flex: 2;
+    text-align: right;
+}
