@@ -16,6 +16,14 @@
 - **Matematisk notation**
     - Den matematiske notation skal være den samme som `Formelsamling-STXB-2024.pdf`.      
 
+## HTML Structure
+- Top card med formlen/definitionen. I bunden af det et eller to eksempler som vises ved tryk på knapper.
+- Regneopgaver, ikke "regneopgave" som overskrift
+- Forståelsesopgaver, skal være tekst hvor eleverne skal vælge det rigtige udsagn.  Ikke "Forståelsesopgave" som overskrift
+- En sidste mere krævende opgave til de hurtige, ikke "krævende opgave" som overskrift 
+
+
+
 ## HTML Struktur for Teori og Eksempler (Formula Box)
 Når en matematisk sætning eller teori skal præsenteres, bruges `.formula-box`. Den kan indeholde eksempler eller beviser, der kan foldes ud.
 

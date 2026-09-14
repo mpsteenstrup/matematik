@@ -3,153 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Udforsk Binomialkoefficienten</title>
+    <title>Binomialkoefficienten</title>
+    <!-- MathJax til opsætning af matematik -->
     <script>
         window.MathJax = {
             tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['$$', '$$']]
             }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../style.css">
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #27ae60;
-            --teacher-bg: #fef9e7;
-            --teacher-border: #f1c40f;
-            --bg: #f8f9fa;
-            --card-bg: #ffffff;
-            --border-radius: 8px;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background-color: var(--bg);
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 850px;
-            margin: 0 auto;
-        }
-
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 25px 30px;
-            border-radius: var(--border-radius);
-            margin-bottom: 25px;
-        }
-
-        header h1 {
-            margin: 0 0 5px 0;
-            font-size: 1.8em;
-        }
-
-        .teacher-card {
-            background-color: var(--teacher-bg);
-            border: 2px solid var(--teacher-border);
-            padding: 22px 25px;
-            border-radius: var(--border-radius);
-            margin-bottom: 30px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-        }
-
-        .teacher-title {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #d35400;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .step-card {
-            background-color: var(--card-bg);
-            border-left: 5px solid var(--secondary);
-            padding: 20px 25px;
-            border-radius: var(--border-radius);
-            margin-bottom: 25px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .step-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .step-number {
-            background-color: var(--secondary);
-            color: white;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9em;
-        }
-
-        .sub-q {
-            background: #f1f5f9;
-            padding: 12px 15px;
-            border-radius: 6px;
-            margin: 12px 0;
-        }
-
-        input[type="text"], input[type="number"] {
-            padding: 6px 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 0.95em;
-        }
-
-        button {
-            padding: 7px 14px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.2s;
-            margin-right: 5px;
-        }
-
-        .btn-check { background-color: var(--secondary); color: white; }
-        .btn-hint { background-color: #f39c12; color: white; }
-
-        .feedback {
-            display: none;
-            margin-top: 10px;
-            padding: 10px 15px;
-            border-radius: 4px;
-            font-size: 0.95em;
-        }
-
-        .correct { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .wrong { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .hint-box { 
-            display: none; 
-            background-color: #fff9e6; 
-            border: 1px solid #ffe399; 
-            color: #d35400; 
-            padding: 10px 15px; 
-            border-radius: 4px; 
-            margin-top: 10px; 
-            font-size: 0.95em;
-        }
-
         .pascal-grid {
             display: flex;
             flex-direction: column;
@@ -163,31 +29,14 @@
             display: flex; align-items: center; justify-content: center;
             background: #e2e8f0; border-radius: 6px; font-weight: bold;
         }
-        .pascal-input { width: 40px; height: 40px; text-align: center; font-weight: bold; }
-
-        .summary-box {
-            background-color: #e8f8f5;
-            border: 2px solid var(--accent);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            margin-bottom: 25px;
+        .pascal-input { 
+            width: 40px; height: 40px; text-align: center; font-weight: bold; 
+            border: 1px solid #ccc; border-radius: 6px;
         }
-
         .math-highlight {
             background-color: #fff3cd;
             padding: 2px 6px;
             border-radius: 4px;
-        }
-
-        /* Formelboksen */
-        .formula-box {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            border: 2px solid #27ae60;
-            text-align: center;
-            margin-bottom: 30px;
-            color: #2c3e50;   /* Tilføjet for at matteksten skal matche teksten nedenunder */
         }
     </style>
 </head>
@@ -195,312 +44,246 @@
 
 <div class="container">
 
-    <header>
-        <h1>Udforsk Binomialkoefficienten $K(n,r)$</h1>
-        <p>Fra praktisk tælling til den kompakte fakultetsformel.</p>
-    </header>
-
-    <!-- EKSEMPEL -->
-    <div class="teacher-card">
-        <div class="teacher-title">
-            <span>💡</span> Eksempel: Hvorfor ser formlen ud som den gør?
+    <!-- TOP CARD: FORMEL / DEFINITION -->
+    <div class="formula-box">
+        <h3>Binomialkoefficienten \( K(n,r) = \binom{n}{r} \)</h3>
+        <p>
+            Binomialkoefficienten angiver antallet af måder, hvorpå man kan udtage \( r \) elementer ud af en samling på \( n \) elementer uden tilbagelægning og uden at rækkefølgen betyder noget.
+        </p>
+        
+        <div class="formula-group">
+            <div>
+                <strong>Den praktiske regneformel:</strong><br>
+                $$ \binom{n}{r} = \frac{n \cdot (n-1) \cdot \dots \cdot (n-r+1)}{r!} $$
+            </div>
+            <div>
+                <strong>Den teoretiske formel (med fakultet):</strong><br>
+                $$ \binom{n}{r} = \frac{n!}{r! \cdot (n-r)!} $$
+            </div>
         </div>
-        <p>Vi vil vælge <strong>$r = 3$</strong> personer ud af en gruppe på <strong>$n = 8$</strong> personer.</p>
+
+        <div class="btn-group" style="margin-top: 15px;">
+            <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel (Kort)</button>
+        </div>
+
+        <div id="example-1" class="example-block" style="display: none; text-align: left; margin-top: 15px;">
+            <h4>Hurtigt eksempel: Udvælgelse af repræsentanter</h4>
+            <p>Vi skal vælge 3 repræsentanter ud af en gruppe på 5 elever. Her er \( n = 5 \) og \( r = 3 \):</p>
+            <p>$$ \binom{5}{3} = \frac{5 \cdot 4 \cdot 3}{3 \cdot 2 \cdot 1} = \frac{60}{6} = 10 $$</p>
+            <p>Der er altså 10 forskellige måder at sammensætte udvalget på.</p>
+        </div>
+    </div>
+
+    <!-- DET LANGE EKSEMPEL SOM SEPARAT CARD -->
+    <div class="card" style="border-left: 5px solid #f1c40f; background-color: #fef9e7;">
+        <span class="task-title" style="color: #d35400;">💡 Eksempel: Hvorfor ser formlen ud som den gør?</span>
+        <p>Vi vil vælge <strong>\( r = 3 \)</strong> personer ud af en gruppe på <strong>\( n = 8 \)</strong> personer.</p>
 
         <p><strong>1. Hvor kommer tælleren og nævneren fra?</strong></p>
         <ul>
-            <li><strong>Tælleren ($8 \cdot 7 \cdot 6$):</strong> Vi har 8 valgmuligheder for den første person, 7 for den næste og 6 for den tredje. Dette er antallet af måder at vælge 3 personer på, <em>hvis rækkefølgen betyder noget</em>.</li>
-            <li><strong>Nævneren ($3 \cdot 2 \cdot 1 = 3!$):</strong> Da rækkefølgen i udvalget <em>ikke</em> betyder noget, har vi talt det samme hold for mange gange. 3 personer kan arrangeres internt på $3 \cdot 2 \cdot 1$ måder. Derfor dividerer vi med $3!$.</li>
+            <li><strong>Tælleren (\( 8 \cdot 7 \cdot 6 \)):</strong> Vi har 8 valgmuligheder for den første person, 7 for den næste og 6 for den tredje. Dette er antallet af måder at vælge 3 personer på, <em>hvis rækkefølgen betyder noget</em>.</li>
+            <li><strong>Nævneren (\( 3 \cdot 2 \cdot 1 = 3! \)):</strong> Da rækkefølgen i udvalget <em>ikke</em> betyder noget, har vi talt det samme hold for mange gange. 3 personer kan arrangeres internt på \( 3 \cdot 2 \cdot 1 \) måder. Derfor dividerer vi med \( 3! \).</li>
         </ul>
 
-        $$\binom{8}{3} = \frac{8 \cdot 7 \cdot 6}{3 \cdot 2 \cdot 1}$$
+        $$ \binom{8}{3} = \frac{8 \cdot 7 \cdot 6}{3 \cdot 2 \cdot 1} $$
 
-        <p><strong>2. Hvordan får vi fakultet ($!$) i hele tælleren?</strong><br>
-        Tælleren $8 \cdot 7 \cdot 6$ mangler tallene $5 \cdot 4 \cdot 3 \cdot 2 \cdot 1$ for at blive til $8!$.<br>
-        Derfor forlænger vi brøken ved at gange med <span class="math-highlight">$5 \cdot 4 \cdot 3 \cdot 2 \cdot 1$</span> i både tæller og nævner:</p>
+        <p><strong>2. Hvordan får vi fakultet (\( ! \)) i hele tælleren?</strong><br>
+        Tælleren \( 8 \cdot 7 \cdot 6 \) mangler tallene \( 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 \) for at blive til \( 8! \).<br>
+        Derfor forlænger vi brøken ved at gange med <span class="math-highlight">\( 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 \)</span> i både tæller og nævner:</p>
 
-        $$\binom{8}{3} = \frac{8 \cdot 7 \cdot 6 \;\cdot\; \color{red}{(5 \cdot 4 \cdot 3 \cdot 2 \cdot 1)}}{(3 \cdot 2 \cdot 1) \;\cdot\; \color{red}{(5 \cdot 4 \cdot 3 \cdot 2 \cdot 1)}}$$
+        $$ \binom{8}{3} = \frac{8 \cdot 7 \cdot 6 \;\cdot\; \color{red}{(5 \cdot 4 \cdot 3 \cdot 2 \cdot 1)}}{(3 \cdot 2 \cdot 1) \;\cdot\; \color{red}{(5 \cdot 4 \cdot 3 \cdot 2 \cdot 1)}} $$
 
-        <p><strong>3. Skriv med fakultet-tegn ($!$)</strong></p>
+        <p><strong>3. Skriv med fakultet-tegn (\( ! \))</strong></p>
         <ul>
-            <li>Hele tælleren er nu: $8!$</li>
-            <li>Nævneren består af: $3!$ og den forlængede del $\color{red}{5!}$</li>
+            <li>Hele tælleren er nu: \( 8! \)</li>
+            <li>Nævneren består af: \( 3! \) og den forlængede del \(\color{red}{5!}\)</li>
         </ul>
 
-        $$\binom{8}{3} = \frac{8!}{3! \cdot \color{red}{5!}}$$
+        $$ \binom{8}{3} = \frac{8!}{3! \cdot \color{red}{5!}} $$
 
-        <p><strong>4. Hvor kommer det $5!$ fra generelt?</strong><br>
-        Tallet $5$ er de elever, vi <strong style="color:red;">IKKE</strong> valgte. Det er $8 - 3 = (n - r)$.<br>
-        Udskifter vi $5!$ med $(8 - 3)!$, får vi den generelle formel:</p>
+        <p><strong>4. Hvor kommer det \( 5! \) fra generelt?</strong><br>
+        Tallet \( 5 \) er de elever, vi <strong style="color:red;">IKKE</strong> valgte. Det er \( 8 - 3 = (n - r) \).<br>
+        Udskifter vi \( 5! \) med \( (8 - 3)! \), får vi den generelle teoretiske formel:</p>
 
-        $$\binom{n}{r} = \frac{n!}{r! \cdot (n - r)!}$$
+        $$ \binom{n}{r} = \frac{n!}{r! \cdot (n - r)!} $$
     </div>
 
-    <!-- TRIN 1 -->
-    <div class="step-card">
-        <div class="step-title">
-            <span class="step-number">1</span>
-            Trin 1: Rækkefølgen BETYDER noget (Udvalg med roller)
-        </div>
-        <p>I en klasse med <strong>5 elever</strong> (Sofie, Jonas, Mia, Ali og Emma) skal der vælges 2 elever til et udvalg.</p>
-        <p>Først vælger vi en <strong>Formand</strong> og derefter en <strong>Næstformand</strong>.</p>
+    <!-- REGNEOPGAVER -->
+    <h2>Regneopgaver</h2>
 
-        <div class="sub-q">
-            <strong>a) Hvor mange muligheder er der for at vælge formanden?</strong><br>
-            <input type="number" id="t1-a" style="width: 70px;">
+    <div class="card">
+        <span class="task-title">Opgave 1: Dopingkontrol</span>
+        <p>På et fodboldhold skal træneren vælge 2 spillere ud af 8 spillere til at tage en dopingtest. Hvor mange måder kan dette udvalg gøres på? Beregn \( \binom{8}{2} \).</p>
+        <div class="input-section">
+            <input type="number" id="q1" placeholder="Svar...">
         </div>
-
-        <div class="sub-q">
-            <strong>b) Hvor mange muligheder er der derefter tilbage for at vælge næstformanden?</strong><br>
-            <input type="number" id="t1-b" style="width: 70px;">
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q1', 28)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
         </div>
-
-        <div class="sub-q">
-            <strong>c) Hvor mange forskellige par (Formand, Næstformand) kan vi danne i alt?</strong><br>
-            <input type="number" id="t1-c" style="width: 70px;">
-        </div>
-
-        <button class="btn-hint" onclick="toggleBox('hint-t1')">Vis hint</button>
-        <button class="btn-check" onclick="checkTrin1()">Tjek svar</button>
-        
-        <div id="hint-t1" class="hint-box">
-            - <strong>a)</strong> Ingen er valgt endnu. Hvor mange elever står til rådighed?<br>
-            - <strong>b)</strong> Én elev sidder nu på formandsposten. Hvor mange er tilbage i klassen?<br>
-            - <strong>c)</strong> Gang antallet af valgmuligheder for formand med antallet for næstformand ($5 \cdot 4$).
-        </div>
-        <div id="fb-t1" class="feedback"></div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Brug formlen \( \binom{8}{2} = \frac{8 \cdot 7}{2 \cdot 1} \).</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong> \( \binom{8}{2} = \frac{8 \cdot 7}{2 \cdot 1} = \frac{56}{2} = 28 \).</div>
     </div>
 
-    <!-- TRIN 2 -->
-    <div class="step-card">
-        <div class="step-title">
-            <span class="step-number">2</span>
-            Trin 2: Rækkefølgen er LIGEGYLDIG (Almindeligt udvalg)
+    <div class="card">
+        <span class="task-title">Opgave 2: Kortspil</span>
+        <p>Hvor mange forskellige hænder med 5 kort kan du trække fra et almindeligt spil kort bestående af 52 kort? Beregn \( \binom{52}{5} \).</p>
+        <div class="input-section">
+            <input type="number" id="q2" placeholder="Svar...">
         </div>
-        <p>Now ændrer vi reglerne! Vi skal bare vælge <strong>2 repræsentanter</strong> til et festudvalg. Begge har samme rolle.</p>
-        
-        <p>Læg mærke til, at parret <em>(Sofie som formand, Jonas som næstformand)</em> og parret <em>(Jonas som formand, Sofie som næstformand)</em> er det <strong>samme hold</strong> i festudvalget!</p>
-
-        <div class="sub-q">
-            <strong>a) Hvor mange gange er hvert muligt festudvalg blevet talt for meget i Trin 1c?</strong><br>
-            <input type="number" id="t2-a" style="width: 70px;"> gange
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q2', 2598960)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
         </div>
-
-        <div class="sub-q">
-            <input type="number" id="t2-b" style="width: 70px;">
-        </div>
-
-        <button class="btn-hint" onclick="toggleBox('hint-t2')">Vis hint</button>
-        <button class="btn-check" onclick="checkTrin2()">Tjek svar</button>
-        
-        <div id="hint-t2" class="hint-box">
-            - <strong>a)</strong> Hvor mange måder kan du arrangere 2 personer internt? (f.eks. [A, B] og [B, A]).<br>
-            - <strong>b)</strong> Tag dit samlede resultat fra Trin 1c (20) og divider det med dobbelttællingen fra spørgsmål a.
-        </div>
-        <div id="fb-t2" class="feedback"></div>
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box"><strong>Hint:</strong> Gang 5 tal nedad fra 52 og divider med \( 5! = 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1 \).</div>
+        <div id="sol-q2" class="sol-box"><strong>Løsning:</strong> \( \binom{52}{5} = \frac{52 \cdot 51 \cdot 50 \cdot 49 \cdot 48}{5 \cdot 4 \cdot 3 \cdot 2 \cdot 1} = \frac{311875200}{120} = 2.598.960 \).</div>
     </div>
 
-    <!-- TRIN 3 -->
-    <div class="step-card">
-        <div class="step-title">
-            <span class="step-number">3</span>
-            Trin 3: Hvad hvis vi skal vælge 3 ud af 5?
+    <div class="card">
+        <span class="task-title">Opgave 3: Lotto-rækker</span>
+        <p>I et klassisk Lottospil udtages 7 tal ud af 36. Hvor mange forskellige lotto-rækker findes der? Beregn \( \binom{36}{7} \).</p>
+        <div class="input-section">
+            <input type="number" id="q3" placeholder="Svar...">
         </div>
-        <p>Vi skal nu vælge et udvalg på <strong>3 personer</strong> ud af de <strong>5 elever</strong>.</p>
-
-        <div class="sub-q">
-            <strong>a) Hvis rækkefølgen BETYDEDE noget, hvor mange muligheder ville der så være?</strong><br>
-            <p>$\text{Muligheder} = 5 \cdot 4 \cdot 3 = $ <input type="number" id="t3-a" style="width: 80px;"></p>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q3', 8347680)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
         </div>
-
-        <div class="sub-q">
-            <strong>b) Hvor mange måder kan 3 valgte personer rearrangeres/rækkefølge-bestemmes internt?</strong><br>
-            <p>Dette svarer til $3! = 3 \cdot 2 \cdot 1 =$ <input type="number" id="t3-b" style="width: 70px;"></p>
-        </div>
-
-        <div class="sub-q">
-            <strong>c) Hvor mange udvalg på 3 personer kan vi danne, når rækkefølgen ER ligegyldig?</strong><br>
-            <p>$\text{Antal udvalg} = \frac{5 \cdot 4 \cdot 3}{3 \cdot 2 \cdot 1} = $ <input type="number" id="t3-c" style="width: 80px;"></p>
-        </div>
-
-        <button class="btn-hint" onclick="toggleBox('hint-t3')">Vis hint</button>
-        <button class="btn-check" onclick="checkTrin3()">Tjek svar</button>
-        
-        <div id="hint-t3" class="hint-box">
-            - <strong>a)</strong> Regn $5 \cdot 4 \cdot 3$ igennem.<br>
-            - <strong>b)</strong> Tæl hvor mange rækkefølger der er nævnt i eksemplet (ABC, ACB...), eller regn $3 \cdot 2 \cdot 1$.<br>
-            - <strong>c)</strong> Divider resultatet fra a) med resultatet fra b).
-        </div>
-        <div id="fb-t3" class="feedback"></div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Beregn \( \frac{36 \cdot 35 \cdot 34 \cdot 33 \cdot 32 \cdot 31 \cdot 30}{7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1} \).</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong> \( \binom{36}{7} = \frac{42072307200}{5040} = 8.347.680 \).</div>
     </div>
 
-    <!-- OPSAMLING / FORMEL -->
-    <div class="summary-box">
-        <h2 style="margin-top:0; color: var(--accent);">💡 Sammenfatning: De to måder at skrive formlen på</h2>
-        <p>Når vi vælger $r$ elementer ud af $n$ uden rækkefølge, bruger vi binomialkoefficienten $\binom{n}{r}$.</p>
-        
-        <p><strong>1. Den praktiske regneformel (god til manuel regning):</strong></p>
-        $$\binom{n}{r} = \frac{n \cdot (n-1) \cdot \dots \cdot (n-r+1)}{r!}$$
+    <!-- FORSTÅELSESOPGAVER -->
+    <h2>Forståelsesopgaver</h2>
 
-        <p><strong>2. Den elegante teoretiske formel (med fakultet):</strong></p>
-        $$\binom{n}{r} = \frac{n!}{r! \cdot (n-r)!}$$
+    <div class="card">
+        <span class="task-title">Opgave 4: Rækkefølge med vs. uden betydning</span>
+        <p>I en klasse med 5 elever skal der udtages 2 elever.</p>
+        <p><strong>a)</strong> Hvis den første elev valgt bliver Formand og den næste Næstformand, hvor mange måder kan parret så vælges på?</p>
+        <div class="input-section">
+            <input type="number" id="q4a" placeholder="Svar...">
+        </div>
+        <p><strong>b)</strong> Hvis begge elever blot vælges til et festudvalg uden specifikke roller, hvor mange måder kan udvalget så sammensættes på?</p>
+        <div class="input-section">
+            <input type="number" id="q4b" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkQ4()">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box"><strong>Hint:</strong> I a) betyder rækkefølgen noget (\( 5 \cdot 4 \)). I b) betyder rækkefølgen ikke noget, så du skal dividere med \( 2! \).</div>
+        <div id="sol-q4" class="sol-box">
+            <strong>Løsning:</strong><br>
+            a) Med roller: \( 5 \cdot 4 = 20 \).<br>
+            b) Uden roller: \( \binom{5}{2} = \frac{5 \cdot 4}{2 \cdot 1} = 10 \).
+        </div>
     </div>
 
-    <!-- TRIN 4: PASCALS TREKANT -->
-    <div class="step-card">
-        <div class="step-title">
-            <span class="step-number">4</span>
-            Trin 4: Pascals Trekant
-        </div>
-        <p>Binomialkoefficienterne danner et smukt mønster kaldet <strong>Pascals Trekant</strong>. Hvert tal i trekanten er summen af de to tal lige ovenover!</p>
-        <p>Udfyld de manglende felter i trekanten:</p>
-
+    <div class="card">
+        <span class="task-title">Opgave 5: Pascals Trekant</span>
+        <p>Binomialkoefficienterne danner et mønster kaldet <strong>Pascals Trekant</strong>, hvor hvert tal er summen af de to tal lige ovenover. Beregn den manglende binomialkoefficient \( \binom{4}{2} \).</p>
+        
         <div class="pascal-grid">
+            <div class="pascal-row"><div class="pascal-cell">1</div></div>
+            <div class="pascal-row"><div class="pascal-cell">1</div><div class="pascal-cell">1</div></div>
+            <div class="pascal-row"><div class="pascal-cell">1</div><div class="pascal-cell">2</div><div class="pascal-cell">1</div></div>
+            <div class="pascal-row"><div class="pascal-cell">1</div><div class="pascal-cell">3</div><div class="pascal-cell">3</div><div class="pascal-cell">1</div></div>
             <div class="pascal-row">
                 <div class="pascal-cell">1</div>
-            </div>
-            <div class="pascal-row">
-                <div class="pascal-cell">1</div>
-                <div class="pascal-cell">1</div>
-            </div>
-            <div class="pascal-row">
-                <div class="pascal-cell">1</div>
-                <input type="number" class="pascal-input" id="p-21">
-                <div class="pascal-cell">1</div>
-            </div>
-            <div class="pascal-row">
-                <div class="pascal-cell">1</div>
-                <div class="pascal-cell">3</div>
-                <input type="number" class="pascal-input" id="p-32">
-                <div class="pascal-cell">1</div>
-            </div>
-            <div class="pascal-row">
-                <div class="pascal-cell">1</div>
-                <input type="number" class="pascal-input" id="p-41">
-                <div class="pascal-cell">6</div>
-                <input type="number" class="pascal-input" id="p-43">
+                <div class="pascal-cell">4</div>
+                <input type="number" class="pascal-input" id="q5" placeholder="?">
+                <div class="pascal-cell">4</div>
                 <div class="pascal-cell">1</div>
             </div>
         </div>
 
-        <button class="btn-hint" onclick="toggleBox('hint-pascal')">Vis hint</button>
-        <button class="btn-check" onclick="checkPascal()">Tjek Pascals Trekant</button>
-        
-        <div id="hint-pascal" class="hint-box">
-            - For at finde tallet i et tomt felt, skal du kigge på de <strong>to tal direkte ovenover</strong> feltet og **lægge dem sammen**.<br>
-            - Eksempel: Det øverste manglende felt står under 1 og 1, så der skal stå $1 + 1 = 2$.
+        <div class="input-section" style="display:none;"></div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q5', 6)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q5')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q5')">Løsning</button>
         </div>
-        <div id="fb-pascal" class="feedback"></div>
+        <div id="feedback-q5" class="feedback"></div>
+        <div id="hint-q5" class="hint-box"><strong>Hint:</strong> Læg de to tal fra rækken ovenover sammen (\( 3 + 3 \)), eller beregn \( \binom{4}{2} \).</div>
+        <div id="sol-q5" class="sol-box"><strong>Løsning:</strong> Feltet svarer til \( \binom{4}{2} = \frac{4 \cdot 3}{2 \cdot 1} = 6 \). I trekanten ses det ved \( 3 + 3 = 6 \).</div>
     </div>
 
-    <!-- TRIN 5: TRÆNINGSOPGAVER -->
-    <div class="step-card">
-        <div class="step-title">
-            <span class="step-number">5</span>
-            Træningsopgaver
-        </div>
+    <!-- KRÆVENDE OPGAVE TIL DE HURTIGE -->
+    <h2>Udfordringen</h2>
 
-        <div class="sub-q">
-            <strong>Opgave A:</strong> På et fodboldhold skal træneren vælge 2 spillere ud af 8 til at tage dopingtest. Hvor mange måder kan det gøres på? $\binom{8}{2}$<br>
-            <input type="number" id="opg-a" style="width: 80px;">
+    <div class="card">
+        <span class="task-title">Opgave 6: Symmetri i binomialkoefficienter</span>
+        <p>Betragt en gruppe på 10 personer. Hvor mange måder kan du udtage 8 personer på?</p>
+        <p>Læg mærke til, at når du vælger 8 personer ud, så vælger du samtidig 2 personer, som <em>ikke</em> skal med.</p>
+        <p>Beregn værdi af \( \binom{10}{8} \):</p>
+        <div class="input-section">
+            <input type="number" id="q6" placeholder="Svar...">
         </div>
-
-        <div class="sub-q">
-            <strong>Opgave B:</strong> En lotto-kupon tager 7 tal ud af 36. Hvor mange forskellige lotto-rækker findes der? $\binom{36}{7}$<br>
-            <input type="number" id="opg-b" style="width: 120px;">
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q6', 45)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q6')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q6')">Løsning</button>
         </div>
-
-        <button class="btn-hint" onclick="toggleBox('hint-opg')">Vis hint</button>
-        <button class="btn-check" onclick="checkOpgaver()">Tjek træningsopgaver</button>
-        
-        <div id="hint-opg" class="hint-box">
-            - <strong>Opgave A:</strong> Brug formlen $\binom{8}{2} = \frac{8 \cdot 7}{2 \cdot 1}$.<br>
-            - <strong>Opgave B:</strong> Gang 7 tal nedad fra 36 ($36 \cdot 35 \cdot 34 \cdot 33 \cdot 32 \cdot 31 \cdot 30$) og divider med $7! = 7 \cdot 6 \cdot 5 \cdot 4 \cdot 3 \cdot 2 \cdot 1$.
+        <div id="feedback-q6" class="feedback"></div>
+        <div id="hint-q6" class="hint-box"><strong>Hint:</strong> Benyt symmetriegenskaben \( \binom{n}{r} = \binom{n}{n-r} \). Det betyder at \( \binom{10}{8} = \binom{10}{2} \).</div>
+        <div id="sol-q6" class="sol-box">
+            <strong>Løsning:</strong><br>
+            Da \( \binom{10}{8} = \binom{10}{2} \), kan vi nøjes med at regne:<br>
+            $$ \binom{10}{2} = \frac{10 \cdot 9}{2 \cdot 1} = 45 $$
         </div>
-        <div id="fb-opg" class="feedback"></div>
     </div>
 
 </div>
 
 <script>
+    // Standardfunktion til at skjule/visningsbokse
     function toggleBox(id) {
         const box = document.getElementById(id);
-        box.style.display = (box.style.display === "block") ? "none" : "block";
-    }
-
-    function checkTrin1() {
-        const a = parseInt(document.getElementById('t1-a').value);
-        const b = parseInt(document.getElementById('t1-b').value);
-        const c = parseInt(document.getElementById('t1-c').value);
-
-        if (a === 5 && b === 4 && c === 20) {
-            showFb('fb-t1', true, 'Korrekt! Der er 5 muligheder for den første, 4 for den næste = 5 × 4 = 20 mulige par med roller.');
-        } else {
-            showFb('fb-t1', false, 'Husk: Der er 5 elever til formandsposten. Når én er valgt, er der 4 tilbage til næstformandsposten.');
+        if (box) {
+            box.style.display = (box.style.display === "block") ? "none" : "block";
         }
     }
 
-    function checkTrin2() {
-        const a = parseInt(document.getElementById('t2-a').value);
-        const b = parseInt(document.getElementById('t2-b').value);
+    // Standardfunktion til simple numeriske svar
+    function checkAnswer(id, correctVal) {
+        const input = document.getElementById(id);
+        const feedback = document.getElementById('feedback-' + id);
+        const val = parseFloat(input.value);
 
-        if (a === 2 && b === 10) {
-            showFb('fb-t2', true, 'Fremragende! Hvert par blev talt 2 gange (AB og BA). Derfor dividerer vi 20 med 2 og får 10 unikke festudvalg. Du har lige udregnet $K(5,2) = \\binom{5}{2} = 10$!');
-            MathJax.typeset();
+        feedback.style.display = 'block';
+
+        if (!isNaN(val) && Math.abs(val - correctVal) < 0.001) {
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = 'Korrekt!';
         } else {
-            showFb('fb-t2', false, 'Hvert par af 2 personer kan arrangeres på 2 måder (f.eks. Sofie/Jonas og Jonas/Sofie). Derfor har vi talt alle udvalg 2 gange for meget.');
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = 'Forkert svar. Prøv igen!';
         }
     }
 
-    function checkTrin3() {
-        const a = parseInt(document.getElementById('t3-a').value);
-        const b = parseInt(document.getElementById('t3-b').value);
-        const c = parseInt(document.getElementById('t3-c').value);
+    // Special tjek for todelt opgave 4
+    function checkQ4() {
+        const a = parseFloat(document.getElementById('q4a').value);
+        const b = parseFloat(document.getElementById('q4b').value);
+        const feedback = document.getElementById('feedback-q4');
+        
+        feedback.style.display = 'block';
 
-        if (a === 60 && b === 6 && c === 10) {
-            showFb('fb-t3', true, 'Perfekt! Med roller var der 60 muligheder. Men da 3 personer kan arrangeres på $3! = 6$ måder internt, skal vi dividere med 6. $60 / 6 = 10$. Det skrives $\\binom{5}{3} = 10$.');
-            MathJax.typeset();
+        if (a === 20 && b === 10) {
+            feedback.className = 'feedback correct';
+            feedback.innerHTML = 'Korrekt! I a) er rækkefølgen afgørende (20), mens den i b) er ligegyldig (10).';
         } else {
-            showFb('fb-t3', false, 'Tjek beregningerne igen: a) $5 \\cdot 4 \\cdot 3$, b) $3 \\cdot 2 \\cdot 1$, c) $60 / 6$.');
+            feedback.className = 'feedback incorrect';
+            feedback.innerHTML = 'Forkert. Husk at a) er med roller (5 · 4), og b) er uden roller (K(5,2)).';
         }
-    }
-
-    function checkPascal() {
-        const p21 = parseInt(document.getElementById('p-21').value);
-        const p32 = parseInt(document.getElementById('p-32').value);
-        const p41 = parseInt(document.getElementById('p-41').value);
-        const p43 = parseInt(document.getElementById('p-43').value);
-
-        if (p21 === 2 && p32 === 3 && p41 === 4 && p43 === 4) {
-            showFb('fb-pascal', true, 'Flot! Læg mærke til at rækken 1, 4, 6, 4, 1 svarer præcist til $\\binom{4}{0}, \\binom{4}{1}, \\binom{4}{2}, \\binom{4}{3}, \\binom{4}{4}$.');
-            MathJax.typeset();
-        } else {
-            showFb('fb-pascal', false, 'Prøv igen. Hvert tal fremkommer ved at lægge de to tal sammen, der står lige ovenover det.');
-        }
-    }
-
-    function checkOpgaver() {
-        const a = parseInt(document.getElementById('opg-a').value);
-        const b = parseInt(document.getElementById('opg-b').value);
-
-        const correctA = (a === 28);
-        const correctB = (b === 8347680);
-
-        if (correctA && correctB) {
-            showFb('fb-opg', true, 'Helt fantastisk! Du mestrer nu binomialkoefficienten $\\binom{n}{r}$!');
-        } else {
-            let msg = 'Noget af dit svar er forkert:<br>';
-            if (!correctA) msg += '- Opgave A: $\\binom{8}{2} = \\frac{8 \\cdot 7}{2 \\cdot 1} = 28$.<br>';
-            if (!correctB) msg += '- Opgave B: $\\binom{36}{7} = \\frac{36 \\cdot 35 \\cdot 34 \\cdot 33 \\cdot 32 \\cdot 31 \\cdot 30}{7 \\cdot 6 \\cdot 5 \\cdot 4 \\cdot 3 \\cdot 2 \\cdot 1} = 8.347.680$.';
-            showFb('fb-opg', false, msg);
-        }
-    }
-
-    function showFb(id, isCorrect, text) {
-        const fb = document.getElementById(id);
-        fb.style.display = 'block';
-        fb.className = 'feedback ' + (isCorrect ? 'correct' : 'wrong');
-        fb.innerHTML = text;
     }
 </script>
 
