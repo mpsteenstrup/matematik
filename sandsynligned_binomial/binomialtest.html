@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binomialtest - Plat og Krone</title>
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .formula-box, .card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .formula-box {
+            border-left: 5px solid #2196F3;
+        }
+        .card {
+            border-left: 5px solid #4CAF50;
+        }
+        .task-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .formula-group {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f0f4f8;
+            border-radius: 4px;
+        }
+        .btn-group {
+            margin-top: 15px;
+        }
+        button {
+            padding: 8px 15px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-example, .btn-hint {
+            background-color: #ff9800;
+            color: white;
+        }
+        .btn-check {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-sol {
+            background-color: #2196F3;
+            color: white;
+        }
+        .example-block, .hint-box, .sol-box {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 4px;
+        }
+        .example-block {
+            background-color: #fff3e0;
+            border: 1px solid #ffe0b2;
+        }
+        .hint-box {
+            background-color: #fff8e1;
+            border: 1px solid #ffecb3;
+        }
+        .sol-box {
+            background-color: #e3f2fd;
+            border: 1px solid #bbdefb;
+        }
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .correct {
+            color: #2e7d32;
+        }
+        .incorrect {
+            color: #c62828;
+        }
+        input[type="number"], select {
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            max-width: 200px;
+        }
+        .mc-option {
+            display: block;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP CARD: Formel og Teori -->
+    <div class="formula-box">
+        <h3>Binomialfordeling og Binomialtest</h3>
+        <p>En binomialfordeling anvendes ved eksperimenter med to mulige udfald (fx "succes" eller "fiasko"), som gentages et fast antal gange \( n \), hvor sandsynligheden \( p \) for succes er den samme hver gang.</p>
+        
+        <div class="formula-group">
+            <div><strong>Sandsynlighedsfunktion:</strong> Sandsynligheden for at få præcis \( k \) succeser ud af \( n \) forsøg er givet ved:</div>
+            $$ P(X = k) = \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k} $$
+            <div>I en binomialtest med nulhypotesen \( H_0: p = 0{,}5 \) undersøger vi den kumulerede p-værdi. Ved en <strong>tosidet test</strong> med et samlet signifikansniveau på 5 % fordeles de 5 % ligeligt på begge ender af fordelingen, så nulhypotesen forkastes, hvis sandsynligheden i den ene hale er <strong>\( \le 2{,}5 \% \) (0,025)</strong>.</div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel (n = 6 og Signifikansniveau)</button>
+        </div>
+
+        <div id="example-1" class="example-block">
+            <h4>Eksempel: Test af en mønt med 6 kast (\( n = 6 \))</h4>
+            <p>Vi opstiller nulhypotesen \( H_0: p = 0{,}5 \) (mønten er fair) og kaster mønten \( n = 6 \) gange.</p>
+            
+            <p><strong>Tilfælde 1: Vi får krone 6 gange ud af 6 (\( X \ge 6 \))</strong></p>
+            $$ P(X \ge 6) = P(X = 6) = \binom{6}{6} \cdot (0{,}5)^6 \cdot (0{,}5)^0 = 1 \cdot \frac{1}{64} = 0{,}0156 = \mathbf{1{,}56 \%} $$
+            <p>Da \( 1{,}56 \% \le 2{,}5 \% \), er p-værdien i denne hale under de 2,5 %. <strong>Konklusion:</strong> Nulhypotesen \( H_0 \) <em>forkastes</em> i en tosidet test på et 5 % signifikansniveau.</p>
+
+            <hr style="border: 0; border-top: 1px solid #ffd8a8; margin: 15px 0;">
+
+            <p><strong>Tilfælde 2: Vi får krone 5 (eller flere) gange ud af 6 (\( X \ge 5 \))</strong></p>
+            <p>Her lægger vi sandsynligheden for at få enten 5 eller 6 krone sammen:</p>
+            $$ P(X = 5) = \binom{6}{5} \cdot (0{,}5)^5 \cdot (0{,}5)^1 = 6 \cdot \frac{1}{64} = 0{,}09375 = 9{,}38 \% $$
+            $$ P(X \ge 5) = P(X = 5) + P(X = 6) = 9{,}38 \% + 1{,}56 \% = \mathbf{10{,}94 \%} $$
+            <p>Da \( 10{,}94 \% > 2{,}5 \% \), er p-værdien over de 2,5 %. <strong>Konklusion:</strong> Nulhypotesen \( H_0 \) <em>beholdes</em> (kan ikke forkastes).</p>
+        </div>
+    </div>
+
+    <!-- OPGAVE 1: Regneopgave -->
+    <div class="card">
+        <span class="task-title">Møntkast med 8 gentagelser</span>
+        <p>Du kaster en mønt \( n = 8 \) gange under nulhypotesen \( H_0: p = 0{,}5 \). Hvad er den kumulerede sandsynlighed for at få <strong>mindst 7 krone</strong>, altså \( P(X \ge 7) \)?</p>
+        <p><em>Angiv svaret i procent afrundet til to decimaler:</em></p>
+        
+        <div class="input-section">
+            <input type="number" id="q1" step="0.01" placeholder="Svar i %...">
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q1', 3.52)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Beregn \( P(X \ge 7) = P(X = 7) + P(X = 8) \). Husk at \( \binom{8}{7} = 8 \) og \( \binom{8}{8} = 1 \). Sammenlign til sidst resultatet med den kritiske grænse på 2,5 % for en tosidet test.</div>
+        <div id="sol-q1" class="sol-box">
+            <strong>Løsning:</strong><br>
+            Vi beregner sandsynligheden for at få enten 7 eller 8 krone ud af 8 kast:<br>
+            \( P(X = 7) = \binom{8}{7} \cdot (0{,}5)^8 = 8 \cdot \frac{1}{256} = \frac{8}{256} = 0{,}03125 = 3{,}125 \% \)<br>
+            \( P(X = 8) = \binom{8}{8} \cdot (0{,}5)^8 = 1 \cdot \frac{1}{256} = \frac{1}{256} \approx 0{,}00391 = 0{,}391 \% \)<br><br>
+            \( P(X \ge 7) = P(X = 7) + P(X = 8) = 3{,}125 \% + 0{,}391 \% = 3{,}516 \% \approx \mathbf{3{,}52 \%} \).<br><br>
+            <em>Konklusion ved tosidet test:</em> Da \( 3{,}52 \% > 2{,}5 \% \), ligger observationen <strong>ikke</strong> i det kritiske område. Vi kan dermed <strong>ikke forkaste</strong> nulhypotesen \( H_0 \) på et 5 % signifikansniveau.
+        </div>
+    </div>
+
+    <!-- OPGAVE 2: Forståelsesopgave -->
+    <div class="card">
+        <span class="task-title">Vurdering af signifikansniveau</span>
+        <p>En elev udfører en tosidet binomialtest med nulhypotesen \( H_0: p = 0{,}5 \) på et samlet 5 % signifikansniveau (dvs. \( P \le 2{,}5 \% \) i hver hale). Elevens beregnede p-værdi i den enkelte hale bliver \( 1{,}8 \% \).</p>
+        <p>Hvilken konklusion skal eleven drage?</p>
+        
+        <div class="input-section">
+            <label class="mc-option"><input type="radio" name="q2_opt" value="a"> A) Da \( 1{,}8 \% \le 2{,}5 \% \), forkastes nulhypotesen \( H_0 \).</label>
+            <label class="mc-option"><input type="radio" name="q2_opt" value="b"> B) Da \( 1{,}8 \% \le 2{,}5 \% \), beholdes nulhypotesen \( H_0 \).</label>
+            <label class="mc-option"><input type="radio" name="q2_opt" value="c"> C) P-værdien skal op på over 5 % før man kan forkaste nulhypotesen.</label>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMC('q2_opt', 'a', 'q2')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
+
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box"><strong>Hint:</strong> Sammenlign p-værdien i halen med den kritiske grænse på 2,5 %. Hvis p-værdien er mindre end eller lig med 2,5 %, forkastes nulhypotesen.</div>
+        <div id="sol-q2" class="sol-box"><strong>Løsning:</strong> Det rigtige svar er A. Når den ensidige p-værdi (\( 1{,}8 \% \)) er lavere end den kritiske værdi på \( 2{,}5 \% \) (som svarer til halvdelen af det tosidede 5 % niveau), forkastes nulhypotesen.</div>
+    </div>
+
+    <!-- OPGAVE 3: Samfundsrelevant opgave -->
+    <div class="card">
+        <span class="task-title">Meningsmåling om nyt lovforslag</span>
+        <p>Et analyseinstitut gennemfører en meningsmåling blandt et repræsentativt udsnit af \( n = 20 \) borgere for at undersøge opbakningen til et nyt lovforslag. Nulhypotesen er, at befolkningen er splittet ligeligt (\( H_0: p = 0{,}5 \)).</p>
+        <p>I undersøgelsen svarer \( 15 \) ud af de 20 borgere, at de støtter lovforslaget. Analyseinstituttet vil undersøge, om opbakningen er signifikant større end 50 % ved at beregne sandsynligheden for at få <strong>15 eller flere</strong> tilhængere (dvs. \( P(X \ge 15) \)).</p>
+        <p><em>Hvad er p-værdien \( P(X \ge 15) \)? Angiv svaret i procent afrundet til to decimaler:</em></p>
+
+        <div class="input-section">
+            <input type="number" id="q3" step="0.01" placeholder="Svar i %...">
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q3', 2.07)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Beregn summen af sandsynlighederne \( P(X = 15) + P(X = 16) + P(X = 17) + P(X = 18) + P(X = 19) + P(X = 20) \) for \( n = 20 \) og \( p = 0{,}5 \). Værdien kan også slås op eller regnes med et digitalt værktøj.</div>
+        <div id="sol-q3" class="sol-box">
+            <strong>Løsning:</strong><br>
+            Vi beregner den kumulerede sandsynlighed i den højre hale:<br>
+            \( P(X \ge 15) = P(X = 15) + P(X = 16) + \dots + P(X = 20) \)<br>
+            Formelberegningen giver samlet: \( 0{,}02069... \approx \mathbf{2{,}07 \%} \).<br><br>
+            <em>Konklusion ved tosidet test (5 % niveau / 2,5 % i halen):</em> Da \( 2{,}07 \% \le 2{,}5 \% \), er p-værdien under den kritiske grænse. Nulhypotesen <strong>forkastes</strong>, og vi kan konkludere, at der er statistisk signifikant flertal for lovforslaget i befolkningen.
+        </div>
+    </div>
+
+    <!-- Interaktivitets-script -->
+    <script>
+        // Vis/Skjul funktion
+        function toggleBox(id) {
+            var el = document.getElementById(id);
+            if (el.style.display === "block") {
+                el.style.display = "none";
+            } else {
+                el.style.display = "block";
+            }
+        }
+
+        // Tjek numerisk svar
+        function checkAnswer(inputId, correctVal) {
+            var input = document.getElementById(inputId);
+            var feedback = document.getElementById("feedback-" + inputId);
+            var val = parseFloat(input.value.replace(',', '.'));
+
+            if (isNaN(val)) {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "Indtast venligst et gyldigt tal.";
+                return;
+            }
+
+            // Tillad en lille tolerance ved afrundinger
+            if (Math.abs(val - correctVal) < 0.05) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "Korrekt! Flot arbejdet.";
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "Forkert svar, prøv igen eller kig på hintet.";
+            }
+        }
+
+        // Tjek radio-knap svar
+        function checkMC(groupName, correctVal, taskCode) {
+            var options = document.getElementsByName(groupName);
+            var selectedVal = "";
+            for (var i = 0; i < options.length; i++) {
+                if (options[i].checked) {
+                    selectedVal = options[i].value;
+                    break;
+                }
+            }
+
+            var feedback = document.getElementById("feedback-" + taskCode);
+
+            if (selectedVal === "") {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "Vælg venligst et af svarvalgene.";
+                return;
+            }
+
+            if (selectedVal === correctVal) {
+                feedback.className = "feedback correct";
+                feedback.innerText = "Korrekt svar!";
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerText = "Desværre forkert. Prøv igen!";
+            }
+        }
+    </script>
+</body>
+</html>
