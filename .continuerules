@@ -22,8 +22,7 @@
 - Regneopgaver, ikke "regneopgave" som overskrift
 - Forståelsesopgaver, skal være tekst hvor eleverne skal vælge det rigtige udsagn.  Ikke "Forståelsesopgave" som overskrift
 - En sidste mere krævende opgave til de hurtige, ikke "krævende opgave" som overskrift 
-
-
+- js <script></script> skal udover det som har med style.css at gøre placeres til sidst i dokumentet.
 
 ## HTML Struktur for Teori og Eksempler (Formula Box)
 Når en matematisk sætning eller teori skal præsenteres, bruges `.formula-box`. Den kan indeholde eksempler eller beviser, der kan foldes ud.

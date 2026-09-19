@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binomialfordeling i Maple</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- Teori og Maple-kommandoer (Formula Box) -->
+    <div class="formula-box">
+        <h3>Binomialfordeling og Maple-kommandoer</h3>
+        <p>Ved beregning af binomialkoefficienter og binomialsandsynligheder i Maple benyttes følgende skabeloner og funktioner:</p>
+        
+        <div class="formula-group">
+            <div>
+                <strong>Binomialkoefficient:</strong> <span style="font-size: 1.2em;">\(\binom{\textcolor{green}{a}}{\textcolor{purple}{b}}\)</span> eller <code class="command-large">binomial(n, r)</code><br>
+                Bruges til at beregne antallet af måder, man kan vælge \( r \) ud af \( n \) elementer på. I Maple benyttes enten palettens skabelon \(\binom{\textcolor{green}{a}}{\textcolor{purple}{b}}\) eller kommandoen <code class="command-large">binomial(n, r)</code>.
+            </div>
+            
+            <div>
+                <strong>Punktsandsynlighed:</strong> <code class="command-large">binpdf(n, p, r)</code><br>
+                Bruges til at beregne sandsynligheden for at få præcis \( r \) succeser, \( P(X = r) \).
+            </div>
+            
+            <div>
+                <strong>Kummuleret sandsynlighed:</strong> <code class="command-large">bincdf(n, p, r1, r2)</code><br>
+                Bruges til at beregne sandsynligheden for et interval af succeser, \( P(r_1 \le X \le r_2) \). For eksempel beregnes \( P(3 \le X \le 10) \) som <code class="command-large">bincdf(10, 1/6, 3, 10)</code>.
+            </div>
+            
+            <div>
+                <strong>Visualisering:</strong> <code class="command-large">pindediagramBIN(n, p)</code><br>
+                Bruges til at tegne et pindediagram over binomialfordelingens sandsynlighedsfunktion.
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel</button>
+        </div>
+
+        <div id="example-1" class="example-block" style="display:none;">
+            <h4>Eksempel på brug i Maple</h4>
+            <p>Vi kaster en almindelig sekssidet terning 10 gange. Lad \( X \) være antallet af 6'ere. Så er \( X \sim b(10, \frac{1}{6}) \).</p>
+            <ul>
+                <li>Hvor mange måder kan vi få præcis 3 sexere på? I Maple bruges skabelonen \(\binom{\textcolor{green}{10}}{\textcolor{purple}{3}}\) eller <code class="command-large">binomial(10, 3)</code> = 120.</li>
+                <li>Sandsynligheden for præcis 3 sexere: <code class="command-large">binpdf(10, 1/6, 3)</code> \(\approx 0.0542\) (dvs. ca. 5,42%).</li>
+                <li>Sandsynligheden for at få mellem 3 og 10 sexere: <code class="command-large">bincdf(10, 1/6, 3, 10)</code> \(\approx 0.2248\) (dvs. ca. 22,48%).</li>
+                <li><strong>Tegn pindediagram:</strong> Indtast <code class="command-large">pindediagramBIN(10, 1/6)</code> for at se søjlerne for alle mulige værdier af \( X \) (fra 0 til 10) og visuelt identificere den mest sandsynlige værdi.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Regneopgave 1 -->
+    <div class="card">
+        <span class="task-title">Opgave 1: Beregning af binomialkoefficient</span>
+        <p>I en klasse med 15 elever skal der vælges et udvalg på 4 elever. Antallet af måder udvalget kan sammensættes på svarer til binomialkoefficienten \(\binom{15}{4}\).</p>
+        <p>Brug enten Maple-skabelonen \(\binom{\textcolor{green}{a}}{\textcolor{purple}{b}}\) eller kommandoen <code>binomial(n, r)</code> til at beregne \(\binom{15}{4}\).</p>
+        
+        <div class="input-section">
+            <input type="number" id="q1" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q1', 1365)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box" style="display:none;"><strong>Hint:</strong> Indtast enten <code>binomial(15, 4)</code> eller brug skabelonen med 15 øverst (\(a\)) og 4 nederst (\(b\)) i Maple.</div>
+        <div id="sol-q1" class="sol-box" style="display:none;"><strong>Løsning:</strong> Indtast <code>binomial(15, 4)</code> eller \(\binom{15}{4}\) i Maple og tryk Enter. Resultatet er 1365.</div>
+    </div>
+
+    <!-- Regneopgave 2 -->
+    <div class="card">
+        <span class="task-title">Opgave 2: Punktsandsynlighed</span>
+        <p>En fair mønt kastes 20 gange. Antallet af plat \( X \) beskrives ved binomialfordelingen \( X \sim b(20, 0.5) \).</p>
+        <p>Brug Maple-kommandoen <code>binpdf(n, p, r)</code> til at bestemme sandsynligheden for at få præcis 8 gange plat, altså \( P(X = 8) \).</p>
+        
+        <div class="input-section">
+            <input type="number" id="q2" step="0.0001" placeholder="Svar (f.eks. 0.1201)...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q2', 0.1201)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box" style="display:none;"><strong>Hint:</strong> Brug kommandoen <code>binpdf(20, 0.5, 8)</code> i Maple. Angiv svaret som et decimaltal.</div>
+        <div id="sol-q2" class="sol-box" style="display:none;"><strong>Løsning:</strong> I Maple giver <code>binpdf(20, 0.5, 8)</code> ca. 0.1201 (eller 12,01 %).</div>
+    </div>
+
+    <!-- Forståelsesopgave -->
+    <div class="card">
+        <span class="task-title">Opgave 3: Fortolkning af kummuleret sandsynlighed</span>
+        <p>En fabrik fremstiller komponenter, hvor fejlraten er 5% (\( p = 0.05 \)). En stikprøve på 50 komponenter udtages. Lad \( X \) være antallet af defekte komponenter.</p>
+        <p>En elev indtaster følgende kommando i Maple: <code>bincdf(50, 0.05, 0, 3)</code> og får resultatet <strong>0.7604</strong>.</p>
+        <p>Hvilken af følgende udsagn giver den korrekte fortolkning af dette resultat?</p>
+        
+        <div class="input-section">
+            <label><input type="radio" name="q3" value="A"> A) Der er 76,04% chance for, at der er præcis 3 defekte komponenter i stikprøven.</label><br>
+            <label><input type="radio" name="q3" value="B"> B) Der er 76,04% chance for, at der er højst 3 defekte komponenter i stikprøven.</label><br>
+            <label><input type="radio" name="q3" value="C"> C) Der er 76,04% chance for, at der er mindst 3 defekte komponenter i stikprøven.</label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkRadioAnswer('q3', 'B')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box" style="display:none;"><strong>Hint:</strong> Læg mærke til afgrænsningen i kommandoen: fra 0 til 3, hvilket betyder \( P(0 \le X \le 3) \).</div>
+        <div id="sol-q3" class="sol-box" style="display:none;"><strong>Løsning:</strong> Korrekt svar er <strong>B</strong>. Kommandoen <code>bincdf(50, 0.05, 0, 3)</code> beregner \( P(0 \le X \le 3) \), hvilket svarer til sandsynligheden for at få 0, 1, 2 eller 3 defekte komponenter (altså højst 3).</div>
+    </div>
+
+    <!-- Krævende opgave -->
+    <div class="card">
+        <span class="task-title">Opgave 4: Analyse af spørgeskemaundersøgelse</span>
+        <p>I en større undersøgelse antages det, at 30% af en befolkning støtter et nyt forslag (\( p = 0.30 \)). Vi spørger 40 tilfældigt udvalgte personer.</p>
+        <p>Du skal bruge Maple til at undersøge sandsynligheden for at få <strong>flere end 15</strong> personer, der støtter forslaget, altså \( P(X > 15) \).</p>
+        <p><strong>Spørgsmål:</strong> Hvad er sandsynligheden \( P(16 \le X \le 40) \)? (Angiv som decimaltal afrundet til 4 decimaler).</p>
+        
+        <div class="input-section">
+            <input type="number" id="q4" step="0.0001" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q4', 0.1220)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box" style="display:none;"><strong>Hint:</strong> "Flere end 15" betyder fra 16 og opefter. Du skal derfor benytte <code>bincdf(n, p, 16, 40)</code>. Visualisér eventuelt med <code>pindediagramBIN(40, 0.30)</code> i Maple for at se fordelingen.</div>
+        <div id="sol-q4" class="sol-box" style="display:none;"><strong>Løsning:</strong> Da \( X \) er diskret, svarer "flere end 15" til \( 16 \le X \le 40 \). I Maple indtastes <code>bincdf(40, 0.30, 16, 40)</code>, hvilket giver ca. <strong>0.1220</strong> (12,20 %).</div>
+    </div>
+
+    <!-- Ny Opgave 5: Visualisering med pindediagram -->
+    <div class="card">
+        <span class="task-title">Opgave 5: Visualisering og mest sandsynlige værdi</span>
+        <p>En binomialfordelt stokastisk variabel har parametrene \( n = 20 \) og \( p = 0.2 \).</p>
+        <p>Tegn pindediagrammet for denne fordeling i Maple ved hjælp af kommandoen <code>pindediagramBIN(20, 0.2)</code>.</p>
+        <p><strong>Spørgsmål:</strong> Aflæs på pindediagrammet, hvilket antal succeser \( r \) der har den **højeste** søjle (den mest sandsynlige værdi / typetallet).</p>
+        
+        <div class="input-section">
+            <input type="number" id="q5" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q5', 4)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q5')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q5')">Løsning</button>
+        </div>
+        <div id="feedback-q5" class="feedback"></div>
+        <div id="hint-q5" class="hint-box" style="display:none;"><strong>Hint:</strong> Kør <code>pindediagramBIN(20, 0.2)</code> i Maple. Find den højeste søjle i diagrammet og se, hvilket tal på førsteaksen (\(x\)-aksen) den står ud for. Du kan evt. tjekke med forventningsværdien \(\mu = n \cdot p\).</div>
+        <div id="sol-q5" class="sol-box" style="display:none;"><strong>Løsning:</strong> Den højeste søjle står ud for \( r = 4 \). Forventningsværdien er \(\mu = 20 \cdot 0.2 = 4\), hvilket falder sammen med fordelingens mest sandsynlige værdi.</div>
+    </div>
+
+    <!-- JavaScript placeret til sidst i HTML-dokumentet jf. retningslinjerne -->
+    <script>
+        function checkAnswer(id, correctVal) {
+            const input = document.getElementById(id);
+            const feedback = document.getElementById('feedback-' + id);
+            const userVal = parseFloat(input.value.replace(',', '.'));
+            
+            if (isNaN(userVal)) {
+                feedback.textContent = "Indtast venligst et tal.";
+                feedback.className = "feedback incorrect";
+                return;
+            }
+
+            // Tillader en lille afvigelse pga. afrunding
+            if (Math.abs(userVal - correctVal) < 0.01) {
+                feedback.textContent = "Korrekt! Godt gået.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = "Forkert svar. Prøv igen eller se hintet.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+
+        function checkRadioAnswer(name, correctVal) {
+            const options = document.getElementsByName(name);
+            const feedback = document.getElementById('feedback-' + name);
+            let selectedValue = null;
+
+            for (const option of options) {
+                if (option.checked) {
+                    selectedValue = option.value;
+                    break;
+                }
+            }
+
+            if (!selectedValue) {
+                feedback.textContent = "Vælg venligst et svar.";
+                feedback.className = "feedback incorrect";
+                return;
+            }
+
+            if (selectedValue === correctVal) {
+                feedback.textContent = "Korrekt! Du har fortolket resultatet rigtigt.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = "Forkert. Læs opgaven grundigt igen eller brug hintet.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === "block") {
+                box.style.display = "none";
+            } else {
+                box.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

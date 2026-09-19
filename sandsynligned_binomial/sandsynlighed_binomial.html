@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Kursus: Sandsynlighedsregning og Binomialfordeling</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../style_front.css">
+</head>
+<body>
+
+    <div class="intro-header">
+        <h1>Sandsynlighedsregning og Binomialfordeling</h1>
+    </div>
+
+    <h3 style="margin-top: 40px; border-bottom: 2px solid #e67e22; padding-bottom: 5px; color: #e67e22;">Del 1: Introduktion og Materialer</h3>
+    <div class="course-grid">
+        <div class="module-card border-intro">
+            <div>
+                <div class="module-num">Arbejdsark</div>
+                <div class="module-title">Introduktion til emnet</div>
+                <p class="module-desc">Kom godt i gang med de grundlæggende begreber inden for sandsynlighedsregning gennem dette introducerende arbejdsark.</p>
+            </div>
+            <a href="introduktion_arbejdsark.pdf" class="module-link" style="background-color: #e67e22;" target="_blank">Åbn Introduktion (PDF)</a>
+        </div>
+
+        <div class="module-card border-intro">
+            <div>
+                <div class="module-num">Hjemmeopgave</div>
+                <div class="module-title">Spildesign</div>
+                <p class="module-desc">Anvend din viden om sandsynligheder til at analysere og designe dit eget spil i denne skriftlige opgave.</p>
+            </div>
+            <a href="hjemmeopgave_spildesign.pdf" class="module-link" style="background-color: #e67e22;" target="_blank">Åbn Hjemmeopgave (PDF)</a>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 40px; border-bottom: 2px solid #2ecc71; padding-bottom: 5px; color: #2ecc71;">Del 2: Grundlæggende Sandsynlighedsregning</h3>
+    <div class="course-grid">
+        <div class="module-card border-teori">
+            <div>
+                <div class="module-num">Modul 1</div>
+                <div class="module-title">Addition og Multiplikation</div>
+                <p class="module-desc">Lær om råberegninger og reglerne for at addere og multiplicere kombinationer og hændelser.</p>
+            </div>
+            <a href="add_mult.html" class="module-link" style="background-color: #2ecc71;">Åbn Addition & Multiplikation</a>
+        </div>
+
+        <div class="module-card border-teori">
+            <div>
+                <div class="module-num">Modul 2</div>
+                <div class="module-title">Additions- og Multiplikationssætningen</div>
+                <p class="module-desc">Arbejd med de formelle regler for sandsynligheder af uafhængige og forenede hændelser: \(P(A \cup B)\) og \(P(A \cap B)\).</p>
+            </div>
+            <a href="add_mult_ssh.html" class="module-link" style="background-color: #2ecc71;">Åbn Additions- & Multiplikationssætningen</a>
+        </div>
+
+        <div class="module-card border-teori">
+            <div>
+                <div class="module-num">Modul 3</div>
+                <div class="module-title">Stokastisk Variabel</div>
+                <p class="module-desc">Forstå begrebet en stokastisk variabel \(X\), samt hvordan vi opstiller og arbejder med sandsynlighedsfordelinger.</p>
+            </div>
+            <a href="stokastisk_variabel.html" class="module-link" style="background-color: #2ecc71;">Åbn Stokastisk Variabel</a>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 40px; border-bottom: 2px solid #9b59b6; padding-bottom: 5px; color: #9b59b6;">Del 3: Binomialfordelingen</h3>
+    <div class="course-grid">
+        <div class="module-card border-binomial">
+            <div>
+                <div class="module-num">Modul 4</div>
+                <div class="module-title">Binomialkoefficienten</div>
+                <p class="module-desc">Lær at beregne og forstå binomialkoefficienten \(K(n,r)\) – antallet af måder man kan vælge \(r\) ud af \(n\).</p>
+            </div>
+            <a href="binomial_koefficient.html" class="module-link" style="background-color: #9b59b6;">Åbn Binomialkoefficienten</a>
+        </div>
+
+        <div class="module-card border-binomial">
+            <div>
+                <div class="module-num">Modul 5</div>
+                <div class="module-title">Binomialsandsynlighed</div>
+                <p class="module-desc">Anvend binomialformlen \(P(X=r) = K(n,r) \cdot p^r \cdot (1-p)^{n-r}\) til at beregne sandsynligheder ved gentagne eksperimenter.</p>
+            </div>
+            <a href="binomial_ssh.html" class="module-link" style="background-color: #9b59b6;">Åbn Binomialsandsynlighed</a>
+        </div>
+
+        <div class="module-card border-binomial">
+            <div>
+                <div class="module-num">Værktøj</div>
+                <div class="module-title">Binomialfordeling i Maple</div>
+                <p class="module-desc">Lær hvordan du effektivt udfører binomialberegninger, opstiller fordelinger og plotter i Maple.</p>
+            </div>
+            <a href="binomial_maple.html" class="module-link" style="background-color: #9b59b6;">Åbn Maple-guide</a>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 40px; border-bottom: 2px solid #34495e; padding-bottom: 5px; color: #34495e;">Del 4: Hypotesetestning</h3>
+    <div class="course-grid">
+        <div class="module-card border-test">
+            <div>
+                <div class="module-num">Modul 6</div>
+                <div class="module-title">Binomialtest</div>
+                <p class="module-desc">Opstil nulhypoteser (\(H_0\)), bestem det kritiske område og udfør statistiske binomialtest på et givet signifikansniveau.</p>
+            </div>
+            <a href="binomialtest.html" class="module-link" style="background-color: #34495e;">Åbn Binomialtest</a>
+        </div>
+    </div>
+
+    <footer style="margin-top: 60px; text-align: center; color: #95a5a6; font-size: 0.85em;">
+        <p>Materialet er udviklet af Mads Peter Steenstrup, Rysensteen Gymnasium og er udgivet under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="color: #7f8c8d; text-decoration: underline;">CC BY 4.0-licensen</a>.</p>
+    </footer>
+
+</body>
+</html>
