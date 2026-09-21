@@ -18,7 +18,7 @@
     <!-- Teori og Maple-kommandoer (Formula Box) -->
     <div class="formula-box">
         <h3>Binomialfordeling og Maple-kommandoer</h3>
-        <p>Ved beregning af binomialkoefficienter og binomialsandsynligheder i Maple benyttes følgende skabeloner og funktioner:</p>
+        <p>Ved beregning af binomialkoefficienter, binomialsandsynligheder og binomialtest i Maple benyttes følgende skabeloner og funktioner:</p>
         
         <div class="formula-group">
             <div>
@@ -40,6 +40,16 @@
                 <strong>Visualisering:</strong> <code class="command-large">pindediagramBIN(n, p)</code><br>
                 Bruges til at tegne et pindediagram over binomialfordelingens sandsynlighedsfunktion.
             </div>
+
+            <div>
+                <strong>Omvendt binomialfordeling (Kritiske værdier):</strong> <code class="command-large">invbin(n, p, p-kritisk)</code><br>
+                Bruges til at finde den mindste værdi af \( k \), hvor den kummulerede sandsynlighed når op på eller overstiger den angivne kritiske sandsynlighed/procent \( p \text{-kritisk} \).
+            </div>
+
+            <div>
+                <strong>Binomialtest:</strong> <code class="command-large">binomialTest(n, p, testniveau 5%)</code><br>
+                Bruges til at udføre en fuldstændig hypotese- og binomialtest med et angivet testniveau (fx 5% / 0.05). Kommandoen viser både det kritiske område, acceptelementer og $p$-værdi.
+            </div>
         </div>
 
         <div class="btn-group">
@@ -53,7 +63,9 @@
                 <li>Hvor mange måder kan vi få præcis 3 sexere på? I Maple bruges skabelonen \(\binom{\textcolor{green}{10}}{\textcolor{purple}{3}}\) eller <code class="command-large">binomial(10, 3)</code> = 120.</li>
                 <li>Sandsynligheden for præcis 3 sexere: <code class="command-large">binpdf(10, 1/6, 3)</code> \(\approx 0.0542\) (dvs. ca. 5,42%).</li>
                 <li>Sandsynligheden for at få mellem 3 og 10 sexere: <code class="command-large">bincdf(10, 1/6, 3, 10)</code> \(\approx 0.2248\) (dvs. ca. 22,48%).</li>
-                <li><strong>Tegn pindediagram:</strong> Indtast <code class="command-large">pindediagramBIN(10, 1/6)</code> for at se søjlerne for alle mulige værdier af \( X \) (fra 0 til 10) og visuelt identificere den mest sandsynlige værdi.</li>
+                <li><strong>Tegn pindediagram:</strong> Indtast <code class="command-large">pindediagramBIN(10, 1/6)</code> for at se søjlerne for alle mulige værdier af \( X \).</li>
+                <li><strong>Kritisk værdi:</strong> Indtast <code class="command-large">invbin(10, 1/6, 0.05)</code> for at finde den nedre grænse for de 5% mest usandsynlige lave værdier.</li>
+                <li><strong>Gennemfør binomialtest:</strong> Indtast <code class="command-large">binomialTest(10, 1/6, 0.05)</code> for at beregne kritisk område og testresultat ved et 5% signifikansniveau.</li>
             </ul>
         </div>
     </div>
@@ -138,7 +150,7 @@
         <div id="sol-q4" class="sol-box" style="display:none;"><strong>Løsning:</strong> Da \( X \) er diskret, svarer "flere end 15" til \( 16 \le X \le 40 \). I Maple indtastes <code>bincdf(40, 0.30, 16, 40)</code>, hvilket giver ca. <strong>0.1220</strong> (12,20 %).</div>
     </div>
 
-    <!-- Ny Opgave 5: Visualisering med pindediagram -->
+    <!-- Opgave 5: Visualisering med pindediagram -->
     <div class="card">
         <span class="task-title">Opgave 5: Visualisering og mest sandsynlige værdi</span>
         <p>En binomialfordelt stokastisk variabel har parametrene \( n = 20 \) og \( p = 0.2 \).</p>
@@ -156,6 +168,49 @@
         <div id="feedback-q5" class="feedback"></div>
         <div id="hint-q5" class="hint-box" style="display:none;"><strong>Hint:</strong> Kør <code>pindediagramBIN(20, 0.2)</code> i Maple. Find den højeste søjle i diagrammet og se, hvilket tal på førsteaksen (\(x\)-aksen) den står ud for. Du kan evt. tjekke med forventningsværdien \(\mu = n \cdot p\).</div>
         <div id="sol-q5" class="sol-box" style="display:none;"><strong>Løsning:</strong> Den højeste søjle står ud for \( r = 4 \). Forventningsværdien er \(\mu = 20 \cdot 0.2 = 4\), hvilket falder sammen med fordelingens mest sandsynlige værdi.</div>
+    </div>
+
+    <!-- Opgave 6: Invbin -->
+    <div class="card">
+        <span class="task-title">Opgave 6: Kritiske værdier med invbin</span>
+        <p>En fabrik fremstiller pærer med en antaget fejlrate på 10% (\( p = 0.10 \)). Der udtages en stikprøve på 100 pærer (\( n = 100 \)).</p>
+        <p>Vi ønsker at finde det mindste antal defekte pærer \( k \), hvor den kummulerede sandsynlighed når mindst 5% (0.05), dvs. den nedre kritiske grænse.</p>
+        <p><strong>Spørgsmål:</strong> Brug Maple-kommandoen <code>invbin(n, p, p-kritisk)</code> til at finde denne værdi.</p>
+        
+        <div class="input-section">
+            <input type="number" id="q6" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q6', 5)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q6')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q6')">Løsning</button>
+        </div>
+        <div id="feedback-q6" class="feedback"></div>
+        <div id="hint-q6" class="hint-box" style="display:none;"><strong>Hint:</strong> Indtast <code>invbin(100, 0.10, 0.05)</code> i Maple.</div>
+        <div id="sol-q6" class="sol-box" style="display:none;"><strong>Løsning:</strong> I Maple giver <code>invbin(100, 0.10, 0.05)</code> resultatet <strong>5</strong>. Det betyder, at \( P(X \le 5) \ge 0.05 \).</div>
+    </div>
+
+    <!-- Opgave 7: BinomialTest -->
+    <div class="card">
+        <span class="task-title">Opgave 7: Binomialtest af nulhypotese</span>
+        <p>En terning mistænkes for at give for få 6'ere. Nulhypotesen er \( H_0: p = \frac{1}{6} \). Terningen kastes 60 gange (\( n = 60 \)).</p>
+        <p>Vi udfører en binomialtest på et 5% testniveau ved hjælp af kommandoen <code>binomialTest(60, 1/6, 0.05)</code>.</p>
+        <p>Testen viser, at det kritiske område for færre end forventede 6'ere går fra 0 til 4 succeser (dvs. højst 4 sexere afviser nulhypotesen).</p>
+        <p>Ved et eksperiment opnås der i alt <strong>3</strong> sexere.</p>
+        <p><strong>Spørgsmål:</strong> Skal nulhypotesen forkastes eller accepteres baseret på dette resultat?</p>
+        
+        <div class="input-section">
+            <label><input type="radio" name="q7" value="A"> A) Nulhypotesen skal forkastes (fordi 3 ligger i det kritiske område).</label><br>
+            <label><input type="radio" name="q7" value="B"> B) Nulhypotesen skal accepteres (fordi 3 ikke ligger i det kritiske område).</label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkRadioAnswer('q7', 'A')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q7')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q7')">Løsning</button>
+        </div>
+        <div id="feedback-q7" class="feedback"></div>
+        <div id="hint-q7" class="hint-box" style="display:none;"><strong>Hint:</strong> Undersøg, om den observerede værdi (3) falder i det kritiske område (0 til 4).</div>
+        <div id="sol-q7" class="sol-box" style="display:none;"><strong>Løsning:</strong> Korrekt svar er <strong>A</strong>. Da 3 sexere ligger inden for det kritiske område \(\{0, 1, 2, 3, 4\}\), forkastes nulhypotesen på et 5% signifikansniveau.</div>
     </div>
 
     <!-- JavaScript placeret til sidst i HTML-dokumentet jf. retningslinjerne -->
