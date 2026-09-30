@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temaforløb: Binomialfordeling og US Midtvejsvalg</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- Samlet Teori & Indledning (Formula Box) -->
+    <div class="formula-box">
+        <h3>Tema: Matematik i det amerikanske midtvejsvalg</h3>
+        <p>
+            Ved det amerikanske midtvejsvalg vælges alle 435 pladser i Repræsentanternes Hus. Politiske analyseinstitutter som Quinnipiac University gennemfører løbende meningsmålinger for at forudsige valgresultatet. Men hvordan kan vi ud fra en stikprøve på f.eks. 1.000 personer afgøre, om vælgertilslutningen reelt har ændret sig i forhold til seneste valg, eller om afvigelsen blot skyldes tilfældig stikprøveusikkerhed?<br>
+            <a href="https://poll.qu.edu/poll-release?releaseid=3968">Kilde: Quinnipiac university poll</a>
+        </p>
+        <p>
+            Til dette formål anvendes <strong>binomialfordelingen</strong> \( X \sim B(n, p) \) og  <strong>statistisk hypotesetest</strong>.
+        </p>
+        
+        <div class="formula-group">
+            <div><strong>Middelværdi:</strong> \( \mu = E(X) = n \cdot p \)</div>
+            <div><strong>Spredning:</strong> \( \sigma = = \sqrt{n \cdot p \cdot (1 - p)} \)</div>
+            <div><strong>Hypotesetest:</strong> Vi opstiller en nulhypotese \( H_0: p = p_0 \) og undersøger, om observationen ligger i acceptområdet eller det kritiske område ved et valgt signifikansniveau (typisk \( \alpha = 5\% \)).</div>
+            <div><strong>Konfidensinterval:</strong> Konfidensinterallet giver et acceptområde, med 95% sandsynlighed for at finde en værdi. Den beregnes med \([\mu - 1{,}96 \sigma ; \mu + 1{,}96 \sigma ] \). </div>
+        </div>
+    </div>
+
+    <!-- Del 1: Trin-for-trin introduktion og basissandsynlighed -->
+    <div class="card">
+        <span class="task-title">Trin 1: Bestemmelse af basissandsynlighed</span>
+        <p>
+            Ved midtvejsvalget i 2022 fik Demokraterne valgt 213 repræsentanter ud af Huset 435 pladser. Vi ønsker at benytte dette historiske resultat som vores udgangspunkt (basissandsynlighed \( p_0 \)).
+        </p>
+        <p><strong>Spørgsmål 1.1:</strong> Beregn basissandsynligheden \( p_0 \) for, at en valgt repræsentant er demokrat. Angiv svaret som et decimaltal med 4 decimaler.</p>
+        
+        <div class="input-section">
+            <input type="number" id="q1" step="0.0001" placeholder="f.eks. 0.2327">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q1', 0.4897, 0.0005)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Divider antallet af demokratiske pladser (213) med det samlede antal pladser (435).</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong> \( p_0 = \frac{213}{435} \approx 0{,}4897 \).</div>
+    </div>
+
+    <!-- Del 2: Arbejde med stikprøven (Quinnipiac-målingen) -->
+    <div class="card">
+        <span class="task-title">Trin 2: Analyse af stikprøve og forventede værdier</span>
+        <p>
+            En ny meningsmåling fra Quinnipiac University adspørger en repræsentativ stikprøve på \( n = 1032 \) registrerede vælgere. Vi lader den stokastiske variabel \( X \) angive antallet af demokratiske vælgere i stikprøven. Antag under nulhypotesen \( H_0 \), at basissandsynligheden er uændret fra 2022-valget (\( p = 0{,}4897 \)).
+        </p>
+
+        <p><strong>Spørgsmål 2.1:</strong> Beregn middelværdien \( \mu = E(X) \), der angiver det forventede antal demokratiske vælgere i stikprøven under \( H_0 \).</p>
+        <div class="input-section">
+            <input type="number" id="q2a" step="0.01" placeholder="Forventet antal...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q2a', 505.37, 0.5)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2a')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2a')">Løsning</button>
+        </div>
+        <div id="feedback-q2a" class="feedback"></div>
+        <div id="hint-q2a" class="hint-box"><strong>Hint:</strong> Anvend formlen \( \mu = n \cdot p = 1032 \cdot 0{,}4897 \).</div>
+        <div id="sol-q2a" class="sol-box"><strong>Løsning:</strong> \( \mu = 1032 \cdot 0{,}4897 = 505{,}37 \) vælgere.</div>
+
+        <br>
+
+        <p><strong>Spørgsmål 2.2:</strong> Beregn spredningen (standardafvigelsen) \( \sigma = \text{SD}(X) \) for stikprøven under \( H_0 \).</p>
+        <div class="input-section">
+            <input type="number" id="q2b" step="0.01" placeholder="Spredning...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q2b', 16.06, 0.1)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2b')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2b')">Løsning</button>
+        </div>
+        <div id="feedback-q2b" class="feedback"></div>
+        <div id="hint-q2b" class="hint-box"><strong>Hint:</strong> Anvend formlen \( \sigma = \sqrt{n \cdot p \cdot (1 - p)} \).</div>
+        <div id="sol-q2b" class="sol-box"><strong>Løsning:</strong> \( \sigma = \sqrt{1032 \cdot 0{,}4897 \cdot (1 - 0{,}4897)} = \sqrt{257{,}89} \approx 16{,}06 \).</div>
+    </div>
+
+    <!-- Del 3: Forståelsesopgave - Modelforudsætninger -->
+    <div class="card">
+        <span class="task-title">Trin 3: Forståelse af statistisk hypotesetest</span>
+        <p>
+            Inden vi vurderer målingens faktiske resultat, skal vi have styr på begreberne i hypotesetesten. Hvilket af følgende udsagn beskriver korrekt opstillingen af testen og forudsætningerne?
+        </p>
+        
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="mcq1" value="A"> A) Nulhypotesen er \( H_0: p \neq 0{,}4897 \), og binomialmodellen forudsætter, at spørgsmålene påvirker hinanden.
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="mcq1" value="B"> B) Nulhypotesen er \( H_0: p = 0{,}4897 \). Forudsætningen for binomialfordelingen er, at hver adspurgt vælger er uafhængig af de øvrige, og at sandsynligheden \( p \) er konstant.
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="mcq1" value="C"> C) Den alternative hypotese er \( H_1: p = 0{,}4897 \), og stikprøvestørrelsen \( n \) skal ændre sig under undersøgelsen.
+            </label>
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkRadioAnswer('mcq1', 'B', 'feedback-q3')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Nulhypotesen udtrykker altid den uændrede grundtilstand (\( p = p_0 \)).</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong> Udsagn B er korrekt. Nulhypotesen antager fastholdt sandsynlighed fra seneste valg, og binomialfordelingen kræver uafhængige forsøg.</div>
+    </div>
+
+    <!-- Del 4: Acceptområde med Maple vs Normaltilnærmelse -->
+    <div class="card">
+        <span class="task-title">Trin 4: Beregning af acceptområdet (Maple og Tilnærmelse)</span>
+        <p>
+            I Maple kan vi med Gym-pakken beregne det  acceptområde ved et signifikansniveau på \( 5\% \) med kommandoen:
+            <br>
+            <code>binomialTest(1032, 0.4897, 0.05)</code>
+        </p>
+
+        <p><strong>Spørgsmål 4.1:</strong> Indtast den nedre grænse \( x_{\text{lav}} \) for det acceptområde fundet i Maple:</p>
+        <div class="input-section">
+            <input type="number" id="q4a" step="1" placeholder="f.eks. 474">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q4a', 474, 0)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4a')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4a')">Løsning</button>
+        </div>
+        <div id="feedback-q4a" class="feedback"></div>
+        <div id="hint-q4a" class="hint-box"><strong>Hint:</strong> Kør kommandoen <code>binomialTest(1032, 0.4897, 0.05)</code> i Maple og aflæs det nedre tal i intervallet.</div>
+        <div id="sol-q4a" class="sol-box"><strong>Løsning:</strong> Maple giver det eksakte acceptområde \( [474 ; 536] \), så den nedre grænse er \( 474 \).</div>
+
+        <br>
+
+        <p><strong>Spørgsmål 4.2:</strong> Undersøg normaltilnærmelsen. Beregn den nedre teoretiske grænse ved formlen \( \mu - 1{,}96 \cdot \sigma \). (Brug \( \mu = n\cdot p \) og \( \sigma = \sqrt{n\cdot p \cdot (1-p)} \)).</p>
+        <div class="input-section">
+            <input type="number" id="q4b" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q4b', 473.89, 0.1)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4b')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4b')">Løsning</button>
+        </div>
+        <div id="feedback-q4b" class="feedback"></div>
+        <div id="hint-q4b" class="hint-box"><strong>Hint:</strong> Udregn \( 505{,}37 - 1{,}96 \cdot 16{,}06 \).</div>
+        <div id="sol-q4b" class="sol-box"><strong>Løsning:</strong> \( 505{,}37 - 1{,}96 \cdot 16{,}06 = 473{,}89 \). Afrundet til nærmeste hele tal giver dette \( 474 \), hvilket passer præcist med Maples eksakte resultat!</div>
+    </div>
+
+    <!-- Del 5: Den reelle observation og konklusion -->
+    <div class="card">
+        <span class="task-title">Trin 5: Behandling af målingens resultat og Konklusion</span>
+        <p>
+            I den konkrete Quinnipiac-måling svarer \( 51\% \) af de \( 1032 \) adspurgte vælgere, at de agter at stemme på Demokraterne. Det svarer til \( k = 526 \) personer.
+        </p>
+        <p><strong>Spørgsmål 5.1:</strong> Hvad kan vi konkludere ud fra stikprøvens observation på \( k = 526 \) personer i forhold til acceptområdet \( [474 ; 536] \)?</p>
+
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="mcq2" value="A"> A) Da \( 526 \) ligger i det kritiske område, afvises \( H_0 \). Demokraterne har med sikkerhed fremgang.
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="mcq2" value="B"> B) Da \( 526 \) ligger i acceptområdet \( [474 ; 536] \), kan nulhypotesen \( H_0 \) ikke forkastes. Forskellen fra 2022-valget kan tilskrives tilfældig stikprøveusikkerhed.
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="mcq2" value="C"> C) Da \( 526 \) er større end middelværdien \( 505{,}37 \), kan vi automatisk afvise nulhypotesen uden at se på acceptområdet.
+            </label>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkRadioAnswer('mcq2', 'B', 'feedback-q5')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q5')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q5')">Løsning</button>
+        </div>
+        <div id="feedback-q5" class="feedback"></div>
+        <div id="hint-q5" class="hint-box"><strong>Hint:</strong> Undersøg om observationen \( 526 \) ligger inden for intervallet \( [474 ; 536] \). Hvis den gør, accepterer vi nulhypotesen.</div>
+        <div id="sol-q5" class="sol-box"><strong>Løsning:</strong> Udsagn B er korrekt. Observationen på 526 ligger i acceptområdet. Selvom målingen viser 51%, er afvigelsen i forhold til 2022-resultatet (48,97%) ikke statistisk signifikant på et 5%-niveau.</div>
+    </div>
+
+    <!-- JavaScript placeret nederst i dokumentet -->
+    <script>
+        function checkAnswer(id, correctVal, tolerance) {
+            const inputElement = document.getElementById(id);
+            const feedbackElement = document.getElementById('feedback-' + id);
+            const userVal = parseFloat(inputElement.value.replace(',', '.'));
+
+            if (isNaN(userVal)) {
+                feedbackElement.textContent = "Indtast venligst et gyldigt tal.";
+                feedbackElement.className = "feedback incorrect";
+                return;
+            }
+
+            if (Math.abs(userVal - correctVal) <= tolerance) {
+                feedbackElement.textContent = "Korrekt, flot arbejdet!";
+                feedbackElement.className = "feedback correct";
+            } else {
+                feedbackElement.textContent = "Forkert svar, prøv igen eller kig på hintet.";
+                feedbackElement.className = "feedback incorrect";
+            }
+        }
+
+        function checkRadioAnswer(name, correctVal, feedbackId) {
+            const options = document.getElementsByName(name);
+            const feedbackElement = document.getElementById(feedbackId);
+            let selectedVal = null;
+
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].checked) {
+                    selectedVal = options[i].value;
+                    break;
+                }
+            }
+
+            if (!selectedVal) {
+                feedbackElement.textContent = "Vælg venligst et svar.";
+                feedbackElement.className = "feedback incorrect";
+                return;
+            }
+
+            if (selectedVal === correctVal) {
+                feedbackElement.textContent = "Korrekt svar!";
+                feedbackElement.className = "feedback correct";
+            } else {
+                feedbackElement.textContent = "Forkert. Prøv at genoverveje eller læs hintet.";
+                feedbackElement.className = "feedback incorrect";
+            }
+        }
+
+        function toggleBox(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === "block") {
+                element.style.display = "none";
+            } else {
+                element.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
