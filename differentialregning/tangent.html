@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hældningskoefficienter for Tangenter</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- Teori og Eksempel Boks (Øverste Boks) -->
+    <div class="formula-box">
+        <h3>Hældningskoefficient for en Ret Linje</h3>
+        <p>Hældningskoefficienten \( a \) for en ret linje, der går gennem to punkter \( (x_1, y_1) \) og \( (x_2, y_2) \), beregnes ved formlen:</p>
+        <div class="formula-group">
+            <div>$$ a = \frac{y_2 - y_1}{x_2 - x_1} $$</div>
+            <div><strong>Sætning:</strong> Hældningskoefficienten angiver ændringen i \( y \)-værdien, når \( x \)-værdien øges med 1.</div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel</button>
+        </div>
+
+        <div id="example-1" class="example-block" style="display: none;">
+            <h4>Eksempel: Linje med hældningskoefficient 1</h4>
+            <!-- Pladsholder til billede -->
+            <div style="text-align: center; margin: 15px 0;">
+                <img src="billeder/tangent.png" alt="Eksempel på ret linje med hældning 1" style="max-width: 100%; height: auto; border: 1px solid #ccc; rounded-corners: 4px;">
+            </div>
+            <p>En ret linje går gennem punkterne \( (1, 0) \) og \( (2, 1) \).</p>
+            <p>Vi indsætter punkterne i formlen for hældningskoefficienten:</p>
+            <p>$$ a = \frac{1 - 0}{2 - 1} = \frac{1}{1} = 1 $$</p>
+            <p>Linjens hældningskoefficient er dermed \( a = 1 \).</p>
+        </div>
+    </div>
+
+    <!-- Introduktion til Desmos visualisering -->
+    <div class="card">
+        <p>Åbn denne <a href="https://www.desmos.com/calculator/io37digto5?lang=da" target="_blank" rel="noopener noreferrer">Desmos-visualisering med grafer og tangenter</a> for at løse de følgende opgaver.</p>
+    </div>
+
+    <!-- Regneopgave 1: Sort tangent -->
+    <div class="card">
+        <span class="task-title">Beregning af hældning for den sorte tangent</span>
+        <p>Den sorte tangent i Desmos-visualiseringen går gennem punkterne \( (-0.75, -1) \) og \( (-0.5, 0) \). Beregn tangentens hældningskoefficient \( a \).</p>
+        <div class="input-section">
+            <input type="number" id="q1" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q1', 4)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box" style="display: none;">
+            <strong>Hint:</strong> Brug formlen \( a = \frac{y_2 - y_1}{x_2 - x_1} \) med \( (x_1, y_1) = (-0.75, -1) \) og \( (x_2, y_2) = (-0.5, 0) \).
+        </div>
+        <div id="sol-q1" class="sol-box" style="display: none;">
+            <strong>Løsning:</strong> 
+            $$ a = \frac{0 - (-1)}{-0.5 - (-0.75)} = \frac{1}{0.25} = 4 $$
+            Den sorte tangents hældningskoefficient er \( 4 \).
+        </div>
+    </div>
+
+    <!-- Regneopgave 2: Orange tangent -->
+    <div class="card">
+        <span class="task-title">Beregning af hældning for den orange tangent</span>
+        <p>Aflæs selv to punkter på den orange tangent i Desmos, og beregn tangentens hældningskoefficient \( a \).</p>
+        <div class="input-section">
+            <input type="number" id="q2" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q2', -1)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box" style="display: none;">
+            <strong>Hint:</strong> Du kan f.eks. aflæse hvor tangenten skærer akserne eller skæringspunkterne ved \( x = 0 \) og \( x = 1 \).
+        </div>
+        <div id="sol-q2" class="sol-box" style="display: none;">
+            <strong>Løsning:</strong> 
+            <p>Aflæser vi punkterne \( (0, 0) \) og \( (1, -1) \), fås:</p>
+            $$ a = \frac{-1 - 0}{1 - 0} = \frac{-1}{1} = -1 $$
+            Den orange tangents hældningskoefficient er \( -1 \).
+        </div>
+    </div>
+
+    <!-- Regneopgave 3: Blå tangent -->
+    <div class="card">
+        <span class="task-title">Beregning af hældning for den blå tangent</span>
+        <p>Aflæs selv to punkter på den blå tangent i Desmos, og beregn tangentens hældningskoefficient \( a \).</p>
+        <div class="input-section">
+            <input type="number" id="q3" step="0.01" placeholder="Svar...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q3', 1)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box" style="display: none;">
+            <strong>Hint:</strong> Kig efter tydelige punkter eller skæringer med gitterlinjerne på den blå tangent.
+        </div>
+        <div id="sol-q3" class="sol-box" style="display: none;">
+            <strong>Løsning:</strong> 
+            <p>Aflæser vi f.eks. punkterne \( (1.1, -1) \) og \( (2.1, 0) \), fås:</p>
+            $$ a = \frac{0 - (-1)}{2.1 - 1.1} = \frac{1}{1} = 1 $$
+            Den blå tangents hældningskoefficient er \( 1 \).
+        </div>
+    </div>
+
+    <!-- Forståelsesopgave -->
+    <div class="card">
+        <span class="task-title">Fortolkning af hældningernes fortegn</span>
+        <p>Hvad fortæller fortegnet for en tangents hældningskoefficient om grafens forløb i røringspunktet?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q4" value="A"> Når hældningen er positiv, er funktionen aftagende.</label><br>
+            <label><input type="radio" name="q4" value="B"> Når hældningen er positiv, er funktionen voksende, og når den er negativ, er funktionen aftagende.</label><br>
+            <label><input type="radio" name="q4" value="C"> Hældningens fortegn har ingen sammenhæng med om funktionen vokser eller aftager.</label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkRadioAnswer('q4', 'B')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box" style="display: none;">
+            <strong>Hint:</strong> Tænk på om tangenten går opad eller nedad fra venstre mod højre, og hvad det betyder for funktionen.
+        </div>
+        <div id="sol-q4" class="sol-box" style="display: none;">
+            <strong>Løsning:</strong> Udsagn B er korrekt. En positiv hældningskoefficient betyder, at tangenten (og grafen i røringspunktet) går opad mod højre (voksende), mens en negativ hældningskoefficient betyder, at den går nedad (aftagende).
+        </div>
+    </div>
+
+    <!-- Krævende opgave til de hurtige -->
+    <div class="card">
+        <span class="task-title">Sammenhæng mellem hældning og den afledede funktion</span>
+        <p>Funktionen på grafen har forskriften \( f(x) = x^3 - 3x^2 + 2x \). Bestem den afledede funktion \( f'(x) \), og beregn \( f'(0) \). Hvilken tangent i visualiseringen svarer dette svar til?</p>
+        <div class="input-section">
+            <input type="number" id="q5" step="0.01" placeholder="Indtast værdien af f'(0)...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q5', 2)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q5')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q5')">Løsning</button>
+        </div>
+        <div id="feedback-q5" class="feedback"></div>
+        <div id="hint-q5" class="hint-box" style="display: none;">
+            <strong>Hint:</strong> Differentier hvert led i \( f(x) \) ved at bruge reglen for potensfunktioner: \( (x^n)' = n \cdot x^{n-1} \). Indsæt derefter \( x = 0 \).
+        </div>
+        <div id="sol-q5" class="sol-box" style="display: none;">
+            <strong>Løsning:</strong> 
+            <p>Den afledede funktion er:</p>
+            $$ f'(x) = 3x^2 - 6x + 2 $$
+            <p>Indsættes \( x = 0 \):</p>
+            $$ f'(0) = 3(0)^2 - 6(0) + 2 = 2 $$
+            <p>Værdien \( f'(0) = 2 \) angiver tangentens hældning i punktet \( (0, 0) \).</p>
+        </div>
+    </div>
+
+    <!-- JavaScript Placed at the End of the Document -->
+    <script>
+        function toggleBox(id) {
+            var el = document.getElementById(id);
+            if (el.style.display === "none" || el.style.display === "") {
+                el.style.display = "block";
+            } else {
+                el.style.display = "none";
+            }
+        }
+
+        function checkAnswer(inputId, correctVal) {
+            var inputEl = document.getElementById(inputId);
+            var feedbackEl = document.getElementById('feedback-' + inputId);
+            var userVal = parseFloat(inputEl.value.replace(',', '.'));
+
+            if (isNaN(userVal)) {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "Indtast venligst et gyldigt tal.";
+                return;
+            }
+
+            if (Math.abs(userVal - correctVal) < 0.05) {
+                feedbackEl.className = "feedback correct";
+                feedbackEl.innerHTML = "Korrekt! Godt gået.";
+            } else {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "Forkert svar. Prøv igen eller brug hintet.";
+            }
+        }
+
+        function checkRadioAnswer(groupName, correctVal) {
+            var radios = document.getElementsByName(groupName);
+            var feedbackEl = document.getElementById('feedback-' + groupName);
+            var selectedVal = null;
+
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    selectedVal = radios[i].value;
+                    break;
+                }
+            }
+
+            if (!selectedVal) {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "Vælg venligst en af svarmulighederne.";
+                return;
+            }
+
+            if (selectedVal === correctVal) {
+                feedbackEl.className = "feedback correct";
+                feedbackEl.innerHTML = "Korrekt! Rigtigt observeret.";
+            } else {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "Forkert svar. Prøv igen.";
+            }
+        }
+    </script>
+</body>
+</html>
