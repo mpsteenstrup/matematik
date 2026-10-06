@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontinuitet af Funktioner</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- Top Card: Teori og Formel med Interaktive Desmos-Visualiseringer -->
+    <div class="formula-box">
+        <h3>Kontinuitet og Grænseværdier</h3>
+        <p>En funktion \( f \) er <strong>kontinuert</strong> i et punkt \( x_0 \), hvis funktionen er defineret i \( x_0 \), og grafen er sammenhængende (uden huller eller hop). Formelt udtrykkes kontinuitet ved, at grænseværdien af \( f(x_0 + h) \) nærmer sig \( f(x_0) \), når tilvæksten \( h \) går mod 0:</p>
+        
+        <div class="formula-group">
+            <div>Betingelse for kontinuitet i \( x_0 \): $$ \lim_{h \to 0} f(x_0 + h) = f(x_0) $$</div>
+        </div>
+
+        <p>Hvis $$ \lim_{h \to 0} f(x_0 + h) \neq f(x_0) $$, eller hvis grænseværdien ikke eksisterer, er funktionen <strong>diskontinuert</strong> i \( x_0 \).</p>
+
+        <!-- Links til Desmos visualiseringerne -->
+        <div style="margin: 20px 0; padding: 15px; background-color: #f0f7ff; border-left: 5px solid #0066cc; border-radius: 4px;">
+            <h4>🔍 Interaktive Desmos-Visualiseringer:</h4>
+            <ul>
+                <li>📈 <strong>Kontinuert funktion:</strong> <a href="https://www.desmos.com/calculator/mdtsuxl17l?lang=da" target="_blank" rel="noopener noreferrer">Åbn kontinuert visualisering i Desmos</a></li>
+                <li>📉 <strong>Diskontinuert funktion:</strong> <a href="https://www.desmos.com/calculator/r2sicalsdf?lang=da" target="_blank" rel="noopener noreferrer">Åbn diskontinuert visualisering i Desmos</a></li>
+            </ul>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel 1 (Kontinuert)</button>
+            <button class="btn-example" onclick="toggleBox('example-2')">Vis/Skjul Eksempel 2 (Diskontinuert)</button>
+        </div>
+
+        <div id="example-1" class="example-block">
+            <h4>Eksempel 1: Kontinuert funktion</h4>
+            <p>Lad \( f(x) = 0{,}2 \cdot x^2 \). Vi undersøger kontinuitet i \( x_0 = 2 \). Her er \( f(2) = 0{,}2 \cdot 2^2 = 0{,}8 \).</p>
+            <p>For en tilvækst \( h = 0{,}7 \) fås:</p>
+            <p>$$ f(2 + 0{,}7) = f(2{,}7) = 0{,}2 \cdot 2{,}7^2 = 1{,}458 $$</p>
+            <p>Når \( h \to 0 \), vil \( f(2 + h) = 0{,}2(2 + h)^2 \to 0{,}8 = f(2) \). Funktionen er derfor kontinuert i \( x_0 = 2 \).</p>
+        </div>
+
+        <div id="example-2" class="example-block">
+            <h4>Eksempel 2: Diskontinuert funktion (Stykkevis defineret)</h4>
+            <p>Betragt den opdelte funktion med hop i \( x_0 = 1 \):</p>
+            <p>
+            $$ f(x) = \begin{cases} 
+            x + 1 & \text{for } x < 1 \\ 
+            x^2 + 3 & \text{for } x \geq 1 
+            \end{cases} $$
+            </p>
+            <p>I punktet \( x_0 = 1 \) er \( f(1) = 1^2 + 3 = 4 \).</p>
+            <p>Højre grænseværdi (\( h > 0 \)): \( f(1 + h) = (1 + h)^2 + 3 \to 4 \).</p>
+            <p>Venstre grænseværdi (\( h < 0 \)): \( f(1 + h) = (1 + h) + 1 \to 2 \).</p>
+            <p>Da venstre- og højregrænse ikke er ens, eksisterer grænseværdien ikke for \( h \to 0 \), og \( f \) er diskontinuert i \( x_0 = 1 \).</p>
+        </div>
+    </div>
+
+    <!-- Opgave 1: Kvalitativ undersøgelse af den kontinuerlige Desmos-visualisering -->
+    <div class="card">
+        <span class="task-title">Opgave 1: Kvalitativ undersøgelse af kontinuert funktion (Desmos)</span>
+        <p>Åbn Desmos-grafen for den kontinuerlige funktion \( f(x) = 0{,}2 \cdot x^2 \): <a href="https://www.desmos.com/calculator/mdtsuxl17l?lang=da" target="_blank" rel="noopener noreferrer">Åbn Desmos her</a>.</p>
+        
+        <p><strong>a)</strong> Hvad sker der med den grønne linje og det grønne punkt på grafen, når du trækker i skyderen for \( h \), så \( h \) nærmer sig 0?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q1a_mc" value="A"> A) Det grønne punkt fjerner sig fra det lilla punkt.</label><br>
+            <label><input type="radio" name="q1a_mc" value="B"> B) Det grønne punkt nærmer sig det lilla punkt \( (x_0, f(x_0)) \), og den grønne linje falder sammen med den lilla linje.</label><br>
+            <label><input type="radio" name="q1a_mc" value="C"> C) Grafen knækker midt over.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q1a_mc', 'B', 'feedback-q1a')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1a')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1a')">Løsning</button>
+        </div>
+        <div id="feedback-q1a" class="feedback"></div>
+        <div id="hint-q1a" class="hint-box"><strong>Hint:</strong> Træk i skyderen \( h \) i Desmos helt ned tæt på 0 og observer de to punkters placering i forhold til hinanden.</div>
+        <div id="sol-q1a" class="sol-box"><strong>Løsning:</strong> Udsagn B er korrekt. Når \( h \to 0 \), vil tilvæksten på x-aksen forsvinde, så punktet \( (x_0+h, f(x_0+h)) \) nærmer sig punktet \( (x_0, f(x_0)) \) glat langs grafen.</div>
+
+        <p style="margin-top: 20px;"><strong>b)</strong> Hvad sker der med afstanden mellem den lilla og den grønne vandrette linje på y-aksen, når tilvæksten \( h \) gøres meget lille?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q1b_mc" value="A"> A) Afstanden på y-aksen bliver ligeledes mindre og nærmer sig 0.</label><br>
+            <label><input type="radio" name="q1b_mc" value="B"> B) Afstanden på y-aksen bliver større og uendelig.</label><br>
+            <label><input type="radio" name="q1b_mc" value="C"> C) Afstanden på y-aksen forbliver konstant på 2.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q1b_mc', 'A', 'feedback-q1b')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1b')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1b')">Løsning</button>
+        </div>
+        <div id="feedback-q1b" class="feedback"></div>
+        <div id="hint-q1b" class="hint-box"><strong>Hint:</strong> Kigger du på y-aksen i Desmos, når \( h \) gøres mindre, ser du højdeforskellen mellem linjerne svinde ind.</div>
+        <div id="sol-q1b" class="sol-box"><strong>Løsning:</strong> Udsagn A er korrekt. Kontinuitet betyder netop, at en lille ændring i input (\( h \)) medfører en forsvindende lille ændring i output (\( f(x_0+h) - f(x_0) \)).</div>
+
+        <p style="margin-top: 20px;"><strong>c)</strong> Hvad viser denne visuelle opførsel om grænseværdien \( \lim_{h \to 0} f(x_0 + h) \)?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q1c_mc" value="A"> A) At grænseværdien ikke findes.</label><br>
+            <label><input type="radio" name="q1c_mc" value="B"> B) At grænseværdien er præcis lig med funktionsværdien \( f(x_0) \), hvilket bekræfter kontinuiteten.</label><br>
+            <label><input type="radio" name="q1c_mc" value="C"> C) At funktionen er diskontinuert.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q1c_mc', 'B', 'feedback-q1c')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1c')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1c')">Løsning</button>
+        </div>
+        <div id="feedback-q1c" class="feedback"></div>
+        <div id="hint-q1c" class="hint-box"><strong>Hint:</strong> Sammenhold definitionen på kontinuitet med, at de to punkter mødes i samme punkt.</div>
+        <div id="sol-q1c" class="sol-box"><strong>Løsning:</strong> Udsagn B er korrekt. Da \( f(x_0+h) \) nærmer sig \( f(x_0) \) uanset om \( h \) nærmer sig fra højre eller venstre, er funktionen kontinuert i \( x_0 \).</div>
+    </div>
+
+    <!-- Opgave 2: Kvalitativ undersøgelse af den diskontinuerlige Desmos-visualisering -->
+    <div class="card">
+        <span class="task-title">Opgave 2: Kvalitativ undersøgelse af diskontinuert funktion (Desmos)</span>
+        <p>Åbn Desmos-grafen for den diskontinuerlige funktion med hop i \( x_0 = 1 \): <a href="https://www.desmos.com/calculator/r2sicalsdf?lang=da" target="_blank" rel="noopener noreferrer">Åbn Desmos her</a>.</p>
+
+        <p><strong>a)</strong> Hvad er funktionsværdien \( f(x_0) \) for \( x_0 = 1 \), som aflæses ved det lilla punkt og den lilla linje på y-aksen?</p>
+        <div class="input-section">
+            <input type="number" id="q2a" step="0.1" placeholder="Indtast y-værdi...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q2a', 1)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2a')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2a')">Løsning</button>
+        </div>
+        <div id="feedback-q2a" class="feedback"></div>
+        <div id="hint-q2a" class="hint-box"><strong>Hint:</strong> Aflæs skæringen på y-aksen ud for den lilla linje, der har mærket \( (0, 1) \).</div>
+        <div id="sol-q2a" class="sol-box"><strong>Løsning:</strong> Funktionsværdien i \( x_0 = 1 \) er \( f(1) = 1 \), hvilket er markeret på y-aksen som punktet \( (0, 1) \).</div>
+
+        <p style="margin-top: 20px;"><strong>b)</strong> Sæt skyderen \( h = -1{,}0 \) (eller en anden negativ værdi \( h < 0 \)) og gør \( h \) langsomt større ned mod 0. Hvilken værdi på y-aksen nærmer den grønne linje sig?</p>
+        <div class="input-section">
+            <input type="number" id="q2b" step="0.1" placeholder="Indtast grænseværdi...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q2b', 4)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2b')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2b')">Løsning</button>
+        </div>
+        <div id="feedback-q2b" class="feedback"></div>
+        <div id="hint-q2b" class="hint-box"><strong>Hint:</strong> Følg den grønne linje på y-aksen, når \( h \) nærmer sig 0 fra højre. Bemærk, at den øvre del af grafen slutter ved y-værdien 4.</div>
+        <div id="sol-q2b" class="sol-box"><strong>Løsning:</strong> Højre grænseværdi \( \lim_{h \to 0^+} f(x_0+h) \) nærmer sig 4.</div>
+
+        <p style="margin-top: 20px;"><strong>c)</strong> Hvorfor er funktionen diskontinuert i \( x_0 = 1 \) ud fra din kvalitative observation i Desmos?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q2c_mc" value="A"> A) Fordi højre grænseværdi (som er 4) ikke er lig med den faktiske funktionsværdi \( f(1) = 1 \), hvormed der opstår et hop i grafen.</label><br>
+            <label><input type="radio" name="q2c_mc" value="B"> B) Fordi funktionen ikke kan beregnes for positivt \( h \).</label><br>
+            <label><input type="radio" name="q2c_mc" value="C"> C) Fordi linjerne i Desmos er stiplede.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q2c_mc', 'A', 'feedback-q2c')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2c')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2c')">Løsning</button>
+        </div>
+        <div id="feedback-q2c" class="feedback"></div>
+        <div id="hint-q2c" class="hint-box"><strong>Hint:</strong> Sammenlign svarene i a) og b). Nærmer det grønne punkt sig det lilla punkt, når du kommer fra højre?</div>
+        <div id="sol-q2c" class="sol-box"><strong>Løsning:</strong> Udsagn A er korrekt. Når man nærmer sig \( x_0 = 1 \) fra højre side, "lander" man i y-værdien 4, men punktet i \( x_0 = 1 \) har y-værdien 1. Da der er et hop i grafen, er funktionen diskontinuert.</div>
+    </div>
+
+    <!-- Opgave 3: Begrebsforståelse af kontinuitet -->
+    <div class="card">
+        <span class="task-title">Opgave 3: Begrebsforståelse af kontinuitet</span>
+        <p>Vælg det korrekte udsagn om kontinuitet ud fra din matematiske og visuelle viden:</p>
+        <div class="input-section">
+            <label><input type="radio" name="mc1" value="A"> A) En funktion er kontinuert i \( x_0 \), hvis blot den er defineret i punktet \( x_0 \).</label><br>
+            <label><input type="radio" name="mc1" value="B"> B) En funktion er kontinuert i \( x_0 \), hvis grænseværdien \( \lim_{h \to 0} f(x_0 + h) \) eksisterer og er lig med \( f(x_0) \).</label><br>
+            <label><input type="radio" name="mc1" value="C"> C) Hvis venstre og højre grænseværdi er forskellige, er funktionen altid kontinuert.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('mc1', 'B', 'feedback-mc1')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-mc1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-mc1')">Løsning</button>
+        </div>
+        <div id="feedback-mc1" class="feedback"></div>
+        <div id="hint-mc1" class="hint-box"><strong>Hint:</strong> Tænk på definitionen fra toppen af siden. Det er ikke nok at funktionen findes; graferne fra venstre og højre skal mødes i samme punkt.</div>
+        <div id="sol-mc1" class="sol-box"><strong>Løsning:</strong> Udsagn B er korrekt. Kontinuitet kræver at grænseværdien for \( h \to 0 \) eksisterer og er præcis lig med funktionsværdien \( f(x_0) \).</div>
+    </div>
+
+    <!-- Opgave 4: Krævende opgave med sammensmeltning af opdelte grafer -->
+    <div class="card">
+        <span class="task-title">Opgave 4: Gør funktionen kontinuert (Fjern hoppet)</span>
+        <p>Givet den opdelte funktion med den ukendte konstant \( k \):</p>
+        <p>
+        $$ h(x) = \begin{cases} 
+        x^2 + k & \text{for } x \le 3 \\ 
+        2x + 5 & \text{for } x > 3 
+        \end{cases} $$
+        </p>
+        <p>
+            <a href="https://www.desmos.com/calculator/gqelrodfdj?lang=da">Link til desmos</a>
+        </p>
+        <p>Bestem værdien af konstanten \( k \), således at funktionen \( h(x) \) er kontinuert i punktet \( x_0 = 3 \) (dvs. så grafens to dele mødes uden hop).</p>
+
+        <div class="input-section">
+            <input type="number" id="q3" step="0.01" placeholder="Indtast k...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q3', 2)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Sæt venstre grænseværdi (for \( x = 3 \) i den øverste gren) lig med højre grænseværdi (for \( x = 3 \) i den nederste gren): \( 3^2 + k = 2(3) + 5 \).</div>
+        <div id="sol-q3" class="sol-box">
+            <strong>Løsning:</strong><br>
+            Højre grænseværdi når \( x \to 3^+ \): \( 2(3) + 5 = 6 + 5 = 11 \).<br>
+            Venstre grænseværdi og funktionsværdi når \( x \to 3^- \): \( 3^2 + k = 9 + k \).<br>
+            For at funktionen er kontinuert, skal de to udtryk være lige store:<br>
+            $$ 9 + k = 11 \implies k = 11 - 9 = 2 $$
+        </div>
+    </div>
+
+    <!-- JavaScript funktioner til interaktivitet -->
+    <script>
+        function checkAnswer(id, correctVal) {
+            const input = document.getElementById(id);
+            const feedback = document.getElementById('feedback-' + id);
+            const val = parseFloat(input.value.replace(',', '.'));
+
+            if (isNaN(val)) {
+                feedback.textContent = 'Indtast venligst et tal.';
+                feedback.className = 'feedback incorrect';
+                return;
+            }
+
+            if (Math.abs(val - correctVal) < 0.05) {
+                feedback.textContent = 'Korrekt! Flot arbejdet.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Forkert svar. Prøv igen eller brug et hint.';
+                feedback.className = 'feedback incorrect';
+            }
+        }
+
+        function checkMC(name, correctVal, feedbackId) {
+            const options = document.getElementsByName(name);
+            const feedback = document.getElementById(feedbackId);
+            let selected = null;
+
+            for (const option of options) {
+                if (option.checked) {
+                    selected = option.value;
+                    break;
+                }
+            }
+
+            if (!selected) {
+                feedback.textContent = 'Vælg venligst et udsagn.';
+                feedback.className = 'feedback incorrect';
+                return;
+            }
+
+            if (selected === correctVal) {
+                feedback.textContent = 'Korrekt! Rigtigt observeret.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Forkert. Prøv at undersøge visualiseringen igen eller genlæs hints.';
+                feedback.className = 'feedback incorrect';
+            }
+        }
+
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === 'block') {
+                box.style.display = 'none';
+            } else {
+                box.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
