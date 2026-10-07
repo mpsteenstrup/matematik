@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videnskabsteori og Porøsitet af Bjergarter</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        /* Indlejrede CSS-fallback stilarter for fuld visuel fremstilling */
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #0284c7;
+            --accent-color: #0d9488;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --success-color: #16a34a;
+            --error-color: #dc2626;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #64748b;
+            font-size: 1.1rem;
+        }
+
+        /* Formula Box Styling */
+        .formula-box {
+            background-color: #eff6ff;
+            border-left: 5px solid var(--secondary-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .formula-box h2, .formula-box h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        .formula-group {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            margin: 15px 0;
+        }
+
+        /* Card / Task Styling */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .task-title {
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
+        }
+
+        /* Buttons & Interactions */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 9px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            font-size: 0.95rem;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-check {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-check:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-hint {
+            background-color: #f59e0b;
+            color: white;
+        }
+
+        .btn-hint:hover {
+            background-color: #d97706;
+        }
+
+        .btn-sol {
+            background-color: #64748b;
+            color: white;
+        }
+
+        .btn-sol:hover {
+            background-color: #475569;
+        }
+
+        .btn-example {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-example:hover {
+            background-color: #0f766e;
+        }
+
+        /* Input fields and Radio buttons */
+        .input-section {
+            margin: 15px 0;
+        }
+
+        input[type="number"] {
+            padding: 10px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 240px;
+            transition: border-color 0.2s ease;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .mc-option {
+            display: block;
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .mc-option:hover {
+            background-color: #e2e8f0;
+        }
+
+        .mc-option input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        /* Hidden containers for hints, solutions, and examples */
+        .hint-box, .sol-box, .example-block {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .hint-box {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            color: #92400e;
+        }
+
+        .sol-box {
+            background-color: #f0fdf4;
+            border-left: 4px solid var(--success-color);
+            color: #166534;
+        }
+
+        .example-block {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Feedback messages */
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            padding: 10px 14px;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .feedback.correct {
+            display: block;
+            background-color: #dcfce7;
+            color: var(--success-color);
+            border: 1px solid #86efac;
+        }
+
+        .feedback.incorrect {
+            display: block;
+            background-color: #fee2e2;
+            color: var(--error-color);
+            border: 1px solid #fca5a5;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background-color: white;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .btn-group { flex-direction: column; }
+            button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Videnskabsteori og Porøsitet af Bjergarter</h1>
+        <p class="subtitle">Eksperimentel bestemmelse af massefylde, porøsitet og CO₂-lagringspotentiale (CCS)</p>
+    </header>
+
+    <section class="formula-box">
+        <h2>Eksperimentel Teori & Videnskabsteoretiske Begreber</h2>
+        <p>
+            For at vurdere om en sedimentær bjergart (fx sandsten, kridt eller skifer) egner sig til <strong>Carbon Capture and Storage (CCS)</strong> – altså lagring af CO₂ i undergrunden – skal vi bestemme bjergarternes <strong>porøsitet</strong> (procentdelen af lufthuller).
+        </p>
+
+        <div class="formula-group">
+            <h3>Nøglerelationer og Formler</h3>
+            <p><strong>1. Bestemmelse af volumen via Archimedes Lov:</strong></p>
+            <p>Når bjergarten pakkes tæt ind i film og sænkes ned i et vandkar på en nulstillet vægt (uden at røre bunden), modsvarer den målte masseændring rumfanget af hele bjergarten:</p>
+            <p>\[ V_{\text{bjergart}} \approx \text{Masseændring af vand} \quad (\text{da } \rho_{\text{vand}} \approx 1{,}0 \text{ g/cm}^3) \]</p>
+            
+            <p><strong>2. Volumen af rene mineraler:</strong></p>
+            <p>\[ V_{\text{mineraler}} = \frac{m_{\text{bjergart}}}{\rho_{\text{teoretisk mineral}}} \]</p>
+            <p><em>Bemærk: For sandsten (kvarts), kridt (kalk) og skifer benyttes gennemsnitligt \(\rho_{\text{mineral}} = 2{,}7 \text{ g/cm}^3\).</em></p>
+
+            <p><strong>3. Porøsitetsformlen:</strong></p>
+            <p>$$ \text{Porøsitet} = \left(1 - \frac{V_{\text{mineraler}}}{V_{\text{bjergart}}}\right) \times 100\% $$</p>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('theory-example')">Vis/Skjul Beregningseksempel</button>
+            <button class="btn-example" onclick="toggleBox('theory-epistemology')">Vis/Skjul Videnskabsteoretisk Oversigt</button>
+        </div>
+
+        <!-- Hidden Example Box -->
+        <div id="theory-example" class="example-block">
+            <h4>Beregningseksempel for Sandsten</h4>
+            <p>Antag følgende forsøgsdata for en prøve af sandsten:</p>
+            <ul>
+                <li>Vægt af sandstensprøve (\(m_{\text{bjergart}}\)): \(135{,}0 \text{ g}\)</li>
+                <li>Masseændring på vægten ved nedsænkning (\(V_{\text{bjergart}}\)): \(62{,}5 \text{ cm}^3\)</li>
+                <li>Teoretisk mineralmassefylde (\(\rho_{\text{mineral}}\)): \(2{,}70 \text{ g/cm}^3\)</li>
+            </ul>
+            <p><strong>Trin 1: Beregn mineralvolumen</strong></p>
+            <p>\[ V_{\text{mineraler}} = \frac{135{,}0 \text{ g}}{2{,}70 \text{ g/cm}^3} = 50{,}0 \text{ cm}^3 \]</p>
+            <p><strong>Trin 2: Beregn porøsitet</strong></p>
+            <p>\[ \text{Porøsitet} = \left(1 - \frac{50{,}0 \text{ cm}^3}{62{,}5 \text{ cm}^3}\right) \times 100\% = (1 - 0{,}80) \times 100\% = 20{,}0\% \]</p>
+        </div>
+
+        <!-- Hidden Epistemology Overview Box -->
+        <div id="theory-epistemology" class="example-block">
+            <h4>Videnskabsteoretiske Hjørnesten i Naturvidenskab</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Begreb</th>
+                        <th>Definition</th>
+                        <th>Anvendelse i Porøsitetsforsøget</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Uafhængig variabel</strong></td>
+                        <td>Den variabel, som eksperimentatoren systematisk ændrer/varierer.</td>
+                        <td>Valget af bjergartstype (Sandsten, Kridt, Skifer).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Afhængig variabel</strong></td>
+                        <td>Den variabel, som måles og ændrer sig som respons på den uafhængige variabel.</td>
+                        <td>Masseændringen/volumen, den beregnede massefylde og porøsiteten.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Variabelkontrol</strong></td>
+                        <td>At holde alle øvrige parametre konstante, så kun den uafhængige variabel påvirker resultatet.</td>
+                        <td>Vandets temperatur, brug af samme type film, samme nulstilling af vægten, sikre at prøven dækkes helt uden at røre bunden.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Induktiv Metode</strong></td>
+                        <td>Observativ tilgang: Man indsamler mange specifikke data først og udleder derefter generelle mønstre eller teorier.</td>
+                        <td>At måle porøsitet på mange tilfældige sten og derefter opstille en generalisering om geologiske lag uden en forudgående hypotesetest.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hypotetisk-Deduktiv Metode</strong></td>
+                        <td>Teoridrevet tilgang: Opstilling af en deduceret hypotese ud fra teori, som derefter efterprøves/falsificeres ved eksperiment.</td>
+                        <td>Opstilling af hypotesen: <em>"Jurasandsten har en porøsitet over 15% og egner sig bedre til CCS end skifer"</em>, som herefter testes eksperimentelt.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Kvantitativ vs. Kvalitativ</strong></td>
+                        <td><strong>Kvantitativ:</strong> Målelige tal/størrelser.<br><strong>Kvalitativ:</strong> Beskrivende egenskaber (farve, tekstur).</td>
+                        <td><strong>Kvantitativ:</strong> Vægt i gram, volumen i \(\text{cm}^3\), porøsitet i %.<br><strong>Kvalitativ:</strong> Bjergartens farve, kornstørrelse (grov/fin) og synlige revner.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <main>
+        <!-- OPGAVE 1: Beregningsopgave -->
+        <div class="card">
+            <span class="task-title">Opgave 1: Kvantitativ Databehandling af Kridtprøve</span>
+            <p>
+                Under et laboratory-forsøg undersøges en prøve af <strong>skrivekridt</strong>. 
+                Følgende kvantitative data blev opsamlet:
+            </p>
+            <ul>
+                <li>Masse af kridtprøven (\(m_{\text{bjergart}}\)): \(108{,}0 \text{ g}\)</li>
+                <li>Volumen af bjergarten målt via Archimedes lov (\(V_{\text{bjergart}}\)): \(60{,}0 \text{ cm}^3\)</li>
+                <li>Teoretisk mineralmassefylde (\(\rho_{\text{mineral}}\)): \(2{,}70 \text{ g/cm}^3\)</li>
+            </ul>
+            <p>
+                Beregn kridtprøvens <strong>porøsitet i procent (%)</strong>.
+            </p>
+
+            <div class="input-section">
+                <label for="q1"><strong>Porøsitet (%):</strong></label><br>
+                <input type="number" id="q1" step="0.1" placeholder="Indtast porøsitet i %...">
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkAnswer('q1', 33.33, 0.5)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+            </div>
+
+            <div id="feedback-q1" class="feedback"></div>
+            <div id="hint-q1" class="hint-box">
+                <strong>Hint:</strong> Find først volumen af de rene mineraler: \(V_{\text{mineraler}} = \frac{m_{\text{bjergart}}}{\rho_{\text{mineral}}}\). Indsæt derefter dette i formlen \( \left(1 - \frac{V_{\text{mineraler}}}{V_{\text{bjergart}}}\right) \times 100\% \).
+            </div>
+            <div id="sol-q1" class="sol-box">
+                <strong>Løsning:</strong><br>
+                1. Mineralvolumen: \( V_{\text{mineraler}} = \frac{108{,}0 \text{ g}}{2{,}70 \text{ g/cm}^3} = 40{,}0 \text{ cm}^3 \).<br>
+                2. Porøsitet: \( \left(1 - \frac{40{,}0 \text{ cm}^3}{60{,}0 \text{ cm}^3}\right) \times 100\% = \left(1 - 0{,}6667\right) \times 100\% = 33{,}33\% \).
+            </div>
+        </div>
+
+        <!-- OPGAVE 2: Forståelsesopgave - Variable og Variabelkontrol -->
+        <div class="card">
+            <span class="task-title">Opgave 2: Variable og Variabelkontrol</span>
+            <p>
+                I forsøget ønsker en elevgruppe at sammenligne porøsiteten af sandsten, kridt og skifer. Hvilken af følgende påstande beskriver korrekt opstillingen af <strong>variable og variabelkontrol</strong> i dette eksperiment?
+            </p>
+
+            <div class="input-section">
+                <label class="mc-option">
+                    <input type="radio" name="mc_q2" value="0">
+                    A) Uafhængig variabel: Porøsiteten. Afhængig variabel: Bjergartstypen. Variabelkontrol: At bruge samme mængde CO₂.
+                </label>
+                <label class="mc-option">
+                    <input type="radio" name="mc_q2" value="1">
+                    B) Uafhængig variabel: Bjergartstypen. Afhængig variabel: Målt volumen/porøsitet. Variabelkontrol: At sikre at film-indpakningen er helt tæt, og at prøven dækkes helt af vand uden at røre bunden.
+                </label>
+                <label class="mc-option">
+                    <input type="radio" name="mc_q2" value="2">
+                    C) Uafhængig variabel: Vægtens nulstilling. Afhængig variabel: Bjergarternes alder. Variabelkontrol: At bruge samme lommeregner.
+                </label>
+                <label class="mc-option">
+                    <input type="radio" name="mc_q2" value="3">
+                    D) Uafhængig variabel: Mineralmassefylden. Afhængig variabel: Vandets volumen. Variabelkontrol: At udføre forsøget på samme ugedag.
+                </label>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkMultipleChoice('q2', 1)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+            </div>
+
+            <div id="feedback-q2" class="feedback"></div>
+            <div id="hint-q2" class="hint-box">
+                <strong>Hint:</strong> Tænk på, hvad eksperimentatoren aktivt ændrer på (uafhængig), hvad der reelt måles som konsekvens heraf (afhængig), og hvilke fejlkilder i opstillingen der skal holdes uændrede (variabelkontrol).
+            </div>
+            <div id="sol-q2" class="sol-box">
+                <strong>Løsning:</strong> Svar B er korrekt. Bjergartstypen er den parameter, vi bevidst varierer (uafhængig variabel). Porøsiteten er den egenskab, vi måler/beregner ud fra forsøget (afhængig variabel). Variabelkontrollen indebærer at kontrollere alle andre faktorer, såsom tæt indpakning (så stenen ikke suger vand) og korrekt nedsænkning uden berøring af bunden.
+            </div>
+        </div>
+
+        <!-- OPGAVE 3: Forståelsesopgave - Induktiv vs. Hypotetisk-Deduktiv Metode -->
+        <div class="card">
+            <span class="task-title">Opgave 3: Videnskabelig Metode (Induktiv vs. Hypotetisk-Deduktiv)</span>
+            <p>
+                Et geologisk hold skal vurdere CO₂-lagringspotentialet i Nordsøen. De arbejder efter følgende fremgangsmåde:
+            </p>
+            <p style="background-color: #f1f5f9; padding: 12px; border-radius: 6px; font-style: italic;">
+                "Udfra geologisk teori om sedimentære bjergartes kornstørrelser udleder geologerne påstanden: <strong>'Jurasandsten har større porøsitet end Silurskifer og vil derfor have større CO₂-lagringskapacitet.'</strong> Herefter tager de ud i felten, indsamler bjergartsprøver og gennemfører volumenmålinger for at afprøve om målingerne stemmer overens med påstanden."
+            </p>
+            <p>Hvilken videnskabsteoretisk metode benytter geologerne her?</p>
+
+            <div class="input-section">
+                <label class="mc-option">
+                    <input type="radio" name="mc_q3" value="0">
+                    A) En ren induktiv metode, da de starter med at indsamle empiriske målinger uden forudgående antagelser.
+                </label>
+                <label class="mc-option">
+                    <input type="radio" name="mc_q3" value="1">
+                    B) En kvalitativ fænomenologisk metode, fordi de kun undersøger bjergarternes visuelle udseende.
+                </label>
+                <label class="mc-option">
+                    <input type="radio" name="mc_q3" value="2">
+                    C) Den hypotetisk-deduktive metode, fordi de deducerer en hypotese ud fra eksisterende teori og derefter tester hypotesen eksperimentelt.
+                </label>
+                <label class="mc-option">
+                    <input type="radio" name="mc_q3" value="3">
+                    D) En hermeneutisk tekstfortolkning, fordi geologi udelukkende bygger på fortolkning af historiske kilder.
+                </label>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkMultipleChoice('q3', 2)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+            </div>
+
+            <div id="feedback-q3" class="feedback"></div>
+            <div id="hint-q3" class="hint-box">
+                <strong>Hint:</strong> Bemærk rækkefølgen: Opstilles der en hypotese på baggrund af teori *før* målingerne laves, eller opsamles der blot data råt for at se, hvad man kan konkludere bagefter?
+            </div>
+            <div id="sol-q3" class="sol-box">
+                <strong>Løsning:</strong> Svar C er korrekt. Processen starter med baggrundsteori, hvorfra der deduceres en specifik hypotese om porøsiteten af sandsten vs. skifer. Hypotesen udsættes derefter for en empirisk test (eksperimentet). Dette er skabelonen på den hypotetisk-deduktive metode.
+            </div>
+        </div>
+
+        <!-- OPGAVE 4: Krævende opgave - CCS Potentiale & Usikkerheder -->
+        <div class="card">
+            <span class="task-title">Opgave 4: Krævende Opgave – Usikkerhed og Vurdering af CCS-potentiale</span>
+            <p>
+                En geologisk undersøgelse af et reservoir af <strong>Jurasandsten</strong> (\(1\text{ km}^3\)) har vist en gennemsnitlig målt porøsitet på \(22\%\).
+            </p>
+            <p>
+                <strong>Del A (Kvantitativ beregning):</strong><br>
+                Det oplyses, at \(1\text{ km}^3\) svarer til \(1 \cdot 10^{12}\text{ liter}\). Hvor mange liter CO₂ kan der teoretisk set rummes i lufthullerne i \(1\text{ km}^3\) af denne sandsten?
+            </p>
+
+            <div class="input-section">
+                <label for="q4_a"><strong>CO₂-volumen i 1 km³ (i mia. liter, dvs. \(10^9\text{ L}\)):</strong></label><br>
+                <input type="number" id="q4_a" step="1" placeholder="Indtast i milliarder liter (fx 220)...">
+            </div>
+
+            <p>
+                <strong>Del B (Videnskabsteoretisk usikkerhedsanalyse):</strong><br>
+                Hvilket af følgende udtagnings- og måleproblemer repræsenterer en <strong>systematisk kvantitativ usikkerhed/fejlkilde</strong> i Archimedes-forsøget, som kan føre til en overvurdering af den målte porøsitet?
+            </p>
+
+            <div class="input-section">
+                <label class="mc-option">
+                    <input type="radio" name="mc_q4_b" value="0">
+                    A) At der fanges luftbobler under husholdningsfilmen, når bjergarten pakkes ind, hvilket øger det målte volumen \(V_{\text{bjergart}}\).
+                </label>
+                <label class="mc-option">
+                    <input type="radio" name="mc_q4_b" value="1">
+                    B) At vægten har en tilfældig fluktuation på \(\pm 0{,}01\text{ g}\) fra måling til måling.
+                </label>
+                <label class="mc-option">
+                    <input type="radio" name="mc_q4_b" value="2">
+                    C) At bjergartens farve vurderes forkert i stærkt sollys.
+                </label>
+                <label class="mc-option">
+                    <input type="radio" name="mc_q4_b" value="3">
+                    D) At mineralmassefylden for kvarts er præcis \(2{,}70\text{ g/cm}^3\).
+                </label>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkTask4()">Tjek del A & B</button>
+                <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+            </div>
+
+            <div id="feedback-q4" class="feedback"></div>
+            <div id="hint-q4" class="hint-box">
+                <strong>Hint for Del A:</strong> Beregn \(22\%\) af \(1 \cdot 10^{12} \text{ liter}\) og omregn til milliarder liter (\(10^9 \text{ L}\)).<br>
+                <strong>Hint for Del B:</strong> En systematisk fejl skubber målingen i én bestemt retning hver gang. Hvad sker der med brøken \(\frac{V_{\text{mineral}}}{V_{\text{bjergart}}}\) og den afledte porøsitet, hvis det samlede mållte volumen \(V_{\text{bjergart}}\) kunstigt forstørres af indespærret luft?
+            </div>
+            <div id="sol-q4" class="sol-box">
+                <strong>Løsning:</strong><br>
+                <strong>Del A:</strong> \(22\% \text{ af } 1 \cdot 10^{12} \text{ L} = 0{,}22 \cdot 10^{12} \text{ L} = 220 \cdot 10^9 \text{ L} = 220 \text{ milliarder liter}\).<br>
+                <strong>Del B:</strong> Svar A er korrekt. Hvis der er luft under filmen, øges det målte samlede volumen \(V_{\text{bjergart}}\). Da porøsiteten beregnes som \(1 - \frac{V_{\text{mineral}}}{V_{\text{bjergart}}}\), vil et kunstigt højt \(V_{\text{bjergart}}\) gøre brøken mindre og dermed gøre den beregnede porøsitet systematisk for høj.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        /**
+         * Universel toggle-funktion til hints, løsninger og eksempler
+         */
+        function toggleBox(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                if (el.style.display === "block") {
+                    el.style.display = "none";
+                } else {
+                    el.style.display = "block";
+                }
+            }
+        }
+
+        /**
+         * Tjekker numeriske svar med angivet tolerance
+         */
+        function checkAnswer(inputId, correctVal, tolerance = 0.1) {
+            const inputEl = document.getElementById(inputId);
+            const feedbackEl = document.getElementById('feedback-' + inputId);
+
+            if (!inputEl || !feedbackEl) return;
+
+            const userVal = parseFloat(inputEl.value.replace(',', '.'));
+
+            if (isNaN(userVal)) {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "⚠️ Indtast venligst et gyldigt tal før du tjekker.";
+                return;
+            }
+
+            if (Math.abs(userVal - correctVal) <= tolerance) {
+                feedbackEl.className = "feedback correct";
+                feedbackEl.innerHTML = " Flot og korrekt besvaret! Dit resultat matcher teori og forsøgsdata.";
+            } else {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "❌ Desværre ikke helt korrekt. Prøv igen eller benyt hint-knappen for hjælp.";
+            }
+        }
+
+        /**
+         * Tjekker flervalg/multiple-choice opgaver
+         */
+        function checkMultipleChoice(qId, correctIndex) {
+            const options = document.getElementsByName('mc_' + qId);
+            const feedbackEl = document.getElementById('feedback-' + qId);
+            let selectedValue = -1;
+
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].checked) {
+                    selectedValue = parseInt(options[i].value);
+                    break;
+                }
+            }
+
+            if (selectedValue === -1) {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "⚠️ Vælg venligst en af svarmulighederne.";
+                return;
+            }
+
+            if (selectedValue === correctIndex) {
+                feedbackEl.className = "feedback correct";
+                feedbackEl.innerHTML = " Korrekt! Flot videnskabsteoretisk forståelse.";
+            } else {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "❌ Ikke helt rigtigt. Læs svarmulighederne igennem igen eller tjek hintet.";
+            }
+        }
+
+        /**
+         * Tjekker opgave 4 (kombineret beregning og MC)
+         */
+        function checkTask4() {
+            const inputA = document.getElementById('q4_a');
+            const feedbackEl = document.getElementById('feedback-q4');
+            const options = document.getElementsByName('mc_q4_b');
+
+            let userValA = parseFloat(inputA.value.replace(',', '.'));
+            let selectedValB = -1;
+
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].checked) {
+                    selectedValB = parseInt(options[i].value);
+                    break;
+                }
+            }
+
+            if (isNaN(userValA) || selectedValB === -1) {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "⚠️ Besvar venligst både Del A (indtast tal) og Del B (vælg en svarmulighed).";
+                return;
+            }
+
+            const correctA = Math.abs(userValA - 220) <= 2;
+            const correctB = (selectedValB === 0);
+
+            if (correctA && correctB) {
+                feedbackEl.className = "feedback correct";
+                feedbackEl.innerHTML = " Fremragende! Du har både styr på den kvantitative beregning af CO₂-rummeligheden og den videnskabsteoretiske fejlkildeanalyse.";
+            } else if (correctA && !correctB) {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = " Del A er korrekt (220 mia. liter), men Del B er forkert. Genovervej hvilken fejlkilde der giver en systematisk overvurdering af porøsiteten.";
+            } else if (!correctA && correctB) {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = " Del B er korrekt valgt, men beregningen i Del A er ikke helt præcis. (Husk: 22% af 1000 mia. liter).";
+            } else {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "❌ Både Del A og Del B kræver et nyt forsøg. Brug gerne hintet til hjælp.";
+            }
+        }
+    </script>
+</body>
+</html>
