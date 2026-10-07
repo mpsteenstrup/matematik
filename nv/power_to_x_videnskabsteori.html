@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power-to-X og Videnskabsteori</title>
+    <!-- Link til ekstern style.css -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- Top Card: Teori og Formel -->
+    <div class="formula-box">
+        <h3>7. Power-to-X og Eksperimentel Videnskabsteori</h3>
+        <p>Power-to-X (PtX) handler om at omdanne overskydende strøm fra vedvarende energikilder ("Power") til kemisk energi ("X") såsom brint (\(H_2\)) eller ilt (\(O_2\)) via <strong>elektrolyse</strong>.</p>
+        
+        <div class="formula-group">
+            <div>Elektrolyse af vand: \[ 2 H_2O (l)  \rightarrow 2 H_2 (g) + O_2 (g) \]</div>
+        </div>
+
+        <p>I dette eksperiment arbejder vi med to centrale videnskabsteoretiske dimensioner:</p>
+        <ul>
+            <li><strong>Metode:</strong> Hypotetisk-deduktiv (test af teoretisk hypotese) vs. Induktiv (generalisering ud fra observationer).</li>
+            <li><strong>Data & Variable:</strong> Kvalitativ vs. Kvantitativ undersøgelse samt identifikation af uafhængige/afhængige variable og variabelkontrol.</li>
+        </ul>
+
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Teoretisk Resumé</button>
+        </div>
+
+        <div id="example-1" class="example-block">
+            <h4>Teoretisk Forhold mellem Gasser</h4>
+            <p>Fra det afstemte reaktionsskema ser vi, at der for hver \(2 \text{ mol}\) spaltet vand dannes \(2 \text{ mol } H_2\)-gas og \(1 \text{ mol } O_2\)-gas. Ifølge Avogadros lov fylder \(1 \text{ mol}\) af en ideel gas det samme volumen ved samme tryk og temperatur. Det teoretiske volumenforhold er derfor:</p>
+            <p>\[ \frac{V_{H_2}}{V_{O_2}} = \frac{2}{1} = 2 \]</p>
+        </div>
+    </div>
+
+    <!-- Opgave 1: Kvalitativ undersøgelse & Hypotetisk-deduktiv vs. Induktiv metode -->
+    <div class="card">
+        <span class="task-title">Opgave 1: Videnskabsteori ved Delforsøg 1 (Kvalitativ undersøgelse)</span>
+        <p>I Delforsøg 1 tilsluttes strøm til et elektrolysekar. Der observeres bobledannelse ved elektroderne, og gasserne testes efterfølgende med en træpind (brint giver et "puf", og ilt får en glødende træpind til at blusse op).</p>
+        
+        <p><strong>a)</strong> Hvorfor karakteriseres denne første del af eksperimentet som en <em>kvalitativ</em> undersøgelse?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q1a_mc" value="A"> A) Fordi vi måler præcise talværdier og rumfang i milliliter over tid.</label><br>
+            <label><input type="radio" name="q1a_mc" value="B"> B) Fordi vi observerer egenskaber, reaktioner og gastyper uden at foretage talmæssige målinger.</label><br>
+            <label><input type="radio" name="q1a_mc" value="C"> C) Fordi forsøget ikke kan mislykkes.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q1a_mc', 'B', 'feedback-q1a')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1a')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1a')">Løsning</button>
+        </div>
+        <div id="feedback-q1a" class="feedback"></div>
+        <div id="hint-q1a" class="hint-box"><strong>Hint:</strong> Tænk på forskellen mellem egenskaber/fænomener (kvalitativ) og tal/målinger (kvantitativ).</div>
+        <div id="sol-q1a" class="sol-box"><strong>Løsning:</strong> Udsagn B er korrekt. En kvalitativ undersøgelse fokuserer på at identificere stoffers tilstedeværelse og egenskaber (f.eks. "puf"-lyd eller opblusning) framfor at måle mængder eller tal.</div>
+
+        <p style="margin-top: 20px;"><strong>b)</strong> Hvis du på forhånd opstillede hypotesen <em>"Der dannes ilt ved anoden og brint ved katoden ud fra reaktionsskemaet"</em> og derefter udførte testen i elektrolysekarret for at efterprøve dette, hvilken videnskabelig metode benyttede du så?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q1b_mc" value="A"> A) Den hypotetisk-deduktive metode.</label><br>
+            <label><input type="radio" name="q1b_mc" value="B"> B) Den induktive metode.</label><br>
+            <label><input type="radio" name="q1b_mc" value="C"> C) Den tilfældige observationsmetode.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q1b_mc', 'A', 'feedback-q1b')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1b')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1b')">Løsning</button>
+        </div>
+        <div id="feedback-q1b" class="feedback"></div>
+        <div id="hint-q1b" class="hint-box"><strong>Hint:</strong> Når man starter med en teori/hypotese og tester den med eksperimenter, deducerer man forventede observationer.</div>
+        <div id="sol-q1b" class="sol-box"><strong>Løsning:</strong> Udsagn A er korrekt. Den hypotetisk-deduktive metode går ud på at udlede (deducere) en forventning/hypotese fra teorien og derefter afprøve den empirisk.</div>
+    </div>
+
+    <!-- Opgave 2: Variabelkontrol og Kvantitative Målinger -->
+    <div class="card">
+        <span class="task-title">Opgave 2: Videnskabsteori ved Delforsøg 2 (Kvantitativ måling og variable)</span>
+        <p>I Delforsøg 2 måles volumenet af brint og ilt i ml i målerørene over elektrolysekarret. Strømstyrken, spændingsfald og tiden blev målt, hvor produktet giver den tilførte energi.</p>
+
+        <p><strong>a)</strong> Hvad er den <strong>uafhængige variabel</strong> i denne måleserie over tid?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q2a_mc" value="A"> A) Tiden \(t\) (minutter).</label><br>
+            <label><input type="radio" name="q2a_mc" value="B"> B) Det dannede volumen af brint \(V_{H_2}\) (ml).</label><br>
+            <label><input type="radio" name="q2a_mc" value="C"> C) Temperatur i lokalet.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q2a_mc', 'A', 'feedback-q2a')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2a')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2a')">Løsning</button>
+        </div>
+        <div id="feedback-q2a" class="feedback"></div>
+        <div id="hint-q2a" class="hint-box"><strong>Hint:</strong> Den uafhængige variabel er den faktor, der ændres/styres systematisk (eller løber uafhængigt på x-aksen).</div>
+        <div id="sol-q2a" class="sol-box"><strong>Løsning:</strong> Udsagn A er korrekt. Tiden \(t\) er den uafhængige variabel, som vi placerer på x-aksen, mens gasvolumenerne er de afhængige variable.</div>
+
+        <p style="margin-top: 20px;"><strong>b)</strong> Hvad er den <strong>afhængige variabel</strong> i dette eksperiment?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q2b_mc" value="A"> A) Strømstyrken i ampere.</label><br>
+            <label><input type="radio" name="q2b_mc" value="B"> B) Det opsamlede gasvolumen (\(V_{H_2}\) og \(V_{O_2}\)).</label><br>
+            <label><input type="radio" name="q2b_mc" value="C"> C) Elektrolysekarrets højde.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q2b_mc', 'B', 'feedback-q2b')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2b')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2b')">Løsning</button>
+        </div>
+        <div id="feedback-q2b" class="feedback"></div>
+        <div id="hint-q2b" class="hint-box"><strong>Hint:</strong> Den afhængige variabel er den størrelse, man måler, som ændrer sig som resultat af den uafhængige variabel.</div>
+        <div id="sol-q2b" class="sol-box"><strong>Løsning:</strong> Udsagn B er korrekt. Gasvolumenet afhænger af, hvor lang tid elektrolysen har kørt.</div>
+
+        <p style="margin-top: 20px;"><strong>c)</strong> Hvilken af følgende faktorer udgør en vigtig del af <strong>variabelkontrollen</strong> for at sikre et validt forsøg?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q2c_mc" value="A"> A) At holde den elektriske strømstyrke (A) samt tryk og temperatur konstante i elektrolysekarret under målingen.</label><br>
+            <label><input type="radio" name="q2c_mc" value="B"> B) At skifte strømforsyning halvvejs igennem forsøget.</label><br>
+            <label><input type="radio" name="q2c_mc" value="C"> C) At lade gasudslip ske undervejs.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q2c_mc', 'A', 'feedback-q2c')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2c')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2c')">Løsning</button>
+        </div>
+        <div id="feedback-q2c" class="feedback"></div>
+        <div id="hint-q2c" class="hint-box"><strong>Hint:</strong> Variabelkontrol handler om at holde alle baggrundsfaktorer uændrede, så kun den uafhængige variabel påvirker den afhængige variabel.</div>
+        <div id="sol-q2c" class="sol-box"><strong>Løsning:</strong> Udsagn A er korrekt. For at sikre høj validitet skal man isolere sammenhængen mellem tid og volumen ved at holde strøm, temperatur og tryk konstante.</div>
+    </div>
+
+    <!-- Opgave 3: Induktiv vs. Hypotetisk-deduktiv videnskabsteoretisk refleksion -->
+    <div class="card">
+        <span class="task-title">Opgave 3: Induktiv vs. Hypotetisk-deduktiv logik</span>
+        <p>Forestil dig et historisk scenarie: En forsker udfører elektrolyse af vand i et elektrolysekar uden nogen forudgående kendskab til kemiske formler. Efter mange målinger observerer forskeren, at der altid dannes præcis dobbelt så meget af den ene gas som den anden, og konkluderer herudfra generelt: <em>"Vand består af to dele brint og én del ilt"</em>.</p>
+        
+        <p>Hvilken videnskabsteoretisk tilgang har forskeren benyttet her?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q3_mc" value="A"> A) Den hypotetisk-deduktive metode, fordi der indgår tal.</label><br>
+            <label><input type="radio" name="q3_mc" value="B"> B) Den induktive metode, da der sluttes fra enkelte empiriske observationer til en generel regel/teori.</label><br>
+            <label><input type="radio" name="q3_mc" value="C"> C) En rent teoretisk metode uden empirisk grundlag.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q3_mc', 'B', 'feedback-q3')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Slutningsretningen går fra specifikke data/observationer i laboratoriet til opstilling af en ny generel teori.</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong> Udsagn B er korrekt. Induktion bevæger sig fra enkelttilfælde/målinger til en generel lovmæssighed eller teori.</div>
+    </div>
+
+    <!-- Opgave 4: Energi, Nyttevirkning og Energitab (Multiple Choice) -->
+    <div class="card">
+        <span class="task-title">Opgave 4: Energiberegning og Nyttevirkning (\(E_{\text{nytte}}\), \(E_{\text{tilført}}\) og \(\eta\))</span>
+        <p>I et elektrolyseforsøg tilføres der elektrisk energi \(E_{\text{tilført}}\) fra strømforsyningen. En del af denne energi bundes som kemisk energi i de dannede gasser, hvilket udgør den nyttige energi \(E_{\text{nytte}}\).</p>
+
+        <p><strong>a)</strong> Hvordan defineres nyttevirkningen (\(\eta\)) for elektrolyseanlægget?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q4a_mc" value="A"> A) \(\eta = \frac{E_{\text{nytte}}}{E_{\text{tilført}}} \cdot 100\%\)</label><br>
+            <label><input type="radio" name="q4a_mc" value="B"> B) \(\eta = \frac{E_{\text{tilført}}}{E_{\text{nytte}}} \cdot 100\%\)</label><br>
+            <label><input type="radio" name="q4a_mc" value="C"> C) \(\eta = E_{\text{tilført}} - E_{\text{nytte}}\)</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q4a_mc', 'A', 'feedback-q4a')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4a')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4a')">Løsning</button>
+        </div>
+        <div id="feedback-q4a" class="feedback"></div>
+        <div id="hint-q4a" class="hint-box"><strong>Hint:</strong> Nyttevirkningen angiver, hvor stor en andel af den samlede tilførte energi, der udnyttes nyttigt (nytte divideret med tilført).</div>
+        <div id="sol-q4a" class="sol-box"><strong>Løsning:</strong> Udsagn A er korrekt. Nyttevirkningen udregnes altid som forholdet mellem udnyttet (nyttig) energi og den samlede tilførte energi.</div>
+
+        <p style="margin-top: 20px;"><strong>b)</strong> Hvad repræsenterer den tilførte energi \(E_{\text{tilført}}\) og nytteenergien \(E_{\text{nytte}}\) konkret i elektrolyseforsøget?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q4b_mc" value="A"> A) \(E_{\text{tilført}}\) er den kemiske energi i vandet, og \(E_{\text{nytte}}\) er den varme der udvikles i apparatet.</label><br>
+            <label><input type="radio" name="q4b_mc" value="B"> B) \(E_{\text{tilført}}\) er den elektriske energi fra strømforsyningen (\(E = U \cdot I \cdot t\)), og \(E_{\text{nytte}}\) er den kemiske energi bundet i den dannede brintgas.</label><br>
+            <label><input type="radio" name="q4b_mc" value="C"> C) \(E_{\text{tilført}}\) og \(E_{\text{nytte}}\) er altid præcis lige store i praksis på grund af energibevarelse.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q4b_mc', 'B', 'feedback-q4b')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4b')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4b')">Løsning</button>
+        </div>
+        <div id="feedback-q4b" class="feedback"></div>
+        <div id="hint-q4b" class="hint-box"><strong>Hint:</strong> Tænk på, hvilken energiform vi sender ind i apparatet (fra stikkontakten/strømforsyningen), og hvad formålet med et PtX-anlæg er at fremstille.</div>
+        <div id="sol-q4b" class="sol-box"><strong>Løsning:</strong> Udsagn B er korrekt. Den tilførte energi leveres som elektricitet, mens den nyttige energi er den oplagrede kemiske energi i brinten (PtX).</div>
+
+        <p style="margin-top: 20px;"><strong>c)</strong> Hvorfor er nyttevirkningen (\(\eta\)) i praksis altid under \(100\%\) i et elektrolysekar?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q4c_mc" value="A"> A) Fordi en del af den elektriske energi omdannes til utilsigtet termisk energi (varmeudvikling på grund af modstand i væsken) og andre tab.</label><br>
+            <label><input type="radio" name="q4c_mc" value="B"> B) Fordi overskydende energi forsvinder ud af universet.</label><br>
+            <label><input type="radio" name="q4c_mc" value="C"> C) Fordi gasserne altid vejer mindre end vandet.</label>
+        </div>
+        <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn-check" onclick="checkMC('q4c_mc', 'A', 'feedback-q4c')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4c')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4c')">Løsning</button>
+        </div>
+        <div id="feedback-q4c" class="feedback"></div>
+        <div id="hint-q4c" class="hint-box"><strong>Hint:</strong> Energibevarelsesloven siger, at energi ikke forsvinder, men omdannes til andre former (f.eks. varme/tab) som ikke udnyttes.</div>
+        <div id="sol-q4c" class="sol-box"><strong>Løsning:</strong> Udsagn A er korrekt. Modstand i elektrolysevæsken samt indre modstand medfører varmetab, hvorfor \(E_{\text{nytte}} < E_{\text{tilført}}\) og \(\eta < 100\%\).</div>
+    </div>
+
+    <!-- JavaScript funktioner til interaktivitet -->
+    <script>
+        function checkAnswer(id, correctVal) {
+            const input = document.getElementById(id);
+            const feedback = document.getElementById('feedback-' + id);
+            const val = parseFloat(input.value.replace(',', '.'));
+
+            if (isNaN(val)) {
+                feedback.textContent = 'Indtast venligst et tal.';
+                feedback.className = 'feedback incorrect';
+                return;
+            }
+
+            if (Math.abs(val - correctVal) < 0.05) {
+                feedback.textContent = 'Korrekt! Flot arbejdet.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Forkert svar. Prøv igen eller brug et hint.';
+                feedback.className = 'feedback incorrect';
+            }
+        }
+
+        function checkMC(name, correctVal, feedbackId) {
+            const options = document.getElementsByName(name);
+            const feedback = document.getElementById(feedbackId);
+            let selected = null;
+
+            for (const option of options) {
+                if (option.checked) {
+                    selected = option.value;
+                    break;
+                }
+            }
+
+            if (!selected) {
+                feedback.textContent = 'Vælg venligst et udsagn.';
+                feedback.className = 'feedback incorrect';
+                return;
+            }
+
+            if (selected === correctVal) {
+                feedback.textContent = 'Korrekt! Rigtigt observeret.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Forkert. Prøv at genlæse teorien eller hints.';
+                feedback.className = 'feedback incorrect';
+            }
+        }
+
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (box.style.display === 'block') {
+                box.style.display = 'none';
+            } else {
+                box.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

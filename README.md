@@ -13,7 +13,7 @@
 
 ## Sandsynlighedsreging og binomialfordelingen
 
-* [Sandsynlighed og binomialfordelingen](https://mpsteenstrup.github.io/matematik/sandsynlighed_binomial/sandsynlighed_binomial.html)
+* [Sandsynlighed og binomialfordelingen](https://mpsteenstrup.github.io/matematik/sandsynligned_binomial/sandsynlighed_binomial.html)
 
 ## Differentialregning
 
