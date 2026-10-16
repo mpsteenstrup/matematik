@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tretrinsreglen for f(x) = a^x og Euler-tallet e</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- Teori og Eksempel Card -->
+    <div class="formula-box">
+        <h3>3-trinsreglen for eksponentialfunktionen \( f(x) = a^x \)</h3>
+        <p>3-trinsreglen bruges til at undersøge differentialkvotienten \( f'(x_0) \) for funktionen \( f(x) = a^x \) (\( a > 0 \)):</p>
+        
+        <div class="formula-group">
+            <div><strong>1)</strong> Opskriv differenskvotienten, \( \frac{\Delta y}{\Delta x} = \frac{a^{x_0 + h} - a^{x_0}}{h} \).</div>
+            <div><strong>2)</strong> Omskriv ved brug af potensreglen \( a^{x_0 + h} = a^{x_0} \cdot a^h \):<br>
+            \( \frac{a^{x_0} \cdot a^h - a^{x_0}}{h} = a^{x_0} \cdot \frac{a^h - 1}{h} \).</div>
+            <div><strong>3)</strong> Lad \( h \to 0 \), hvormed \( f'(x_0) = a^{x_0} \cdot \lim_{h \to 0} \frac{a^h - 1}{h} \).</div>
+        </div>
+
+        <p style="margin-top: 15px;">Brug den interaktive Desmos-figur nedenfor til at undersøge grænseværdien \( \frac{a^h - 1}{h} \), når du ændrer på grundtallet \( a \):</p>
+        
+        <!-- Desmos Embed -->
+        <div style="text-align: center; margin: 15px 0;">
+            <iframe src="https://www.desmos.com/calculator/rfitk34ybt?lang=da" width="100%" height="400" style="border: 1px solid #ccc; border-radius: 8px;" frameborder="0"></iframe>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel (Når a = e)</button>
+        </div>
+
+        <div id="example-1" class="example-block">
+            <h4>Hvad sker der, når \( a = e \approx 2{,}71828 \)?</h4>
+            <p>Tallet \( e \) (Euler-tallet) er specielt defineret som det grundtal, hvor grænseværdien giver nøjagtig 1:</p>
+            <p>\( \lim_{h \to 0} \frac{e^h - 1}{h} = 1 \)</p>
+            <p>Dermed bliver differentieringen for \( f(x) = e^x \) ekstremt simpel:<br>
+            \( f'(x) = e^x \cdot 1 = e^x \).</p>
+            <p>Funktionen \( e^x \) er altså sin egen afledte!</p>
+        </div>
+    </div>
+
+    <!-- Opgave 1: Opskrivning og faktorisering -->
+    <div class="card">
+        <span class="task-title">Omskrivning af differenskvotienten</span>
+        <p>I Trin 2 bruger vi potensreglen \( a^{x_0 + h} = a^{x_0} \cdot a^h \). Hvad får vi, når vi sætter \( a^{x_0} \) uden for parentes i tælleren på \( \frac{a^{x_0} \cdot a^h - a^{x_0}}{h} \)?</p>
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q1" value="a"> \( a^{x_0} \cdot \frac{a^h - 1}{h} \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q1" value="b"> \( a^{x_0} \cdot \frac{a^h}{h} \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q1" value="c"> \( \frac{a^{x_0} \cdot a^h}{h} \)
+            </label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMultipleChoice('q1', 'a')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Husk at \( a^{x_0} \cdot a^h - a^{x_0} = a^{x_0}(a^h - 1) \).</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong> Da begge led i tælleren indeholder \( a^{x_0} \), kan vi sætte det uden for parentes: \( \frac{a^{x_0}(a^h - 1)}{h} = a^{x_0} \cdot \frac{a^h - 1}{h} \).</div>
+    </div>
+
+    <!-- Opgave 2: Hvad afhænger grænseværdien af? -->
+    <div class="card">
+        <span class="task-title">Opdeling af udtrykket i Trin 3</span>
+        <p>I udtrykket \( a^{x_0} \cdot \frac{a^h - 1}{h} \), hvilken del af udtrykket påvirkes overhovedet af, at tilvæksten \( h \to 0 \)?</p>
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q2" value="a"> Både \( a^{x_0} \) og brøken \( \frac{a^h - 1}{h} \).
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q2" value="b"> Kun leddet \( a^{x_0} \).
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q2" value="c"> Kun brøken \( \frac{a^h - 1}{h} \), fordi \( a^{x_0} \) ikke indeholder noget \( h \).
+            </label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMultipleChoice('q2', 'c')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box"><strong>Hint:</strong> Læg mærke til hvilken faktor der har \( h \) stående i potens og nævner.</div>
+        <div id="sol-q2" class="sol-box"><strong>Løsning:</strong> Faktoreren \( a^{x_0} \) afhænger overhovedet ikke af \( h \). Det er kun brøken \( \frac{a^h - 1}{h} \), som vi skal undersøge, når \( h \to 0 \).</div>
+    </div>
+
+    <!-- Opgave 3: Undersøgelse med Desmos -->
+    <div class="card">
+        <span class="task-title">Undersøgelse af konstant-faktoren med Desmos</span>
+        <p>Brug skyderen i Desmos-modellen til at undersøge værdien af brøken \( \frac{a^h - 1}{h} \) for meget små værdier af \( h \). Hvad sker der med grænseværdien, hvis du vælger grundtallet \( a = 2 \)?</p>
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q3" value="a"> Grænseværdien bliver mindre end 1 (ca. 0,693).
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q3" value="b"> Grænseværdien bliver præcis 1.
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q3" value="c"> Grænseværdien bliver større end 1 (ca. 1,098).
+            </label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMultipleChoice('q3', 'a')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Indstil \( a = 2 \) i Desmos og se, hvilket tal sekanthældningen nærmer sig, når \( h \) trækkes tæt på 0.</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong> For \( a = 2 \) gælder der, at \( \lim_{h \to 0} \frac{2^h - 1}{h} \approx 0{,}693 \). Tangenthældningen i \( x=0 \) er altså under 1.</div>
+    </div>
+
+    <!-- Opgave 4: Jagten på e -->
+    <div class="card">
+        <span class="task-title">Jagten på det perfekte grundtal e</span>
+        <p>Hvis vi vælger \( a = 3 \), bliver grænseværdien ca. 1,098 (større end 1). Hvad skal grundtallet \( a \) være for, at grænseværdien \( \lim_{h \to 0} \frac{a^h - 1}{h} \) bliver HELT præcis 1?</p>
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q4" value="a"> et tal mellem 2 og 3, kendt som Euler-tallet \( e \approx 2{,}71828 \).
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q4" value="b"> \( a = 2{,}5 \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q4" value="c"> \( a = 10 \)
+            </label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMultipleChoice('q4', 'a')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box"><strong>Hint:</strong> Da \( a=2 \) giver 0,693 og \( a=3 \) giver 1,098, må det magiske tal for \( a \) ligge et sted midt imellem.</div>
+        <div id="sol-q4" class="sol-box"><strong>Løsning:</strong> Det magiske grundtal er Euler-tallet \( e \approx 2{,}71828 \). Det er defineret præcis ud fra egenskaben, at \( \lim_{h \to 0} \frac{e^h - 1}{h} = 1 \).</div>
+    </div>
+
+    <!-- Opgave 5: Den fantastiske konsekvens for e^x -->
+    <div class="card">
+        <span class="task-title">Den fantastiske konsekvens for \( f(x) = e^x \)</span>
+        <p>Hvad bliver den afledte funktion \( f'(x) \) for eksponentialfunktionen, når vi vælger grundtallet \( a = e \)?</p>
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q5" value="a"> \( f'(x) = e^x \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q5" value="b"> \( f'(x) = x \cdot e^{x-1} \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q5" value="c"> \( f'(x) = 1 \)
+            </label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMultipleChoice('q5', 'a')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q5')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q5')">Løsning</button>
+        </div>
+        <div id="feedback-q5" class="feedback"></div>
+        <div id="hint-q5" class="hint-box"><strong>Hint:</strong> Indsæt grænseværdien 1 i formlen \( f'(x) = a^x \cdot \lim_{h \to 0} \frac{a^h - 1}{h} \).</div>
+        <div id="sol-q5" class="sol-box"><strong>Løsning:</strong> Da grænseværdien for \( a=e \) giver 1, får vi \( f'(x) = e^x \cdot 1 = e^x \). Funktionen ændrer altså overhovedet ikke form ved differentiering!</div>
+    </div>
+
+    <!-- JavaScript til sidst i dokumentet -->
+    <script>
+        // Funktion til at vise/skjule bokse
+        function toggleBox(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                if (element.style.display === "block") {
+                    element.style.display = "none";
+                } else {
+                    element.style.display = "block";
+                }
+            }
+        }
+
+        // Funktion til validering af multiple choice svar
+        function checkMultipleChoice(name, correctVal) {
+            const options = document.getElementsByName(name);
+            const feedback = document.getElementById('feedback-' + name);
+            let selectedVal = null;
+
+            for (const option of options) {
+                if (option.checked) {
+                    selectedVal = option.value;
+                    break;
+                }
+            }
+
+            if (!selectedVal) {
+                feedback.className = "feedback incorrect";
+                feedback.innerHTML = "Vælg venligst et svar.";
+                return;
+            }
+
+            if (selectedVal === correctVal) {
+                feedback.className = "feedback correct";
+                feedback.innerHTML = "Korrekt! Flot udregnet.";
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerHTML = "Ikke helt rigtigt. Prøv igen eller brug hintet.";
+            }
+        }
+    </script>
+</body>
+</html>

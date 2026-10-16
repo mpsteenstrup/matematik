@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tretrinsreglen for f(x) = √x</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <!-- Teori og Eksempel Card -->
+    <div class="formula-box">
+        <h3>3-trinsreglen for \( f(x) = \sqrt{x} \)</h3>
+        <p>3-trinsreglen bruges til at bestemme differentialkvotienten \( f'(x_0) \) for funktionen \( f(x) = \sqrt{x} \):</p>
+        
+        <div class="formula-group">
+            <div><strong>1)</strong> Opskriv differenskvotienten, \( \frac{\Delta y}{\Delta x} = \frac{f(x_0 + h)-f(x_0)}{h} \).</div>
+            <div><strong>2)</strong> Omskriv differenskvotienten så meget som muligt.</div>
+            <div><strong>3)</strong> Lad \( h \to 0 \), hvormed \( \frac{f(x_0 + h)-f(x_0)}{h} \to f'(x_0) \).</div>
+        </div>
+
+        <p style="margin-top: 15px;">Brug den interaktive Desmos-figur nedenfor til at undersøge 3-trinsreglen for \( f(x) = \sqrt{x} \) i punktet \( x_0 \):</p>
+        
+        <!-- Desmos Embed -->
+        <div style="text-align: center; margin: 15px 0;">
+            <iframe src="https://www.desmos.com/calculator/eomy4uzkln?lang=da" width="100%" height="400" style="border: 1px solid #ccc; border-radius: 8px;" frameborder="0"></iframe>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel (x₀ = 4)</button>
+        </div>
+
+        <div id="example-1" class="example-block">
+            <h4>Gennemgang af 3-trinsreglen for \( f(x) = \sqrt{x} \) i punktet \( x_0 = 4 \):</h4>
+            <p><strong>Trin 1 (Opskriv differenskvotienten):</strong><br>
+            \( \frac{\Delta y}{h} = \frac{f(4 + h) - f(4)}{h} = \frac{\sqrt{4 + h} - \sqrt{4}}{h} = \frac{\sqrt{4 + h} - 2}{h} \)</p>
+            
+            <p><strong>Trin 2 (Omskriv så meget som muligt):</strong><br>
+            Vi forlænger brøken ved at gange med \( \sqrt{4+h} + 2 \) i både tæller og nævner (kvadratsætningen \( (a-b)(a+b) = a^2 - b^2 \)):<br>
+            \( \frac{(\sqrt{4+h} - 2)(\sqrt{4+h} + 2)}{h(\sqrt{4+h} + 2)} = \frac{(\sqrt{4+h})^2 - 2^2}{h(\sqrt{4+h} + 2)} = \frac{4 + h - 4}{h(\sqrt{4+h} + 2)} = \frac{h}{h(\sqrt{4+h} + 2)} = \frac{1}{\sqrt{4+h} + 2} \)</p>
+            
+            <p><strong>Trin 3 (Lad \( h \to 0 \)):</strong><br>
+            Når \( h \to 0 \), vil udtrykket \( \frac{1}{\sqrt{4+h} + 2} \to \frac{1}{\sqrt{4} + 2} = \frac{1}{2 + 2} = \frac{1}{4} \). Dermed er differentialkvotienten \( f'(4) = \frac{1}{4} \).</p>
+        </div>
+    </div>
+
+    <!-- Opgave 1: Opskriv differenskvotienten -->
+    <div class="card">
+        <span class="task-title">Opskrivning af differenskvotienten</span>
+        <p>Hvilken af følgende opstillinger repræsenterer den korrekte differenskvotient i Trin 1 for funktionen \( f(x) = \sqrt{x} \) i punktet \( x_0 \)?</p>
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q1" value="a"> \( \frac{\sqrt{x_0} + h}{h} \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q1" value="b"> \( \frac{\sqrt{x_0 + h} - \sqrt{x_0}}{h} \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q1" value="c"> \( \frac{\sqrt{x_0 + h} + \sqrt{x_0}}{h} \)
+            </label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMultipleChoice('q1', 'b')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box"><strong>Hint:</strong> Differenskvotienten er givet ved \( \frac{f(x_0 + h) - f(x_0)}{h} \). Indsæt \( x_0 \) og funktionen \( f(x) = \sqrt{x} \).</div>
+        <div id="sol-q1" class="sol-box"><strong>Løsning:</strong> Da \( f(x) = \sqrt{x} \), får vi \( f(x_0+h) = \sqrt{x_0+h} \) og \( f(x_0) = \sqrt{x_0} \). Differenskvotienten er derfor \( \frac{\sqrt{x_0 + h} - \sqrt{x_0}}{h} \).</div>
+    </div>
+
+    <!-- Opgave 2: Forlængelse med konjugeret størrelse -->
+    <div class="card">
+        <span class="task-title">Trick til omskrivning: Forlæng brøken</span>
+        <p>For at fjerne kvadratrødderne i tælleren ganger vi både tæller og nævner med den "konjugerede" størrelse \( (\sqrt{x_0 + h} + \sqrt{x_0}) \). Hvad bliver tælleren \( (\sqrt{x_0 + h} - \sqrt{x_0})(\sqrt{x_0 + h} + \sqrt{x_0}) \), når vi bruger reglen \( (a-b)(a+b) = a^2 - b^2 \)?</p>
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q2" value="a"> \( (x_0 + h) - x_0 \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q2" value="b"> \( x_0 + h + x_0 \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q2" value="c"> \( \sqrt{x_0 + h} - \sqrt{x_0} \)
+            </label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMultipleChoice('q2', 'a')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box"><strong>Hint:</strong> Husk at \( (\sqrt{A})^2 = A \). Sæt \( a = \sqrt{x_0 + h} \) og \( b = \sqrt{x_0} \) ind i \( a^2 - b^2 \).</div>
+        <div id="sol-q2" class="sol-box"><strong>Løsning:</strong> Da \( (\sqrt{x_0 + h})^2 = x_0 + h \) og \( (\sqrt{x_0})^2 = x_0 \), giver tælleren: \( (x_0 + h) - x_0 = h \).</div>
+    </div>
+
+    <!-- Opgave 3: Reduktion af brøken -->
+    <div class="card">
+        <span class="task-title">Reduktion af differenskvotienten</span>
+        <p>Efter at tælleren er blevet forenklet til \( h \), står vi med brøken \( \frac{h}{h(\sqrt{x_0 + h} + \sqrt{x_0})} \). Hvad er det reducerede udtryk, når vi forkorter med \( h \)?</p>
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q3" value="a"> \( \sqrt{x_0 + h} + \sqrt{x_0} \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q3" value="b"> \( \frac{1}{\sqrt{x_0 + h} + \sqrt{x_0}} \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q3" value="c"> \( \frac{1}{\sqrt{x_0 + h} - \sqrt{x_0}} \)
+            </label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMultipleChoice('q3', 'b')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box"><strong>Hint:</strong> Når du dividerer med \( h \) i både tæller og nævner, bliver tælleren til 1.</div>
+        <div id="sol-q3" class="sol-box"><strong>Løsning:</strong> Vi forkorter med \( h \): \( \frac{h}{h(\sqrt{x_0 + h} + \sqrt{x_0})} = \frac{1}{\sqrt{x_0 + h} + \sqrt{x_0}} \).</div>
+    </div>
+
+    <!-- Opgave 4: Fortolkning af h -> 0 -->
+    <div class="card">
+        <span class="task-title">Fortolkning af grænseværdien \( h \to 0 \)</span>
+        <p>I Trin 3 lader vi \( h \to 0 \) i udtrykket \( \frac{1}{\sqrt{x_0 + h} + \sqrt{x_0}} \). Hvilket udtryk overlever, når \( h \) bliver 0?</p>
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q4" value="a"> \( \frac{1}{2\sqrt{x_0}} \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q4" value="b"> \( \frac{1}{\sqrt{x_0}} \)
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q4" value="c"> \( 0 \)
+            </label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMultipleChoice('q4', 'a')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box"><strong>Hint:</strong> Indsæt \( h = 0 \) i nævneren: \( \sqrt{x_0 + 0} + \sqrt{x_0} = \sqrt{x_0} + \sqrt{x_0} \). Slå de to kvadratrødder sammen.</div>
+        <div id="sol-q4" class="sol-box"><strong>Løsning:</strong> Når \( h \to 0 \), får vi i nævneren \( \sqrt{x_0} + \sqrt{x_0} = 2\sqrt{x_0} \). Dermed er grænseværdien \( \frac{1}{2\sqrt{x_0}} \).</div>
+    </div>
+
+    <!-- Opgave 5: Fra specifikt punkt til generel regel -->
+    <div class="card">
+        <span class="task-title">Fra et specifikt punkt til en generel regneregel</span>
+        <p>I Desmos kiggede vi på et konkret punkt, men beviset blev gennemført med bogstavet \( x_0 \). Hvad kan vi konkludere om den afledte funktion af \( f(x) = \sqrt{x} \)?</p>
+        <div class="input-section">
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q5" value="a"> Formlen \( f'(x) = \frac{1}{2\sqrt{x}} \) gælder for alle \( x > 0 \).
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q5" value="b"> Formlen gælder kun i punktet \( x = 4 \).
+            </label>
+            <label style="display:block; margin-bottom: 8px;">
+                <input type="radio" name="q5" value="c"> Differentialkvotienten giver altid det samme tal uanset x.
+            </label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMultipleChoice('q5', 'a')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q5')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q5')">Løsning</button>
+        </div>
+        <div id="feedback-q5" class="feedback"></div>
+        <div id="hint-q5" class="hint-box"><strong>Hint:</strong> Fordi udledningen blev lavet for et vilkårligt punkt \( x_0 \), er resultatet en generel regneregel.</div>
+        <div id="sol-q5" class="sol-box"><strong>Løsning:</strong> Udledningen gælder generelt. For funktionen \( f(x) = \sqrt{x} \) er den afledte funktion \( f'(x) = \frac{1}{2\sqrt{x}} \) for alle positiv tal \( x \).</div>
+    </div>
+
+    <!-- JavaScript til sidst i dokumentet -->
+    <script>
+        // Funktion til at vise/skjule bokse
+        function toggleBox(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                if (element.style.display === "block") {
+                    element.style.display = "none";
+                } else {
+                    element.style.display = "block";
+                }
+            }
+        }
+
+        // Funktion til validering af multiple choice svar
+        function checkMultipleChoice(name, correctVal) {
+            const options = document.getElementsByName(name);
+            const feedback = document.getElementById('feedback-' + name);
+            let selectedVal = null;
+
+            for (const option of options) {
+                if (option.checked) {
+                    selectedVal = option.value;
+                    break;
+                }
+            }
+
+            if (!selectedVal) {
+                feedback.className = "feedback incorrect";
+                feedback.innerHTML = "Vælg venligst et svar.";
+                return;
+            }
+
+            if (selectedVal === correctVal) {
+                feedback.className = "feedback correct";
+                feedback.innerHTML = "Korrekt! Flot udregnet.";
+            } else {
+                feedback.className = "feedback incorrect";
+                feedback.innerHTML = "Ikke helt rigtigt. Prøv igen eller brug hintet.";
+            }
+        }
+    </script>
+</body>
+</html>
