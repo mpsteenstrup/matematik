@@ -17,5 +17,4 @@
 
 ## Differentialregning
 
-* [Tangent](https://mpsteenstrup.github.io/matematik/differentialregning/tangent.html)
-* [Kontinuitet](https://mpsteenstrup.github.io/matematik/differentialregning/kontinuitet.html)
+* [Differentialregning](https://mpsteenstrup.github.io/matematik/differentialregning/differentialregning.html)
