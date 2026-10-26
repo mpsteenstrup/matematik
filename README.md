@@ -1,5 +1,8 @@
 # matematik
 
+## Maple
+* [Introduktion til Maple](https://mpsteenstrup.github.io/matematik/maple.html)
+
 ## Trigonometri
 
 * [Retvinklede trekanter](https://mpsteenstrup.github.io/matematik/retvinklet.html)

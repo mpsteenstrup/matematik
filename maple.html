@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduktion til Maple - Træningsopgaver</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Træning af grundlæggende Maple-kommandoer</h1>
+
+    <!-- Formula Box / Teorigennemgang -->
+    <div class="formula-box">
+        <h3>Maple Kommando-oversigt</h3>
+        <p>Her er de vigtigste genveje og kommandoer i Maple til grundlæggende matematik:</p>
+        <div class="formula-group">
+            <div><strong>Tastaturgenveje:</strong> Skift til tekst med <code>Cmd + T</code> (Mac) / <code>Ctrl + T</code> (PC). Skift til matematik med <code>Cmd + R</code> / <code>Ctrl + R</code>. Evaluer på samme linje med <code>Option + Enter</code> / <code>Alt + Enter</code>.</div>
+            <div><strong>Definere funktion:</strong> <code>f(x) := 2*x + 3</code></div>
+            <div><strong>Løse ligning:</strong> <code>solve(f(x) = 12, x)</code></div>
+            <div><strong>Tegne graf:</strong> <code>plot(f(x), x = -2..4)</code></div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel</button>
+        </div>
+
+        <div id="example-1" class="example-block" style="display: none;">
+            <h4>Eksempel på udregning</h4>
+            <p>Definition af funktion og opstilling af ligning i Maple:</p>
+            <p>1. Definér: \( g(x) := -x + 3 \)</p>
+            <p>2. Løs skæring med \( f(x) \): <code>solve(f(x) = g(x), x)</code></p>
+        </div>
+    </div>
+
+    <!-- Regneopgave 1 -->
+    <div class="card">
+        <span class="task-title">Opgave 1: Funktionsværdi</span>
+        <p>Givet funktionen \( f(x) = 2 \cdot x + 3 \). Brug Maple til at definere funktionen og beregn værdien af \( f(2) \).</p>
+        <div class="input-section">
+            <label for="q1">Svar: </label>
+            <input type="number" id="q1" step="0.01" placeholder="Indtast resultat...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q1', 7)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box" style="display: none;">
+            <strong>Hint:</strong> Definér funktionen i Maple ved at skrive <code>f(x) := 2*x + 3</code> og trykke Enter. Skriv derefter <code>f(2)</code> og evaluer.
+        </div>
+        <div id="sol-q1" class="sol-box" style="display: none;">
+            <strong>Løsning:</strong> <br>
+            I Maple skrives: <br>
+            <code>f(x) := 2*x + 3</code><br>
+            <code>f(2) = 7</code>
+        </div>
+    </div>
+
+    <!-- Regneopgave 2 -->
+    <div class="card">
+        <span class="task-title">Opgave 2: Ligningsløsning</span>
+        <p>Løs ligningen \( f(x) = 12 \) ved hjælp af <code>solve</code>-kommandoen i Maple. Angiv svaret som et decimaltal.</p>
+        <div class="input-section">
+            <label for="q2">Svar: </label>
+            <input type="number" id="q2" step="0.01" placeholder="Indtast x-værdi...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q2', 4.5)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box" style="display: none;">
+            <strong>Hint:</strong> Brug syntaksen <code>solve(f(x) = 12, x)</code>. Husk at bruge punktum hvis du vil have svaret som decimaltal.
+        </div>
+        <div id="sol-q2" class="sol-box" style="display: none;">
+            <strong>Løsning:</strong> <br>
+            <code>solve(2*x + 3 = 12, x)</code> giver brøken \( \frac{9}{2} \), hvilket svarer til decimaltallet \( 4.5 \).
+        </div>
+    </div>
+
+    <!-- Forståelsesopgave -->
+    <div class="card">
+        <span class="task-title">Opgave 3: Syntax og decimaltal</span>
+        <p>Hvilket af følgende udsagn om opførsel af tal og tegnsætning i Maple er korrekt?</p>
+        <div class="input-section">
+            <label><input type="radio" name="q3" value="A"> A) Man skal bruge komma (<code>,</code>) som decimal-separator i Maple.</label><br>
+            <label><input type="radio" name="q3" value="B"> B) Indtaster du decimaltal (fx <code>5.0 / 7.0</code>), returnerer Maple et decimaltal som resultat.</label><br>
+            <label><input type="radio" name="q3" value="C"> C) Man definerer nye funktioner i Maple ved kun at bruge lighedstegnet (<code>=</code>).</label>
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMultipleChoice('q3', 'B')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+        </div>
+        <div id="feedback-q3" class="feedback"></div>
+        <div id="hint-q3" class="hint-box" style="display: none;">
+            <strong>Hint:</strong> Tænk på forskellen mellem eksakte brøker (fx <code>5/7</code>) og decimaltal i Maple.
+        </div>
+        <div id="sol-q3" class="sol-box" style="display: none;">
+            <strong>Løsning:</strong> <br>
+            Udsagn B er korrekt. Maple bruger punktum som decimalseparator, og <code>:=</code> bruges til funktionsdefinitioner. Hvis der indtastes decimaltal, udregnes svaret også som decimaltal.
+        </div>
+    </div>
+
+    <!-- Krævende opgave -->
+    <div class="card">
+        <span class="task-title">Opgave 4: Skæring mellem to funktioner</span>
+        <p>Givet andetgradsfunktionen \( f(x) = 0.5 \cdot x^2 - x \) og den lineære funktion \( g(x) = -x + 3 \).</p>
+        <p>Brug Maple til at finde den <strong>positive</strong> x-værdi for skæringspunktet mellem de to grafer.</p>
+        <div class="input-section">
+            <label for="q4">Positiv x-værdi: </label>
+            <input type="number" id="q4" step="0.01" placeholder="Indtast x-værdi...">
+        </div>
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q4', 2.45)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+        </div>
+        <div id="feedback-q4" class="feedback"></div>
+        <div id="hint-q4" class="hint-box" style="display: none;">
+            <strong>Hint:</strong> Definér begge funktioner i Maple med <code>:=</code>. Løs derefter ligningen \( f(x) = g(x) \) ved at skrive <code>solve(f(x) = g(x), x)</code>. Husk at bruge punktum i <code>0.5</code> for at få svaret ud som decimaltal.
+        </div>
+        <div id="sol-q4" class="sol-box" style="display: none;">
+            <strong>Løsning:</strong> <br>
+            Definér i Maple: <br>
+            <code>f(x) := 0.5*x^2 - x</code><br>
+            <code>g(x) := -x + 3</code><br>
+            Brug solve: <br>
+            <code>solve(f(x) = g(x), x)</code> <br>
+            Hvilket giver \(x = 2.45\)
+        </div>
+    </div>
+
+</div>
+
+<!-- JavaScript til interaktivitet -->
+<script>
+    // Funktion til at vise/skjule bokse (hints, eksempler, løsninger)
+    function toggleBox(id) {
+        const box = document.getElementById(id);
+        if (box.style.display === "none" || box.style.display === "") {
+            box.style.display = "block";
+        } else {
+            box.style.display = "none";
+        }
+    }
+
+    // Tjek numeriske svar med tolerance
+    function checkAnswer(inputId, correctVal) {
+        const inputElem = document.getElementById(inputId);
+        const feedbackElem = document.getElementById('feedback-' + inputId);
+        const userVal = parseFloat(inputElem.value);
+
+        if (isNaN(userVal)) {
+            feedbackElem.textContent = "Indtast venligst et gyldigt tal.";
+            feedbackElem.className = "feedback incorrect";
+            return;
+        }
+
+        // Tillad en lille tolerance på 0.05 til afrundinger
+        if (Math.abs(userVal - correctVal) <= 0.05) {
+            feedbackElem.textContent = "Korrekt! Godt gået.";
+            feedbackElem.className = "feedback correct";
+        } else {
+            feedbackElem.textContent = "Forkert svar. Prøv igen eller se hintet.";
+            feedbackElem.className = "feedback incorrect";
+        }
+    }
+
+    // Tjek multiple choice svar
+    function checkMultipleChoice(qName, correctVal) {
+        const selected = document.querySelector(`input[name="${qName}"]:checked`);
+        const feedbackElem = document.getElementById('feedback-' + qName);
+
+        if (!selected) {
+            feedbackElem.textContent = "Vælg venligst et svar.";
+            feedbackElem.className = "feedback incorrect";
+            return;
+        }
+
+        if (selected.value === correctVal) {
+            feedbackElem.textContent = "Korrekt! Du har helt ret.";
+            feedbackElem.className = "feedback correct";
+        } else {
+            feedbackElem.textContent = "Forkert. Læs hints eller prøv igen.";
+            feedbackElem.className = "feedback incorrect";
+        }
+    }
+</script>
+
+</body>
+</html>
