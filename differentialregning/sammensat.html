@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sammensatte funktioner</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <main>
+        <h1>Sammensatte funktioner</h1>
+
+        <section class="formula-box">
+            <h2>Kædereglen</h2>
+            <p>
+                En sammensat funktion kan skrives som \(h(x)=f(g(x))\).
+                Funktionen \(g\) udføres først, og derefter anvendes \(f\).
+            </p>
+            <p>
+                Den afledte findes ved kædereglen:
+            </p>
+            <p>
+                $$h'(x)=f'(g(x))\cdot g'(x)$$
+            </p>
+            <p>
+                Med ord: Differentier den ydre funktion, behold den indre funktion,
+                og gang med den indre funktions afledte.
+            </p>
+
+            <div class="btn-group">
+                <button class="btn-example" type="button"
+                        onclick="toggleBox('example-1')">Vis/skjul eksempel 1</button>
+                <button class="btn-example" type="button"
+                        onclick="toggleBox('example-2')">Vis/skjul eksempel 2</button>
+            </div>
+
+            <div id="example-1" class="example-block">
+                <h3>Eksempel 1</h3>
+                <p>Differentier \(h(x)=(3x+1)^4\).</p>
+                <p>
+                    Den ydre funktion er \(f(u)=u^4\), og den indre funktion er
+                    \(g(x)=3x+1\).
+                </p>
+                <p>
+                    Derfor er
+                    \(h'(x)=4(3x+1)^3\cdot 3=12(3x+1)^3\).
+                </p>
+            </div>
+
+            <div id="example-2" class="example-block">
+                <h3>Eksempel 2</h3>
+                <p>Differentier \(p(x)=\sin ( x^2 ) \).</p>
+                
+                <p>
+                    Den ydre funktion er sinus, og den indre funktion er \(x^2\).
+                    Sinusfunktionens afledte er cosinus, og den indre afledte er \(2x\).
+                </p>
+                <p>
+                    Derfor er \(p'(x)=\cos(x^2)\cdot 2x\).
+                </p>
+            </div>
+        </section>
+
+        <section class="card">
+            <span class="task-title">Opgave 1: Potens af en lineær funktion</span>
+            <p>
+                Find værdien af \(h'(1)\), når \(h(x)=(2x+3)^3\).
+            </p>
+            <div class="input-section">
+                <label for="q1">Dit svar:</label>
+                <input type="number" id="q1" step="0.01" placeholder="Skriv h'(1)">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" type="button" onclick="checkAnswer('q1', 150)">Tjek svar</button>
+                <button class="btn-hint" type="button" onclick="toggleBox('hint-q1')">Hint</button>
+                <button class="btn-sol" type="button" onclick="toggleBox('sol-q1')">Løsning</button>
+            </div>
+            <div id="feedback-q1" class="feedback" aria-live="polite"></div>
+            <div id="hint-q1" class="hint-box">
+                <strong>Hint:</strong> Brug kædereglen. Den indre funktion er \(2x+3\).
+            </div>
+            <div id="sol-q1" class="sol-box">
+                <strong>Løsning:</strong>
+                \(h'(x)=3(2x+3)^2\cdot 2=6(2x+3)^2\).
+                Derfor er \(h'(1)=6\cdot 5^2=150\).
+            </div>
+        </section>
+
+        <section class="card">
+            <span class="task-title">Opgave 2: Kvadratrod</span>
+            <p>
+                Find værdien af \(f'(3)\), når \(f(x)=\sqrt{x^2+7}\).
+            </p>
+            <div class="input-section">
+                <label for="q2">Dit svar:</label>
+                <input type="number" id="q2" step="0.01" placeholder="Skriv f'(3)">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" type="button" onclick="checkAnswer('q2', 0.9)">Tjek svar</button>
+                <button class="btn-hint" type="button" onclick="toggleBox('hint-q2')">Hint</button>
+                <button class="btn-sol" type="button" onclick="toggleBox('sol-q2')">Løsning</button>
+            </div>
+            <div id="feedback-q2" class="feedback" aria-live="polite"></div>
+            <div id="hint-q2" class="hint-box">
+                <strong>Hint:</strong> Skriv kvadratroden som en potens med eksponenten \(\frac12\).
+            </div>
+            <div id="sol-q2" class="sol-box">
+                <strong>Løsning:</strong>
+                \(f'(x)=\frac12(x^2+7)^{-1/2}\cdot 2x
+                =\frac{x}{\sqrt{x^2+7}}\).
+                Derfor er \(f'(3)=\frac{3}{\sqrt{16}}=\frac34=0{,}75\).
+            </div>
+        </section>
+
+        <section class="card">
+            <span class="task-title">Opgave 3: Eksponentialfunktion</span>
+            <p>
+                Find værdien af \(g'(0)\), når \(g(x)=e^{2x-1}\).
+            </p>
+            <div class="input-section">
+                <label for="q3">Dit svar:</label>
+                <input type="number" id="q3" step="0.01" placeholder="Skriv g'(0)">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" type="button"
+                        onclick="checkAnswer('q3', 2 * Math.exp(-1))">Tjek svar</button>
+                <button class="btn-hint" type="button" onclick="toggleBox('hint-q3')">Hint</button>
+                <button class="btn-sol" type="button" onclick="toggleBox('sol-q3')">Løsning</button>
+            </div>
+            <div id="feedback-q3" class="feedback" aria-live="polite"></div>
+            <div id="hint-q3" class="hint-box">
+                <strong>Hint:</strong> Den afledte af \(e^u\) er \(e^u\). Gang derefter med den indre funktions afledte.
+            </div>
+            <div id="sol-q3" class="sol-box">
+                <strong>Løsning:</strong>
+                \(g'(x)=e^{2x-1}\cdot 2=2e^{2x-1}\).
+                Derfor er \(g'(0)=2e^{-1}=\frac{2}{e}\approx 0{,}74\).
+            </div>
+        </section>
+
+    <section class="card">
+    <span class="task-title">Udfordring</span>
+    <p>
+        Funktionen er \(r(x)=\cos(3x^2-1)\).
+        Hvilket udtryk er den afledte \(r'(x)\)?
+    </p>
+
+    <div>
+      <label><input type="radio" name="challenge-choice" value="a">\(6x\sin(3x^2-1)\)</label><br>
+<label><input type="radio" name="challenge-choice" value="b">\(-6x\sin(3x^2-1)\)</label><br>
+<label><input type="radio" name="challenge-choice" value="c">\(-\sin(3x^2-1)\)</label><br>
+<label><input type="radio" name="challenge-choice" value="d">\(-6x\sin(3x-1)\)</label>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn-check" type="button" onclick="checkChallengeChoice()">
+            Tjek svar
+        </button>
+        <button class="btn-hint" type="button" onclick="toggleBox('hint-challenge')">
+            Hint
+        </button>
+        <button class="btn-sol" type="button" onclick="toggleBox('sol-challenge')">
+            Vis/skjul løsning
+        </button>
+    </div>
+
+    <div id="feedback-challenge" class="feedback" aria-live="polite"></div>
+
+    <div id="hint-challenge" class="hint-box">
+        <strong>Hint:</strong>
+        Den ydre funktion er cosinus, og den indre funktion er \(3x^2-1\).
+        Husk både den afledte af cosinus og den indre funktions afledte.
+    </div>
+
+    <div id="sol-challenge" class="sol-box">
+        <strong>Løsning:</strong>
+        Kædereglen giver
+        \(r'(x)=-\sin(3x^2-1)\cdot 6x=-6x\sin(3x^2-1)\).
+        Det rigtige svar er derfor **B**.
+    </div>
+</section>
+
+    </main>
+
+    <script>
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (!box) return;
+            box.style.display = box.style.display === "block" ? "none" : "block";
+        }
+
+        function checkAnswer(id, correctVal) {
+            const input = document.getElementById(id);
+            const feedback = document.getElementById("feedback-" + id);
+            const value = Number(input.value);
+
+            if (input.value.trim() === "") {
+                feedback.textContent = "Skriv et svar først.";
+                feedback.className = "feedback incorrect";
+                return;
+            }
+
+            if (Math.abs(value - correctVal) <= 0.02) {
+                feedback.textContent = "Korrekt! Godt arbejdet.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = "Ikke helt. Prøv igen, eller brug hintet.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+function checkChallengeChoice() {
+    const selected = document.querySelector(
+        'input[name="challenge-choice"]:checked'
+    );
+    const feedback = document.getElementById("feedback-challenge");
+
+    if (!selected) {
+        feedback.textContent = "Vælg et svar først.";
+        feedback.className = "feedback incorrect";
+    } else if (selected.value === "b") {
+        feedback.textContent = "Korrekt! Du har brugt kædereglen rigtigt.";
+        feedback.className = "feedback correct";
+    } else {
+        feedback.textContent = "Ikke helt. Tjek både den ydre og den indre afledte.";
+        feedback.className = "feedback incorrect";
+    }
+}
+        function checkChoice() {
+            const selected =
+                document.querySelector('input[name="understanding"]:checked');
+            const feedback = document.getElementById("feedback-choice");
+
+            if (!selected) {
+                feedback.textContent = "Vælg et udsagn først.";
+                feedback.className = "feedback incorrect";
+            } else if (selected.value === "b") {
+                feedback.textContent = "Korrekt! Du har valgt kædereglen.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = "Det er ikke det rigtige udsagn. Prøv igen.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+
+        window.addEventListener("load", function () {
+    if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise();
+    }
+});
+    </script>
+</body>
+</html>

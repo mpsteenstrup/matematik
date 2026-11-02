@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produktreglen</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <main>
+        <h1>Produktreglen</h1>
+
+        <section class="formula-box">
+            <h2>Når to funktioner ganges</h2>
+            <p>
+                Hvis \(h(x)=f(x)\cdot g(x)\), er den afledte
+            </p>
+            <p>
+                $$h'(x)=f'(x)\cdot g(x)+f(x)\cdot g'(x)$$
+            </p>
+            <p>
+                Med ord: Differentier den første funktion, behold den anden,
+                og læg første funktion gange den afledte af den anden til.
+            </p>
+
+            <div class="btn-group">
+                <button class="btn-example" type="button"
+                        onclick="toggleBox('example-1')">Vis/skjul eksempel 1</button>
+                <button class="btn-example" type="button"
+                        onclick="toggleBox('example-2')">Vis/skjul eksempel 2</button>
+            </div>
+
+            <div id="example-1" class="example-block">
+                <h3>Eksempel 1</h3>
+                <p>
+                    Differentier \(h(x)=x^2\cdot \sin(x)\).
+                </p>
+                <p>
+                    Sæt \(f(x)=x^2\) og \(g(x)=\sin(x)\). Så er
+                    \(f'(x)=2x\) og \(g'(x)=\cos(x)\).
+                </p>
+                <p>
+                    Derfor er
+                    \(h'(x)=2x\sin(x)+x^2\cos(x)\).
+                </p>
+            </div>
+
+            <div id="example-2" class="example-block">
+                <h3>Eksempel 2</h3>
+                <p>
+                    Differentier \(p(x)=(3x+1)(x^2-4)\).
+                </p>
+                <p>
+                    \(f'(x)=3\) og \(g'(x)=2x\), så
+                    \(p'(x)=3(x^2-4)+(3x+1)2x\).
+                </p>
+                <p>
+                    Udvides udtrykket, fås \(p'(x)=9x^2+2x-12\).
+                </p>
+            </div>
+        </section>
+
+        <section class="card">
+            <span class="task-title">Opgave 1: To polynomier</span>
+            <p>
+                Find værdien af \(h'(1)\), når
+                \(h(x)=(x+2)(x^2+1)\).
+            </p>
+            <div class="input-section">
+                <label for="q1">Dit svar:</label>
+                <input type="number" id="q1" step="0.01" placeholder="Skriv h'(1)">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" type="button" onclick="checkAnswer('q1', 8)">Tjek svar</button>
+                <button class="btn-hint" type="button" onclick="toggleBox('hint-q1')">Hint</button>
+                <button class="btn-sol" type="button" onclick="toggleBox('sol-q1')">Løsning</button>
+            </div>
+            <div id="feedback-q1" class="feedback" aria-live="polite"></div>
+            <div id="hint-q1" class="hint-box">
+                <strong>Hint:</strong> Brug produktreglen, og indsæt derefter \(x=1\).
+            </div>
+            <div id="sol-q1" class="sol-box">
+                <strong>Løsning:</strong>
+                \(h'(x)=(x^2+1)+2x(x+2)\). Derfor er
+                \(h'(1)=2+6=8\).
+            </div>
+        </section>
+
+        <section class="card">
+            <span class="task-title">Opgave 2: Produkt med en eksponentialfunktion</span>
+            <p>
+                Find \(f'(x)\), når \(f(x)=x^2e^x\), og beregn derefter \(f'(0)\).
+            </p>
+            <div class="input-section">
+                <label for="q2">Dit svar:</label>
+                <input type="number" id="q2" step="0.01" placeholder="Skriv f'(0)">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" type="button" onclick="checkAnswer('q2', 0)">Tjek svar</button>
+                <button class="btn-hint" type="button" onclick="toggleBox('hint-q2')">Hint</button>
+                <button class="btn-sol" type="button" onclick="toggleBox('sol-q2')">Løsning</button>
+            </div>
+            <div id="feedback-q2" class="feedback" aria-live="polite"></div>
+            <div id="hint-q2" class="hint-box">
+                <strong>Hint:</strong> Den afledte af \(e^x\) er \(e^x\). Sæt til sidst \(x=0\).
+            </div>
+            <div id="sol-q2" class="sol-box">
+                <strong>Løsning:</strong>
+                \(f'(x)=2xe^x+x^2e^x\). Ved \(x=0\) bliver begge led nul,
+                så \(f'(0)=0\).
+            </div>
+        </section>
+
+        <section class="card">
+            <span class="task-title">Opgave 3: Produkt med sinus</span>
+            <p>
+                Find \(g'(x)\), når \(g(x)=x\sin(x)\). Hvad er \(g'(\pi)\)?
+            </p>
+            <div class="input-section">
+                <label for="q3">Dit svar:</label>
+                <input type="number" id="q3" step="0.01" placeholder="Skriv g'(π)">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" type="button" onclick="checkAnswer('q3', -Math.PI)">Tjek svar</button>
+                <button class="btn-hint" type="button" onclick="toggleBox('hint-q3')">Hint</button>
+                <button class="btn-sol" type="button" onclick="toggleBox('sol-q3')">Løsning</button>
+            </div>
+            <div id="feedback-q3" class="feedback" aria-live="polite"></div>
+            <div id="hint-q3" class="hint-box">
+                <strong>Hint:</strong> \(g'(x)=\sin(x)+x\cos(x)\). Brug værdierne for sinus og cosinus ved \(\pi\).
+            </div>
+            <div id="sol-q3" class="sol-box">
+                <strong>Løsning:</strong>
+                \(g'(x)=\sin(x)+x\cos(x)\). Da \(\sin(\pi)=0\) og
+                \(\cos(\pi)=-1\), fås \(g'(\pi)=-\pi\).
+            </div>
+        </section>
+
+        <section class="card">
+            <span class="task-title">Vælg det rigtige udsagn</span>
+            <p>
+                Hvilket udsagn beskriver produktreglen korrekt for
+                \(h(x)=f(x)g(x)\)?
+            </p>
+            <div>
+                <label>
+                    <input type="radio" name="understanding" value="a">
+                    \(h'(x)=f'(x)g'(x)\)
+                </label><br>
+                <label>
+                    <input type="radio" name="understanding" value="b">
+                    \(h'(x)=f'(x)g(x)+f(x)g'(x)\)
+                </label><br>
+                <label>
+                    <input type="radio" name="understanding" value="c">
+                    \(h'(x)=f(x)+g(x)\)
+                </label>
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" type="button" onclick="checkChoice()">Tjek svar</button>
+            </div>
+            <div id="feedback-choice" class="feedback" aria-live="polite"></div>
+        </section>
+
+        <section class="card">
+            <span class="task-title">Udfordring</span>
+            <p>
+                Differentier \(r(x)=(x^2+1)\cos(x)\). Skriv dit svar som et
+                udtryk, og kontrollér ved at sammenligne med løsningen.
+            </p>
+            <div class="input-section">
+                <label for="challenge">Dit udtryk for \(r'(x)\):</label>
+                <input type="text" id="challenge" placeholder="Skriv dit udtryk her">
+            </div>
+            <div class="btn-group">
+                <button class="btn-hint" type="button" onclick="toggleBox('hint-challenge')">Hint</button>
+                <button class="btn-sol" type="button" onclick="toggleBox('sol-challenge')">Vis/skjul løsning</button>
+            </div>
+            <div id="hint-challenge" class="hint-box">
+                <strong>Hint:</strong> Differentier \(x^2+1\) og \(\cos(x)\) hver for sig.
+                Husk, at den afledte af \(\cos(x)\) er \(-\sin(x)\).
+            </div>
+            <div id="sol-challenge" class="sol-box">
+                <strong>Løsning:</strong>
+                \(r'(x)=2x\cos(x)-(x^2+1)\sin(x)\).
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleBox(id) {
+            const box = document.getElementById(id);
+            if (!box) return;
+            box.style.display = box.style.display === "block" ? "none" : "block";
+        }
+
+        function checkAnswer(id, correctVal) {
+            const input = document.getElementById(id);
+            const feedback = document.getElementById("feedback-" + id);
+            const value = Number(input.value);
+
+            if (input.value.trim() === "") {
+                feedback.textContent = "Skriv et svar først.";
+                feedback.className = "feedback incorrect";
+                return;
+            }
+
+            const tolerance = 0.02;
+            if (Math.abs(value - correctVal) <= tolerance) {
+                feedback.textContent = "Korrekt! Godt arbejdet.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = "Ikke helt. Prøv igen, eller brug hintet.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+
+        function checkChoice() {
+            const selected = document.querySelector('input[name="understanding"]:checked');
+            const feedback = document.getElementById("feedback-choice");
+
+            if (!selected) {
+                feedback.textContent = "Vælg et udsagn først.";
+                feedback.className = "feedback incorrect";
+            } else if (selected.value === "b") {
+                feedback.textContent = "Korrekt! Det er produktreglen.";
+                feedback.className = "feedback correct";
+            } else {
+                feedback.textContent = "Det er ikke produktreglen. Prøv igen.";
+                feedback.className = "feedback incorrect";
+            }
+        }
+    </script>
+</body>
+</html>
