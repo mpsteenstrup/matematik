@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Væksthastighed og Differentialkvotient i Maple (Samfundsfag)</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+      body { 
+        font-family: system-ui, -apple-system, sans-serif; 
+        background: #f8fafc; 
+        color: #1e293b; 
+        max-width: 800px; 
+        margin: 0 auto; 
+        padding: 20px; 
+        line-height: 1.6; 
+      }
+      .formula-box { 
+        background: #eff6ff; 
+        border: 2px solid #3b82f6; 
+        border-radius: 12px; 
+        padding: 20px; 
+        margin-bottom: 24px; 
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
+      }
+      .formula-box h3 { 
+        color: #1d4ed8; 
+        margin-top: 0; 
+      }
+      .card { 
+        background: white; 
+        border: 1px solid #e2e8f0; 
+        border-radius: 12px; 
+        padding: 20px; 
+        margin-bottom: 24px; 
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+      }
+      .task-title { 
+        font-weight: bold; 
+        font-size: 1.1em; 
+        color: #0f172a; 
+        display: block; 
+        margin-bottom: 10px; 
+        border-bottom: 2px solid #e2e8f0; 
+        padding-bottom: 6px; 
+      }
+      .input-section { 
+        margin: 15px 0; 
+      }
+      input[type="number"], select { 
+        padding: 8px 12px; 
+        font-size: 1rem; 
+        border: 1px solid #cbd5e1; 
+        border-radius: 6px; 
+        margin-right: 8px; 
+        width: 100%; 
+        max-width: 300px; 
+      }
+      .btn-group { 
+        display: flex; 
+        gap: 8px; 
+        flex-wrap: wrap; 
+        margin-top: 10px; 
+      }
+      button { 
+        padding: 8px 16px; 
+        border: none; 
+        border-radius: 6px; 
+        font-weight: 600; 
+        cursor: pointer; 
+        transition: background 0.2s; 
+      }
+      .btn-check { 
+        background: #2563eb; 
+        color: white; 
+      }
+      .btn-check:hover { 
+        background: #1d4ed8; 
+      }
+      .btn-hint { 
+        background: #f59e0b; 
+        color: white; 
+      }
+      .btn-hint:hover { 
+        background: #d97706; 
+      }
+      .btn-sol { 
+        background: #64748b; 
+        color: white; 
+      }
+      .btn-sol:hover { 
+        background: #475569; 
+      }
+      .btn-example { 
+        background: #3b82f6; 
+        color: white; 
+        margin-top: 10px; 
+      }
+      .hint-box, .sol-box, .example-block { 
+        display: none; 
+        margin-top: 12px; 
+        padding: 12px; 
+        border-radius: 6px; 
+        font-size: 0.95rem; 
+      }
+      .hint-box { 
+        background: #fffbeb; 
+        border-left: 4px solid #f59e0b; 
+        color: #78350f; 
+      }
+      .sol-box { 
+        background: #f1f5f9; 
+        border-left: 4px solid #64748b; 
+        color: #334155; 
+      }
+      .example-block { 
+        background: #ffffff; 
+        border: 1px dashed #3b82f6; 
+        margin-top: 15px; 
+        padding: 15px;
+      }
+      .feedback { 
+        margin-top: 10px; 
+        font-weight: bold; 
+      }
+      .correct { 
+        color: #16a34a; 
+      }
+      .incorrect { 
+        color: #dc2626; 
+      }
+      .maple-code { 
+        background: #ffffff; 
+        color: #000000; 
+        padding: 12px; 
+        border-left: 3px solid #2563eb;
+        border-top: 1px solid #e2e8f0;
+        border-right: 1px solid #e2e8f0;
+        border-bottom: 1px solid #e2e8f0;
+        border-radius: 4px; 
+        font-family: 'Times New Roman', Times, serif; 
+        font-size: 1.05em; 
+        overflow-x: auto; 
+        margin: 10px 0; 
+        line-height: 1.5;
+      }
+      .maple-output {
+        color: #0000ff;
+        font-weight: bold;
+        margin-top: 4px;
+      }
+      .radio-option { 
+        display: block; 
+        margin: 10px 0; 
+        cursor: pointer; 
+        background: #f8fafc;
+        padding: 10px;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        transition: background 0.2s;
+      }
+      .radio-option:hover {
+        background: #f1f5f9;
+      }
+      .radio-option input {
+        margin-right: 10px;
+      }
+    </style>
+</head>
+<body>
+
+    <!-- TOP CARD / FORMULA BOX -->
+    <div class="formula-box">
+        <h3 style="color: #1e40af; border-bottom: 2px solid #1e40af; padding-bottom: 4px;">Definition 5.1</h3>
+        <p style="font-size: 1.05em;">Hvis \(f(t)\) er en differentiabel funktion hvor \(t\) betegner tiden, så kalder man \(f'(t)\) for <em>væksthastigheden</em> til tiden \(t\).</p>
+        
+        <div class="btn-group">
+            <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel (Maple-opstilling og beregning)</button>
+        </div>
+
+        <div id="example-1" class="example-block">
+            <h4>Eksempel på funktion og væksthastighed i Maple</h4>
+            <p>En samfundsøkonomisk model for et lands bruttonationalprodukt (BNP) \(B(t)\) i mia. kr. efter \(t\) år indtastes i Maple:</p>
+            
+            <div class="maple-code">
+                \(B(t) := 150 \cdot \exp(0.3 \cdot t) :\) <br>
+                \(B(4) = \) <span class="maple-output">498.0175384</span><br><br>
+                \(B'(4) = \) <span class="maple-output">149.4052615</span>
+            </div>
+
+            <p><strong>Fortolkning af resultaterne:</strong></p>
+            <ul>
+                <li>\(B(4) = 498{,}02\): Efter 4 år er landets samlede BNP på ca. <strong>498,02 mia. kr.</strong></li>
+                <li>\(B'(4) = 149{,}41\): Væksthastigheden til tidspunktet \(t = 4\) år er ca. <strong>149,41 mia. kr. pr. år</strong>. Det betyder, at BNP på dette tidspunkt vokser med en øjeblikkelig rate svarende til 149,41 mia. kr. om året.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- OPGAVE 1: REGNEOPGAVE (SAMFUNDSØKONOMI) -->
+    <div class="card">
+        <span class="task-title">Opgave 1: Danmarks samlede BNP (Beregning i Maple)</span>
+        <p>I en økonometrisk model forventes et lands BNP (målt i milliarder kroner) at udvikle sig efter modelfunktionen:</p>
+        <p>$$ Y(t) = 0.8 t^3 - 6 t^2 + 45 t + 2100 $$</p>
+        <p>hvor \(t\) er antallet af år efter år 2020.</p>
+        <p>Definér funktionen i Maple og bestem væksthastigheden \(Y'(5)\) for landet i år 2025 (\(t = 5\)).</p>
+        
+        <div class="input-section">
+            <label for="q1"><strong>Indtast væksthastigheden \(Y'(5)\) (i mia. kr. pr. år):</strong></label><br><br>
+            <input type="number" id="q1" step="0.01" placeholder="F.eks. 45.0">
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q1', 45)">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+        </div>
+
+        <div id="feedback-q1" class="feedback"></div>
+        <div id="hint-q1" class="hint-box">
+            <strong>Hint:</strong> Definér funktionen i Maple som <code>Y(t) := 0.8*t^3 - 6*t^2 + 45*t + 2100</code> (eller <code>Y := t -> 0.8*t^3 - 6*t^2 + 45*t + 2100</code>). Udfør derefter differentialkvotienten <code>Y'(5)</code>.
+        </div>
+        <div id="sol-q1" class="sol-box">
+            <strong>Løsning:</strong><br>
+            Indtast følgende i Maple:
+            <div class="maple-code">
+                \(Y(t) := 0.8 \cdot t^3 - 6 \cdot t^2 + 45 \cdot t + 2100 :\) <br>
+                \(Y'(5) = \) <span class="maple-output">45</span>
+            </div>
+            <strong>Fortolkning:</strong> Væksthastigheden i år 2025 (\(t = 5\)) er <strong>45 mia. kr. pr. år</strong>.
+        </div>
+    </div>
+
+    <!-- OPGAVE 2: FORSTÅELSESOPGAVE -->
+    <div class="card">
+        <span class="task-title">Opgave 2: Statens offentlige forbrug (Fortolkning af differentialkvotient)</span>
+        <p>Finansministeriet modellerer statens samlede udgifter til offentligt forbrug \(V(t)\) (målt i mia. kr.) som funktion af tiden \(t\) (målt i år efter 2018):</p>
+        <p>$$ V(t) = 520 \cdot e^{0.025 t} $$</p>
+        <p>En elev indtaster funktionen i Maple og beregner <code>V'(4)</code>, hvilket giver resultatet <strong>\(14.37\)</strong>.</p>
+        <p><strong>Hvilken af følgende udsagn er den korrekte samfundsfaglige fortolkning af \(V'(4) = 14.37\)?</strong></p>
+
+        <form id="mcq-form-q2">
+            <label class="radio-option">
+                <input type="radio" name="q2_option" value="A">
+                A) I år 2022 var det samlede offentlige forbrug i alt 14,37 mia. kroner.
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="q2_option" value="B">
+                B) I år 2022 steg det offentlige forbrug med en øjeblikkelig væksthastighed på 14,37 mia. kroner pr. år.
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="q2_option" value="C">
+                C) Det offentlige forbrug er i gennemsnit steget med 14,37 % om året over de 4 år.
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="q2_option" value="D">
+                D) Efter 4 år vil det samlede offentlige forbrug være steget med 14,37 mia. kroner i alt.
+            </label>
+        </form>
+
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMCQ('q2', 'B')">Tjek svar</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+        </div>
+
+        <div id="feedback-q2" class="feedback"></div>
+        <div id="hint-q2" class="hint-box">
+            <strong>Hint:</strong> Differentialkvotienten \(V'(t)\) måler ændringshastigheden (væksthastigheden) på et bestemt tidspunkt \(t\), udtrykt i enheden <em>(enhed for V) pr. (enhed for t)</em>.
+        </div>
+        <div id="sol-q2" class="sol-box">
+            <strong>Løsning:</strong><br>
+            Det rigtige svar er <strong>B</strong>.<br>
+            Da \(t=4\) svarer til år 2022, angiver \(V'(4) = 14.37\), at de offentlige udgifter til dette tidspunkt vokser med en hastighed på <strong>14,37 mia. kr. pr. år</strong>.
+        </div>
+    </div>
+
+    <!-- OPGAVE 3: KRÆVENDE OPGAVE (RELATIV VÆKST & HØJKONJUNKTUR) -->
+    <div class="card">
+        <span class="task-title">Opgave 3: BNP-vækst rate og Højkonjunktur (For de hurtige)</span>
+        <p>I samfundsøkonomi opgøres den relative årlige BNP-vækstrate \(r(t)\) i procent som forholdet mellem væksthastigheden \(Y'(t)\) og det samlede BNP \(Y(t)\):</p>
+        <p>$$ r(t) = \frac{Y'(t)}{Y(t)} \cdot 100\% $$</p>
+        <p>Økonomiske vismænd vurderer, at et land befinder sig i <strong>højkonjunktur</strong>, hvis den relative årlige vækstrate overstiger <strong>1,8%</strong> (\(r(t) > 1.8\)).</p>
+        <p>Et lands BNP er modelleret ved:</p>
+        <p>$$ Y(t) = 3000 \cdot (1.015)^t + 50 \cdot \sin(0.5 t), \quad t \ge 0 $$</p>
+        <p>hvor \(Y(t)\) er i mia. kr. og \(t\) er antal år efter 2020.</p>
+
+        <p><strong>Del A:</strong> Brug Maple til at beregne landets samlede BNP \(Y(6)\) samt væksthastigheden \(Y'(6)\) i år 2026 (\(t = 6\)). Udregn derefter den relative vækstrate \(r(6)\) i procent med 2 decimaler.</p>
+        
+        <div class="input-section">
+            <label for="q3a"><strong>Indtast den relative vækstrate \(r(6)\) i %:</strong></label><br><br>
+            <input type="number" id="q3a" step="0.01" placeholder="F.eks. 2.15">
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkAnswer('q3a', 2.14, 0.05)">Tjek del A</button>
+            <button class="btn-hint" onclick="toggleBox('hint-q3a')">Hint</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3a')">Løsning del A</button>
+        </div>
+        <div id="feedback-q3a" class="feedback"></div>
+        <div id="hint-q3a" class="hint-box">
+            <strong>Hint:</strong> Definér <code>Y(t) := 3000 * (1.015)^t + 50 * sin(0.5*t)</code>. Indtast i Maple: <code>r(6) := (Y'(6) / Y(6)) * 100</code>.
+        </div>
+        <div id="sol-q3a" class="sol-box">
+            <strong>Løsning Del A:</strong><br>
+            I Maple opskrives:
+            <div class="maple-code">
+                \(Y(t) := 3000 \cdot (1.015)^t + 50 \cdot \sin(0.5 \cdot t) :\) <br>
+                \(Y(6) = \) <span class="maple-output">3207.28</span> <br>
+                \(Y'(6) = \) <span class="maple-output">68.74</span> <br>
+                \(r(6) := \frac{Y'(6)}{Y(6)} \cdot 100 = \) <span class="maple-output">2.143%</span>
+            </div>
+            Den relative vækstrate til tiden \(t = 6\) er ca. <strong>2,14%</strong>.
+        </div>
+
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #e2e8f0;">
+
+        <p><strong>Del B:</strong> Er landet i år 2026 i højkonjunktur ifølge økonomernes grænseværdi på 1,8%?</p>
+        <form id="mcq-form-q3b">
+            <label class="radio-option">
+                <input type="radio" name="q3b_option" value="A">
+                A) Ja, fordi den relative vækstrate på 2,14% er større end 1,8%.
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="q3b_option" value="B">
+                B) Nej, fordi væksthastigheden skal overstige 100 mia. kr.
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="q3b_option" value="C">
+                C) Nej, fordi landet befinder sig i en lavkonjunktur på grund af sinus-svingninger.
+            </label>
+        </form>
+
+        <div class="btn-group">
+            <button class="btn-check" onclick="checkMCQ('q3b', 'A')">Tjek del B</button>
+            <button class="btn-sol" onclick="toggleBox('sol-q3b')">Løsning del B</button>
+        </div>
+        <div id="feedback-q3b" class="feedback"></div>
+        <div id="sol-q3b" class="sol-box">
+            <strong>Løsning Del B:</strong><br>
+            Det rigtige svar er <strong>A</strong>. Da den beregnede relative vækstrate \(r(6) = 2{,}14\%\) er større end grænseværdien på 1,8%, er landet i højkonjunktur i 2026.
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT INTERAKTIVITET -->
+    <script>
+        function toggleBox(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === "block") {
+                el.style.display = "none";
+            } else {
+                el.style.display = "block";
+            }
+        }
+
+        function checkAnswer(inputId, correctVal, tolerance = 0.1) {
+            const inputEl = document.getElementById(inputId);
+            const feedbackEl = document.getElementById("feedback-" + inputId);
+            const userVal = parseFloat(inputEl.value.replace(',', '.'));
+
+            if (isNaN(userVal)) {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "Indtast venligst et tal.";
+                return;
+            }
+
+            if (Math.abs(userVal - correctVal) <= tolerance) {
+                feedbackEl.className = "feedback correct";
+                feedbackEl.innerHTML = "Flot! Det er helt korrekt.";
+            } else {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "Desværre ikke helt rigtigt. Prøv igen eller kig på hintet!";
+            }
+        }
+
+        function checkMCQ(questionId, correctOption) {
+            const selected = document.querySelector(`input[name="${questionId}_option"]:checked`);
+            const feedbackEl = document.getElementById("feedback-" + questionId);
+
+            if (!selected) {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "Vælg venligst en af svarmulighederne.";
+                return;
+            }
+
+            if (selected.value === correctOption) {
+                feedbackEl.className = "feedback correct";
+                feedbackEl.innerHTML = "Korrekt fortolket! Super godt arbejdet.";
+            } else {
+                feedbackEl.className = "feedback incorrect";
+                feedbackEl.innerHTML = "Ikke helt rigtigt. Prøv igen eller læs hintet!";
+            }
+        }
+    </script>
+</body>
+</html>
