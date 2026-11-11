@@ -9,167 +9,7 @@
     <!-- MathJax til matematikvisning -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <style>
-      body { 
-        font-family: system-ui, -apple-system, sans-serif; 
-        background: #f8fafc; 
-        color: #1e293b; 
-        max-width: 800px; 
-        margin: 0 auto; 
-        padding: 20px; 
-        line-height: 1.6; 
-      }
-      .formula-box { 
-        background: #eff6ff; 
-        border: 2px solid #3b82f6; 
-        border-radius: 12px; 
-        padding: 20px; 
-        margin-bottom: 24px; 
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05); 
-      }
-      .formula-box h3 { 
-        color: #1d4ed8; 
-        margin-top: 0; 
-      }
-      .card { 
-        background: white; 
-        border: 1px solid #e2e8f0; 
-        border-radius: 12px; 
-        padding: 20px; 
-        margin-bottom: 24px; 
-        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
-      }
-      .task-title { 
-        font-weight: bold; 
-        font-size: 1.1em; 
-        color: #0f172a; 
-        display: block; 
-        margin-bottom: 10px; 
-        border-bottom: 2px solid #e2e8f0; 
-        padding-bottom: 6px; 
-      }
-      .input-section { 
-        margin: 15px 0; 
-      }
-      input[type="number"], select { 
-        padding: 8px 12px; 
-        font-size: 1rem; 
-        border: 1px solid #cbd5e1; 
-        border-radius: 6px; 
-        margin-right: 8px; 
-        width: 100%; 
-        max-width: 300px; 
-      }
-      .btn-group { 
-        display: flex; 
-        gap: 8px; 
-        flex-wrap: wrap; 
-        margin-top: 10px; 
-      }
-      button { 
-        padding: 8px 16px; 
-        border: none; 
-        border-radius: 6px; 
-        font-weight: 600; 
-        cursor: pointer; 
-        transition: background 0.2s; 
-      }
-      .btn-check { 
-        background: #2563eb; 
-        color: white; 
-      }
-      .btn-check:hover { 
-        background: #1d4ed8; 
-      }
-      .btn-hint { 
-        background: #f59e0b; 
-        color: white; 
-      }
-      .btn-hint:hover { 
-        background: #d97706; 
-      }
-      .btn-sol { 
-        background: #64748b; 
-        color: white; 
-      }
-      .btn-sol:hover { 
-        background: #475569; 
-      }
-      .btn-example { 
-        background: #3b82f6; 
-        color: white; 
-        margin-top: 10px; 
-      }
-      .hint-box, .sol-box, .example-block { 
-        display: none; 
-        margin-top: 12px; 
-        padding: 12px; 
-        border-radius: 6px; 
-        font-size: 0.95rem; 
-      }
-      .hint-box { 
-        background: #fffbeb; 
-        border-left: 4px solid #f59e0b; 
-        color: #78350f; 
-      }
-      .sol-box { 
-        background: #f1f5f9; 
-        border-left: 4px solid #64748b; 
-        color: #334155; 
-      }
-      .example-block { 
-        background: #ffffff; 
-        border: 1px dashed #3b82f6; 
-        margin-top: 15px; 
-        padding: 15px;
-      }
-      .feedback { 
-        margin-top: 10px; 
-        font-weight: bold; 
-      }
-      .correct { 
-        color: #16a34a; 
-      }
-      .incorrect { 
-        color: #dc2626; 
-      }
-      .maple-code { 
-        background: #ffffff; 
-        color: #000000; 
-        padding: 12px; 
-        border-left: 3px solid #2563eb;
-        border-top: 1px solid #e2e8f0;
-        border-right: 1px solid #e2e8f0;
-        border-bottom: 1px solid #e2e8f0;
-        border-radius: 4px; 
-        font-family: 'Times New Roman', Times, serif; 
-        font-size: 1.05em; 
-        overflow-x: auto; 
-        margin: 10px 0; 
-        line-height: 1.5;
-      }
-      .maple-output {
-        color: #0000ff;
-        font-weight: bold;
-        margin-top: 4px;
-      }
-      .radio-option { 
-        display: block; 
-        margin: 10px 0; 
-        cursor: pointer; 
-        background: #f8fafc;
-        padding: 10px;
-        border: 1px solid #cbd5e1;
-        border-radius: 6px;
-        transition: background 0.2s;
-      }
-      .radio-option:hover {
-        background: #f1f5f9;
-      }
-      .radio-option input {
-        margin-right: 10px;
-      }
-    </style>
+    
 </head>
 <body>
 
@@ -210,7 +50,7 @@
         
         <div class="input-section">
             <label for="q1"><strong>Indtast væksthastigheden \(Y'(5)\) (i mia. kr. pr. år):</strong></label><br><br>
-            <input type="number" id="q1" step="0.01" placeholder="F.eks. 45.0">
+            <input type="number" id="q1" step="0.01" placeholder="F.eks. 30.0">
         </div>
 
         <div class="btn-group">
@@ -285,7 +125,7 @@
         <p>$$ r(t) = \frac{Y'(t)}{Y(t)} \cdot 100\% $$</p>
         <p>Økonomiske vismænd vurderer, at et land befinder sig i <strong>højkonjunktur</strong>, hvis den relative årlige vækstrate overstiger <strong>1,8%</strong> (\(r(t) > 1.8\)).</p>
         <p>Et lands BNP er modelleret ved:</p>
-        <p>$$ Y(t) = 3000 \cdot (1.015)^t + 50 \cdot \sin(0.5 t), \quad t \ge 0 $$</p>
+        <p>$$ Y(t) = 2000 \cdot (1.018)^t + 100 \cdot \text{Sin}(10\cdot t), \quad t \ge 0 $$</p>
         <p>hvor \(Y(t)\) er i mia. kr. og \(t\) er antal år efter 2020.</p>
 
         <p><strong>Del A:</strong> Brug Maple til at beregne landets samlede BNP \(Y(6)\) samt væksthastigheden \(Y'(6)\) i år 2026 (\(t = 6\)). Udregn derefter den relative vækstrate \(r(6)\) i procent med 2 decimaler.</p>
@@ -296,7 +136,7 @@
         </div>
 
         <div class="btn-group">
-            <button class="btn-check" onclick="checkAnswer('q3a', 2.14, 0.05)">Tjek del A</button>
+            <button class="btn-check" onclick="checkAnswer('q3a', 2.09, 0.05)">Tjek del A</button>
             <button class="btn-hint" onclick="toggleBox('hint-q3a')">Hint</button>
             <button class="btn-sol" onclick="toggleBox('sol-q3a')">Løsning del A</button>
         </div>
@@ -322,7 +162,7 @@
         <form id="mcq-form-q3b">
             <label class="radio-option">
                 <input type="radio" name="q3b_option" value="A">
-                A) Ja, fordi den relative vækstrate på 2,14% er større end 1,8%.
+                A) Ja, fordi den relative vækstrate på 2,09% er større end 1,8%.
             </label>
             <label class="radio-option">
                 <input type="radio" name="q3b_option" value="B">
@@ -341,7 +181,7 @@
         <div id="feedback-q3b" class="feedback"></div>
         <div id="sol-q3b" class="sol-box">
             <strong>Løsning Del B:</strong><br>
-            Det rigtige svar er <strong>A</strong>. Da den beregnede relative vækstrate \(r(6) = 2{,}14\%\) er større end grænseværdien på 1,8%, er landet i højkonjunktur i 2026.
+            Det rigtige svar er <strong>A</strong>. Da den beregnede relative vækstrate \(r(6) = 2{,}09\%\) er større end grænseværdien på 1,8%, er landet i højkonjunktur i 2026.
         </div>
     </div>
 
