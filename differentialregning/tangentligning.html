@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestemmelse af tangentligning</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Bestemmelse af tangentligning</h1>
+
+        <!-- Top card med formel og eksempler -->
+        <div class="formula-box">
+            <h3>Ligning for tangenten</h3>
+            <p>Hvis en funktion \( f \) er differentiabel i \( x_0 \), er ligningen for tangenten til grafen for \( f \) i røringspunktet \( P(x_0, f(x_0)) \) givet ved:</p>
+            $$ y = f'(x_0) \cdot (x - x_0) + f(x_0) $$
+            <div class="formula-group">
+                <div><strong>\( f'(x_0) \):</strong> Tangentens hældningskoefficient \( a \) i punktet \( x_0 \).</div>
+                <div><strong>\( (x_0, f(x_0)) \):</strong> Røringspunktets koordinater på grafen for \( f \).</div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel 1 (Uden CAS)</button>
+                <button class="btn-example" onclick="toggleBox('example-2')">Vis/Skjul Eksempel 2 (Med Maple)</button>
+            </div>
+
+            <div id="example-1" class="example-block" style="display:none;">
+                <h4>Eksempel 1: Bestem tangentligning i hånden</h4>
+                <p>Bestem en ligning for tangenten til grafen for \( f(x) = x^2 + 3x - 2 \) i punktet \( P(1, f(1)) \).</p>
+                <p><strong>Trin 1:</strong> Find først \( y \)-værdien i røringspunktet:
+                $$ f(1) = 1^2 + 3 \cdot 1 - 2 = 2 $$
+                Røringspunktet er altså \( (1, 2) \).</p>
+                <p><strong>Trin 2:</strong> Differentier \( f(x) \) og find hældningen i \( x_0 = 1 \):
+                $$ f'(x) = 2x + 3 \implies f'(1) = 2 \cdot 1 + 3 = 5 $$</p>
+                <p><strong>Trin 3:</strong> Indsæt i tangentens ligning og reducer:
+                $$ y = 5 \cdot (x - 1) + 2 \iff y = 5x - 5 + 2 \iff y = 5x - 3 $$</p>
+            </div>
+
+            <div id="example-2" class="example-block" style="display:none;">
+                <h4>Eksempel 2: Brug af Maple</h4>
+                <p>Bestem en ligning for tangenten til \( f(x) = x \cdot e^{-x} \) i \( x_0 = 2 \).</p>
+                <p><strong>I Maple defineres funktionen og tangenten opstilles:</strong></p>
+                <pre><code>f(x) := x * exp(-x);
+y = f'(2) * (x - 2) + f(2);</code></pre>
+                <p>Maple returnerer \( y = -\mathrm{e}^{-2}(x - 2) + 2\mathrm{e}^{-2} \), som med <code>simplify(%)</code> eller <code>evalf(%)</code> kan omskrives til \( y = -0{,}135x + 0{,}541 \).</p>
+            </div>
+        </div>
+
+        <!-- Regneopgaver (uden overskriften "Regneopgave") -->
+        <div class="card">
+            <span class="task-title">Opgave 1: Andengradspolynomium (uden hjælpemidler)</span>
+            <p>En funktion er givet ved \( f(x) = x^2 - 4x + 7 \). Bestem en ligning for tangenten til grafen for \( f \) i punktet \( P(3, f(3)) \).</p>
+            <p>Skriv tangentens ligning på formen \( y = ax + b \):</p>
+            <div class="input-section">
+                <label for="q1-a">\( a = \)</label>
+                <input type="number" id="q1-a" step="0.01" placeholder="Hældning a...">
+                <label for="q1-b">\( b = \)</label>
+                <input type="number" id="q1-b" step="0.01" placeholder="Skæring b...">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkTangent('q1', 2, -2)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-q1')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-q1')">Løsning</button>
+            </div>
+            <div id="feedback-q1" class="feedback"></div>
+            <div id="hint-q1" class="hint-box" style="display:none;"><strong>Hint:</strong> Start med at udregne \( f(3) \). Find derefter den afledede funktion \( f'(x) \), og udregn hældningen \( f'(3) \). Indsæt til sidst dine værdier i formlen \( y = f'(x_0)(x - x_0) + f(x_0) \).</div>
+            <div id="sol-q1" class="sol-box" style="display:none;"><strong>Løsning:</strong><br>
+                1. Vi finder først funktionsværdien i \( x_0 = 3 \):<br>
+                \( f(3) = 3^2 - 4 \cdot 3 + 7 = 9 - 12 + 7 = 4 \). Røringspunktet er \( (3, 4) \).<br>
+                2. Vi differentierer \( f(x) \) og finder hældningen:<br>
+                \( f'(x) = 2x - 4 \implies f'(3) = 2 \cdot 3 - 4 = 2 \).<br>
+                3. Vi indsætter i tangentligningen:<br>
+                \( y = 2(x - 3) + 4 \iff y = 2x - 6 + 4 \iff y = 2x - 2 \).<br>
+                Dermed er \( a = 2 \) og \( b = -2 \).
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="task-title">Opgave 2: Tredjegradspolynomium (uden hjælpemidler)</span>
+            <p>Betragt funktionen \( g(x) = x^3 - 6x + 2 \). Bestem en ligning for tangenten til grafen for \( g \) i det punkt på grafen, der har førstekoordinat \( x_0 = -1 \).</p>
+            <p>Angiv konstanterne i tangentens ligning \( y = ax + b \):</p>
+            <div class="input-section">
+                <label for="q2-a">\( a = \)</label>
+                <input type="number" id="q2-a" step="0.01" placeholder="Hældning a...">
+                <label for="q2-b">\( b = \)</label>
+                <input type="number" id="q2-b" step="0.01" placeholder="Skæring b...">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkTangent('q2', -3, 4)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-q2')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-q2')">Løsning</button>
+            </div>
+            <div id="feedback-q2" class="feedback"></div>
+            <div id="hint-q2" class="hint-box" style="display:none;"><strong>Hint:</strong> Husk fortegnene, når du sætter \( x_0 = -1 \) ind i både \( g(x) \) og \( g'(x) \). Husk også at \( (x - (-1)) = (x + 1) \).</div>
+            <div id="sol-q2" class="sol-box" style="display:none;"><strong>Løsning:</strong><br>
+                1. Røringspunktets \( y \)-koordinat:<br>
+                \( g(-1) = (-1)^3 - 6 \cdot (-1) + 2 = -1 + 6 + 2 = 7 \).<br>
+                2. Differentialkvotienten i \( x_0 = -1 \):<br>
+                \( g'(x) = 3x^2 - 6 \implies g'(-1) = 3 \cdot (-1)^2 - 6 = 3 - 6 = -3 \).<br>
+                3. Tangentens ligning:<br>
+                \( y = -3(x - (-1)) + 7 \iff y = -3(x + 1) + 7 \iff y = -3x - 3 + 7 \iff y = -3x + 4 \).<br>
+                Dermed er \( a = -3 \) og \( b = 4 \).
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="task-title">Opgave 3: Kvadratrodsfunktion (uden hjælpemidler)</span>
+            <p>En funktion er givet ved \( h(x) = 4\sqrt{x} - x \) for \( x > 0 \). Bestem en ligning for tangenten til grafen for \( h \) i punktet \( P(4, h(4)) \).</p>
+            <p>Angiv konstanterne i tangentens ligning \( y = ax + b \):</p>
+            <div class="input-section">
+                <label for="q3-a">\( a = \)</label>
+                <input type="number" id="q3-a" step="0.01" placeholder="Hældning a...">
+                <label for="q3-b">\( b = \)</label>
+                <input type="number" id="q3-b" step="0.01" placeholder="Skæring b...">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkTangent('q3', 0, 4)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-q3')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-q3')">Løsning</button>
+            </div>
+            <div id="feedback-q3" class="feedback"></div>
+            <div id="hint-q3" class="hint-box" style="display:none;"><strong>Hint:</strong> Brug regnereglen fra formelsamlingen: \( (\sqrt{x})' = \frac{1}{2\sqrt{x}} \). Hvad sker der med tangentens ligning, hvis hældningen \( h'(4) \) giver \( 0 \)?</div>
+            <div id="sol-q3" class="sol-box" style="display:none;"><strong>Løsning:</strong><br>
+                1. Funktionsværdien i \( x_0 = 4 \):<br>
+                \( h(4) = 4\sqrt{4} - 4 = 4 \cdot 2 - 4 = 4 \).<br>
+                2. Differentialkvotienten i \( x_0 = 4 \):<br>
+                \( h'(x) = 4 \cdot \frac{1}{2\sqrt{x}} - 1 = \frac{2}{\sqrt{x}} - 1 \implies h'(4) = \frac{2}{\sqrt{4}} - 1 = \frac{2}{2} - 1 = 0 \).<br>
+                3. Tangentens ligning:<br>
+                \( y = 0 \cdot (x - 4) + 4 \iff y = 4 \) (en vandret tangent).<br>
+                Dermed er \( a = 0 \) og \( b = 4 \).
+            </div>
+        </div>
+
+        <!-- Forståelsesopgave (uden overskriften "Forståelsesopgave") -->
+        <div class="card">
+            <span class="task-title">Opgave 4: Aflæsning af tangentens egenskaber</span>
+            <p>En differentiabel funktion \( f \) har en tangent i punktet \( P(2, 5) \), som er givet ved ligningen \( y = -3x + 11 \). Hvilket af følgende udsagn er sandt om funktionen \( f \)?</p>
+            <div style="margin: 15px 0; text-align: left;">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4-choice" value="wrong1"> \( f(2) = -3 \) og \( f'(2) = 5 \)
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4-choice" value="correct"> \( f(2) = 5 \) og \( f'(2) = -3 \)
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4-choice" value="wrong2"> \( f(5) = 2 \) og \( f'(5) = -3 \)
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="q4-choice" value="wrong3"> \( f(2) = 11 \) og \( f'(2) = -3 \)
+                </label>
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkRadio('q4')">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-q4')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-q4')">Løsning</button>
+            </div>
+            <div id="feedback-q4" class="feedback"></div>
+            <div id="hint-q4" class="hint-box" style="display:none;"><strong>Hint:</strong> Sammenlign oplysningerne med tangentformlen: \( x_0 \) er førstekoordinaten i røringspunktet, \( f(x_0) \) er andenkoordinaten, og \( f'(x_0) \) er tangentens hældningskoefficient.</div>
+            <div id="sol-q4" class="sol-box" style="display:none;"><strong>Løsning:</strong><br>
+                Det rigtige udsagn er: <strong>\( f(2) = 5 \) og \( f'(2) = -3 \)</strong>.<br>
+                Røringspunktet er \( P(x_0, f(x_0)) = P(2, 5) \), hvilket betyder at \( f(2) = 5 \).<br>
+                Tangentens hældningskoefficient er tallet foran \( x \) i \( y = -3x + 11 \), så \( f'(2) = -3 \).
+            </div>
+        </div>
+
+        <!-- Sidste opgave med Maple (uden overskriften "Krævende opgave") -->
+        <div class="card">
+            <span class="task-title">Opgave 5: Vækstmodel og tangent med Maple (med hjælpemidler)</span>
+            <p>I en model kan antallet af bakterier \( N(t) \) i en kultur beskrives ved funktionen:</p>
+            $$ N(t) = \frac{1200}{1 + 19 \cdot \mathrm{e}^{-0{,}45t}} $$
+            <p>hvor \( t \) er tiden i timer efter forsøgets start.</p>
+            <p><strong>a)</strong> Brug Maple til at bestemme en ligning for tangenten til grafen for \( N \) i punktet \( P(6, N(6)) \). Angiv værdierne for \( a \) og \( b \) i ligningen \( y = a \cdot t + b \) afrundet til to decimaler.</p>
+            <div class="input-section">
+                <label for="q5-a">\( a = \)</label>
+                <input type="number" id="q5-a" step="0.01" placeholder="Hældning a...">
+                <label for="q5-b">\( b = \)</label>
+                <input type="number" id="q5-b" step="0.01" placeholder="Skæring b...">
+            </div>
+            <p><strong>b)</strong> Brug tangenten som lineær tilnærmelse til at estimere antallet af bakterier til tiden \( t = 6{,}5 \) timer (afrundet til nærmeste heltal).</p>
+            <div class="input-section">
+                <label for="q5">\( N_{\text{tangent}}(6{,}5) \approx \)</label>
+                <input type="number" id="q5" step="1" placeholder="Antal bakterier...">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkMapleTask()">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-q5')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-q5')">Løsning</button>
+            </div>
+            <div id="feedback-q5" class="feedback"></div>
+            <div id="hint-q5" class="hint-box" style="display:none;"><strong>Hint:</strong> Definer funktionen i Maple med <code>N(t) := 1200 / (1 + 19 * exp(-0.45*t));</code>. Beregn derefter <code>evalf(N'(6)*(t - 6) + N(6))</code> og udvid parentesen med <code>expand(%)</code> for at aflæse \( a \) og \( b \).</div>
+            <div id="sol-q5" class="sol-box" style="display:none;"><strong>Løsning:</strong><br>
+                <strong>a)</strong> I Maple indtastes:<br>
+                <pre><code>N(t) := 1200 / (1 + 19 * exp(-0.45*t));
+tangent := expand(evalf(N'(6) * (t - 6) + N(6)));</code></pre>
+                Dette giver \( N(6) \approx 526{,}82 \) og \( N'(6) \approx 133{,}00 \).<br>
+                Tangentens ligning bliver:<br>
+                $$ y = 133{,}00 \cdot t - 271{,}21 $$
+                Altså er \( a = 133{,}00 \) og \( b = -271{,}21 \).<br><br>
+                <strong>b)</strong> Ved at indsætte \( t = 6{,}5 \) i tangentens ligning fås:<br>
+                \( y = 133{,}00 \cdot 6{,}5 - 271{,}21 = 593{,}29 \approx 593 \) bakterier.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleBox(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (el.style.display === 'none' || el.style.display === '') {
+                el.style.display = 'block';
+            } else {
+                el.style.display = 'none';
+            }
+        }
+
+        function checkAnswer(id, correctVal) {
+            const input = document.getElementById(id);
+            const feedback = document.getElementById('feedback-' + id);
+            const val = parseFloat(input.value.replace(',', '.'));
+            if (isNaN(val)) {
+                feedback.textContent = 'Indtast venligst et tal.';
+                feedback.className = 'feedback incorrect';
+                return;
+            }
+            if (Math.abs(val - correctVal) <= 0.5) {
+                feedback.textContent = 'Flot! Det er helt rigtigt.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Ikke helt rigtigt endnu – prøv igen eller brug et hint.';
+                feedback.className = 'feedback incorrect';
+            }
+        }
+
+        function checkTangent(prefix, correctA, correctB) {
+            const inputA = document.getElementById(prefix + '-a');
+            const inputB = document.getElementById(prefix + '-b');
+            const feedback = document.getElementById('feedback-' + prefix);
+
+            const valA = parseFloat(inputA.value.replace(',', '.'));
+            const valB = parseFloat(inputB.value.replace(',', '.'));
+
+            if (isNaN(valA) || isNaN(valB)) {
+                feedback.textContent = 'Indtast venligst både en værdi for a og b.';
+                feedback.className = 'feedback incorrect';
+                return;
+            }
+
+            if (Math.abs(valA - correctA) <= 0.05 && Math.abs(valB - correctB) <= 0.05) {
+                feedback.textContent = 'Flot! Du har fundet den rigtige tangentligning.';
+                feedback.className = 'feedback correct';
+            } else if (Math.abs(valA - correctA) <= 0.05) {
+                feedback.textContent = 'Hældningen a er rigtig, men tjek din udregning af b.';
+                feedback.className = 'feedback incorrect';
+            } else if (Math.abs(valB - correctB) <= 0.05) {
+                feedback.textContent = 'Skæringen b er rigtig, men tjek din udregning af hældningen a.';
+                feedback.className = 'feedback incorrect';
+            } else {
+                feedback.textContent = 'Ikke helt rigtigt endnu – prøv at tjekke dine mellemregninger eller brug et hint.';
+                feedback.className = 'feedback incorrect';
+            }
+        }
+
+        function checkRadio(prefix) {
+            const selected = document.querySelector('input[name="' + prefix + '-choice"]:checked');
+            const feedback = document.getElementById('feedback-' + prefix);
+            if (!selected) {
+                feedback.textContent = 'Vælg venligst et af udsagnene.';
+                feedback.className = 'feedback incorrect';
+                return;
+            }
+            if (selected.value === 'correct') {
+                feedback.textContent = 'Helt rigtigt! Godt aflæst.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Det er desværre ikke det rigtige udsagn. Prøv igen eller se hintet.';
+                feedback.className = 'feedback incorrect';
+            }
+        }
+
+        function checkMapleTask() {
+            const valA = parseFloat(document.getElementById('q5-a').value.replace(',', '.'));
+            const valB = parseFloat(document.getElementById('q5-b').value.replace(',', '.'));
+            const valEst = parseFloat(document.getElementById('q5').value.replace(',', '.'));
+            const feedback = document.getElementById('feedback-q5');
+
+            if (isNaN(valA) || isNaN(valB) || isNaN(valEst)) {
+                feedback.textContent = 'Udfyld venligst alle tre felter i opgave a og b.';
+                feedback.className = 'feedback incorrect';
+                return;
+            }
+
+            const okA = Math.abs(valA - 133.00) <= 0.1;
+            const okB = Math.abs(valB - (-271.21)) <= 0.2;
+            const okEst = Math.abs(valEst - 593) <= 1;
+
+            if (okA && okB && okEst) {
+                feedback.textContent = 'Super arbejde! Både tangentligningen og estimatet er helt rigtige.';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'En eller flere værdier stemmer ikke helt. Tjek afrundingen og dine Maple-kommandoer.';
+                feedback.className = 'feedback incorrect';
+            }
+        }
+    </script>
+</body>
+</html>

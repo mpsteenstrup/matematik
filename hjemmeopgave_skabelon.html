@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hjemmeopgave – Differentialregning og tangenter</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* Supplerende styling til hjemmeopgave-funktioner og PDF-print */
+        .part-banner {
+            background: #f0f4f8;
+            border-left: 5px solid #2b6cb0;
+            padding: 15px 20px;
+            margin: 30px 0 20px 0;
+            border-radius: 6px;
+        }
+        .part-banner h2 {
+            margin: 0 0 6px 0;
+            color: #1a365d;
+        }
+        .timer-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #edf2f7;
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #cbd5e0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .timer-badge {
+            font-weight: bold;
+            font-size: 1.05em;
+            color: #2d3748;
+        }
+        .method-textarea {
+            width: 100%;
+            min-height: 110px;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95em;
+            margin: 8px 0 14px 0;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        .rating-box {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px dashed #cbd5e0;
+            font-size: 0.92em;
+        }
+        .rating-options {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin: 6px 0 10px 0;
+        }
+        .rating-options label {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .comment-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 0.9em;
+            box-sizing: border-box;
+        }
+        .locked-overlay {
+            background: #f7fafc;
+            border: 2px dashed #a0aec0;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .report-generator-box {
+            background: #ebf8ff;
+            border: 2px solid #3182ce;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 35px;
+        }
+        .btn-primary {
+            background-color: #2b6cb0;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        .btn-primary:hover {
+            background-color: #2c5282;
+        }
+        .btn-reset {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+        }
+
+        /* Skjul print-rapporten på almindelig skærm */
+        #print-report {
+            display: none;
+        }
+
+        /* Print / PDF-layout: Skjul alt undtagen #print-report */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #print-report, #print-report * {
+                visibility: visible;
+            }
+            #print-report {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                color: #000;
+                background: #fff;
+                font-family: Arial, sans-serif;
+                font-size: 11pt;
+                line-height: 1.45;
+            }
+            .report-header {
+                border-bottom: 2px solid #000;
+                padding-bottom: 10px;
+                margin-bottom: 18px;
+            }
+            .report-meta {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 8px;
+                font-weight: bold;
+            }
+            .report-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 22px;
+            }
+            .report-table th, .report-table td {
+                border: 1px solid #444;
+                padding: 7px 10px;
+                text-align: left;
+            }
+            .report-table th {
+                background-color: #eee !important;
+                -webkit-print-color-adjust: exact;
+            }
+            .report-task-block {
+                border: 1px solid #999;
+                padding: 12px;
+                margin-bottom: 14px;
+                page-break-inside: avoid;
+            }
+            .report-task-block h4 {
+                margin: 0 0 6px 0;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 4px;
+            }
+            .report-text-box {
+                background: #f9f9f9 !important;
+                -webkit-print-color-adjust: exact;
+                padding: 8px;
+                border-left: 3px solid #333;
+                white-space: pre-wrap;
+                margin: 6px 0;
+            }
+            .report-stamp {
+                margin-top: 25px;
+                padding-top: 10px;
+                border-top: 1px dashed #666;
+                font-size: 0.85em;
+                color: #444;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-screen">
+        <h1>Hjemmeopgave: Tangentligninger og vækstmodeller</h1>
+
+        <!-- Top card med formel og eksempler -->
+        <div class="formula-box">
+            <h3>Oversigt og formelgrundlag</h3>
+            <p>Ligningen for tangenten til grafen for en differentiabel funktion \( f \) i røringspunktet \( P(x_0, f(x_0)) \) er givet ved:</p>
+            $$ y = f'(x_0) \cdot (x - x_0) + f(x_0) $$
+            <div class="formula-group">
+                <div><strong>Del 1 (Øvelse):</strong> Her kan du træne med både hints og fulde løsninger.</div>
+                <div><strong>Del 2 (Aflevering):</strong> Her skriver du din metode og mellemregninger med ord, tjekker dine talresultater og danner en PDF-rapport til aflevering.</div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-example" onclick="toggleBox('example-1')">Vis/Skjul Eksempel (Metodebeskrivelse)</button>
+            </div>
+
+            <div id="example-1" class="example-block" style="display:none;">
+                <h4>Sådan forventes du at skrive i Del 2</h4>
+                <p><strong>Eksempel (uden CAS):</strong> <em>"Jeg skal finde tangenten til \( f(x) = x^2 \cdot \mathrm{e}^x \) i \( x_0 = 1 \). Først udregner jeg \( f(1) = 1^2 \cdot \mathrm{e}^1 = \mathrm{e} \). Derefter differentierer jeg \( f \) ved hjælp af produktreglen og får \( f'(x) = 2x \cdot \mathrm{e}^x + x^2 \cdot \mathrm{e}^x \). Indsættes \( x_0 = 1 \), fås hældningen \( f'(1) = 3\mathrm{e} \)."</em></p>
+                <p><strong>Eksempel (med Maple):</strong> <em>"Jeg definerer funktionen \( N(t) \) i Maple og løser ligningen \( N'(t) = 50 \) med kommandoen <code>solve</code> for at finde tidspunktet, hvor væksthastigheden er 50."</em></p>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- DEL 1: ØVEDEL (MED HINTS OG FULD LØSNING)                 -->
+        <!-- ========================================================= -->
+        <div class="part-banner">
+            <h2>Del 1: Opvarmning og færdighedstræning</h2>
+            <p>Brug denne del til at få styr på metoderne. Her er både hints og fulde løsninger tilgængelige, og tiden tæller ikke med i din afleveringsrapport.</p>
+        </div>
+
+        <div class="card">
+            <span class="task-title">Øvelse 1.1: Tangent til polynomium (uden hjælpemidler)</span>
+            <p>Bestem en ligning \( y = ax + b \) for tangenten til grafen for \( f(x) = x^2 - 6x + 10 \) i punktet \( P(4, f(4)) \).</p>
+            <div class="input-section">
+                <label for="p1-a">\( a = \)</label>
+                <input type="number" id="p1-a" step="0.01" placeholder="Hældning a...">
+                <label for="p1-b">\( b = \)</label>
+                <input type="number" id="p1-b" step="0.01" placeholder="Skæring b...">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkPracticeTangent('p1', 2, -6)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-p1')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-p1')">Løsning</button>
+            </div>
+            <div id="feedback-p1" class="feedback"></div>
+            <div id="hint-p1" class="hint-box" style="display:none;"><strong>Hint:</strong> Udregn først \( f(4) \) for at finde \( y \)-koordinaten til røringspunktet. Differentier derefter \( f(x) \) og sæt \( x = 4 \) ind i \( f'(x) \).</div>
+            <div id="sol-p1" class="sol-box" style="display:none;"><strong>Løsning:</strong><br>
+                \( f(4) = 4^2 - 6 \cdot 4 + 10 = 2 \).<br>
+                \( f'(x) = 2x - 6 \implies f'(4) = 2 \cdot 4 - 6 = 2 \).<br>
+                \( y = 2(x - 4) + 2 \iff y = 2x - 6 \). Så \( a = 2 \) og \( b = -6 \).
+            </div>
+        </div>
+
+        <div class="card">
+            <span class="task-title">Øvelse 1.2: Begrebsforståelse</span>
+            <p>En funktion \( g \) har tangenten \( y = 4x - 7 \) i punktet \( P(3, 5) \). Hvilket udsagn er sandt?</p>
+            <div style="margin: 12px 0; text-align: left;">
+                <label style="display: block; margin-bottom: 8px; cursor: pointer;">
+                    <input type="radio" name="p2-choice" value="wrong1"> \( g(3) = 4 \) og \( g'(3) = 5 \)
+                </label>
+                <label style="display: block; margin-bottom: 8px; cursor: pointer;">
+                    <input type="radio" name="p2-choice" value="correct"> \( g(3) = 5 \) og \( g'(3) = 4 \)
+                </label>
+                <label style="display: block; margin-bottom: 8px; cursor: pointer;">
+                    <input type="radio" name="p2-choice" value="wrong2"> \( g(5) = 3 \) og \( g'(5) = -7 \)
+                </label>
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkPracticeRadio('p2')">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-p2')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-p2')">Løsning</button>
+            </div>
+            <div id="feedback-p2" class="feedback"></div>
+            <div id="hint-p2" class="hint-box" style="display:none;"><strong>Hint:</strong> I røringspunktet \( (x_0, f(x_0)) \) er andenkoordinaten funktionsværdien, mens tangentens hældning er \( f'(x_0) \).</div>
+            <div id="sol-p2" class="sol-box" style="display:none;"><strong>Løsning:</strong> Da røringspunktet er \( (3, 5) \), er \( g(3) = 5 \). Tangentens hældning er \( 4 \), så \( g'(3) = 4 \).</div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- DEL 2: AFLEVERINGSDEL (TIDTAGNING, METODETEKST & RAPPORT) -->
+        <!-- ========================================================= -->
+        <div class="part-banner">
+            <h2>Del 2: Afleveringsopgaver (med tidsregistrering)</h2>
+            <p>Her skal du både beskrive din metode/mellemregninger med tekst og tjekke dine talresultater. Dine svar og din aktive arbejdstid gemmes automatisk i browseren, så du kan holde pause og fortsætte senere.</p>
+        </div>
+
+        <!-- Låseskærm før Del 2 startes -->
+        <div id="part2-lock-screen" class="locked-overlay">
+            <h3>Klar til at gå i gang med Del 2?</h3>
+            <p>Når du klikker på knappen herunder, låses opgaverne op, og uret starter. Uret pauser automatisk, hvis du forlader siden eller holder pause i mere end 3 minutter.</p>
+            <button class="btn-primary" onclick="startPart2()">Start Del 2 (starter tidtagning)</button>
+        </div>
+
+        <!-- Selve Del 2 indholdet (skjult indtil start) -->
+        <div id="part2-content" style="display:none;">
+            <div class="timer-bar">
+                <div class="timer-badge">Aktiv tid på Del 2: <span id="timer-display">00:00:00</span> <span id="timer-status" style="font-weight:normal; font-size:0.85em; color:#2f855a;">(Kører)</span></div>
+                <button class="btn-reset" onclick="resetAllData()" title="Nulstil alt arbejde i Del 2">Nulstil Del 2</button>
+            </div>
+
+            <!-- OPGAVE 2.1 -->
+            <div class="card" id="card-t1">
+                <span class="task-title">Opgave 2.1: Produktreglen og tangent (uden hjælpemidler)</span>
+                <p>En funktion er givet ved \( f(x) = (2x - 1) \cdot \mathrm{e}^{x} \). Bestem en ligning \( y = ax + b \) for tangenten til grafen for \( f \) i punktet \( P(0, f(0)) \).</p>
+
+                <label for="method-t1"><strong>Metodebeskrivelse og vigtigste mellemregninger:</strong></label>
+                <textarea id="method-t1" class="method-textarea" oninput="saveText('t1')" placeholder="Forklar med ord hvilke regneregler du bruger (fx produktreglen), og skriv dine vigtigste mellemregninger..."></textarea>
+
+                <p><strong>Tjek dine udregnede værdier for tangenten \( y = ax + b \):</strong></p>
+                <div class="input-section">
+                    <label for="ans-t1-a">\( a = \)</label>
+                    <input type="number" id="ans-t1-a" step="0.01" placeholder="Hældning a...">
+                    <label for="ans-t1-b">\( b = \)</label>
+                    <input type="number" id="ans-t1-b" step="0.01" placeholder="Skæring b...">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-check" onclick="checkPart2Tangent('t1', 1, -1)">Tjek resultat</button>
+                    <button class="btn-hint" onclick="useHint('t1', 1)">Hint 1</button>
+                    <button class="btn-hint" onclick="useHint('t1', 2)">Hint 2</button>
+                </div>
+                <div id="feedback-t1" class="feedback"></div>
+                <div id="hint-t1-1" class="hint-box" style="display:none;"><strong>Hint 1:</strong> Funktionen er et produkt af \( u(x) = 2x - 1 \) og \( v(x) = \mathrm{e}^x \). Brug produktreglen \( (u \cdot v)' = u' \cdot v + u \cdot v' \) til at finde \( f'(x) \).</div>
+                <div id="hint-t1-2" class="hint-box" style="display:none;"><strong>Hint 2:</strong> Husk at \( \mathrm{e}^0 = 1 \). Udregn både \( f(0) \) og \( f'(0) \), og sæt dem ind i \( y = f'(0)(x - 0) + f(0) \).</div>
+
+                <div class="rating-box">
+                    <strong>Vurdering af opgave 2.1:</strong> Hvor svær synes du, opgaven var?
+                    <div class="rating-options">
+                        <label><input type="radio" name="rate-t1" value="1 (Meget let)" onchange="saveRating('t1', this.value)"> 1 (Meget let)</label>
+                        <label><input type="radio" name="rate-t1" value="2 (Let)" onchange="saveRating('t1', this.value)"> 2 (Let)</label>
+                        <label><input type="radio" name="rate-t1" value="3 (Tilpas)" onchange="saveRating('t1', this.value)"> 3 (Tilpas)</label>
+                        <label><input type="radio" name="rate-t1" value="4 (Svær)" onchange="saveRating('t1', this.value)"> 4 (Svær)</label>
+                        <label><input type="radio" name="rate-t1" value="5 (Meget svær)" onchange="saveRating('t1', this.value)"> 5 (Meget svær)</label>
+                    </div>
+                    <input type="text" id="comment-t1" class="comment-input" oninput="saveComment('t1')" placeholder="Valgfri kommentar til opgaven (hvad drillede eller gik godt?)...">
+                </div>
+            </div>
+
+            <!-- OPGAVE 2.2 -->
+            <div class="card" id="card-t2">
+                <span class="task-title">Opgave 2.2: Vandret tangent (uden hjælpemidler)</span>
+                <p>En funktion er givet ved \( g(x) = x^3 - 3x^2 - 9x + 5 \). Bestem førstekoordinaten \( x_0 \) til det punkt på grafen for \( g \) med \( x_0 > 0 \), hvor tangenten er vandret.</p>
+
+                <label for="method-t2"><strong>Metodebeskrivelse og vigtigste mellemregninger:</strong></label>
+                <textarea id="method-t2" class="method-textarea" oninput="saveText('t2')" placeholder="Forklar hvad det betyder for f'(x), at tangenten er vandret, og vis hvordan du løser ligningen..."></textarea>
+
+                <p><strong>Tjek dit udregnede resultat:</strong></p>
+                <div class="input-section">
+                    <label for="ans-t2">\( x_0 = \)</label>
+                    <input type="number" id="ans-t2" step="0.01" placeholder="Indtast x0...">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-check" onclick="checkPart2Single('t2', 3, 0.05)">Tjek resultat</button>
+                    <button class="btn-hint" onclick="useHint('t2', 1)">Hint 1</button>
+                    <button class="btn-hint" onclick="useHint('t2', 2)">Hint 2</button>
+                </div>
+                <div id="feedback-t2" class="feedback"></div>
+                <div id="hint-t2-1" class="hint-box" style="display:none;"><strong>Hint 1:</strong> En vandret tangent har hældningen \( 0 \). Du skal derfor starte med at differentiere \( g(x) \) og sætte \( g'(x) = 0 \).</div>
+                <div id="hint-t2-2" class="hint-box" style="display:none;"><strong>Hint 2:</strong> Du får andengradsligningen \( 3x^2 - 6x - 9 = 0 \). Divider evt. med \( 3 \) på begge sider, før du løser den med diskriminantformlen – og husk at \( x_0 > 0 \).</div>
+
+                <div class="rating-box">
+                    <strong>Vurdering af opgave 2.2:</strong> Hvor svær synes du, opgaven var?
+                    <div class="rating-options">
+                        <label><input type="radio" name="rate-t2" value="1 (Meget let)" onchange="saveRating('t2', this.value)"> 1 (Meget let)</label>
+                        <label><input type="radio" name="rate-t2" value="2 (Let)" onchange="saveRating('t2', this.value)"> 2 (Let)</label>
+                        <label><input type="radio" name="rate-t2" value="3 (Tilpas)" onchange="saveRating('t2', this.value)"> 3 (Tilpas)</label>
+                        <label><input type="radio" name="rate-t2" value="4 (Svær)" onchange="saveRating('t2', this.value)"> 4 (Svær)</label>
+                        <label><input type="radio" name="rate-t2" value="5 (Meget svær)" onchange="saveRating('t2', this.value)"> 5 (Meget svær)</label>
+                    </div>
+                    <input type="text" id="comment-t2" class="comment-input" oninput="saveComment('t2')" placeholder="Valgfri kommentar til opgaven...">
+                </div>
+            </div>
+
+            <!-- OPGAVE 2.3 (MED MAPLE) -->
+            <div class="card" id="card-t3">
+                <span class="task-title">Opgave 2.3: Vækstmodel og tangent med Maple (med hjælpemidler)</span>
+                <p>Temperaturen \( T(t) \) (målt i \( ^\circ\text{C} \)) i en kop kaffe \( t \) minutter efter den er skænket, beskrives ved modellen:</p>
+                $$ T(t) = 21 + 64 \cdot \mathrm{e}^{-0{,}045t} $$
+                <p>Brug Maple til at bestemme en ligning \( y = a \cdot t + b \) for tangenten til grafen for \( T \) til tiden \( t = 10 \) minutter (afrund \( a \) og \( b \) til to decimaler).</p>
+
+                <label for="method-t3"><strong>Beskrivelse af Maple-kommandoer og fortolkning:</strong></label>
+                <textarea id="method-t3" class="method-textarea" oninput="saveText('t3')" placeholder="Beskriv hvilke kommandoer du bruger i Maple (fx definition af T(t), differentiation, opstilling af tangent), og fortolk hvad hældningen a fortæller om kaffens temperatur..."></textarea>
+
+                <p><strong>Tjek dine aflæste værdier fra Maple:</strong></p>
+                <div class="input-section">
+                    <label for="ans-t3-a">\( a = \)</label>
+                    <input type="number" id="ans-t3-a" step="0.01" placeholder="Hældning a...">
+                    <label for="ans-t3-b">\( b = \)</label>
+                    <input type="number" id="ans-t3-b" step="0.01" placeholder="Skæring b...">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-check" onclick="checkPart2Tangent('t3', -1.84, 80.14)">Tjek resultat</button>
+                    <button class="btn-hint" onclick="useHint('t3', 1)">Hint 1</button>
+                    <button class="btn-hint" onclick="useHint('t3', 2)">Hint 2</button>
+                </div>
+                <div id="feedback-t3" class="feedback"></div>
+                <div id="hint-t3-1" class="hint-box" style="display:none;"><strong>Hint 1:</strong> Definer funktionen i Maple med <code>T(t) := 21 + 64 * exp(-0.045*t);</code>.</div>
+                <div id="hint-t3-2" class="hint-box" style="display:none;"><strong>Hint 2:</strong> Beregn tangenten med <code>expand(evalf(T'(10)*(t - 10) + T(10)))</code>, så du direkte kan aflæse \( a \) og \( b \).</div>
+
+                <div class="rating-box">
+                    <strong>Vurdering af opgave 2.3:</strong> Hvor svær synes du, opgaven var?
+                    <div class="rating-options">
+                        <label><input type="radio" name="rate-t3" value="1 (Meget let)" onchange="saveRating('t3', this.value)"> 1 (Meget let)</label>
+                        <label><input type="radio" name="rate-t3" value="2 (Let)" onchange="saveRating('t3', this.value)"> 2 (Let)</label>
+                        <label><input type="radio" name="rate-t3" value="3 (Tilpas)" onchange="saveRating('t3', this.value)"> 3 (Tilpas)</label>
+                        <label><input type="radio" name="rate-t3" value="4 (Svær)" onchange="saveRating('t3', this.value)"> 4 (Svær)</label>
+                        <label><input type="radio" name="rate-t3" value="5 (Meget svær)" onchange="saveRating('t3', this.value)"> 5 (Meget svær)</label>
+                    </div>
+                    <input type="text" id="comment-t3" class="comment-input" oninput="saveComment('t3')" placeholder="Valgfri kommentar til opgaven...">
+                </div>
+            </div>
+
+            <!-- AFLEVERINGSBOKS -->
+            <div class="report-generator-box">
+                <h3>Afslut og generer PDF-rapport til aflevering</h3>
+                <p>Når du er færdig med Del 2, skal du indtaste dit fulde navn herunder og klikke på knappen. Vælg derefter <strong>"Gem som PDF"</strong> i vinduet, der åbner, og upload PDF-filen til aflevering.</p>
+                <div class="input-section" style="margin-bottom: 15px;">
+                    <label for="student-name"><strong>Dit fulde navn:</strong></label>
+                    <input type="text" id="student-name" oninput="saveName()" placeholder="Skriv fornavn og efternavn..." style="min-width: 260px; padding: 8px;">
+                </div>
+                <button class="btn-primary" onclick="generatePDFReport()">Generer afleveringsrapport (Gem som PDF)</button>
+                <div id="report-error" class="feedback incorrect" style="margin-top: 10px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- SKJULT PRINT-RAPPORT (VISES KUN VED PRINT / GEM SOM PDF)   -->
+    <!-- ========================================================= -->
+    <div id="print-report"></div>
+
+    <script>
+        // Konfigurationsliste over opgaver i Del 2 (gør skabelonen nem at udvide)
+        const PART2_TASKS = [
+            { id: 't1', title: 'Opgave 2.1: Produktreglen og tangent (uden hjælpemidler)' },
+            { id: 't2', title: 'Opgave 2.2: Vandret tangent (uden hjælpemidler)' },
+            { id: 't3', title: 'Opgave 2.3: Vækstmodel og tangent med Maple' }
+        ];
+
+        const STORAGE_KEY = 'math_hw_tangent_v1';
+
+        // Standard tilstandsobjekt
+        let state = {
+            part2Started: false,
+            activeSeconds: 0,
+            studentName: '',
+            tasks: {}
+        };
+
+        PART2_TASKS.forEach(t => {
+            state.tasks[t.id] = {
+                solved: false,
+                attempts: 0,
+                hintsUsed: [],
+                methodText: '',
+                rating: 'Ikke angivet',
+                comment: '',
+                inputs: {}
+            };
+        });
+
+        // Hent gemte data fra localStorage ved indlæsning
+        function loadState() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    state = Object.assign(state, parsed);
+                } catch (e) {
+                    console.error('Kunne ikke indlæse gemt data', e);
+                }
+            }
+            restoreUI();
+        }
+
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function restoreUI() {
+            if (state.part2Started) {
+                document.getElementById('part2-lock-screen').style.display = 'none';
+                document.getElementById('part2-content').style.display = 'block';
+                startTimerLoop();
+            }
+            document.getElementById('student-name').value = state.studentName || '';
+            updateTimerDisplay();
+
+            PART2_TASKS.forEach(t => {
+                const td = state.tasks[t.id];
+                if (!td) return;
+
+                const methodEl = document.getElementById('method-' + t.id);
+                if (methodEl) methodEl.value = td.methodText || '';
+
+                const commentEl = document.getElementById('comment-' + t.id);
+                if (commentEl) commentEl.value = td.comment || '';
+
+                if (td.rating && td.rating !== 'Ikke angivet') {
+                    const radio = document.querySelector(`input[name="rate-${t.id}"][value="${td.rating}"]`);
+                    if (radio) radio.checked = true;
+                }
+
+                // Gendan talinputs
+                if (td.inputs) {
+                    Object.keys(td.inputs).forEach(inputId => {
+                        const el = document.getElementById(inputId);
+                        if (el) el.value = td.inputs[inputId];
+                    });
+                }
+
+                // Gendan åbnede hints
+                if (td.hintsUsed) {
+                    td.hintsUsed.forEach(hNum => {
+                        const hBox = document.getElementById(`hint-${t.id}-${hNum}`);
+                        if (hBox) hBox.style.display = 'block';
+                    });
+                }
+
+                // Gendan løst-status
+                if (td.solved) {
+                    const fb = document.getElementById('feedback-' + t.id);
+                    if (fb) {
+                        fb.textContent = 'Resultatet er registreret som rigtigt!';
+                        fb.className = 'feedback correct';
+                    }
+                }
+            });
+        }
+
+        // --- TIDTAGNING MED INAKTIVITETS- OG FANE-DETEKTION ---
+        let lastActivity = Date.now();
+        let timerInterval = null;
+        const INACTIVITY_LIMIT_MS = 3 * 60 * 1000; // 3 minutters pausegrænse
+
+        ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(evt => {
+            document.addEventListener(evt, () => {
+                lastActivity = Date.now();
+            }, { passive: true });
+        });
+
+        function startPart2() {
+            state.part2Started = true;
+            lastActivity = Date.now();
+            saveState();
+            document.getElementById('part2-lock-screen').style.display = 'none';
+            document.getElementById('part2-content').style.display = 'block';
+            startTimerLoop();
+        }
+
+        function startTimerLoop() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                const isVisible = document.visibilityState === 'visible';
+                const isActive = (Date.now() - lastActivity) < INACTIVITY_LIMIT_MS;
+                const statusEl = document.getElementById('timer-status');
+
+                if (isVisible && isActive) {
+                    state.activeSeconds += 1;
+                    updateTimerDisplay();
+                    if (statusEl) {
+                        statusEl.textContent = '(Kører)';
+                        statusEl.style.color = '#2f855a';
+                    }
+                    if (state.activeSeconds % 5 === 0) {
+                        saveState();
+                    }
+                } else {
+                    if (statusEl) {
+                        statusEl.textContent = '(Sat på pause pga. inaktivitet)';
+                        statusEl.style.color = '#c53030';
+                    }
+                }
+            }, 1000);
+        }
+
+        function formatDuration(totalSec) {
+            const hrs = Math.floor(totalSec / 3600);
+            const mins = Math.floor((totalSec % 3600) / 60);
+            const secs = totalSec % 60;
+            return [hrs, mins, secs].map(v => String(v).padStart(2, '0')).join(':');
+        }
+
+        function updateTimerDisplay() {
+            const el = document.getElementById('timer-display');
+            if (el) el.textContent = formatDuration(state.activeSeconds);
+        }
+
+        // --- HJÆLPEFUNKTIONER TIL DEL 1 (ØVELSER) ---
+        function toggleBox(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+        }
+
+        function checkPracticeTangent(prefix, correctA, correctB) {
+            const valA = parseFloat(document.getElementById(prefix + '-a').value.replace(',', '.'));
+            const valB = parseFloat(document.getElementById(prefix + '-b').value.replace(',', '.'));
+            const fb = document.getElementById('feedback-' + prefix);
+
+            if (isNaN(valA) || isNaN(valB)) {
+                fb.textContent = 'Indtast venligst både a og b.';
+                fb.className = 'feedback incorrect';
+                return;
+            }
+            if (Math.abs(valA - correctA) <= 0.05 && Math.abs(valB - correctB) <= 0.05) {
+                fb.textContent = 'Flot! Det er helt rigtigt.';
+                fb.className = 'feedback correct';
+            } else {
+                fb.textContent = 'Ikke helt rigtigt – tjek dine mellemregninger eller brug et hint.';
+                fb.className = 'feedback incorrect';
+            }
+        }
+
+        function checkPracticeRadio(prefix) {
+            const sel = document.querySelector(`input[name="${prefix}-choice"]:checked`);
+            const fb = document.getElementById('feedback-' + prefix);
+            if (!sel) {
+                fb.textContent = 'Vælg et udsagn først.';
+                fb.className = 'feedback incorrect';
+                return;
+            }
+            if (sel.value === 'correct') {
+                fb.textContent = 'Helt rigtigt!';
+                fb.className = 'feedback correct';
+            } else {
+                fb.textContent = 'Forkert udsagn – prøv igen.';
+                fb.className = 'feedback incorrect';
+            }
+        }
+
+        // --- FUNKTIONER TIL DEL 2 (LOGNING, HINTS & RESULTATTJEK) ---
+        function saveText(taskId) {
+            state.tasks[taskId].methodText = document.getElementById('method-' + taskId).value;
+            saveState();
+        }
+
+        function saveComment(taskId) {
+            state.tasks[taskId].comment = document.getElementById('comment-' + taskId).value;
+            saveState();
+        }
+
+        function saveRating(taskId, val) {
+            state.tasks[taskId].rating = val;
+            saveState();
+        }
+
+        function saveName() {
+            state.studentName = document.getElementById('student-name').value;
+            saveState();
+        }
+
+        function useHint(taskId, hintNum) {
+            const box = document.getElementById(`hint-${taskId}-${hintNum}`);
+            if (box) box.style.display = 'block';
+
+            if (!state.tasks[taskId].hintsUsed.includes(hintNum)) {
+                state.tasks[taskId].hintsUsed.push(hintNum);
+                saveState();
+            }
+        }
+
+        function checkPart2Tangent(taskId, correctA, correctB) {
+            const rawA = document.getElementById(`ans-${taskId}-a`).value;
+            const rawB = document.getElementById(`ans-${taskId}-b`).value;
+            const fb = document.getElementById('feedback-' + taskId);
+
+            state.tasks[taskId].inputs[`ans-${taskId}-a`] = rawA;
+            state.tasks[taskId].inputs[`ans-${taskId}-b`] = rawB;
+
+            const valA = parseFloat(rawA.replace(',', '.'));
+            const valB = parseFloat(rawB.replace(',', '.'));
+
+            if (isNaN(valA) || isNaN(valB)) {
+                fb.textContent = 'Indtast venligst både en værdi for a og b.';
+                fb.className = 'feedback incorrect';
+                saveState();
+                return;
+            }
+
+            state.tasks[taskId].attempts += 1;
+
+            if (Math.abs(valA - correctA) <= 0.05 && Math.abs(valB - correctB) <= 0.05) {
+                state.tasks[taskId].solved = true;
+                fb.textContent = 'Rigtigt resultat! Husk at sikre, at din metodebeskrivelse i tekstfeltet er fyldestgørende.';
+                fb.className = 'feedback correct';
+            } else if (Math.abs(valA - correctA) <= 0.05) {
+                fb.textContent = 'Hældningen a er rigtig, men skæringen b stemmer ikke helt.';
+                fb.className = 'feedback incorrect';
+            } else if (Math.abs(valB - correctB) <= 0.05) {
+                fb.textContent = 'Skæringen b er rigtig, men hældningen a stemmer ikke helt.';
+                fb.className = 'feedback incorrect';
+            } else {
+                fb.textContent = 'Resultatet er ikke rigtigt endnu. Gennemgå din metode eller brug et hint.';
+                fb.className = 'feedback incorrect';
+            }
+            saveState();
+        }
+
+        function checkPart2Single(taskId, correctVal, tol) {
+            const rawVal = document.getElementById(`ans-${taskId}`).value;
+            const fb = document.getElementById('feedback-' + taskId);
+
+            state.tasks[taskId].inputs[`ans-${taskId}`] = rawVal;
+            const val = parseFloat(rawVal.replace(',', '.'));
+
+            if (isNaN(val)) {
+                fb.textContent = 'Indtast venligst et tal.';
+                fb.className = 'feedback incorrect';
+                saveState();
+                return;
+            }
+
+            state.tasks[taskId].attempts += 1;
+
+            if (Math.abs(val - correctVal) <= tol) {
+                state.tasks[taskId].solved = true;
+                fb.textContent = 'Rigtigt resultat! Husk at beskrive din fremgangsmåde tydeligt i tekstfeltet.';
+                fb.className = 'feedback correct';
+            } else {
+                fb.textContent = 'Ikke helt rigtigt endnu – tjek din ligning og prøv igen.';
+                fb.className = 'feedback incorrect';
+            }
+            saveState();
+        }
+
+        function resetAllData() {
+            if (confirm('Er du sikker på, at du vil nulstille hele Del 2 (tekst, svar og tid)?')) {
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            }
+        }
+
+        // --- GENERER PDF-RAPPORT VIA PRINT-STYLESHEET ---
+        function escapeHTML(str) {
+            return (str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function generatePDFReport() {
+            const name = document.getElementById('student-name').value.trim();
+            const errEl = document.getElementById('report-error');
+
+            if (!name) {
+                errEl.textContent = 'Indtast venligst dit fulde navn, før du genererer PDF-rapporten.';
+                return;
+            }
+            errEl.textContent = '';
+            state.studentName = name;
+            saveState();
+
+            const nowStr = new Date().toLocaleString('da-DK');
+            const totalSolved = PART2_TASKS.filter(t => state.tasks[t.id].solved).length;
+            const totalHints = PART2_TASKS.reduce((acc, t) => acc + state.tasks[t.id].hintsUsed.length, 0);
+
+            // Simpel kontrolkode ud fra data
+            const rawSig = `${name}|${state.activeSeconds}|${totalSolved}|${totalHints}`;
+            let hash = 0;
+            for (let i = 0; i < rawSig.length; i++) {
+                hash = ((hash << 5) - hash) + rawSig.charCodeAt(i);
+                hash |= 0;
+            }
+            const controlCode = 'MAT-' + Math.abs(hash).toString(16).toUpperCase().padStart(6, '0');
+
+            let tableRows = '';
+            let detailBlocks = '';
+
+            PART2_TASKS.forEach(t => {
+                const td = state.tasks[t.id];
+                const statusTxt = td.solved ? 'Rigtigt' : 'Ikke løst';
+                const hintCount = td.hintsUsed.length;
+                const methodClean = td.methodText.trim() ? escapeHTML(td.methodText.trim()) : '<em>(Ingen tekst skrevet)</em>';
+                const commentClean = td.comment.trim() ? escapeHTML(td.comment.trim()) : 'Ingen kommentar';
+
+                tableRows += `
+                    <tr>
+                        <td>${escapeHTML(t.title)}</td>
+                        <td><strong>${statusTxt}</strong></td>
+                        <td>${td.attempts}</td>
+                        <td>${hintCount}</td>
+                        <td>${escapeHTML(td.rating)}</td>
+                    </tr>
+                `;
+
+                detailBlocks += `
+                    <div class="report-task-block">
+                        <h4>${escapeHTML(t.title)} — Status: ${statusTxt} (Hints brugt: ${hintCount})</h4>
+                        <div><strong>Elevens metodebeskrivelse og mellemregninger:</strong></div>
+                        <div class="report-text-box">${methodClean}</div>
+                        <div><strong>Elevens vurdering:</strong> ${escapeHTML(td.rating)} &nbsp;|&nbsp; <strong>Kommentar:</strong> ${commentClean}</div>
+                    </div>
+                `;
+            });
+
+            const reportHTML = `
+                <div class="report-header">
+                    <h2>Afleveringsrapport: Tangentligninger og vækstmodeller</h2>
+                    <div class="report-meta">
+                        <span>Elev: ${escapeHTML(name)}</span>
+                        <span>Dato: ${nowStr}</span>
+                    </div>
+                    <div class="report-meta">
+                        <span>Aktiv tid brugt på Del 2: ${formatDuration(state.activeSeconds)}</span>
+                        <span>Opgaver regnet rigtigt: ${totalSolved} af ${PART2_TASKS.length}</span>
+                    </div>
+                </div>
+
+                <h3>Oversigt over resultater, hints og sværhedsgrad</h3>
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Opgave</th>
+                            <th>Resultat</th>
+                            <th>Forsøg</th>
+                            <th>Hints brugt</th>
+                            <th>Elevens vurdering</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
+
+                <h3>Elevens metodeforklaringer og refleksioner</h3>
+                ${detailBlocks}
+
+                <div class="report-stamp">
+                    Dokument-ID: ${controlCode} | Genereret direkte fra opgaveplatformen.
+                </div>
+            `;
+
+            document.getElementById('print-report').innerHTML = reportHTML;
+
+            // Åbn browserens print/Gem som PDF-dialog
+            setTimeout(() => {
+                window.print();
+            }, 150);
+        }
+
+        // Initialiser siden
+        loadState();
+    </script>
+</body>
+</html>
