@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hjemmeopgave – Differentialregning og tangenter</title>
+    <!-- Link til ekstern style.css jf. retningslinjerne -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- MathJax til matematikvisning -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        .part-banner {
+            background: #f0f4f8;
+            border-left: 5px solid #2b6cb0;
+            padding: 15px 20px;
+            margin: 30px 0 20px 0;
+            border-radius: 6px;
+        }
+        .part-banner h2 {
+            margin: 0 0 6px 0;
+            color: #1a365d;
+        }
+        .timer-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #edf2f7;
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #cbd5e0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .timer-badge {
+            font-weight: bold;
+            font-size: 1.05em;
+            color: #2d3748;
+        }
+        .method-textarea {
+            width: 100%;
+            min-height: 105px;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95em;
+            margin: 8px 0 14px 0;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        .rating-box {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px dashed #cbd5e0;
+            font-size: 0.92em;
+        }
+        .rating-options {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin: 6px 0 10px 0;
+        }
+        .rating-options label {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .comment-input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 0.9em;
+            box-sizing: border-box;
+        }
+        .locked-overlay {
+            background: #f7fafc;
+            border: 2px dashed #a0aec0;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .report-generator-box {
+            background: #ebf8ff;
+            border: 2px solid #3182ce;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 35px;
+        }
+        .btn-primary {
+            background-color: #2b6cb0;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        .btn-primary:hover {
+            background-color: #2c5282;
+        }
+        .btn-reset {
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+        }
+        .radio-list label {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        #print-report {
+            display: none;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #print-report, #print-report * {
+                visibility: visible;
+            }
+            #print-report {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                color: #000;
+                background: #fff;
+                font-family: Arial, sans-serif;
+                font-size: 10.5pt;
+                line-height: 1.45;
+            }
+            .report-header {
+                border-bottom: 2px solid #000;
+                padding-bottom: 10px;
+                margin-bottom: 16px;
+            }
+            .report-meta {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 6px;
+                font-weight: bold;
+            }
+            .report-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+                font-size: 9.5pt;
+            }
+            .report-table th, .report-table td {
+                border: 1px solid #444;
+                padding: 6px 8px;
+                text-align: left;
+            }
+            .report-table th {
+                background-color: #eee !important;
+                -webkit-print-color-adjust: exact;
+            }
+            .report-task-block {
+                border: 1px solid #999;
+                padding: 10px 12px;
+                margin-bottom: 12px;
+                page-break-inside: avoid;
+            }
+            .report-task-block h4 {
+                margin: 0 0 6px 0;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 4px;
+            }
+            .report-text-box {
+                background: #f9f9f9 !important;
+                -webkit-print-color-adjust: exact;
+                padding: 8px;
+                border-left: 3px solid #333;
+                white-space: pre-wrap;
+                margin: 6px 0;
+            }
+            .report-stamp {
+                margin-top: 22px;
+                padding-top: 10px;
+                border-top: 1px dashed #666;
+                font-size: 0.85em;
+                color: #444;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-screen">
+        <h1>Hjemmeopgave: Differentiation og tangentligninger</h1>
+
+        <!-- Top card med formler og eksempler -->
+        <div class="formula-box">
+            <h3>Formelsamling: Differentialregning og tangentligning</h3>
+            <p>Brug regnereglerne fra formelsamlingen til at løse opgaverne i Del 1 og Del 2:</p>
+            <div class="formula-group">
+                <div><strong>Grundregler (162–173):</strong> \( (x^a)' = a \cdot x^{a-1} \), \( (\frac{1}{x})' = -\frac{1}{x^2} \), \( (\sqrt{x})' = \frac{1}{2\sqrt{x}} \), \( (\ln(x))' = \frac{1}{x} \), \( (\mathrm{e}^{kx})' = k\mathrm{e}^{kx} \), \( (\sin(x))' = \cos(x) \), \( (\cos(x))' = -\sin(x) \).</div>
+                <div><strong>Regneregler (174–178):</strong> \( (k \cdot f)' = k \cdot f' \), \( (f \pm g)' = f' \pm g' \), Produktreglen: \( (f \cdot g)' = f' \cdot g + f \cdot g' \), Kædereglen: \( (f(g(x)))' = f'(g(x)) \cdot g'(x) \).</div>
+                <div><strong>Tangentens ligning:</strong> \( y = f'(x_0) \cdot (x - x_0) + f(x_0) \).</div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-example" onclick="toggleBox('ex-1')">Vis/Skjul Eksempel 1 (Tangent i hånden)</button>
+                <button class="btn-example" onclick="toggleBox('ex-2')">Vis/Skjul Eksempel 2 (Produkt- & kædereglen)</button>
+                <button class="btn-example" onclick="toggleBox('ex-3')">Vis/Skjul Eksempel 3 (Maple)</button>
+            </div>
+
+            <div id="ex-1" class="example-block" style="display:none;">
+                <h4>Eksempel 1: Bestem tangentligning (grundfunktioner)</h4>
+                <p>Bestem en ligning for tangenten til \( f(x) = x^2 + 3x - 2 \) i \( P(1, f(1)) \).</p>
+                <p>1. \( f(1) = 1^2 + 3\cdot 1 - 2 = 2 \). Røringspunktet er \( (1, 2) \).<br>
+                2. \( f'(x) = 2x + 3 \implies f'(1) = 5 \).<br>
+                3. \( y = 5(x - 1) + 2 \iff y = 5x - 3 \).</p>
+            </div>
+
+            <div id="ex-2" class="example-block" style="display:none;">
+                <h4>Eksempel 2: produkt- og sammensatte funktioner</h4>
+                <p><strong>Produktreglen:</strong> For \( h(x) = x \cdot \mathrm{e}^x \) sættes \( f(x) = x \) og \( g(x) = \mathrm{e}^x \). Så er \( h'(x) = 1 \cdot \mathrm{e}^x + x \cdot \mathrm{e}^x \).<br>
+                <strong>Kædereglen:</strong> For \( p(x) = (2x + 1)^3 \) er ydre funktion \( u^3 \) og indre funktion \( 2x + 1 \). Så er \( p'(x) = 3(2x + 1)^2 \cdot 2 = 6(2x + 1)^2 \).</p>
+            </div>
+
+            <div id="ex-3" class="example-block" style="display:none;">
+                <h4>Eksempel 3: Brug af Maple</h4>
+                <p>Definer funktionen og lad Maple opstille og reducere tangentens ligning i \( x_0 = 2 \):</p>
+                <pre><code>
+f(x) := x * exp(-x);
+f'(2.0) * (x - 2.0) + f(2.0);</code></pre>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- DEL 1: ØVEDEL (MED HINTS OG FULD LØSNING)                 -->
+        <!-- ========================================================= -->
+        <div class="part-banner">
+            <h2>Del 1: Opvarmning og færdighedstræning (ca. 1,5 time)</h2>
+            <p>Træn grundlæggende differentiation, produkt- og sammensatte funktioner samt tangentligninger. Her er både hints og fulde løsninger tilgængelige, og uret kører ikke.</p>
+        </div>
+
+        <!-- Øvelse 1.1 (opgaver_1 stil) -->
+        <div class="card">
+            <span class="task-title">Øvelse 1.1: Potens- og sumreglen</span>
+            <p>Bestem differentialkvotienten \( f'(2) \) for funktionen \( f(x) = 2x^3 - 5x + 9 \).</p>
+            <div class="input-section">
+                <label for="p1">\( f'(2) = \)</label>
+                <input type="number" id="p1" step="0.01" placeholder="Svar...">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkPracticeSingle('p1', 19, 0.01)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-p1')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-p1')">Løsning</button>
+            </div>
+            <div id="feedback-p1" class="feedback"></div>
+            <div id="hint-p1" class="hint-box" style="display:none;"><strong>Hint:</strong> Differentier hvert led for sig med \( (x^a)' = a \cdot x^{a-1} \). Husk at konstanten \( 9 \) giver \( 0 \).</div>
+            <div id="sol-p1" class="sol-box" style="display:none;"><strong>Løsning:</strong> \( f'(x) = 6x^2 - 5 \). Indsættes \( x = 2 \), fås \( f'(2) = 6 \cdot 2^2 - 5 = 24 - 5 = 19 \).</div>
+        </div>
+
+        <!-- Øvelse 1.2 (opgaver_1 stil: ln og 1/x) -->
+        <div class="card">
+            <span class="task-title">Øvelse 1.2: Logaritme og reciprok funktion</span>
+            <p>Hvad er den afledte funktion \( f'(x) \) for \( f(x) = 4\ln(x) + \frac{3}{x} \)?</p>
+            <div class="radio-list" style="margin: 12px 0;">
+                <label><input type="radio" name="p2-choice" value="a"> \( \frac{4}{x} + \frac{3}{x^2} \)</label>
+                <label><input type="radio" name="p2-choice" value="b"> \( \frac{4}{x} - \frac{3}{x^2} \)</label>
+                <label><input type="radio" name="p2-choice" value="c"> \( 4x - \frac{3}{x^2} \)</label>
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkPracticeRadio('p2', 'b')">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-p2')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-p2')">Løsning</button>
+            </div>
+            <div id="feedback-p2" class="feedback"></div>
+            <div id="hint-p2" class="hint-box" style="display:none;"><strong>Hint:</strong> Brug formel (171) \( (\ln(x))' = \frac{1}{x} \) og formel (169) \( (\frac{1}{x})' = -\frac{1}{x^2} \).</div>
+            <div id="sol-p2" class="sol-box" style="display:none;"><strong>Løsning:</strong> \( f'(x) = 4 \cdot \frac{1}{x} + 3 \cdot \left(-\frac{1}{x^2}\right) = \frac{4}{x} - \frac{3}{x^2} \).</div>
+        </div>
+
+        <!-- Øvelse 1.3 (opgaver_1 stil: eksponential og trigo) -->
+        <div class="card">
+            <span class="task-title">Øvelse 1.3: Eksponentialfunktion og cosinus</span>
+            <p>Bestem \( f'(0) \) for funktionen \( f(x) = \mathrm{e}^{3x} + 2\cos(x) \).</p>
+            <div class="input-section">
+                <label for="p3">\( f'(0) = \)</label>
+                <input type="number" id="p3" step="0.01" placeholder="Svar...">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkPracticeSingle('p3', 3, 0.01)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-p3')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-p3')">Løsning</button>
+            </div>
+            <div id="feedback-p3" class="feedback"></div>
+            <div id="hint-p3" class="hint-box" style="display:none;"><strong>Hint:</strong> Brug \( (\mathrm{e}^{kx})' = k\mathrm{e}^{kx} \) og \( (\cos(x))' = -\sin(x) \). Husk at \( \mathrm{e}^0 = 1 \) og \( \sin(0) = 0 \).</div>
+            <div id="sol-p3" class="sol-box" style="display:none;"><strong>Løsning:</strong> \( f'(x) = 3\mathrm{e}^{3x} - 2\sin(x) \). For \( x = 0 \) fås \( f'(0) = 3\mathrm{e}^0 - 2\sin(0) = 3 \cdot 1 - 0 = 3 \).</div>
+        </div>
+
+        <!-- Øvelse 1.4 (opgaver_1 stil: kvadratrod) -->
+        <div class="card">
+            <span class="task-title">Øvelse 1.4: Kvadratrodsfunktion</span>
+            <p>Bestem differentialkvotienten \( f'(4) \) for \( f(x) = 8\sqrt{x} - x \).</p>
+            <div class="input-section">
+                <label for="p4">\( f'(4) = \)</label>
+                <input type="number" id="p4" step="0.01" placeholder="Svar...">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkPracticeSingle('p4', 1, 0.01)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-p4')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-p4')">Løsning</button>
+            </div>
+            <div id="feedback-p4" class="feedback"></div>
+            <div id="hint-p4" class="hint-box" style="display:none;"><strong>Hint:</strong> Brug formel (170): \( (\sqrt{x})' = \frac{1}{2\sqrt{x}} \).</div>
+            <div id="sol-p4" class="sol-box" style="display:none;"><strong>Løsning:</strong> \( f'(x) = 8 \cdot \frac{1}{2\sqrt{x}} - 1 = \frac{4}{\sqrt{x}} - 1 \). Ved \( x = 4 \) fås \( f'(4) = \frac{4}{2} - 1 = 1 \).</div>
+        </div>
+
+        <!-- Øvelse 1.5 (Let produktregel fra produkt.html) -->
+        <div class="card">
+            <span class="task-title">Øvelse 1.5: produktregel</span>
+            <p>Bestem \( h'(0) \) for funktionen \( h(x) = (3x + 2) \cdot \mathrm{e}^x \).</p>
+            <div class="input-section">
+                <label for="p5">\( h'(0) = \)</label>
+                <input type="number" id="p5" step="0.01" placeholder="Svar...">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkPracticeSingle('p5', 5, 0.01)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-p5')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-p5')">Løsning</button>
+            </div>
+            <div id="feedback-p5" class="feedback"></div>
+            <div id="hint-p5" class="hint-box" style="display:none;"><strong>Hint:</strong> Brug produktreglen \( (f \cdot g)' = f' \cdot g + f \cdot g' \) med \( f(x) = 3x + 2 \) og \( g(x) = \mathrm{e}^x \).</div>
+            <div id="sol-p5" class="sol-box" style="display:none;"><strong>Løsning:</strong> \( h'(x) = 3 \cdot \mathrm{e}^x + (3x + 2) \cdot \mathrm{e}^x \). Indsættes \( x = 0 \), fås \( h'(0) = 3 \cdot 1 + 2 \cdot 1 = 5 \).</div>
+        </div>
+
+        <!-- Øvelse 1.6 (Let sammensat funktion fra sammensat.html) -->
+        <div class="card">
+            <span class="task-title">Øvelse 1.6: sammensat funktion (kædereglen)</span>
+            <p>Bestem \( g'(1) \) for den sammensatte funktion \( g(x) = (4x - 1)^3 \).</p>
+            <div class="input-section">
+                <label for="p6">\( g'(1) = \)</label>
+                <input type="number" id="p6" step="0.01" placeholder="Svar...">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkPracticeSingle('p6', 108, 0.01)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-p6')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-p6')">Løsning</button>
+            </div>
+            <div id="feedback-p6" class="feedback"></div>
+            <div id="hint-p6" class="hint-box" style="display:none;"><strong>Hint:</strong> Brug kædereglen: ydre funktion er \( u^3 \) og indre funktion er \( 4x - 1 \) (med afledt \( 4 \)).</div>
+            <div id="sol-p6" class="sol-box" style="display:none;"><strong>Løsning:</strong> \( g'(x) = 3(4x - 1)^2 \cdot 4 = 12(4x - 1)^2 \). Indsættes \( x = 1 \), fås \( g'(1) = 12 \cdot 3^2 = 12 \cdot 9 = 108 \).</div>
+        </div>
+
+        <!-- Øvelse 1.7 (Tangentligning fra tangentligning.html) -->
+        <div class="card">
+            <span class="task-title">Øvelse 1.7: Bestemmelse af tangentligning</span>
+            <p>Bestem en ligning \( y = ax + b \) for tangenten til grafen for \( f(x) = x^2 - 4x + 7 \) i punktet \( P(3, f(3)) \).</p>
+            <div class="input-section">
+                <label for="p7-a">\( a = \)</label>
+                <input type="number" id="p7-a" step="0.01" placeholder="Hældning a...">
+                <label for="p7-b">\( b = \)</label>
+                <input type="number" id="p7-b" step="0.01" placeholder="Skæring b...">
+            </div>
+            <div class="btn-group">
+                <button class="btn-check" onclick="checkPracticeTangent('p7', 2, -2)">Tjek svar</button>
+                <button class="btn-hint" onclick="toggleBox('hint-p7')">Hint</button>
+                <button class="btn-sol" onclick="toggleBox('sol-p7')">Løsning</button>
+            </div>
+            <div id="feedback-p7" class="feedback"></div>
+            <div id="hint-p7" class="hint-box" style="display:none;"><strong>Hint:</strong> Find først \( f(3) \) og \( f'(3) \), og indsæt i \( y = f'(3)(x - 3) + f(3) \).</div>
+            <div id="sol-p7" class="sol-box" style="display:none;"><strong>Løsning:</strong> \( f(3) = 4 \) og \( f'(3) = 2 \cdot 3 - 4 = 2 \). Tangenten er \( y = 2(x - 3) + 4 = 2x - 2 \), så \( a = 2 \) og \( b = -2 \).</div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- DEL 2: AFLEVERINGSDEL (TIDTAGNING, METODETEKST & RAPPORT) -->
+        <!-- ========================================================= -->
+        <div class="part-banner">
+            <h2>Del 2: Afleveringsopgaver (ca. 2,5 timer – med tidsregistrering)</h2>
+            <p>I denne del skal du forklare din fremgangsmåde og vigtigste mellemregninger med ord i tekstfeltet under hver opgave samt tjekke dine talresultater. Dine svar og din aktive tid gemmes automatisk i browseren.
+            <br>
+                Dette er ikke en test, men en måde hvor du selv kan se hvor lang tid du bruger på opgaverne, om du kan regne dem og hvor du skal øve dig i at skrive forklarende tekst.
+            </p>
+            <h2> Output skal afleveres som PDF.</h2>
+
+        </div>
+
+        <!-- Låseskærm før Del 2 startes -->
+        <div id="part2-lock-screen" class="locked-overlay">
+            <h3>Klar til at starte på Del 2?</h3>
+            <p>Når du klikker på knappen herunder, låses opgaverne op, og uret starter. Uret pauser automatisk, hvis du skifter fane eller holder pause i mere end 3 minutter.</p>
+            <button class="btn-primary" onclick="startPart2()">Start Del 2 (starter tidtagning)</button>
+        </div>
+
+        <!-- Selve Del 2 indholdet -->
+        <div id="part2-content" style="display:none;">
+            <div class="timer-bar">
+                <div class="timer-badge">Aktiv tid på Del 2: <span id="timer-display">00:00:00</span> <span id="timer-status" style="font-weight:normal; font-size:0.85em; color:#2f855a;">(Kører)</span></div>
+                <button class="btn-reset" onclick="resetAllData()" title="Nulstil alt arbejde i Del 2">Nulstil Del 2</button>
+            </div>
+
+            <!-- OPGAVE 2.1: Grundregler (opgaver_1 niveau) + tangent -->
+            <div class="card" id="card-t1">
+                <span class="task-title">Opgave 2.1: Tangent til polynomium (uden hjælpemidler)</span>
+                <p>En funktion er givet ved \( f(x) = x^3 - 6x + 2 \). Bestem en ligning \( y = ax + b \) for tangenten til grafen for \( f \) i det punkt, der har førstekoordinat \( x_0 = -1 \).</p>
+
+                <label for="method-t1"><strong>Metodebeskrivelse og vigtigste mellemregninger:</strong></label>
+                <textarea id="method-t1" class="method-textarea" oninput="saveText('t1')" placeholder="Forklar hvordan du finder røringspunktets y-koordinat, hvordan du differentierer f(x), og hvordan du opstiller tangentens ligning..."></textarea>
+
+                <p><strong>Tjek dine udregnede værdier for tangenten \( y = ax + b \):</strong></p>
+                <div class="input-section">
+                    <label for="ans-t1-a">\( a = \)</label>
+                    <input type="number" id="ans-t1-a" step="0.01" placeholder="Hældning a...">
+                    <label for="ans-t1-b">\( b = \)</label>
+                    <input type="number" id="ans-t1-b" step="0.01" placeholder="Skæring b...">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-check" onclick="checkPart2Tangent('t1', -3, 4)">Tjek resultat</button>
+                    <button class="btn-hint" onclick="useHint('t1', 1)">Hint 1</button>
+                    <button class="btn-hint" onclick="useHint('t1', 2)">Hint 2</button>
+                </div>
+                <div id="feedback-t1" class="feedback"></div>
+                <div id="hint-t1-1" class="hint-box" style="display:none;"><strong>Hint 1:</strong> Beregn først \( f(-1) \) for at finde \( y \)-koordinaten i røringspunktet. Pas på fortegnene ved \( (-1)^3 \) og \( -6 \cdot (-1) \).</div>
+                <div id="hint-t1-2" class="hint-box" style="display:none;"><strong>Hint 2:</strong> Differentier \( f(x) \) til \( f'(x) = 3x^2 - 6 \), udregn \( f'(-1) \), og indsæt i \( y = f'(-1)(x - (-1)) + f(-1) \).</div>
+
+                <div class="rating-box">
+                    <strong>Vurdering af opgave 2.1:</strong> Hvor svær synes du, opgaven var?
+                    <div class="rating-options">
+                        <label><input type="radio" name="rate-t1" value="1 (Meget let)" onchange="saveRating('t1', this.value)"> 1 (Meget let)</label>
+                        <label><input type="radio" name="rate-t1" value="2 (Let)" onchange="saveRating('t1', this.value)"> 2 (Let)</label>
+                        <label><input type="radio" name="rate-t1" value="3 (Tilpas)" onchange="saveRating('t1', this.value)"> 3 (Tilpas)</label>
+                        <label><input type="radio" name="rate-t1" value="4 (Svær)" onchange="saveRating('t1', this.value)"> 4 (Svær)</label>
+                        <label><input type="radio" name="rate-t1" value="5 (Meget svær)" onchange="saveRating('t1', this.value)"> 5 (Meget svær)</label>
+                    </div>
+                    <input type="text" id="comment-t1" class="comment-input" oninput="saveComment('t1')" placeholder="Valgfri kommentar til opgaven...">
+                </div>
+            </div>
+
+            <!-- OPGAVE 2.2: Grundregler (opgaver_1: ln og potens) + tangent -->
+            <div class="card" id="card-t2">
+                <span class="task-title">Opgave 2.2: Tangent til funktion med naturlig logaritme (uden hjælpemidler)</span>
+                <p>Betragt funktionen \( g(x) = 3\ln(x) + 2x - 1 \) for \( x > 0 \). Bestem en ligning \( y = ax + b \) for tangenten til grafen for \( g \) i punktet \( P(1, g(1)) \).</p>
+
+                <label for="method-t2"><strong>Metodebeskrivelse og vigtigste mellemregninger:</strong></label>
+                <textarea id="method-t2" class="method-textarea" oninput="saveText('t2')" placeholder="Forklar hvilke differentiationsregler fra formelsamlingen du bruger på hvert led, og skriv dine mellemregninger..."></textarea>
+
+                <p><strong>Tjek dine udregnede værdier for tangenten \( y = ax + b \):</strong></p>
+                <div class="input-section">
+                    <label for="ans-t2-a">\( a = \)</label>
+                    <input type="number" id="ans-t2-a" step="0.01" placeholder="Hældning a...">
+                    <label for="ans-t2-b">\( b = \)</label>
+                    <input type="number" id="ans-t2-b" step="0.01" placeholder="Skæring b...">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-check" onclick="checkPart2Tangent('t2', 5, -4)">Tjek resultat</button>
+                    <button class="btn-hint" onclick="useHint('t2', 1)">Hint 1</button>
+                    <button class="btn-hint" onclick="useHint('t2', 2)">Hint 2</button>
+                </div>
+                <div id="feedback-t2" class="feedback"></div>
+                <div id="hint-t2-1" class="hint-box" style="display:none;"><strong>Hint 1:</strong> Husk at \( \ln(1) = 0 \). Brug det, når du udregner \( g(1) \).</div>
+                <div id="hint-t2-2" class="hint-box" style="display:none;"><strong>Hint 2:</strong> Brug formel (171) til at finde \( g'(x) = \frac{3}{x} + 2 \). Indsæt \( x = 1 \) for at finde hældningen \( a = g'(1) \).</div>
+
+                <div class="rating-box">
+                    <strong>Vurdering af opgave 2.2:</strong> Hvor svær synes du, opgaven var?
+                    <div class="rating-options">
+                        <label><input type="radio" name="rate-t2" value="1 (Meget let)" onchange="saveRating('t2', this.value)"> 1 (Meget let)</label>
+                        <label><input type="radio" name="rate-t2" value="2 (Let)" onchange="saveRating('t2', this.value)"> 2 (Let)</label>
+                        <label><input type="radio" name="rate-t2" value="3 (Tilpas)" onchange="saveRating('t2', this.value)"> 3 (Tilpas)</label>
+                        <label><input type="radio" name="rate-t2" value="4 (Svær)" onchange="saveRating('t2', this.value)"> 4 (Svær)</label>
+                        <label><input type="radio" name="rate-t2" value="5 (Meget svær)" onchange="saveRating('t2', this.value)"> 5 (Meget svær)</label>
+                    </div>
+                    <input type="text" id="comment-t2" class="comment-input" oninput="saveComment('t2')" placeholder="Valgfri kommentar til opgaven...">
+                </div>
+            </div>
+
+            <!-- OPGAVE 2.3: Grundregler (opgaver_1: kvadratrod og vandret tangent) -->
+            <div class="card" id="card-t3">
+                <span class="task-title">Opgave 2.3: Kvadratrodsfunktion og vandret tangent (uden hjælpemidler)</span>
+                <p>En funktion er givet ved \( h(x) = 6\sqrt{x} - x \) for \( x > 0 \). Bestem førstekoordinaten \( x_0 \) til det punkt på grafen for \( h \), hvor tangenten er vandret.</p>
+
+                <label for="method-t3"><strong>Metodebeskrivelse og vigtigste mellemregninger:</strong></label>
+                <textarea id="method-t3" class="method-textarea" oninput="saveText('t3')" placeholder="Forklar hvordan du differentierer kvadratrodsleddet, og hvilken ligning du løser for at finde en vandret tangent..."></textarea>
+
+                <p><strong>Tjek dit udregnede resultat:</strong></p>
+                <div class="input-section">
+                    <label for="ans-t3">\( x_0 = \)</label>
+                    <input type="number" id="ans-t3" step="0.01" placeholder="Indtast x0...">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-check" onclick="checkPart2Single('t3', 9, 0.05)">Tjek resultat</button>
+                    <button class="btn-hint" onclick="useHint('t3', 1)">Hint 1</button>
+                    <button class="btn-hint" onclick="useHint('t3', 2)">Hint 2</button>
+                </div>
+                <div id="feedback-t3" class="feedback"></div>
+                <div id="hint-t3-1" class="hint-box" style="display:none;"><strong>Hint 1:</strong> Differentier \( h(x) \) ved hjælp af formel (170): \( (\sqrt{x})' = \frac{1}{2\sqrt{x}} \). En vandret tangent har hældningen \( 0 \), så løs \( h'(x) = 0 \).</div>
+                <div id="hint-t3-2" class="hint-box" style="display:none;"><strong>Hint 2:</strong> Ligningen bliver \( \frac{3}{\sqrt{x}} - 1 = 0 \iff \sqrt{x} = 3 \). Kvadrer på begge sider for at finde \( x \).</div>
+
+                <div class="rating-box">
+                    <strong>Vurdering af opgave 2.3:</strong> Hvor svær synes du, opgaven var?
+                    <div class="rating-options">
+                        <label><input type="radio" name="rate-t3" value="1 (Meget let)" onchange="saveRating('t3', this.value)"> 1 (Meget let)</label>
+                        <label><input type="radio" name="rate-t3" value="2 (Let)" onchange="saveRating('t3', this.value)"> 2 (Let)</label>
+                        <label><input type="radio" name="rate-t3" value="3 (Tilpas)" onchange="saveRating('t3', this.value)"> 3 (Tilpas)</label>
+                        <label><input type="radio" name="rate-t3" value="4 (Svær)" onchange="saveRating('t3', this.value)"> 4 (Svær)</label>
+                        <label><input type="radio" name="rate-t3" value="5 (Meget svær)" onchange="saveRating('t3', this.value)"> 5 (Meget svær)</label>
+                    </div>
+                    <input type="text" id="comment-t3" class="comment-input" oninput="saveComment('t3')" placeholder="Valgfri kommentar til opgaven...">
+                </div>
+            </div>
+
+            <!-- OPGAVE 2.4: Let produktregel + tangent -->
+            <div class="card" id="card-t4">
+                <span class="task-title">Opgave 2.4: Tangent med produktregel (uden hjælpemidler)</span>
+                <p>En funktion er givet ved \( p(x) = (x + 2) \cdot \mathrm{e}^x \). Bestem en ligning \( y = ax + b \) for tangenten til grafen for \( p \) i punktet \( P(0, p(0)) \).</p>
+
+                <label for="method-t4"><strong>Metodebeskrivelse og vigtigste mellemregninger:</strong></label>
+                <textarea id="method-t4" class="method-textarea" oninput="saveText('t4')" placeholder="Forklar med ord hvordan du bruger produktreglen på (x + 2) * e^x, og hvordan du finder tangentens ligning..."></textarea>
+
+                <p><strong>Tjek dine udregnede værdier for tangenten \( y = ax + b \):</strong></p>
+                <div class="input-section">
+                    <label for="ans-t4-a">\( a = \)</label>
+                    <input type="number" id="ans-t4-a" step="0.01" placeholder="Hældning a...">
+                    <label for="ans-t4-b">\( b = \)</label>
+                    <input type="number" id="ans-t4-b" step="0.01" placeholder="Skæring b...">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-check" onclick="checkPart2Tangent('t4', 3, 2)">Tjek resultat</button>
+                    <button class="btn-hint" onclick="useHint('t4', 1)">Hint 1</button>
+                    <button class="btn-hint" onclick="useHint('t4', 2)">Hint 2</button>
+                </div>
+                <div id="feedback-t4" class="feedback"></div>
+                <div id="hint-t4-1" class="hint-box" style="display:none;"><strong>Hint 1:</strong> Brug produktreglen \( (f \cdot g)' = f' \cdot g + f \cdot g' \) med \( f(x) = x + 2 \) og \( g(x) = \mathrm{e}^x \).</div>
+                <div id="hint-t4-2" class="hint-box" style="display:none;"><strong>Hint 2:</strong> Udregn \( p(0) \) og \( p'(0) \) ved at bruge at \( \mathrm{e}^0 = 1 \), og indsæt i tangentformlen.</div>
+
+                <div class="rating-box">
+                    <strong>Vurdering af opgave 2.4:</strong> Hvor svær synes du, opgaven var?
+                    <div class="rating-options">
+                        <label><input type="radio" name="rate-t4" value="1 (Meget let)" onchange="saveRating('t4', this.value)"> 1 (Meget let)</label>
+                        <label><input type="radio" name="rate-t4" value="2 (Let)" onchange="saveRating('t4', this.value)"> 2 (Let)</label>
+                        <label><input type="radio" name="rate-t4" value="3 (Tilpas)" onchange="saveRating('t4', this.value)"> 3 (Tilpas)</label>
+                        <label><input type="radio" name="rate-t4" value="4 (Svær)" onchange="saveRating('t4', this.value)"> 4 (Svær)</label>
+                        <label><input type="radio" name="rate-t4" value="5 (Meget svær)" onchange="saveRating('t4', this.value)"> 5 (Meget svær)</label>
+                    </div>
+                    <input type="text" id="comment-t4" class="comment-input" oninput="saveComment('t4')" placeholder="Valgfri kommentar til opgaven...">
+                </div>
+            </div>
+
+            <!-- OPGAVE 2.5: Let sammensat funktion (kædereglen) + tangent -->
+            <div class="card" id="card-t5">
+                <span class="task-title">Opgave 2.5: Tangent til let sammensat funktion (uden hjælpemidler)</span>
+                <p>En sammensat funktion er givet ved \( q(x) = (2x - 1)^3 \). Bestem en ligning \( y = ax + b \) for tangenten til grafen for \( q \) i punktet \( P(1, q(1)) \).</p>
+
+                <label for="method-t5"><strong>Metodebeskrivelse og vigtigste mellemregninger:</strong></label>
+                <textarea id="method-t5" class="method-textarea" oninput="saveText('t5')" placeholder="Angiv hvad der er den ydre og den indre funktion, forklar brugen af kædereglen, og vis hvordan du opstiller tangentens ligning..."></textarea>
+
+                <p><strong>Tjek dine udregnede værdier for tangenten \( y = ax + b \):</strong></p>
+                <div class="input-section">
+                    <label for="ans-t5-a">\( a = \)</label>
+                    <input type="number" id="ans-t5-a" step="0.01" placeholder="Hældning a...">
+                    <label for="ans-t5-b">\( b = \)</label>
+                    <input type="number" id="ans-t5-b" step="0.01" placeholder="Skæring b...">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-check" onclick="checkPart2Tangent('t5', 6, -5)">Tjek resultat</button>
+                    <button class="btn-hint" onclick="useHint('t5', 1)">Hint 1</button>
+                    <button class="btn-hint" onclick="useHint('t5', 2)">Hint 2</button>
+                </div>
+                <div id="feedback-t5" class="feedback"></div>
+                <div id="hint-t5-1" class="hint-box" style="display:none;"><strong>Hint 1:</strong> Brug kædereglen: den ydre funktion \( u^3 \) differentieres til \( 3u^2 \), og der ganges med den indre funktions afledte \( (2x - 1)' = 2 \).</div>
+                <div id="hint-t5-2" class="hint-box" style="display:none;"><strong>Hint 2:</strong> Du får \( q'(x) = 6(2x - 1)^2 \). Udregn \( q(1) \) og \( q'(1) \), og indsæt i tangentligningen.</div>
+
+                <div class="rating-box">
+                    <strong>Vurdering af opgave 2.5:</strong> Hvor svær synes du, opgaven var?
+                    <div class="rating-options">
+                        <label><input type="radio" name="rate-t5" value="1 (Meget let)" onchange="saveRating('t5', this.value)"> 1 (Meget let)</label>
+                        <label><input type="radio" name="rate-t5" value="2 (Let)" onchange="saveRating('t5', this.value)"> 2 (Let)</label>
+                        <label><input type="radio" name="rate-t5" value="3 (Tilpas)" onchange="saveRating('t5', this.value)"> 3 (Tilpas)</label>
+                        <label><input type="radio" name="rate-t5" value="4 (Svær)" onchange="saveRating('t5', this.value)"> 4 (Svær)</label>
+                        <label><input type="radio" name="rate-t5" value="5 (Meget svær)" onchange="saveRating('t5', this.value)"> 5 (Meget svær)</label>
+                    </div>
+                    <input type="text" id="comment-t5" class="comment-input" oninput="saveComment('t5')" placeholder="Valgfri kommentar til opgaven...">
+                </div>
+            </div>
+
+            <!-- OPGAVE 2.6: Maple-opgave -->
+            <div class="card" id="card-t6">
+                <span class="task-title">Opgave 2.6: Vækstmodel og tangent med Maple (med hjælpemidler)</span>
+                <p>I en model kan antallet af bakterier \( N(t) \) i en kultur beskrives ved funktionen:</p>
+                $$ N(t) = \frac{1200}{1 + 19 \cdot \mathrm{e}^{-0{,}45t}} $$
+                <p>hvor \( t \) er tiden i timer efter forsøgets start. Brug Maple til at bestemme en ligning \( y = a \cdot t + b \) for tangenten til grafen for \( N \) i punktet \( P(6, N(6)) \) (afrund \( a \) og \( b \) til to decimaler).</p>
+                <p>
+                Hint: den naturlige eksponentialfunktion \(e^x\) kan skrives som <code>exp(x)</code> i Maple.
+                </p>
+
+
+                <label for="method-t6"><strong>Beskrivelse af Maple-kommandoer og fortolkning:</strong></label>
+                <textarea id="method-t6" class="method-textarea" oninput="saveText('t6')" placeholder="Beskriv hvilke kommandoer du bruger i Maple (fx definition af N(t), opstilling og reduktion af tangentligningen), og forklar kort hvad hældningen a betyder i modellen..."></textarea>
+
+                <p><strong>Tjek dine aflæste værdier fra Maple:</strong></p>
+                <div class="input-section">
+                    <label for="ans-t6-a">\( a = \)</label>
+                    <input type="number" id="ans-t6-a" step="0.01" placeholder="Hældning a...">
+                    <label for="ans-t6-b">\( b = \)</label>
+                    <input type="number" id="ans-t6-b" step="0.01" placeholder="Skæring b...">
+                </div>
+                <div class="btn-group">
+                    <button class="btn-check" onclick="checkPart2Tangent('t6', 133.00, -271.21)">Tjek resultat</button>
+                    <button class="btn-hint" onclick="useHint('t6', 1)">Hint 1</button>
+                    <button class="btn-hint" onclick="useHint('t6', 2)">Hint 2</button>
+                </div>
+                <div id="feedback-t6" class="feedback"></div>
+                <div id="hint-t6-1" class="hint-box" style="display:none;"><strong>Hint 1:</strong> Definer funktionen i Maple med <code>N(t) := 1200 / (1 + 19 * exp(-0.45*t));</code>.</div>
+                <div id="hint-t6-2" class="hint-box" style="display:none;"><strong>Hint 2:</strong> Beregn tangentligningen med <code>expand(evalf(N'(6)*(t - 6) + N(6)))</code>, så du direkte kan aflæse \( a \) og \( b \).</div>
+
+                <div class="rating-box">
+                    <strong>Vurdering af opgave 2.6:</strong> Hvor svær synes du, opgaven var?
+                    <div class="rating-options">
+                        <label><input type="radio" name="rate-t6" value="1 (Meget let)" onchange="saveRating('t6', this.value)"> 1 (Meget let)</label>
+                        <label><input type="radio" name="rate-t6" value="2 (Let)" onchange="saveRating('t6', this.value)"> 2 (Let)</label>
+                        <label><input type="radio" name="rate-t6" value="3 (Tilpas)" onchange="saveRating('t6', this.value)"> 3 (Tilpas)</label>
+                        <label><input type="radio" name="rate-t6" value="4 (Svær)" onchange="saveRating('t6', this.value)"> 4 (Svær)</label>
+                        <label><input type="radio" name="rate-t6" value="5 (Meget svær)" onchange="saveRating('t6', this.value)"> 5 (Meget svær)</label>
+                    </div>
+                    <input type="text" id="comment-t6" class="comment-input" oninput="saveComment('t6')" placeholder="Valgfri kommentar til opgaven...">
+                </div>
+            </div>
+
+            <!-- AFLEVERINGSBOKS -->
+            <div class="report-generator-box">
+                <h3>Afslut og generer PDF-rapport til aflevering</h3>
+                <p>Når du er færdig med Del 2, skal du indtaste dit fulde navn herunder og klikke på knappen. Vælg derefter <strong>"Gem som PDF"</strong> i vinduet, der åbner, og upload PDF-filen til aflevering.</p>
+                <div class="input-section" style="margin-bottom: 15px;">
+                    <label for="student-name"><strong>Dit fulde navn:</strong></label>
+                    <input type="text" id="student-name" oninput="saveName()" placeholder="Skriv fornavn og efternavn..." style="min-width: 260px; padding: 8px;">
+                </div>
+                <button class="btn-primary" onclick="generatePDFReport()">Generer afleveringsrapport (Gem som PDF)</button>
+                <div id="report-error" class="feedback incorrect" style="margin-top: 10px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SKJULT PRINT-RAPPORT (VISES KUN VED PRINT / GEM SOM PDF) -->
+    <div id="print-report"></div>
+
+    <script>
+        const PART2_TASKS = [
+            { id: 't1', title: 'Opgave 2.1: Tangent til polynomium' },
+            { id: 't2', title: 'Opgave 2.2: Tangent til funktion med naturlig logaritme' },
+            { id: 't3', title: 'Opgave 2.3: Kvadratrodsfunktion og vandret tangent' },
+            { id: 't4', title: 'Opgave 2.4: Tangent med let produktregel' },
+            { id: 't5', title: 'Opgave 2.5: Tangent til let sammensat funktion' },
+            { id: 't6', title: 'Opgave 2.6: Vækstmodel og tangent med Maple' }
+        ];
+
+        const STORAGE_KEY = 'math_hw_diff_tangent_v1';
+
+        let state = {
+            part2Started: false,
+            activeSeconds: 0,
+            studentName: '',
+            tasks: {}
+        };
+
+        PART2_TASKS.forEach(t => {
+            state.tasks[t.id] = {
+                solved: false,
+                attempts: 0,
+                hintsUsed: [],
+                methodText: '',
+                rating: 'Ikke angivet',
+                comment: '',
+                inputs: {}
+            };
+        });
+
+        function loadState() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    state = Object.assign(state, parsed);
+                } catch (e) {
+                    console.error('Kunne ikke indlæse gemt data', e);
+                }
+            }
+            restoreUI();
+        }
+
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function restoreUI() {
+            if (state.part2Started) {
+                document.getElementById('part2-lock-screen').style.display = 'none';
+                document.getElementById('part2-content').style.display = 'block';
+                startTimerLoop();
+            }
+            document.getElementById('student-name').value = state.studentName || '';
+            updateTimerDisplay();
+
+            PART2_TASKS.forEach(t => {
+                const td = state.tasks[t.id];
+                if (!td) return;
+
+                const methodEl = document.getElementById('method-' + t.id);
+                if (methodEl) methodEl.value = td.methodText || '';
+
+                const commentEl = document.getElementById('comment-' + t.id);
+                if (commentEl) commentEl.value = td.comment || '';
+
+                if (td.rating && td.rating !== 'Ikke angivet') {
+                    const radio = document.querySelector(`input[name="rate-${t.id}"][value="${td.rating}"]`);
+                    if (radio) radio.checked = true;
+                }
+
+                if (td.inputs) {
+                    Object.keys(td.inputs).forEach(inputId => {
+                        const el = document.getElementById(inputId);
+                        if (el) el.value = td.inputs[inputId];
+                    });
+                }
+
+                if (td.hintsUsed) {
+                    td.hintsUsed.forEach(hNum => {
+                        const hBox = document.getElementById(`hint-${t.id}-${hNum}`);
+                        if (hBox) hBox.style.display = 'block';
+                    });
+                }
+
+                if (td.solved) {
+                    const fb = document.getElementById('feedback-' + t.id);
+                    if (fb) {
+                        fb.textContent = 'Resultatet er registreret som rigtigt!';
+                        fb.className = 'feedback correct';
+                    }
+                }
+            });
+        }
+
+        // --- TIDTAGNING MED INAKTIVITETS- OG FANE-DETEKTION ---
+        let lastActivity = Date.now();
+        let timerInterval = null;
+        const INACTIVITY_LIMIT_MS = 3 * 60 * 1000;
+
+        ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'].forEach(evt => {
+            document.addEventListener(evt, () => {
+                lastActivity = Date.now();
+            }, { passive: true });
+        });
+
+        function startPart2() {
+            state.part2Started = true;
+            lastActivity = Date.now();
+            saveState();
+            document.getElementById('part2-lock-screen').style.display = 'none';
+            document.getElementById('part2-content').style.display = 'block';
+            startTimerLoop();
+        }
+
+        function startTimerLoop() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                const isVisible = document.visibilityState === 'visible';
+                const isActive = (Date.now() - lastActivity) < INACTIVITY_LIMIT_MS;
+                const statusEl = document.getElementById('timer-status');
+
+                if (isVisible && isActive) {
+                    state.activeSeconds += 1;
+                    updateTimerDisplay();
+                    if (statusEl) {
+                        statusEl.textContent = '(Kører)';
+                        statusEl.style.color = '#2f855a';
+                    }
+                    if (state.activeSeconds % 5 === 0) {
+                        saveState();
+                    }
+                } else {
+                    if (statusEl) {
+                        statusEl.textContent = '(Sat på pause pga. inaktivitet)';
+                        statusEl.style.color = '#c53030';
+                    }
+                }
+            }, 1000);
+        }
+
+        function formatDuration(totalSec) {
+            const hrs = Math.floor(totalSec / 3600);
+            const mins = Math.floor((totalSec % 3600) / 60);
+            const secs = totalSec % 60;
+            return [hrs, mins, secs].map(v => String(v).padStart(2, '0')).join(':');
+        }
+
+        function updateTimerDisplay() {
+            const el = document.getElementById('timer-display');
+            if (el) el.textContent = formatDuration(state.activeSeconds);
+        }
+
+        // --- DEL 1: HJÆLPEFUNKTIONER ---
+        function toggleBox(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+        }
+
+        function checkPracticeSingle(id, correctVal, tol) {
+            const input = document.getElementById(id);
+            const fb = document.getElementById('feedback-' + id);
+            const val = parseFloat(input.value.replace(',', '.'));
+
+            if (isNaN(val)) {
+                fb.textContent = 'Indtast venligst et tal.';
+                fb.className = 'feedback incorrect';
+                return;
+            }
+            if (Math.abs(val - correctVal) <= tol) {
+                fb.textContent = 'Flot! Det er helt rigtigt.';
+                fb.className = 'feedback correct';
+            } else {
+                fb.textContent = 'Ikke helt rigtigt – prøv igen eller brug et hint.';
+                fb.className = 'feedback incorrect';
+            }
+        }
+
+        function checkPracticeTangent(prefix, correctA, correctB) {
+            const valA = parseFloat(document.getElementById(prefix + '-a').value.replace(',', '.'));
+            const valB = parseFloat(document.getElementById(prefix + '-b').value.replace(',', '.'));
+            const fb = document.getElementById('feedback-' + prefix);
+
+            if (isNaN(valA) || isNaN(valB)) {
+                fb.textContent = 'Indtast venligst både a og b.';
+                fb.className = 'feedback incorrect';
+                return;
+            }
+            if (Math.abs(valA - correctA) <= 0.05 && Math.abs(valB - correctB) <= 0.05) {
+                fb.textContent = 'Flot! Det er helt rigtigt.';
+                fb.className = 'feedback correct';
+            } else {
+                fb.textContent = 'Ikke helt rigtigt – tjek dine mellemregninger eller brug et hint.';
+                fb.className = 'feedback incorrect';
+            }
+        }
+
+        function checkPracticeRadio(prefix, correctVal) {
+            const sel = document.querySelector(`input[name="${prefix}-choice"]:checked`);
+            const fb = document.getElementById('feedback-' + prefix);
+            if (!sel) {
+                fb.textContent = 'Vælg et udsagn først.';
+                fb.className = 'feedback incorrect';
+                return;
+            }
+            if (sel.value === correctVal) {
+                fb.textContent = 'Helt rigtigt!';
+                fb.className = 'feedback correct';
+            } else {
+                fb.textContent = 'Forkert svar – prøv igen eller se hintet.';
+                fb.className = 'feedback incorrect';
+            }
+        }
+
+        // --- DEL 2: LOGNING & RESULTATTJEK ---
+        function saveText(taskId) {
+            state.tasks[taskId].methodText = document.getElementById('method-' + taskId).value;
+            saveState();
+        }
+
+        function saveComment(taskId) {
+            state.tasks[taskId].comment = document.getElementById('comment-' + taskId).value;
+            saveState();
+        }
+
+        function saveRating(taskId, val) {
+            state.tasks[taskId].rating = val;
+            saveState();
+        }
+
+        function saveName() {
+            state.studentName = document.getElementById('student-name').value;
+            saveState();
+        }
+
+        function useHint(taskId, hintNum) {
+            const box = document.getElementById(`hint-${taskId}-${hintNum}`);
+            if (box) box.style.display = 'block';
+
+            if (!state.tasks[taskId].hintsUsed.includes(hintNum)) {
+                state.tasks[taskId].hintsUsed.push(hintNum);
+                saveState();
+            }
+        }
+
+        function checkPart2Tangent(taskId, correctA, correctB) {
+            const rawA = document.getElementById(`ans-${taskId}-a`).value;
+            const rawB = document.getElementById(`ans-${taskId}-b`).value;
+            const fb = document.getElementById('feedback-' + taskId);
+
+            state.tasks[taskId].inputs[`ans-${taskId}-a`] = rawA;
+            state.tasks[taskId].inputs[`ans-${taskId}-b`] = rawB;
+
+            const valA = parseFloat(rawA.replace(',', '.'));
+            const valB = parseFloat(rawB.replace(',', '.'));
+
+            if (isNaN(valA) || isNaN(valB)) {
+                fb.textContent = 'Indtast venligst både en værdi for a og b.';
+                fb.className = 'feedback incorrect';
+                saveState();
+                return;
+            }
+
+            state.tasks[taskId].attempts += 1;
+
+            if (Math.abs(valA - correctA) <= 0.1 && Math.abs(valB - correctB) <= 0.2) {
+                state.tasks[taskId].solved = true;
+                fb.textContent = 'Rigtigt resultat! Husk at sikre, at din metodebeskrivelse i tekstfeltet er fyldestgørende.';
+                fb.className = 'feedback correct';
+            } else if (Math.abs(valA - correctA) <= 0.1) {
+                fb.textContent = 'Hældningen a er rigtig, men skæringen b stemmer ikke helt.';
+                fb.className = 'feedback incorrect';
+            } else if (Math.abs(valB - correctB) <= 0.2) {
+                fb.textContent = 'Skæringen b er rigtig, men hældningen a stemmer ikke helt.';
+                fb.className = 'feedback incorrect';
+            } else {
+                fb.textContent = 'Resultatet er ikke rigtigt endnu. Gennemgå din metode eller brug et hint.';
+                fb.className = 'feedback incorrect';
+            }
+            saveState();
+        }
+
+        function checkPart2Single(taskId, correctVal, tol) {
+            const rawVal = document.getElementById(`ans-${taskId}`).value;
+            const fb = document.getElementById('feedback-' + taskId);
+
+            state.tasks[taskId].inputs[`ans-${taskId}`] = rawVal;
+            const val = parseFloat(rawVal.replace(',', '.'));
+
+            if (isNaN(val)) {
+                fb.textContent = 'Indtast venligst et tal.';
+                fb.className = 'feedback incorrect';
+                saveState();
+                return;
+            }
+
+            state.tasks[taskId].attempts += 1;
+
+            if (Math.abs(val - correctVal) <= tol) {
+                state.tasks[taskId].solved = true;
+                fb.textContent = 'Rigtigt resultat! Husk at beskrive din fremgangsmåde tydeligt i tekstfeltet.';
+                fb.className = 'feedback correct';
+            } else {
+                fb.textContent = 'Ikke helt rigtigt endnu – tjek din ligning og prøv igen.';
+                fb.className = 'feedback incorrect';
+            }
+            saveState();
+        }
+
+        function resetAllData() {
+            if (confirm('Er du sikker på, at du vil nulstille hele Del 2 (tekst, svar og tid)?')) {
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            }
+        }
+
+        // --- GENERER PDF-RAPPORT ---
+        function escapeHTML(str) {
+            return (str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function generatePDFReport() {
+            const name = document.getElementById('student-name').value.trim();
+            const errEl = document.getElementById('report-error');
+
+            if (!name) {
+                errEl.textContent = 'Indtast venligst dit fulde navn, før du genererer PDF-rapporten.';
+                return;
+            }
+            errEl.textContent = '';
+            state.studentName = name;
+            saveState();
+
+            const nowStr = new Date().toLocaleString('da-DK');
+            const totalSolved = PART2_TASKS.filter(t => state.tasks[t.id].solved).length;
+            const totalHints = PART2_TASKS.reduce((acc, t) => acc + state.tasks[t.id].hintsUsed.length, 0);
+
+            const rawSig = `${name}|${state.activeSeconds}|${totalSolved}|${totalHints}`;
+            let hash = 0;
+            for (let i = 0; i < rawSig.length; i++) {
+                hash = ((hash << 5) - hash) + rawSig.charCodeAt(i);
+                hash |= 0;
+            }
+            const controlCode = 'MAT-' + Math.abs(hash).toString(16).toUpperCase().padStart(6, '0');
+
+            let tableRows = '';
+            let detailBlocks = '';
+
+            PART2_TASKS.forEach(t => {
+                const td = state.tasks[t.id];
+                const statusTxt = td.solved ? 'Rigtigt' : 'Ikke løst';
+                const hintCount = td.hintsUsed.length;
+                const methodClean = td.methodText.trim() ? escapeHTML(td.methodText.trim()) : '<em>(Ingen tekst skrevet)</em>';
+                const commentClean = td.comment.trim() ? escapeHTML(td.comment.trim()) : 'Ingen kommentar';
+
+                tableRows += `
+                    <tr>
+                        <td>${escapeHTML(t.title)}</td>
+                        <td><strong>${statusTxt}</strong></td>
+                        <td>${td.attempts}</td>
+                        <td>${hintCount}</td>
+                        <td>${escapeHTML(td.rating)}</td>
+                    </tr>
+                `;
+
+                detailBlocks += `
+                    <div class="report-task-block">
+                        <h4>${escapeHTML(t.title)} — Status: ${statusTxt} (Hints brugt: ${hintCount})</h4>
+                        <div><strong>Elevens metodebeskrivelse og mellemregninger:</strong></div>
+                        <div class="report-text-box">${methodClean}</div>
+                        <div><strong>Elevens vurdering:</strong> ${escapeHTML(td.rating)} &nbsp;|&nbsp; <strong>Kommentar:</strong> ${commentClean}</div>
+                    </div>
+                `;
+            });
+
+            const reportHTML = `
+                <div class="report-header">
+                    <h2>Afleveringsrapport: Differentiation og tangentligninger</h2>
+                    <div class="report-meta">
+                        <span>Elev: ${escapeHTML(name)}</span>
+                        <span>Dato: ${nowStr}</span>
+                    </div>
+                    <div class="report-meta">
+                        <span>Aktiv tid brugt på Del 2: ${formatDuration(state.activeSeconds)}</span>
+                        <span>Opgaver regnet rigtigt: ${totalSolved} af ${PART2_TASKS.length}</span>
+                    </div>
+                </div>
+
+                <h3>Oversigt over resultater, hints og sværhedsgrad</h3>
+                <table class="report-table">
+                    <thead>
+                        <tr>
+                            <th>Opgave</th>
+                            <th>Resultat</th>
+                            <th>Forsøg</th>
+                            <th>Hints brugt</th>
+                            <th>Elevens vurdering</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
+
+                <h3>Elevens metodeforklaringer og refleksioner</h3>
+                ${detailBlocks}
+
+                <div class="report-stamp">
+                    Dokument-ID: ${controlCode} | Genereret direkte fra opgaveplatformen.
+                </div>
+            `;
+
+            document.getElementById('print-report').innerHTML = reportHTML;
+
+            setTimeout(() => {
+                window.print();
+            }, 150);
+        }
+
+        loadState();
+    </script>
+</body>
+</html>
